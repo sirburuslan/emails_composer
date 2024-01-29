@@ -232,7 +232,7 @@ export namespace Components {
                             };
 
                             // Get the response
-                            let response = await fetch(params.options('base_url') + 'api/update_template_name', request_params);
+                            let response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
 
                             // Verify if the response is failed
                             if (!response.ok) {
@@ -708,7 +708,7 @@ export namespace Components {
                         };
 
                         // Rest request
-                        let request = fetch(params.options('base_url') + 'api/download_template', request_params);
+                        let request = fetch(params.options('api_url') + 'api/download_template', request_params);
 
                         // Process success response
                         request.then(response => {
@@ -732,7 +732,7 @@ export namespace Components {
 
                             } else {
 
-                                document.location.href = params.options('base_url') + response.zip;
+                                document.location.href = params.options('share_url') + response.zip;
 
                             }
 

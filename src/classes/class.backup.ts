@@ -282,7 +282,7 @@ export namespace Class {
                                             };
 
                                             // Send a create update request
-                                            let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                                            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                                             // Process the response
                                             send_request.then((response: {success: boolean, message: string}): void => {
@@ -564,7 +564,7 @@ export namespace Class {
                                                 };
 
                                                 // Send a create update request
-                                                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                                                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                                                 // Process the response
                                                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -794,7 +794,7 @@ export namespace Class {
                 };
 
                 // Send a create update request
-                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                 // Process the response
                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -1024,7 +1024,7 @@ export namespace Class {
                 };
 
                 // Send a create update request
-                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                 // Process the response
                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -1267,7 +1267,7 @@ export namespace Class {
             };
 
             // Send a create update request
-            let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
             // Process the response
             send_request.then((response: {success: boolean, message: string}): void => {

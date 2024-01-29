@@ -2,6 +2,9 @@
     "name": "Emails Composer",
     "language": "english",
     "base_url": "http://localhost:3000/",
+    "share_url": "http://localhost:3000/",
+    "css_url": "http://localhost:3000/public/styles/css/",
+    "api_url": "http://localhost:3000/",
     "builder": {
         "template_id": "",
         "css": [

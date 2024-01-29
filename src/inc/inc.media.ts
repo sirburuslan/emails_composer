@@ -90,7 +90,7 @@ export const get_images = async (params: params_type, page: number): Promise<voi
     };
 
     // Get the response
-    let response = await fetch(params.options('base_url') + 'api/get_images', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_images', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -176,8 +176,8 @@ export const get_images = async (params: params_type, page: number): Promise<voi
 
                 // Add preview item
                 preview.push('<li>'
-                    + '<a href="' + params.options('base_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
-                        + '<img src="' + params.options('base_url') + image.thumbnail + '" alt="' + image.name + '">'
+                    + '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+                        + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                         + params.icons('task_alt')
                     + '</a>'
                 + '</li>');
@@ -185,8 +185,8 @@ export const get_images = async (params: params_type, page: number): Promise<voi
             }
 
             // Create image
-            let image_single: string = '<a href="' + params.options('base_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
-                + '<img src="' + params.options('base_url') + image.thumbnail + '" alt="' + image.name + '">'
+            let image_single: string = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+                + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                 + params.icons('task_alt')
             + '</a>';
             
@@ -288,7 +288,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
     };
 
     // Make the fetch request
-    let response = await fetch(params.options('base_url') + 'api/get_icons', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -483,7 +483,7 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
     };
 
     // Get the response
-    let response = await fetch(params.options('base_url') + 'api/get_icon', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -522,7 +522,7 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
             let image: HTMLImageElement = document.createElement('img');
 
             // Set src
-            image.src = params.options('base_url') + json.file_path!;
+            image.src = params.options('share_url') + json.file_path!;
 
             // Set alt
             image.alt = json.file_name as string;

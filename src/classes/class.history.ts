@@ -45,7 +45,7 @@ export namespace Class {
             let http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
 
             // Check if success exists
             if ( get_history.success ) {
@@ -218,7 +218,7 @@ export namespace Class {
             let http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_by_date/' + params.template_id  + '/' + date + '/' + page + '/' + limit);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id  + '/' + date + '/' + page + '/' + limit);
 
             // Check if success exists
             if ( get_history.success ) {
@@ -306,7 +306,7 @@ export namespace Class {
             let http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_recent/' + params.template_id);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
 
             // Check if success exists
             if ( get_history.success ) {
@@ -644,7 +644,7 @@ export namespace Class {
             let http_send = new Classes.Https();
 
             // Restore and get the history record
-            let get_history = await http_send.get(params.options('base_url') + 'api/restore_history_record/' + params.template_id  + '/' + time);
+            let get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id  + '/' + time);
 
             // Check if success exists
             if ( get_history.success ) {

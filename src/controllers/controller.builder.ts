@@ -126,7 +126,7 @@ export namespace Controllers {
                 }
 
                 // Default css url
-                let default_css_url = get_option('base_url') + 'public/styles/css/main.css?ver=1';
+                let default_css_url = get_option('css_url') + 'main.css';
 
                 // Get the css link
                 let css_link = document.querySelector('link[href="' + default_css_url + '"]');
@@ -523,7 +523,7 @@ export namespace Controllers {
                             };
 
                             // Send a create template request
-                            let response = http_send.post(get_option('base_url') + 'api/create_template', template);
+                            let response = http_send.post(get_option('api_url') + 'api/create_template', template);
 
                             // Return response
                             resolve(response);

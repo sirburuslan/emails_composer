@@ -1,41 +1,6 @@
 // Import the Emails Composer
 import Ec from './ec.js'
 
-/*(async () => {
-
-    // Init the Email Composer
-    new Ec(
-        '#ec-composer',
-        {
-            "builder": {
-                "template_id": "rk1704732685193",
-                "start": {
-                    "animation": false
-                },
-                "resources": {
-
-                    "elements": {
-
-                        "sections": {
-                            
-                            "advanced": {
-                                "enabled": true,
-                                "show": false
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
-    );
-
-})();*/
-
 // My templates events container
 let my_templates_events = [];
 
@@ -188,22 +153,6 @@ const my_templates = async () => {
                             "template_id": target.closest('li').getAttribute('data-template'),
                             "start": {
                                 "animation": false
-                            },
-                            "resources": {
-
-                                "elements": {
-
-                                    "sections": {
-                                        
-                                        "advanced": {
-                                            "enabled": true,
-                                            "show": false
-                                        }
-
-                                    }
-
-                                }
-
                             }
 
                         }
@@ -525,22 +474,6 @@ const get_templates = async (type) => {
                                 "template_id": data_json.template_id,
                                 "start": {
                                     "animation": false
-                                },
-                                "resources": {
-
-                                    "elements": {
-
-                                        "sections": {
-                                            
-                                            "advanced": {
-                                                "enabled": true,
-                                                "show": false
-                                            }
-
-                                        }
-
-                                    }
-
                                 }
 
                             }
@@ -706,22 +639,6 @@ if ( new_template.length > 0 ) {
                     "template_id": "",
                     "start": {
                         "animation": false
-                    },
-                    "resources": {
-
-                        "elements": {
-
-                            "sections": {
-                                
-                                "advanced": {
-                                    "enabled": true,
-                                    "show": false
-                                }
-
-                            }
-
-                        }
-
                     }
 
                 }

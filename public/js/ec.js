@@ -17,6 +17,9 @@ var Core$4;
 var name$1 = "Emails Composer";
 var language = "english";
 var base_url = "http://localhost:3000/";
+var share_url = "http://localhost:3000/";
+var css_url = "http://localhost:3000/public/styles/css/";
+var api_url = "http://localhost:3000/";
 var builder = {
 	template_id: "",
 	css: [
@@ -78,30 +81,30 @@ var options = {
 	name: name$1,
 	language: language,
 	base_url: base_url,
+	share_url: share_url,
+	css_url: css_url,
+	api_url: api_url,
 	builder: builder
 };
 
 var Core$3;
 (function (Core) {
     class Options {
-        options_list = {};
+        static options_list = {};
         get_option(name) {
-            if (Object.keys(this.options_list).length < 1) {
-                this.options_list = options;
-            }
-            if (typeof this.options_list.hasOwnProperty(name) !== 'undefined') {
-                return this.options_list[name];
+            if (typeof Options.options_list.hasOwnProperty(name) !== 'undefined') {
+                return Options.options_list[name];
             }
             else {
                 return false;
             }
         }
         replace_options(updated_options) {
-            if (Object.keys(this.options_list).length < 1) {
-                this.options_list = options;
+            if (Object.keys(Options.options_list).length < 1) {
+                Options.options_list = options;
             }
             if (Object.keys(updated_options).length > 0) {
-                let default_options = Object.keys(this.options_list);
+                let default_options = Object.keys(Options.options_list);
                 let new_options = {};
                 let group_options = (c_options, d_options, old_obj, n_options) => {
                     let total_options = d_options.length;
@@ -129,12 +132,12 @@ var Core$3;
                             }
                         }
                         else {
-                            n_options[d_options[t]] = (old_obj[d_options[t]] !== 'undefined') ? old_obj[d_options[t]] : c_options[d_options[t]];
+                            n_options[d_options[t]] = old_obj[d_options[t]] ? old_obj[d_options[t]] : c_options[d_options[t]];
                         }
                     }
                 };
-                group_options(this.options_list, default_options, updated_options, new_options);
-                this.options_list = new_options;
+                group_options(Options.options_list, default_options, updated_options, new_options);
+                Options.options_list = new_options;
             }
         }
     }
@@ -10052,7 +10055,7 @@ var Class$6;
                                                 template_id: params.template_id,
                                                 template: template_data
                                             };
-                                            let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                                            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                                             send_request.then((response) => {
                                                 if (response.success) {
                                                     new Classes$1.History().get_history_all(params);
@@ -10174,7 +10177,7 @@ var Class$6;
                                                     template_id: params.template_id,
                                                     html: html_data
                                                 };
-                                                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                                                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                                                 send_request.then((response) => {
                                                     if (response.success) {
                                                         new Classes$1.History().get_history_all(params);
@@ -10268,7 +10271,7 @@ var Class$6;
                         content: content
                     }
                 };
-                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                 send_request.then((response) => {
                     if (response.success) {
                         new Classes$1.History().get_history_all(params);
@@ -10360,7 +10363,7 @@ var Class$6;
                         content: content
                     }
                 };
-                let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                 send_request.then((response) => {
                     if (response.success) {
                         new Classes$1.History().get_history_all(params);
@@ -10459,7 +10462,7 @@ var Class$6;
                     content: html
                 }
             };
-            let send_request = http_send.put(params.options('base_url') + 'api/create_update', update);
+            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
             send_request.then((response) => {
                 if (response.success) {
                     new Classes$1.History().get_history_all(params);
@@ -10577,7 +10580,7 @@ var Class$5;
     class History {
         async get_history_all(params, page = 1, limit = 10) {
             let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
             if (get_history.success) {
                 let data = get_history.data;
                 let thistory = data?.length;
@@ -10667,7 +10670,7 @@ var Class$5;
         }
         async get_history_by_date(params, date, page = 0, limit = 4) {
             let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_by_date/' + params.template_id + '/' + date + '/' + page + '/' + limit);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id + '/' + date + '/' + page + '/' + limit);
             if (get_history.success) {
                 let data = get_history.data;
                 let updates = '';
@@ -10711,7 +10714,7 @@ var Class$5;
         }
         async get_history_recent(params, iframe) {
             let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('base_url') + 'api/get_history_recent/' + params.template_id);
+            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
             if (get_history.success) {
                 if (typeof get_history.data !== 'undefined') {
                     let content = get_history.data;
@@ -10854,7 +10857,7 @@ var Class$5;
         }
         async restore_history_record(params, time) {
             let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('base_url') + 'api/restore_history_record/' + params.template_id + '/' + time);
+            let get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id + '/' + time);
             if (get_history.success) {
                 params.selector.getElementsByClassName('ec-history-restore-active-button')[0].classList.remove('ec-history-restore-active-button');
                 this.get_history_recent(params, 'ec-composer-template-container');
@@ -12199,7 +12202,7 @@ var Resources$7;
                                         form.append('file_name', image.lastModified + '_' + image.size);
                                         form.append('file', image);
                                         let http = new XMLHttpRequest();
-                                        http.open('POST', params.options('base_url') + 'api/upload_image', true);
+                                        http.open('POST', params.options('api_url') + 'api/upload_image', true);
                                         http.upload.onprogress = function (e) {
                                             if (e.lengthComputable) {
                                                 let percent = (e.loaded / e.total) * 100;
@@ -13926,7 +13929,7 @@ var Class;
                 },
                 body: JSON.stringify(fields)
             };
-            let response = await fetch(params.options('base_url') + 'api/create_module', request_params);
+            let response = await fetch(params.options('api_url') + 'api/create_module', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_modal_message(params, 'error', params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -13979,7 +13982,7 @@ var Class;
                 },
                 body: JSON.stringify(fields),
             };
-            let response = await fetch(params.options('base_url') + 'api/get_modules', request_params);
+            let response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -14001,7 +14004,7 @@ var Class;
                     let modules_list = '';
                     for (let module of json.modules) {
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
-                            + '<img src="' + params.options('base_url') + module.cover + '" alt="' + module.name + '">'
+                            + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
                             + module.name
                             + '</div>'
@@ -14027,7 +14030,7 @@ var Class;
                     let modules_list = '';
                     for (let module of json.modules) {
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
-                            + '<img src="' + params.options('base_url') + module.cover + '" alt="' + module.name + '">'
+                            + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
                             + module.name
                             + '</div>'
@@ -14059,7 +14062,7 @@ var Class;
                 },
                 body: JSON.stringify(fields),
             };
-            let response = await fetch(params.options('base_url') + 'api/get_module', request_params);
+            let response = await fetch(params.options('api_url') + 'api/get_module', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -14361,7 +14364,7 @@ var Components$b;
                                 },
                                 body: JSON.stringify(post_fields)
                             };
-                            let response = await fetch(params.options('base_url') + 'api/update_template_name', request_params);
+                            let response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
                             if (!response.ok) {
                                 if (response.status === 404) {
                                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -14640,7 +14643,7 @@ var Components$b;
                             },
                             body: JSON.stringify(fields)
                         };
-                        let request = fetch(params.options('base_url') + 'api/download_template', request_params);
+                        let request = fetch(params.options('api_url') + 'api/download_template', request_params);
                         request.then(response => {
                             return response.json();
                         }).then(response => {
@@ -14650,7 +14653,7 @@ var Components$b;
                                 export_module.getElementsByClassName('ec-composer-modal-message')[0].classList.add('ec-composer-modal-message-error');
                             }
                             else {
-                                document.location.href = params.options('base_url') + response.zip;
+                                document.location.href = params.options('share_url') + response.zip;
                             }
                         });
                         request.then(error => {
@@ -16825,7 +16828,7 @@ var Components$1;
                                     form.append('file_name', image.lastModified + '_' + image.size);
                                     form.append('file', image);
                                     let http = new XMLHttpRequest();
-                                    http.open('POST', params.options('base_url') + 'api/upload_module_cover', true);
+                                    http.open('POST', params.options('api_url') + 'api/upload_module_cover', true);
                                     http.upload.onprogress = function (e) {
                                         if (e.lengthComputable) {
                                             let percent = (e.loaded / e.total) * 100;
@@ -17591,7 +17594,7 @@ var Controllers$1;
                         }
                     }
                 }
-                let default_css_url = get_option('base_url') + 'public/styles/css/main.css?ver=1';
+                let default_css_url = get_option('css_url') + 'main.css';
                 let css_link = document.querySelector('link[href="' + default_css_url + '"]');
                 if (!css_link) {
                     let link = document.createElement('link');
@@ -17768,7 +17771,7 @@ var Controllers$1;
                                 css: get_styles('default').replace('<style data-scope="default">', '').replace('</style>', ''),
                                 library: get_styles('library').replace('<style>', '').replace('</style>', '')
                             };
-                            let response = http_send.post(get_option('base_url') + 'api/create_template', template);
+                            let response = http_send.post(get_option('api_url') + 'api/create_template', template);
                             resolve(response);
                         });
                         send_request.then(response => {
@@ -22340,7 +22343,7 @@ const get_images = async (params, page) => {
         },
         body: JSON.stringify(post_fields)
     };
-    let response = await fetch(params.options('base_url') + 'api/get_images', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_images', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22374,14 +22377,14 @@ const get_images = async (params, page) => {
             let selected_class = (image.id === image_id) ? ' class="ec-media-image-selected"' : '';
             if ((preview.length < 3) && (json.page < 2)) {
                 preview.push('<li>'
-                    + '<a href="' + params.options('base_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
-                    + '<img src="' + params.options('base_url') + image.thumbnail + '" alt="' + image.name + '">'
+                    + '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+                    + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                     + params.icons('task_alt')
                     + '</a>'
                     + '</li>');
             }
-            let image_single = '<a href="' + params.options('base_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
-                + '<img src="' + params.options('base_url') + image.thumbnail + '" alt="' + image.name + '">'
+            let image_single = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+                + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                 + params.icons('task_alt')
                 + '</a>';
             if (c % 2 === 0) {
@@ -22426,7 +22429,7 @@ const get_icons = async (params, page) => {
         },
         body: JSON.stringify(fields),
     };
-    let response = await fetch(params.options('base_url') + 'api/get_icons', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22520,7 +22523,7 @@ const download_icon = async (params, icon_id, size) => {
         },
         body: JSON.stringify(fields)
     };
-    let response = await fetch(params.options('base_url') + 'api/get_icon', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22537,7 +22540,7 @@ const download_icon = async (params, icon_id, size) => {
     if (json.success && (typeof json.file_name !== 'undefined')) {
         setTimeout(() => {
             let image = document.createElement('img');
-            image.src = params.options('base_url') + json.file_path;
+            image.src = params.options('share_url') + json.file_path;
             image.alt = json.file_name;
             let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
             if (iframe) {
@@ -22593,7 +22596,7 @@ const get_ai_content = async (params) => {
         },
         body: JSON.stringify(post_fields)
     };
-    let response = await fetch(params.options('base_url') + 'api/get_ai_content', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
     if (!response.ok) {
         params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-search');
         params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.add('ec-show-error');

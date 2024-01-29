@@ -1,3 +1,14 @@
+/**
+ * @class Options
+ * @package ec
+ *
+ * @author Ruslan Sirbu
+ * @version 0.0.1
+ * @updated 2024-01-29
+ *
+ * This class replaces and reads options
+ */
+
 // Import options
 import options from './../options.json';
 
@@ -8,7 +19,7 @@ export namespace Core {
     export class Options {
 
         // Options list
-        options_list: {
+        static options_list: {
             [key: string]: any;
         } = {};
 
@@ -21,17 +32,9 @@ export namespace Core {
          */
         get_option(name: string): string | boolean {
 
-            // Verify if json contains options
-            if ( Object.keys(this.options_list).length < 1 ) {
-
-                // Set the options
-                this.options_list = options;
-
-            }
-
             // Check if option exists
-            if (typeof this.options_list.hasOwnProperty(name) !== 'undefined') {
-                return this.options_list[name];
+            if (typeof Options.options_list.hasOwnProperty(name) !== 'undefined') {
+                return Options.options_list[name];
             } else {
                 return false;
             }
@@ -46,10 +49,10 @@ export namespace Core {
         replace_options(updated_options: object): void {
 
             // Verify if json contains options
-            if ( Object.keys(this.options_list).length < 1 ) {
+            if ( Object.keys(Options.options_list).length < 1 ) {
 
                 // Set the options
-                this.options_list = options;
+                Options.options_list = options;
 
             }
 
@@ -57,7 +60,7 @@ export namespace Core {
             if ( Object.keys(updated_options).length > 0 ) {
 
                 // Get the default options
-                let default_options = Object.keys(this.options_list);
+                let default_options = Object.keys(Options.options_list);
 
                 // New options
                 let new_options = {};
@@ -70,7 +73,7 @@ export namespace Core {
 
                     // List options
                     for ( var t = 0; t < total_options; t++ ) {
-
+                        
                         // Verify if new keys missing
                         if ( !old_obj ) {
                             
@@ -116,21 +119,21 @@ export namespace Core {
                             }
                         
                         } else {
-                             
+                              
                             // Save option
-                            n_options[d_options[t]] = (old_obj[d_options[t]] !== 'undefined')?old_obj[d_options[t]]:c_options[d_options[t]];
-                    
+                            n_options[d_options[t]] = old_obj[d_options[t]]?old_obj[d_options[t]]:c_options[d_options[t]];
+
                         }
                 
                     }
                 
                 }
-                
+              
                 // Group the options
-                group_options(this.options_list, default_options, updated_options, new_options);
+                group_options(Options.options_list, default_options, updated_options, new_options);
 
                 // Replace the options
-                this.options_list = new_options;
+                Options.options_list = new_options;
 
             }
 

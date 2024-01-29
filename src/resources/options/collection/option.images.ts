@@ -382,7 +382,7 @@ export namespace Resources.Options {
                                 let http: XMLHttpRequest = new XMLHttpRequest();
                         
                                 // Set the url and method
-                                http.open('POST', params.options('base_url') + 'api/upload_image', true);
+                                http.open('POST', params.options('api_url') + 'api/upload_image', true);
                         
                                 // Track progress with the onprogress event
                                 http.upload.onprogress = function(this: {file_name: string}, e: any) {

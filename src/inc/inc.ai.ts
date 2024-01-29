@@ -55,7 +55,7 @@ export const get_ai_content = async (params: params_type): Promise<void> => {
     };
 
     // Get the response
-    let response = await fetch(params.options('base_url') + 'api/get_ai_content', request_params);
+    let response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {

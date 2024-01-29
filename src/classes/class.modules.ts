@@ -89,7 +89,7 @@ export namespace Class {
             };
 
             // Execute request
-            let response = await fetch(params.options('base_url') + 'api/create_module', request_params);
+            let response = await fetch(params.options('api_url') + 'api/create_module', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
@@ -215,7 +215,7 @@ export namespace Class {
             };
 
             // Get the response
-            let response = await fetch(params.options('base_url') + 'api/get_modules', request_params);
+            let response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
@@ -268,7 +268,7 @@ export namespace Class {
 
                         // Add module to the modules list
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
-                            + '<img src="' + params.options('base_url') + module.cover + '" alt="' + module.name + '">'
+                            + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
                                 + module.name
                             + '</div>'
@@ -321,7 +321,7 @@ export namespace Class {
 
                         // Add module to the modules list
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
-                            + '<img src="' + params.options('base_url') + module.cover + '" alt="' + module.name + '">'
+                            + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
                                 + module.name
                             + '</div>'
@@ -386,7 +386,7 @@ export namespace Class {
             };
 
             // Request the module
-            let response = await fetch(params.options('base_url') + 'api/get_module', request_params);
+            let response = await fetch(params.options('api_url') + 'api/get_module', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
