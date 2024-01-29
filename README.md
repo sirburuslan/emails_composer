@@ -47,7 +47,7 @@
 <p class="c4"><span class="c0"></span></p>
 <p class="c9">
     <span class="c8">Video Preview: </span>
-    <span class="c1 c7"><a class="c3" href="https://www.google.com/url?q=https://youtu.be/j6Nu_sd9eWo&amp;sa=D&amp;source=editors&amp;ust=1706523911426115&amp;usg=AOvVaw0l7hzyHUU73Kfu6KVI6s_m">https://youtu.be/j6Nu_sd9eWo</a></span>
+    <span class="c1 c7"><a class="c3" href="https://youtu.be/j6Nu_sd9eWo">https://youtu.be/j6Nu_sd9eWo</a></span>
 </p>
 <p class="c4"><span class="c0"></span></p>
 <p class="c9">
@@ -66,7 +66,7 @@
 <p class="c4"><span class="c5"></span></p>
 <p class="c9">
     <span class="c7 c10">
-        <a class="c3" href="https://www.google.com/url?q=https://www.paypal.com/donate/?hosted_button_id%3DUX8NJ2LEH77Y6&amp;sa=D&amp;source=editors&amp;ust=1706523911426657&amp;usg=AOvVaw1jbaMMxKPyc8xYUMbVI6_b">
+        <a class="c3" href="https://www.paypal.com/donate/?hosted_button_id=UX8NJ2LEH77Y6">
             https://www.paypal.com/donate/?hosted_button_id=UX8NJ2LEH77Y6
         </a>
     </span>
