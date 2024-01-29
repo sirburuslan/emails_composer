@@ -1,0 +1,17 @@
+// EC HIDE BOX ANIMATION
+@keyframes ec-hide-box {
+
+    0% {
+        transform: scale(1.2);
+    }
+
+    60% {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+}

@@ -1,0 +1,62 @@
+{
+    "name": "Emails Composer",
+    "language": "english",
+    "base_url": "http://localhost:3000/",
+    "builder": {
+        "template_id": "",
+        "css": [
+            {
+                "href": "https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0" 
+            }
+        ],
+        "start": {
+            "animation": true
+        },
+        "resources": {
+            "elements": {
+                "sections": {
+                    "general": {
+                        "enabled": true,
+                        "show": true
+                    },
+                    "advanced": {
+                        "enabled": true,
+                        "show": false
+                    }
+                }
+            },
+            "rows": {
+                "sections": {
+                    "general": {
+                        "enabled": true,
+                        "show": true
+                    }
+                }
+            },
+            "modules": {
+                "sections": {
+                    "general": {
+                        "enabled": true,
+                        "show": true
+                    }
+                }
+            },
+            "media": {
+                "sections": {
+                    "general": {
+                        "enabled": true,
+                        "show": true
+                    }
+                }
+            },
+            "history": {
+                "sections": {
+                    "general": {
+                        "enabled": true,
+                        "show": true
+                    }
+                }
+            }
+        }
+    }
+}

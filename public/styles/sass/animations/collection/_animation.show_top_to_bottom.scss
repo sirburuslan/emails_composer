@@ -1,0 +1,17 @@
+// EC SHOW TOP TO BOTTOM ANIMATION
+@keyframes ec-show-top-to-bottom {
+
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+
+    50% {
+        transform: scaleY(0);
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+
+}

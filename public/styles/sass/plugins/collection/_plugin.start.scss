@@ -1,0 +1,71 @@
+// START LOADING PLUGIN
+.ec-start-loading {
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    animation: hide-start-loading 1s ease forwards;
+    transition: all 1s ease;
+
+    .ec-start-loading-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -40px;
+        margin-left: -150px;
+        width: 300px;  
+        max-width: 100%;    
+
+        .ec-start-loading-counter {
+            width: 300px;
+            max-width: 100%; 
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            font-family: $font-1;
+            font-size: 22px;
+            font-weight: 400;
+            color: #dcdee2;
+        }
+
+        .ec-start-loading-progress {
+            margin-top: 15px;
+            padding: 4px;
+            width: 292px;
+            max-width: calc(100% - 8px);
+            border-radius: 6px;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.03);
+
+            .ec-start-loading-progress-bar {
+                width: 0;
+                height: 11px;
+                border-radius: 4px;
+                background-color: #dcdee2;
+                background-size: 1.3rem 1.3rem;
+                background-image: -webkit-linear-gradient(316deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+                background-image: -moz-linear-gradient(316deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+                background-image: -o-linear-gradient(316deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+                background-image: linear-gradient(316deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent);
+            }
+
+        }
+
+    }
+
+}
+
+// START ANIMATION
+@keyframes hide-start-loading {
+
+    50% {
+        transform: translateX(0px);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+
+}

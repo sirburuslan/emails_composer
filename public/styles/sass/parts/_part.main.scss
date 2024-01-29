@@ -1,0 +1,868 @@
+// EC MAIN PART
+.ec-composer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba($color: $color-brown, $alpha: 0.62);
+
+    .ec-composer-main {
+        display: flex;
+        padding: 100px 70px 0;
+
+        .ec-composer-panel {
+            position: absolute;
+            box-sizing: border-box;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 1;
+            padding: 79px 15px 0 70px;
+            width: 30%;
+            max-height: 100vh;
+            overflow-y: overlay;
+            border-right: 1px solid $color-brown;
+            background-color: #FFFFFF;
+            transition: all 0.3s ease-in-out;
+            user-select: none;
+
+            @include ec-mixin-scrollbar(15px, 4px, 4px, $color-grey-light, $color-grey);
+
+            @media only screen and (max-width: 1500px) {
+                            
+                & {
+                    width: 35%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 1280px) {
+                            
+                & {
+                    width: 40%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 1180px) {
+                            
+                & {
+                    width: 45%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 980px) {
+                            
+                & {
+                    width: 50%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 800px) {
+                            
+                & {
+                    z-index: 4;
+                    width: 60%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 720px) {
+                            
+                & {
+                    width: 70%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 610px) {
+                            
+                & {
+                    width: 80%;
+                }
+        
+            }
+
+            @media only screen and (max-width: 550px) {
+                            
+                & {
+                    width: 90%;
+                }
+        
+            }
+
+        }
+
+        .ec-composer-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 70%;
+            background-color: rgba($color: $color-brown, $alpha: 0.62);
+
+            &.ec-composer-container-template-and-code-show,
+            &.ec-composer-container-template-and-code-hide {
+                transition: all 0.3s ease-in-out;
+            }
+
+            @media only screen and (max-width: 1500px) {
+                            
+                & {
+                    width: 100%;
+                }
+        
+            }
+
+            .ec-small-text-editor {
+                position: absolute;
+                box-sizing: border-box;
+                top: 64px;
+                right: 0;
+                left: 0;
+                z-index: 2;
+                margin-left: -2px;
+                padding: 6px calc(20% - 115px);
+                width: 100%;
+                height: 40px;
+                background-color: #f3f4f5;
+                transform: scaleY(0);
+                transform-origin: top;
+                transition: height 0.3s ease-in 0s;
+
+                @media only screen and (max-width: 1500px) {
+                            
+                    & {
+                        padding-left: 38%;
+                    }
+                
+                }
+
+                @media only screen and (max-width: 1439px) {
+                            
+                    & {
+                        padding: 6px 15px 6px 40%;
+                    }
+
+                }
+
+                @media only screen and (max-width: 1062px) {
+                            
+                    & {
+                        padding: 6px 6px 6px 45%;
+                    }
+
+                }
+
+                & > .ec-justify-content-space-between {
+
+                    @media only screen and (max-width: 1335px) {
+                            
+                        & {
+                            padding: 0 11%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 1200px) {
+                            
+                        & {
+                            padding: 0 11.3%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 1120px) {
+                            
+                        & {
+                            padding: 0 11.5%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 1062px) {
+                            
+                        & {
+                            padding: 0 12.8%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 980px) {
+                            
+                        & {
+                            padding: 0 11.8%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 895px) {
+                            
+                        & {
+                            padding: 0 12%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 775px) {
+                            
+                        & {
+                            padding: 0 12.4%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 680px) {
+                            
+                        & {
+                            padding: 0 12.7%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 590px) {
+                            
+                        & {
+                            padding: 0 13%;
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 550px) {
+                            
+                        & {
+                            padding: 0 13.2%;
+                        }
+    
+                    }
+
+                    .ec-justify-content-end {
+
+                        @media only screen and (max-width: 1500px) {
+                            
+                            & {
+                                display: none;
+                            }
+        
+                        }
+
+                    }
+
+                }
+
+                &.ec-ste-show {
+                    animation: 0.3s ec-show-dropdown ease-in-out forwards;
+                }
+
+                .ec-ste-group-buttons,
+                .ec-ste-dropdown {
+                    display: inline-block;
+                    margin-right: 15px;
+                    border-radius: 3px;
+                    box-shadow: 0 1px 0px #0000001f;
+                    overflow: hidden;
+
+                    button {
+                        padding-right: 8px;
+                        padding-left: 8px;
+                        height: 28px;
+                        line-height: 35.5px;
+                        background-color: #FFFFFF;
+
+                        &:hover {
+                            color: #FFFFFF;
+                            background-color: rgba($color: $color-brown-light, $alpha: 0.5);
+                        }                        
+
+                        &.ec-ste-active-button {
+                            color: #FFFFFF;
+                            background-color: $color-brown-light;
+                        }
+
+                        &.ec-ste-list-numbered-button,
+                        &.ec-ste-list-bulleted-button {
+
+                            & > * {
+                                font-size: 17px;
+                            }                            
+
+                        }
+
+                        @media only screen and (max-width: 1600px) {
+                            
+                            & {
+                                padding-right: 7px;
+                                padding-left: 7px;
+                            }
+
+                        }
+
+                        @media only screen and (max-width: 1037px) {
+                            
+                            & {
+                                padding-right: 4px;
+                                padding-left: 4px;
+                            }
+
+                        }
+
+                        & > * {
+                            font-size: 19px;
+                            pointer-events: none;
+                        }
+
+                    }
+
+                    @media only screen and (max-width: 615px) {
+                            
+                        & {
+                            margin-right: 10px;
+
+                            button {
+                                padding-right: 3px;
+                                padding-left: 3px;
+                            }
+
+                        }
+    
+                    }
+
+                    @media only screen and (max-width: 530px) {
+                            
+                        & {
+                            margin-right: 7px;
+                        }
+    
+                    }
+
+                }
+
+                .ec-ste-expand-more-group-buttons {
+                    display: none;
+
+                    button {
+                        padding-right: 8px;
+                        padding-left: 8px;
+                        height: 28px;
+                        line-height: 35.5px;
+                        background-color: transparent;
+
+                        & > * {
+                            font-size: 18px;
+                            color: $color-black-light;
+                            transform: rotate(180deg);
+                        }
+
+                        &.ec-ste-active-button {
+                            color: #FFFFFF;
+                            background-color: $color-brown-light;
+                        }
+
+                    }
+
+                    @media only screen and (max-width: 1500px) {
+                        
+                        & {
+                            display: block;
+                        }
+    
+                    }      
+
+                }
+
+                .ec-ste-dropdown {
+                    
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    button {
+                        padding-right: 10px;
+                        padding-left: 10px;
+                        line-height: 26.5px;
+
+                        @media only screen and (max-width: 530px) {
+                            
+                            & {
+                                padding-right: 5px;
+                                padding-left: 5px;
+                            }
+        
+                        }
+
+                        & > span:not(.ec-dropdown-icon) {
+                            white-space: nowrap;
+                            max-width: 90px;
+                            text-align: left;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                        }
+
+                        & > * {
+                            line-height: inherit;
+                            font-size: 13px;
+
+                            @media only screen and (max-width: 934px) {
+                            
+                                & {
+                                    font-size: 12px;
+                                }
+    
+                            }
+
+                        }
+
+                        & > .ec-dropdown-icon {
+                            margin-left: 5px;
+                            font-size: 18px;
+                            transform: rotate(0);
+                            @include ec-mixin-transition(all, 0.3s, ease-in);
+                        }
+                        
+                    }
+
+                    .ec-ste-menu {
+                        position: absolute;
+                        margin-top: 2px;
+                        border-radius: 3px;
+                        background-color: #FFFFFF;
+                        box-shadow: $sections-modal-shadow;
+                        transform: scaleY(0);
+                        transform-origin: top;
+
+                        ul {
+                            margin: 0;
+                            padding: 0;
+                            max-height: 196px;
+                            min-width: 63px;
+                            max-width: 180px;
+                            overflow: auto;
+
+                            @include ec-mixin-scrollbar(4px, 4px, 4px, transparent, $color-grey-dark);
+
+                            li {
+                                list-style: none;
+
+                                a {
+                                    display: block;
+                                    padding: 5px 10px;
+                                    text-decoration: none;
+                                    font-size: 13px;
+                                    font-weight: normal;
+                                    color: $color-black-dark;
+
+                                    &:hover {
+                                        text-decoration: none;
+                                        background-color: $color-grey-light;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    &.ec-ste-dropdown-show {
+
+                        button {
+    
+                            & > .ec-dropdown-icon {
+                                transform: rotate(-180deg);
+                            }
+                            
+                        }
+
+                        .ec-ste-menu {
+                            animation: 0.3s ec-show-dropdown ease-in-out forwards;
+                        }
+
+                    }
+
+                    &[data-scope="fonts"] {
+
+                        button {
+    
+                            & > span:not(.ec-dropdown-icon) {
+                                width: 90px;
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                .ec-button-color {
+                    display: inline-flex;
+                    padding: 0;
+                    border-radius: 3px;
+                    box-shadow: 0 1px 0px #0000001f;
+                
+                    button {
+                        width: 28px;
+                        height: 28px;
+                        border: 0;
+                        border-radius: 4px;
+                        background-color: var(--bgcolor);
+                        cursor: pointer;
+                    }
+                
+                }
+
+            }
+
+            .ec-preview-word {
+                display: none;
+                position: absolute;
+                margin-top: -30px;
+                left: 0;
+                z-index: 9999;
+                padding: 6px 15px 3px;
+                border-radius: 0 6px 0 0;
+                text-transform: uppercase;
+                font-family: $font-4;
+                font-size: 12px;
+                color: $color-black-dark;
+                background-color: #FFFFFF;
+            }
+
+            &.ec-composer-container-preview {
+
+                .ec-preview-word {
+                    display: inherit;
+                }
+
+            }
+
+            &.ec-small-text-editor-expanded {
+
+                .ec-small-text-editor {
+                    height: 80px;
+
+                    & > .ec-display-flex {
+                        display: block;
+
+                        .ec-justify-content-start {
+
+                            .ec-ste-expand-more-group-buttons {
+
+                                .ec-ste-expand-all-button {
+
+                                    & > * {
+                                        color: $color-blue;
+                                        transform: rotate(0deg);
+                                    }
+
+                                }
+
+                            }
+
+                        }                          
+
+                        .ec-justify-content-end {
+                            display: block !important;
+                            margin-top: 10px;
+                            animation: 0.3s ec-show-top-to-bottom ease-in-out forwards;
+                        }                        
+
+                    }
+
+                }
+
+                .ec-composer-template-container {
+                    margin: 144px 0 0 15px;
+                    height: calc(100vh - 144px);
+                }
+
+            }
+
+            &.ec-composer-template-mobile {
+
+                .ec-composer-template-container {
+                    margin-right: auto !important;
+                    margin-left: auto !important;
+                    width: 600px !important;
+                }                
+
+            }
+
+        }
+
+        &.ec-composer-main-hide-panel {
+
+            .ec-composer-panel {
+                transform: scaleX(0);
+                transform-origin: left;
+            }
+
+            .ec-composer-container {
+                width: calc(100% - 54px);
+            }
+
+        }
+
+        &.ec-composer-main-show-panel {
+
+            .ec-composer-panel {
+                transform: scaleX(1);
+                transform-origin: left;
+            }
+
+            .ec-composer-container {
+                width: 70%;
+
+                @media only screen and (max-width: 1500px) {
+                            
+                    & {
+                        width: 65%;
+                    }
+            
+                }
+    
+                @media only screen and (max-width: 1280px) {
+                                
+                    & {
+                        width: 60%;
+                    }
+            
+                }
+    
+                @media only screen and (max-width: 1180px) {
+                                
+                    & {
+                        width: 55%;
+                    }
+            
+                }
+    
+                @media only screen and (max-width: 980px) {
+                                
+                    & {
+                        width: 50%;
+                    }
+            
+                }
+    
+                @media only screen and (max-width: 980px) {
+                                
+                    & {
+                        width: calc(100% - 54px);
+                    }
+            
+                }
+
+            }
+
+        }
+
+        .ec-composer-shadow {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 9998;
+            overflow-x: hidden;
+            overflow-y: auto;            
+            width: 100%;
+            height: 100%;
+            outline: 0;
+            background-color: rgba($color: #212423, $alpha: 0.3);
+
+            &.ec-composer-shadow-show {
+                display: block;
+                animation: 0.3s ec-show-cover ease-in-out forwards;
+            }
+
+            &.ec-composer-shadow-hide {
+                display: block;
+                animation: 0.2s ec-hide-cover ease-in-out forwards;
+            }
+
+        }
+
+        .ec-composer-modal {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            z-index: 9999;  
+            margin-top: 50px;
+            margin-left: -175px;                      
+            padding: 15px 0;
+            width: 350px;
+            max-width: 80%;
+            transition: all 2s ease-out;
+
+            &.ec-composer-modal-show {
+                display: block;
+                margin-top: 0;
+                animation: 0.3s ec-show-modal ease-in-out forwards;
+            }
+
+            &.ec-composer-modal-hide {
+                display: block;
+                margin-top: 0;
+                animation: 0.2s ec-hide-modal ease-in-out forwards;
+            }
+
+            &.ec-composer-modal-medium {
+                margin-left: -225px;
+                width: 450px;
+            }
+
+            &.ec-composer-modal-large {
+                margin-left: -325px;
+                width: 650px;
+            }
+
+            .ec-composer-modal-header {
+                min-height: 29px;
+                border-bottom: 1px solid $color-grey;
+
+                h3 {
+                    margin: 0;
+                    padding: 0;
+                    font-family: $font-1;
+                    font-size: 14px;
+                    font-weight: 500;
+
+                    .ec-section-header-icon {
+                        margin-top: -4px;
+                        margin-right: 5px;
+                        font-size: 27px;
+                    }
+
+                }
+
+                .ec-template-hide-modal-button {
+                    margin-top: -6px;
+                    height: 34px;
+                    font-size: 14px;
+                }
+
+            }
+
+            &[data-scope="ec-composer-rows-modal"] {
+
+                .ec-composer-modal-header {
+    
+                    h3 {
+    
+                        .ec-section-header-icon {
+                            margin-top: -3px;
+                            font-size: 27px;
+                        }
+    
+                    }
+    
+                }
+
+            }
+
+            .ec-composer-modal-body {
+                padding: 15px;
+            }
+
+        }
+
+        .ec-composer-save-changes-modal {
+            display: none;
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            z-index: 9999;
+            padding: 6px 15px;
+            min-width: 200px;
+            border-radius: 6px;
+            background-color: #FFFFFF;
+            box-shadow: 0 3px 8px rgba(0,0,0,.05);
+            opacity: 0;
+
+            &.ec-composer-save-changes-active-modal {
+                display: inherit;
+                animation: 0.5s ec-show-box ease-in-out forwards;
+            }
+
+            &.ec-composer-save-changes-hide-modal {
+                display: inherit;
+                animation: 0.5s ec-hide-box ease-in-out forwards;
+                opacity: 1;
+            }            
+
+            i,
+            span {
+                display: none;
+                vertical-align: middle;
+                margin-right: 5px;
+                font-size: 23px;
+
+                &.ec-section-saving-changes-loading-icon {
+                    color: $color-blue;
+                    animation: ec-rotate-animation 1s linear infinite;
+                }
+
+                &.ec-section-saving-changes-success-icon {
+                    margin-top: 1px;
+                    font-size: 20px;
+                    background-color: transparent !important;
+                    color: $color-green-light !important;
+                    animation: ec-checkbox-checked 1s ease-in-out forwards;
+                }
+
+                &.ec-section-saving-changes-failed-icon {
+                    margin-top: 1px;
+                    font-size: 20px;
+                    background-color: transparent !important;
+                    color: $color-red !important;
+                    animation: ec-checkbox-checked 1s ease-in-out forwards;
+                }
+
+            }
+
+            .ec-composer-save-changes-saving-icon {
+
+                .ec-section-saving-changes-loading-icon {
+                    display: block;
+                }
+                
+            }
+
+            .ec-composer-save-changes-success-icon {
+
+                .ec-section-saving-changes-success-icon {
+                    display: block;
+                }
+                
+            }
+            
+            .ec-composer-save-changes-failed-icon {
+
+                .ec-section-saving-changes-failed-icon {
+                    display: block;
+                }
+                
+            }
+
+            p {
+                margin: 0;
+                padding: 0;
+                line-height: 23px;
+                font-family: $font-3;
+                font-size: 12px;
+                color: $color-black-light;                
+            }
+
+        }
+
+    }
+    
+}
+

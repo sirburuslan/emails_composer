@@ -1,0 +1,868 @@
+// EC MODAL GENERAL STYLES
+.ec-composer-modal {
+
+    .ec-composer-modal-header {
+        padding: 15px 15px 6px;
+        background-color: #FFFFFF;
+    }
+
+    .ec-composer-modal-body {
+        background-color: #FFFFFF;
+
+        .ec-composer-modal-text-field,
+        .ec-composer-modal-textarea-field,
+        .ec-composer-modal-select-field,
+        .ec-composer-modal-upload-field {
+            display: block;
+            position: relative;
+            box-sizing: border-box;
+            padding: 10px 15px;
+            width: 100%;
+            min-height: 40px;
+            border-radius: $sections-elements-box-radius;
+            background-color: $color-section;
+
+            h3 {
+                margin: 0 0 10px;
+                padding: 0;
+                line-height: 14px;
+                text-transform: uppercase;
+                font-family: $font-1;
+                font-size: 13px;
+                font-weight: 400;
+                color: $color-brown-dark;
+
+                .ec-composer-modal-required-icon {
+                    vertical-align: middle;
+                    margin-top: -9px;
+                    margin-left: 1px;
+                    font-size: 9px;
+                }
+
+            }
+
+        }
+
+        .ec-composer-modal-text-field {
+
+            input {
+                padding: 0 10px;
+                width: 100%;
+                height: 38px;
+                border: 0;
+                border-radius: 6px;
+                font-size: 13px;
+                background-color: #ffffff;
+                color: $color-black-light;
+                box-shadow: $sections-elements-box-shadow;
+            }
+
+        }
+
+        .ec-composer-modal-textarea-field {
+
+            textarea {
+                padding: 10px 10px;
+                width: 100%;
+                height: 100px;
+                border: 0;
+                border-radius: 6px;
+                font-size: 13px;
+                background-color: #ffffff;
+                color: $color-black-light;
+                box-shadow: $sections-elements-box-shadow;
+            }
+
+        }
+
+        .ec-composer-modal-select-field {
+
+            .ec-composer-modal-select-dropdown {
+                margin-bottom: 5px;
+                width: 100%;
+
+                .ec-button {
+                    padding: 0 10px;
+                    width: 100%;
+                    height: 38px;
+                    border-radius: $sections-elements-box-radius;
+                    line-height: 38px;
+                    background-color: #FFFFFF;
+                    box-shadow: $sections-elements-box-shadow;
+
+                    &:hover {
+                        background-color: rgba($color: $color-brown-light, $alpha: 0.5);
+                        color: #FFFFFF;
+                    }                        
+
+                    &.ec-composer-modal-select-active-button {
+                        background-color: $color-brown-light;
+                        color: #FFFFFF;
+                    }
+
+                    @media only screen and (max-width: 1600px) {
+                        
+                        & {
+                            padding-right: 7px;
+                            padding-left: 7px;
+                        }
+
+                    }
+
+                    @media only screen and (max-width: 1037px) {
+                        
+                        & {
+                            padding-right: 4px;
+                            padding-left: 4px;
+                        }
+
+                    }
+
+                    & > span {
+                        max-height: 24px;
+                        text-align: left;
+                        font-size: 13px;
+                        pointer-events: none;
+                    }
+                    
+                    & > .ec-dropdown-icon {
+                        margin-top: 9px;
+                        line-height: 19px;
+                        font-size: 19px;
+                        transform: rotate(0);
+                        @include ec-mixin-transition(all, 0.3s, ease-in);                                                
+                    }
+
+                }
+
+                .ec-composer-modal-select-menu {
+                    display: none;
+                    transform: scaleY(0);
+                    transform-origin: top;                    
+                    position: absolute;
+                    z-index: 1;
+                    margin-top: 2px;
+                    width: calc(100% - 30px);
+                    border-radius: $sections-elements-box-radius;
+                    background-color: #FFFFFF;
+                    box-shadow: $sections-modal-shadow;
+    
+                    ul {
+                        overflow: auto;
+                        margin: 0;
+                        padding: 0 !important;
+                        width: 100%;
+                        max-height: 196px;
+    
+                        @include ec-mixin-scrollbar(4px, 4px, 4px, transparent, $color-grey-dark);
+    
+                        li {
+                            list-style: none;
+    
+                            a {
+                                display: block;
+                                padding: 8px 10px;
+                                text-decoration: none;
+                                font-size: 13px;
+                                font-weight: normal;
+                                color: $color-black-dark;
+    
+                                &:hover {
+                                    text-decoration: none;
+                                    background-color: $color-grey-light;
+                                }
+    
+                            }
+
+                            &:first-child {
+
+                                a {
+                                    border-top-left-radius: $sections-elements-box-radius;
+                                    border-top-right-radius: $sections-elements-box-radius;
+                                }
+
+                            }
+
+                            &:last-child {
+
+                                a {
+                                    border-bottom-right-radius: $sections-elements-box-radius;
+                                    border-bottom-left-radius: $sections-elements-box-radius;
+                                }
+
+                            }
+    
+                        }
+    
+                    }
+    
+                }
+    
+                &.ec-composer-modal-select-dropdown-show {
+
+                    button {
+    
+                        & > .ec-dropdown-icon {
+                            transform: rotate(-180deg);
+                        }
+                        
+                    }
+                                                    
+                    .ec-composer-modal-select-menu {
+                        display: inherit;
+                        animation: 0.3s ec-show-dropdown ease-in-out forwards;
+                    }
+    
+                }
+
+            }
+
+        }
+
+        .ec-composer-modal-upload-field {        
+
+            .ec-cover-upload-box {
+                margin: 10px 0 5px;
+                padding: 5px;
+                height: auto;
+                border-radius: 4px;
+                background-color: #ffffff;
+                box-shadow: $sections-elements-box-shadow;            
+
+                .ec-cover-upload-box-drop-area {
+                    box-sizing: border-box;
+                    width: 100%;
+                    height: 200px;
+                    border: 2px dashed #dcdee2;
+
+                    & > .ec-cover-upload-box-drop-area-start,
+                    & > .ec-cover-upload-box-drop-area-drop {
+                        display: none;
+                    }
+
+                    & > .ec-cover-upload-box-drop-area-start {
+                        box-sizing: border-box;
+                        padding: 30px 0;
+                        width: 100%;
+                        height: 200px;
+
+                        .ec-cover-upload-box-icon-box {
+                            text-align: center;
+
+                            .ec-cover-upload-box-icon {
+                                margin: auto;
+                                width: 60px;
+                                height: 60px;
+                                line-height: 86px;
+                                border-radius: 50%;
+                                background-color: rgba($color: $color-green-light, $alpha: 0.2);
+
+                                & > * {
+                                    font-size: 40px;
+                                    color: $color-black;
+                                }
+
+                            }
+
+                        }
+
+                        h6 {
+                            margin: 25px 0 0;
+                            text-align: center;
+                            font-family: $font-1;
+                            font-size: 13px;
+                            font-weight: 500;
+                            color: $color-black;
+
+                            a {
+                                border-bottom: 1px solid $color-black;
+                                text-decoration: none;
+                                color: $color-black;
+
+                                &:hover,
+                                &:focus,
+                                &:active {
+                                    border-bottom: 1px solid transparent;
+                                    text-decoration: none;
+                                }
+
+                            }
+
+                        }
+
+                        p {
+                            margin: 9px 0 0;
+                            text-align: center;
+                            font-family: $font-2;
+                            font-size: 12px;
+                            font-weight: 400;
+                            color: $color-black-light;
+                        }
+
+                    }
+
+                    & > .ec-cover-upload-box-drop-area-drop {
+                        box-sizing: border-box;
+                        padding: 60px 0;
+                        width: 100%;
+                        height: 200px;
+
+                        .ec-cover-upload-box-icon-box {
+                            text-align: center;
+
+                            .ec-cover-upload-box-icon {
+                                transform: scale(0.7);
+                                margin: auto;
+                                width: 80px;
+                                height: 80px;
+                                line-height: 117px;
+                                border-radius: 50%;
+                                background-color: rgba($color: $color-green-light, $alpha: 0.2);
+                                transition: all 0.3s linear;
+
+                                & > * {
+                                    font-size: 48px;
+                                    color: $color-blue;
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    & > .ec-cover-upload-box-drop-area-show {
+                        display: block;
+                        
+                        & > div {
+
+                            .ec-cover-upload-box-icon-box {
+
+                                .ec-cover-upload-box-icon {
+                                    transform: scale(1);
+                                }
+
+                            }
+
+                        }
+                        
+                    }
+
+                    &:has(> .ec-cover-upload-box-drop-area-drop.ec-cover-upload-box-drop-area-show) {
+                        border: 2px dashed $color-blue;
+                    }
+
+                }
+
+            }
+
+            .ec-cover-uploaded-files {
+                display: none;
+                transform-origin: top;
+                box-sizing: border-box;
+                overflow-y: hidden;
+                margin-top: 15px;
+                margin-top: 15px;
+                padding: 10px 15px;
+                width: 100%;
+                min-height: 40px;
+                border-radius: 4px;
+                background-color: #FFFFFF;
+                box-shadow: 0 1px 1px rgba(41, 41, 42, 0.1);      
+
+                &.ec-cover-uploaded-files-show {
+                    display: table;
+                    width: 100%;
+                    animation: 0.3s ec-show-top-to-bottom ease-in-out forwards;
+                }
+
+                .ec-cover-uploaded-files-list {
+                    margin: 15px 0 5px;
+                    padding: 0;
+
+                    .ec-cover-uploaded-file {
+                        margin-bottom: 25px;
+                        list-style: none;
+
+                        .ec-grid {
+
+                            .ec-grid-column-11 {
+                                display: flex;
+
+                                .ec-cover-uploaded-file-icon {
+                                    width: 40px;
+                                    height: 40px;
+                                    border-radius: $sections-elements-box-radius;
+                                    line-height: 53px;
+                                    text-align: center;
+                                    background-color: rgba($color: $color-violet, $alpha: 0.13);
+
+                                    & > * {
+                                        font-size: 25px;
+                                    }
+
+                                }
+
+                                .ec-cover-uploaded-file-info {
+                                    box-sizing: border-box;
+                                    padding: 0 15px;
+                                    width: calc(100% - 40px);
+
+                                    h4 {
+                                        margin: 0 0 3px;
+                                        line-height: 12px;
+                                        font-family: $font-3;
+                                        font-size: 12px;
+                                        font-weight: 500;
+                                        color: $color-black;
+                                    }
+
+                                    h6 {
+                                        margin: 0 0 5px;
+                                        font-family: $font-2;
+                                        font-size: 11px;
+                                        font-weight: 400;
+                                        color: $color-brown-light;
+                                    }
+
+                                    .ec-cover-uploaded-file-loading-progress {
+                                        padding: 0;
+                                        width: 100%;
+                                        border-radius: 4px;
+                                        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.03);
+                                        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.03);
+                            
+                                        .ec-cover-uploaded-file-loading-progress-bar {
+                                            width: 0;
+                                            height: 2px;
+                                            border-radius: 4px;
+                                            background-color: $color-black;
+                                            background-size: 1.3rem 1.3rem;
+                                            transition: width 0.3s ease-in-out;
+                                        }
+                            
+                                    }
+
+                                }
+
+                            }
+
+                            .ec-grid-column-1 {
+                                display: flex;
+
+                                .ec-cover-uploaded-percentage {
+                                    width: 50%;
+                                    line-height: 40px;
+                                    text-align: center;
+                                    font-family: $font-2;
+                                    font-size: 12px;
+                                    font-weight: 400;
+                                    color: $color-black;
+                                }
+
+                            }
+
+                        }
+
+                        &.ec-cover-uploaded-file-uploading {
+
+                            .ec-grid {
+
+                                .ec-grid-column-11 {
+
+                                    .ec-cover-uploaded-file-info {
+
+                                        .ec-cover-uploaded-file-loading-progress {
+                                
+                                            .ec-cover-uploaded-file-loading-progress-bar {
+                                                background-color: $color-blue;
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+
+                                .ec-grid-column-1 {
+
+                                    .ec-cover-uploaded-loading {
+                                        color: $color-blue;
+                                        pointer-events: none;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                        &.ec-cover-uploaded-file-complete {
+
+                            .ec-grid {
+
+                                .ec-grid-column-11 {
+
+                                    .ec-cover-uploaded-file-info {
+
+                                        .ec-cover-uploaded-file-loading-progress {
+                                
+                                            .ec-cover-uploaded-file-loading-progress-bar {
+                                                background-color: $color-green;
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+
+                                .ec-grid-column-1 {
+
+                                    .ec-cover-uploaded-loading {
+                                        color: $color-green;
+                                        pointer-events: none;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                        
+                        &.ec-cover-uploaded-file-failed {
+
+                            .ec-grid {
+
+                                .ec-grid-column-11 {
+
+                                    .ec-cover-uploaded-file-info {
+
+                                        h6 {
+                                            color: $color-red-dark;
+                                        }
+
+                                        .ec-cover-uploaded-file-loading-progress {
+                                
+                                            .ec-cover-uploaded-file-loading-progress-bar {
+                                                background-color: $color-red;
+                                            }
+
+                                        }
+
+                                    }
+
+                                }
+
+                                .ec-grid-column-1 {
+
+                                    .ec-cover-uploaded-loading {
+                                        color: $color-red;
+                                    }
+
+                                }
+
+                            }
+
+                        }                        
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-composer-modal-footer {
+        padding: 0 15px 15px;
+        background-color: #FFFFFF;
+
+        .ec-button {
+            padding: 7px 15px;
+            border-radius: 4px;
+            line-height: 21px;
+            background-color: $color-green-light;
+            color: #ffffff;
+            
+            & > * {
+                vertical-align: middle;
+                margin-top: -3px;
+                margin-right: 5px;
+                font-size: 22px;
+                pointer-events: none;
+            }
+
+        }
+
+        .ec-composer-modal-message {
+            box-sizing: border-box;
+            overflow-y: hidden;
+            padding: 0 15px;
+            width: 100%;
+            height: 0;
+            line-height: 25px;
+            font-family: $font-2;
+            font-size: 13px;
+            font-weight: 400;
+            transition: all 0.3s ease-in-out;
+
+            &.ec-composer-modal-message-success,
+            &.ec-composer-modal-message-error {
+                margin-top: 15px;
+                padding: 7px 15px;
+                color: #FFFFFF;                
+            }
+
+            &.ec-composer-modal-message-success {
+                height: auto;
+                background-color: $color-blue;
+            }
+
+            &.ec-composer-modal-message-error {
+                height: auto;
+                background-color: $color-red;
+            }
+
+            &.ec-composer-modal-message-success-show,
+            &.ec-composer-modal-message-error-show {
+                height: 39px;
+            }
+
+        }
+
+    }
+
+}
+
+// EC MODAL CONTENT ROWS
+.ec-composer-modal[data-scope="ec-composer-rows-modal"] {
+
+    .ec-composer-modal-body {
+
+        .ec-rows {
+
+            .ec-row {
+
+                & > * {
+                    cursor: pointer;
+                }
+
+                & > div {
+            
+                    div {
+        
+                        &::before {
+                            background-color: #d9dce8;
+                        }
+        
+                    }
+
+                    &:hover {
+
+                        div {
+        
+                            &::before {
+                                background-color: #d9dce8;
+                            }
+            
+                        }
+
+                    }
+            
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+// EC MODAL CREATE MODULE
+.ec-composer-modal[data-scope="ec-composer-create-module-modal"] {
+
+    .ec-composer-modal-body {
+
+        .ec-module-advanced-fields {
+            overflow-y: hidden;
+            height: 0;
+            transition: all 0.3s ease-in-out;
+
+            textarea {
+                margin-bottom: 1px;
+            }
+
+            &.ec-module-advanced-fields-expand {
+                height: 440px;
+            }
+
+            &.ec-module-advanced-fields-expanded {
+                height: auto;
+            }
+
+        }
+
+    }
+
+    .ec-composer-modal-footer {
+
+        .ec-button {
+            width: 100%;
+
+            .ec-loading-icon {
+                display: none;
+                animation: ec-rotate-animation 1s linear infinite;
+            }
+
+            &.ec-saving-module-button {
+
+                .ec-default-icon {
+                    display: none;
+                }                
+
+                .ec-loading-icon {
+                    display: inline-block;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+// EC MODAL SETTINGS
+.ec-composer-modal[data-scope="ec-composer-settings-modal"] {
+
+    .ec-composer-modal-body {
+
+        .ec-sections {
+
+            .ec-section {
+
+                .ec-section-header {
+
+                    button {
+                        display: flex;
+                        grid-template-columns: inherit
+                    }
+
+                }
+
+                .ec-section-body {
+
+                    .ec-loading-button {
+                        padding: 10px;
+                        border-radius: 6px;
+                        background-color: $color-grey;
+                        box-shadow: $sections-elements-box-shadow;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+// EC MODAL EXPORT
+.ec-composer-modal[data-scope="ec-composer-export-modal"] {
+
+    .ec-composer-modal-body {
+
+        ul {
+            margin: 0;
+            padding: 0;
+
+            li {
+                content: " ";
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 15px;
+                border-radius: $sections-elements-box-radius;
+                box-shadow: 0 2px 3px rgba(41, 41, 42, 0.1);
+
+                h3,
+                p {
+                    margin: 0;
+                    padding: 0;
+                    font-family: $font-4;
+                }                                
+        
+                h3 {
+                    margin-bottom: 5px;
+                    line-height: 14px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: $color-black;
+                }
+        
+                p {
+                    line-height: 14px;
+                    font-size: 12px;
+                    font-weight: 400;
+                    color: $color-brown-light;                           
+                }
+
+                button {
+                    height: 33px;
+                    min-width: 100px;
+                    border-radius: 6px;
+                    font-family: $font-2;
+                    font-size: 14px;
+
+                    &.ec-save-download-html-button {
+                        color: #FFFFFF;
+                        background-color: $color-blue;
+                    }
+
+                    span {
+                        display: inline-block;
+                        margin-top: -3px;
+                        line-height: 26px;
+                        pointer-events: none;
+                    }
+
+                    & > .ec-download-icon {
+                        vertical-align: middle;
+                        margin-right: 5px;
+                        font-size: 18px;                     
+                    }
+                    
+                    & > .ec-loading-icon {
+                        display: none;
+                        vertical-align: middle;
+                        margin-right: 5px;
+                        font-size: 18px;
+                    }
+
+                    &.ec-save-download-active-button {
+
+                        & > .ec-download-icon {
+                            display: none;                  
+                        }
+                        
+                        & > .ec-loading-icon {
+                            display: inline-block;
+                            animation: ec-rotate-animation 1s linear infinite;
+                        }                        
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

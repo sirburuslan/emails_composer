@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "Node16",
+    "moduleResolution": "NodeNext",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "rootDir": "src",
+    "outDir": "./dist/",
+    "strict": true,
+    "skipLibCheck": true,
+    "removeComments": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

@@ -1,0 +1,18 @@
+// BLOCK MODULE
+.ec-block {
+    display: flex;
+    flex-direction: column;    
+    
+    .ec-block-header {
+        position: relative;
+    }
+
+    .ec-block-body {
+        position: relative;
+    }
+
+    .ec-block-footer {
+        position: relative;
+    }
+
+}

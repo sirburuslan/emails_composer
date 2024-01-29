@@ -1,0 +1,20 @@
+// EC CHECKBOX ANIMATION
+@keyframes ec-checkbox-checked {
+
+    0% {
+        transform: scale(0.7);
+    }    
+
+    30% {
+        transform: scale(1.2);
+        background-color: rgba($color: $color-green-light, $alpha: 0.02);
+        color: rgba($color: #FFFFFF, $alpha: 0.02);
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: rgba($color: $color-green-light, $alpha: 1);
+        color: rgba($color: #FFFFFF, $alpha: 1);
+    }
+
+}

@@ -1,0 +1,3 @@
+{
+    "content": ".ec-element-content[data-id=\"ec-element-1705948938306\"] .ec-element-content-data {\n    height: 30px;\n    background-color: transparent;\n}\n@media only screen and (max-width: 600px) {\n    .ec-element-content[data-id=\"ec-element-1705948938306\"] .ec-element-content-data {        \n    height: 30px;\n    background-color: transparent;\n    }\n}"
+}

@@ -1,0 +1,236 @@
+// NAME COMPONENT
+.ec-composer-name {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 8px 35px;
+    min-width: 450px;
+    max-height: 41px;
+    border: 0;
+    border-radius: 20px;
+    line-height: 26px;
+    font-size: 14px;
+    background-color: transparent;
+
+    @include ec-mixin-transition(background-color, 0.5s, ease-in);
+
+    @media only screen and (max-width: 960px) {
+                            
+        & {
+            min-width: 350px;
+        }
+
+    }
+
+    @media only screen and (max-width: 790px) {
+                            
+        & {
+            min-width: 300px;
+        }
+
+    }
+
+    @media only screen and (max-width: 750px) {
+                            
+        & {
+            min-width: 250px;
+        }
+
+    }
+
+    @media only screen and (max-width: 550px) {
+
+        & {
+            min-width: 170px;
+        }
+
+    }
+
+    .ec-composer-name-text {
+        display: -webkit-inline-box;
+        overflow: hidden;
+        width: 100%;
+        text-align: center;
+        color: #FFFFFF;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+        
+    }
+
+    .ec-composer-name-icon {
+        position: absolute;
+        top: 8px;
+        right: 15px;
+        border: 0;
+        background-color: transparent;
+        pointer-events: none;
+
+        * {
+            font-size: 19px;
+            color: transparent;
+            @include ec-mixin-transition(color, 0.5s, ease-in);
+
+            &.ec-composer-edit-name-icon {
+                display: block;
+                margin-top: 2px;
+                opacity: 1;
+                @include ec-mixin-transition(all, 0.3s, ease-in);
+            }
+
+            &.ec-composer-unsaved-changes-name-icon {
+                display: block;
+                margin-top: 30px;
+                font-size: 22px;
+                opacity: 0;
+                @include ec-mixin-transition(all, 0.3s, ease-in);
+            }
+
+            &.ec-composer-updated-success-name-icon {
+                display: block;
+                margin-top: 60px;
+                font-size: 22px;
+                opacity: 0;
+                @include ec-mixin-transition(all, 0.3s, ease-in);
+            } 
+            
+            &.ec-composer-updated-error-name-icon {
+                display: block;
+                margin-top: 90px;
+                font-size: 22px;
+                opacity: 0;
+                @include ec-mixin-transition(all, 0.3s, ease-in);
+            }            
+
+        }
+
+    }
+
+    &:hover {
+        background-color: $color-black;
+
+        .ec-composer-name-icon {
+
+            * {
+                color: #FFFFFF;
+            }
+
+        }
+
+    }
+
+    &.ec-composer-name-unsaved-changes {
+        background-color: $color-black;
+
+        .ec-composer-name-icon {
+            pointer-events: all;
+            cursor: pointer;
+
+            * {
+                color: #FFFFFF;
+
+                &.ec-composer-edit-name-icon {
+                    margin-top: -30px;
+                    opacity: 0;
+                }
+
+                &.ec-composer-unsaved-changes-name-icon {
+                    margin-top: 11px;
+                    opacity: 1;
+                }
+
+            }
+
+        }
+        
+    }
+
+    &.ec-composer-name-saved-changes {
+        background-color: $color-black;
+
+        .ec-composer-name-icon {
+            pointer-events: all;
+            cursor: pointer;
+
+            * {
+                color: #FFFFFF;
+
+                &.ec-composer-edit-name-icon {
+                    margin-top: -30px;
+                    opacity: 0;
+                }
+
+                &.ec-composer-unsaved-changes-name-icon {
+                    margin-top: -21px;
+                    opacity: 0;
+                }
+
+                &.ec-composer-updated-success-name-icon {
+                    margin-top: 11px;
+                    opacity: 1;
+                }
+
+            }
+
+        }
+        
+    }
+    
+    &.ec-composer-name-saved-failed-changes {
+        background-color: $color-black;
+
+        .ec-composer-name-icon {
+            pointer-events: all;
+            cursor: pointer;
+
+            * {
+                color: #FFFFFF;
+
+                &.ec-composer-edit-name-icon {
+                    margin-top: -30px;
+                    opacity: 0;
+                }
+
+                &.ec-composer-unsaved-changes-name-icon {
+                    margin-top: -21px;
+                    opacity: 0;
+                }
+
+                &.ec-composer-updated-success-name-icon {
+                    margin-top: -21px;
+                    opacity: 1;
+                }
+
+                &.ec-composer-updated-error-name-icon {
+                    margin-top: 9px;
+                    opacity: 1;
+                }                
+
+            }
+
+        }
+        
+    }
+
+    &.ec-composer-name-active {
+        background-color: #FFFFFF;
+
+        .ec-composer-name-text {
+            color: $color-black;
+        }
+
+        .ec-composer-name-icon {
+
+            * {
+                color: $color-black;
+            }
+
+        }
+
+    }
+
+}

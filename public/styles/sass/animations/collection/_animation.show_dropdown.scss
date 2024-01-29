@@ -1,0 +1,35 @@
+// EC SHOW DROPDOWN ANIMATION
+@keyframes ec-show-dropdown {
+
+    0% {
+        transform: scaleY(0.4);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scaleY(0.7);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+}
+
+@keyframes ec-show-dropdown-arrow {
+
+    0% {
+        opacity: 0;
+    }
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0.4;
+    }
+
+}

@@ -1,0 +1,4 @@
+// TRANSITION MIXIN
+@mixin ec-mixin-transition($property: all, $duration: 0.3s, $time-function: ease, $delay: 0s) {
+    transition: $property $duration $time-function $delay;
+}

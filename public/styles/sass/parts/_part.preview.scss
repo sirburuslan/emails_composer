@@ -1,0 +1,30 @@
+// EC COMPOSER PREVIEW
+.ec-composer-preview {
+    transform: scaleY(0);
+    transform-origin: top;
+    position: absolute;
+    top: 64px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #7a7a7b;
+    transition: 0.3s ease-in;
+
+    &.ec-composer-preview-show {
+        transform: scaleY(1);
+    }
+
+    .ec-composer-template-preview {
+        display: flex;
+        overflow-y: overlay;
+        margin: 15px 0 0 0;
+        padding-right: 0;
+        width: 100%;
+        height: calc(100vh - 104px);
+        min-height: 100px;
+        background-color: transparent;
+        transition: all 0.3s ease;
+    }
+
+}

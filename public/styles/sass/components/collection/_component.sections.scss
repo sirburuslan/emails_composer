@@ -1,0 +1,160 @@
+// SECTIONS COMPONENT
+.ec-sections {
+
+    .ec-section-actions {
+        display: none;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: right;
+
+        @media only screen and (max-width: 1440px) {
+                            
+            & {
+                display: block;
+            }
+
+        }
+
+        .ec-section-action-hide-button {
+            border: 0;
+            background-color: transparent;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.7;
+            }
+
+            & > * {
+                pointer-events: none;
+            }
+
+            .ec-section-action-hide-icon {
+                vertical-align: middle;
+                margin-top: -4px;
+                margin-right: 5px;
+                font-size: 20px;                
+            }
+
+            .ec-section-action-hide-text {
+                font-family: $font-1;
+                font-size: 14px;               
+            }
+
+        }
+
+    }
+
+    .ec-section {
+        margin-bottom: 15px;
+        border-radius: 6px;
+        background-color: rgba($color: $color-section, $alpha: 0.5);
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .ec-section-header {
+
+            button {
+                display: grid;
+                grid-template-columns: 30px calc(100% - 50px) 20px;
+                padding: 10px 15px;
+                width: 100%;
+                border: 0;
+                line-height: 23px;
+                text-align: left;
+                text-transform: uppercase;
+                font-family: $font-1;
+                font-size: 13px;
+                font-weight: 400;
+                background-color: transparent;
+                color: #293249;
+                cursor: pointer;
+
+                .ec-section-header-icon {
+                    vertical-align: middle;
+                    margin-top: 0.3px;
+                    font-size: 22px;
+
+                    &.icon-alternative-1 {
+                        margin-top: 1px;
+                        font-size: 21px;
+                    }
+
+                }
+
+                .ec-section-header-dropdown-icon {
+                    display: inline-table;
+                    transform: rotate(0);
+                    vertical-align: middle;
+                    margin-top: 0;
+                    font-size: 23px;
+                    @include ec-mixin-transition(all, 0.3s, ease-in);
+                }
+
+            }
+
+        }
+
+        .ec-section-body {
+            height: 0;
+            overflow: hidden;
+            @include ec-mixin-transition(height, 0.3s, ease-in);
+
+            &:has(.ec-option-social) {
+                overflow: revert;
+            }
+
+        }
+
+        .ec-section-footer {
+            height: 0;
+            overflow: hidden;
+            @include ec-mixin-transition(height, 0.3s, ease-in);
+
+            .ec-loading-button {
+                display: none;
+                padding: 0 1px;
+            }
+
+        }
+
+        &.ec-section-show {
+            background-color: $color-section;
+
+            .ec-section-header {
+
+                button {
+
+                    .ec-section-header-dropdown-icon {
+                        transform: rotate(-180deg);
+                    }
+
+                }
+
+            }
+
+            .ec-section-body {
+                padding: 10px 15px 15px;
+                height: auto;
+            }
+
+            .ec-section-footer {
+                padding: 10px 15px 15px;
+                height: auto;
+            }            
+
+        }
+
+        &.ec-section-active {
+            background-color: $color-section;
+
+            .ec-section-body {
+                padding: 10px 15px 15px;
+            }
+
+        }
+
+    }
+    
+}

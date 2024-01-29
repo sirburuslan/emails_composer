@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Templates</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@24,300,0,0" />
+        <link rel="stylesheet" href="http://localhost:3000/public/styles/css/templates.css" />
+    </head>
+
+    <body class="ec-m-0">
+        <div id="ec-composer"></div>
+        <div class="ec-templates">
+            <div class="ec-sidebar">
+                <div class="ec-grid">
+                    <div class="ec-grid-column-12">
+                        <ul>
+                            <li>
+                                <a href="#ec-my-templates-tab" class="ec-nav-link ec-active-link">
+                                    <span class="material-symbols-sharp">
+                                        account_circle
+                                    </span>
+                                    My Templates
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#ec-gallery-tab" class="ec-nav-link">
+                                    <span class="material-symbols-sharp">
+                                        action_key
+                                    </span>
+                                    Gallery
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#ec-premium-tab" class="ec-nav-link">
+                                    <span class="material-symbols-sharp ec-premium-icon">
+                                        hotel_class
+                                    </span>
+                                    Premium
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ec-list">
+                <div class="ec-grid">
+                    <div class="ec-grid-column-12">
+                        <div class="ec-tabs">
+                            <div class="ec-tab ec-tab-show" id="ec-my-templates-tab">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="ec-new-template">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                                            </svg>
+                                            <span>Empty Template</span>
+                                        </a>
+                                    </li>                            
+                                </ul>
+                            </div>
+                            <div class="ec-tab" id="ec-gallery-tab">
+                                <ul></ul>
+                            </div>
+                            <div class="ec-tab" id="ec-premium-tab">
+                                <ul></ul>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ec-message"></div>     
+        </div>
+        <script type="module" src="public/js/ec.js"></script>
+        <script type="module" src="public/js/my.js"></script>
+    </body>
+</html>

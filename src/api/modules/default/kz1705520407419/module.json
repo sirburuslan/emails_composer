@@ -1,0 +1,8 @@
+{
+    "id": "kz1705520407419",
+    "user_ip": "::1",
+    "name": "Products 1",
+    "category": "gallery",
+    "description": "This modules shows a gallery with products. Each product has image, name, company name, price and discount.",
+    "cover": "public/uploads/6bcb681ce571d96941b44f86b1c80054_thumbnail.png"
+}

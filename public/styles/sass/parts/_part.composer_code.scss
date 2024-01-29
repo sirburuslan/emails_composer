@@ -1,0 +1,235 @@
+// EC COMPOSER CODE DROPDOWN
+.ec-composer-code-class-dropdown {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    background-color: #353532;
+
+    &.ec-composer-code-class-dropdown-active {
+        display: block;
+    }
+
+    a {
+        display: block;
+        white-space:nowrap;
+        overflow: hidden; 
+        padding: 5px 15px;
+        line-height: 25px;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        font-family: system-ui;
+        font-size: 11px;
+        font-weight: 600;
+        color: #FFFFFF;
+
+        &.ec-composer-code-class-dropdown-item-active {
+            background-color: #494947;
+        }
+
+    }
+
+}
+
+// EC COMPOSER CODE CONTEXTMENU
+.ec-composer-code-contextmenu {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    width: 90px;
+    background-color: #353532;
+
+    &.ec-composer-code-contextmenu-active {
+        display: block;
+    }
+
+    a {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 1px 15px 2px;
+        line-height: 25px;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        font-family: system-ui;
+        font-size: 11px;
+        font-weight: 600;
+        color: #FFFFFF;
+
+        &:hover {
+            background-color: #494947;
+        }
+
+        &.ec-composer-code-contextmenu-option-disabled {
+            color: rgba($color: #FFFFFF, $alpha: 0.4);
+            pointer-events: none;
+        }
+
+    }
+
+}
+
+// EC COMPOSER CODE TEXT SELECTION
+.ec-composer-code-text-selection {
+    position: absolute;
+    z-index: -1;
+    height: 0;
+    background-color: rgba(255, 255, 255, 0.07);
+    pointer-events: none;
+}
+
+// EC COMPOSER TEMPLATE PART
+.ec-composer-code-container {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    background-color: #20201d;
+
+    .ec-composer-code-header {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 30px;
+        background-color: #3f3f3f;
+        user-select: none;
+
+        .ec-button {
+
+            & > * {
+                line-height: 29px;
+                font-size: 19px;
+                color: rgba($color: #FFFFFF, $alpha: 0.4);
+            }
+
+            &.ec-composer-code-tab {
+                margin-bottom: 1px;
+                padding: 0 10px;
+                line-height: 17px;
+                letter-spacing: 0.5px;
+                font-family: $font-1;
+                font-size: 10px;
+                font-weight: 500;
+                color: rgba($color: #FFFFFF, $alpha: 0.4);
+
+                &:first-child {
+                    border-right: 1px solid #3f3f3f;
+                }
+
+                &.ec-composer-code-active-tab {
+                    background-color: rgba(220, 220, 220, 0.09);
+                    color: #ffffff;
+                }
+
+            }
+
+            &.ec-template-resize-code-button {
+                cursor: grab;
+
+                & > * {
+                    pointer-events: none;
+                }
+
+            }
+
+            &.ec-template-hide-code-button {
+                width: 62px;
+                text-align: right;
+            }
+
+        }
+
+    }
+
+    .ec-composer-code-body {
+        display: flex;
+        position: absolute;
+        top: 31px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        .ec-composer-code-html,
+        .ec-composer-code-css {
+            display: none;
+            position: relative;
+            width: 50%;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                box-sizing: border-box;
+                width: 30px;
+                background-color: rgba($color: #3f3f3f, $alpha: 0.3);
+                user-select: none;
+                pointer-events: none;
+            }
+
+            &.ec-composer-code-show {
+                display: -webkit-box;
+            }
+
+            iframe {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+            }
+
+            .ec-composer-reload-html-icon,
+            .ec-composer-reload-css-icon {
+                position: absolute;
+                top: 5px;
+                right: 15px;                
+                z-index: 1;
+
+                .ec-composer-reload-html-loading-icon,
+                .ec-composer-reload-css-loading-icon {
+                    transform: scale(0.7);
+                    font-size: 18px;
+                    color: #6b717e;
+                    opacity: 0;
+                    animation: ec-rotate-animation 2s linear infinite;
+                }
+
+                &.ec-composer-reload-html-active-icon,
+                &.ec-composer-reload-css-active-icon {
+
+                    .ec-composer-reload-html-loading-icon,
+                    .ec-composer-reload-css-loading-icon {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+
+                }
+
+            }
+
+        }
+
+        .ec-composer-code-html:not(:has(+ .ec-composer-code-show)) {
+            width: 100%;
+        }
+
+        .ec-composer-code-html:not(.ec-composer-code-show) + .ec-composer-code-css {
+            width: 100%;
+        }
+
+    }
+
+}
+
+.ec-composer-container-template-and-code {
+
+    .ec-composer-code-container {
+        height: 30vh;
+    }
+
+}

@@ -1,0 +1,14 @@
+// TABS CLASS
+
+.ec-tabs {
+    
+    .ec-tab {
+        display: none;
+
+        &.ec-tab-show {
+            display: block;
+        }
+
+    }
+
+}

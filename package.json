@@ -1,0 +1,39 @@
+{
+  "name": "ec",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc && npm run rollup",
+    "rollup": "rollup -c && npm run node",
+    "node": "node index.js",
+    "sass": "sass -w public/styles/sass/main.scss public/styles/css/main.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@rollup/plugin-typescript": "^11.1.3",
+    "archiver": "^6.0.1",
+    "axios": "^1.4.0",
+    "dotenv": "^16.4.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "jsdom": "^22.1.0",
+    "multer": "^1.4.5-lts.1",
+    "ncp": "^2.0.0",
+    "puppeteer": "^21.7.0",
+    "sanitize-html": "^2.11.0",
+    "sharp": "^0.32.6",
+    "sqlite3": "^5.1.6",
+    "typescript": "^4.9.5"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.0.0",
+    "@types/ejs": "^3.1.2",
+    "@types/express": "^4.17.17",
+    "@types/node": "^18.15.3",
+    "rollup": "^3.19.1",
+    "sass": "^1.68.0"
+  }
+}

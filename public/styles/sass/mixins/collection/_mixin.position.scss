@@ -1,0 +1,9 @@
+// POSITION MIXIN
+@mixin ec-mixin-position($position: inherit, $z-index: inherit) {
+    position: $position;
+
+    @if ( $z-index != inherit ) {
+        z-index: $z-index;
+    }
+
+}

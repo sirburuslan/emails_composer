@@ -1,0 +1,28 @@
+// TABS COMPONENT
+.ec-tabs {
+
+    .ec-tab {
+        display: none;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.1s linear;
+
+        &.ec-tab-show {
+            display: block;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        &.ec-tab-hide {
+            display: none;
+        }
+
+        &.ec-tab-start {
+            display: block;
+            transform: scaleY(0.5);
+            opacity: 0;
+        }
+
+    }
+
+}

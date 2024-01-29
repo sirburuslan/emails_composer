@@ -1,0 +1,57 @@
+// EC MENU PART
+.ec-composer-menu {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 9;
+    padding-top: 64px;
+    background-color: $color-menu;
+    box-shadow: 0 4px 15px 0 rgba(27,45,58,.05);
+
+    ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+            list-style: none;
+
+            a {
+                display: block;
+                padding: 15px;
+                background-color: transparent;
+
+                @include ec-mixin-transition(all, 0.3s);
+
+                * {
+                    font-size: 24px;
+                    color: #FFFFFF;
+                    pointer-events: none;
+                }
+
+                &:hover {
+                    background-color: #FFFFFF;
+                    opacity: 0.7;
+
+                    * {
+                        color: $color-black;
+                    }
+
+                }
+
+                &.ec-composer-nav-link-active {
+                    background-color: #FFFFFF;
+                    opacity: 1;
+
+                    * {
+                        color: $color-black;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

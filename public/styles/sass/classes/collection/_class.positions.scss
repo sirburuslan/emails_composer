@@ -1,0 +1,46 @@
+// POSITIONS CLASSES
+.ec-position-fixed {
+    @include ec-mixin-position(fixed, 1);
+}
+
+.ec-position-absolute {
+    @include ec-mixin-position(absolute);
+}
+
+.ec-position-static {
+    @include ec-mixin-position(static);
+}
+
+.ec-position-sticky {
+    @include ec-mixin-position(sticky);
+}
+
+.ec-position-relative {
+    @include ec-mixin-position(relative);
+}
+
+// POSITIONS LOCATIONS CLASSES
+
+.ec-position-top {
+    top: 0;
+}
+
+.ec-position-right {
+    right: 0;
+}
+
+.ec-position-bottom {
+    bottom: 0;
+}
+
+.ec-position-left {
+    left: 0;
+}
+
+// POSITIONS CUSTOM CLASSES
+.ec-topbar-position {
+    z-index: 10 !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+}

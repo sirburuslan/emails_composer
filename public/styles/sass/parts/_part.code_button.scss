@@ -1,0 +1,31 @@
+// EC TEMPLATE CODE BUTTON PART
+.ec-template-code-button {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 2;
+    width: 35px;
+    height: 35px;
+    border-radius: 4px;
+    line-height: 49px;
+    text-align: center;
+    background-color: #FFFFFF;
+    color: $color-black-dark;
+    box-shadow: 0 3px 8px rgba(0,0,0,.05);
+    animation: 0.5s ec-show-box ease-in-out forwards;
+
+    & > * {
+        font-size: 25px;
+        pointer-events: none;
+    }
+
+    &.ec-template-code-active-button {
+        opacity: 1;
+        animation: 0.5s ec-hide-box ease-in-out forwards;
+    }
+
+    &.ec-template-code-hide-button {
+        display: none;
+    }
+
+}

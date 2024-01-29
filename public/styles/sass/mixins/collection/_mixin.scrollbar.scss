@@ -1,0 +1,20 @@
+// SCROLLBAR MIXIN
+@mixin ec-mixin-scrollbar($padding-right: 0, $width: 4px, $border-radius: 4px, $track-background-color: transparent, $thumb-background-color: $color-grey-dark) {
+    padding-right: $padding-right;
+
+    &::-webkit-scrollbar {
+        width: $width;
+        height: $width;
+    }
+    
+    &::-webkit-scrollbar-track {
+        border-radius: $border-radius;
+        background-color: $track-background-color;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+        border-radius: $border-radius;
+        background-color: $thumb-background-color;
+    }
+
+}

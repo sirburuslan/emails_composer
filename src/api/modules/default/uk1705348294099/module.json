@@ -1,0 +1,8 @@
+{
+    "id": "uk1705348294099",
+    "user_ip": "::1",
+    "name": "Header 2",
+    "category": "header",
+    "description": "This module is designed for email headers. It contains a header line and a logo.",
+    "cover": "public/uploads/f8145ad19e9d198fced7647e5de72350_thumbnail.png"
+}

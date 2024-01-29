@@ -1,0 +1,47 @@
+// DROPDOWN CLASS
+
+.ec-dropdown {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 10;
+    padding: 15px;
+    width: 200px;
+    height: 200px;
+    border-radius: 3px;
+    background-color: white;
+    box-shadow: $sections-modal-shadow;
+
+    &.ec-dropdown-bottom {
+        
+        &::before {
+            top: -8px;
+        }
+
+    }
+
+    &.ec-color-box {
+        z-index: 9999;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        right: 8px;
+        width: 15px;
+        height: 11px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAAAXNSR0IArs4c6QAAAKpJREFUKFOlzkEKwkAMQNF29snGzZwg6dUUFEVRFFwpiqIoCp6tyQm6nZkLyBQqtba6MMuQ/0ia/Dnptz7P840xpkdEg667TkBEdoi4jKH3/s7MozakFVDVAwDMrbVlUxRFEkK4EtGkiXwAInJCxGkVV0FEvPdnZp7VkTdAVS8AMG7GdSSEcCSiRbV7ASJyQ8RhV9z4ZM/Mq7grAVV9AED/V1xHnHPbLMvWT7hJQwn0wmKVAAAAAElFTkSuQmCC);
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        animation: 0.2s ec-show-dropdown-arrow ease-in-out forwards;
+    }
+
+    &.ec-dropdown-show {
+        animation: 0.2s ec-show-dropdown ease-in-out forwards;
+    }
+
+    &.ec-dropdown-hide {
+        animation: 0.2s ec-hide-dropdown ease-in-out forwards;
+    }
+
+}

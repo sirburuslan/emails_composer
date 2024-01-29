@@ -1,0 +1,23 @@
+// EC RESETS
+
+input[type="text"],
+textarea {
+    box-sizing: border-box;
+    border: 0;
+    letter-spacing: 0.1px;
+    font-family: $font-2;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: transparent;
+    resize: none;
+
+    &:focus,
+    &:active {
+        outline: none;
+    }
+
+}
+
+[contenteditable] {
+    outline: 0px solid transparent;
+}

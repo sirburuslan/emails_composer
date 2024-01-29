@@ -1,0 +1,12 @@
+// EC HIDE ELEMENTS OPTIONS ANIMATION
+@keyframes ec-composer-element-options-hide {
+
+    0% {
+        transform: scaleX(1);
+    }
+
+    100% {
+        transform: scaleX(0);
+    }
+
+}

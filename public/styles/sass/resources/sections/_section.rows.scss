@@ -1,0 +1,293 @@
+// ROWS SECTION
+.ec-row {
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    width: 100%;
+    border-radius: $sections-elements-box-radius;
+    background-color: #FFFFFF;
+    box-shadow: $sections-elements-box-shadow;
+    cursor: grab;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &.ec-row-drag-active {
+        position: absolute;
+        z-index: 9999;
+        background-color: rgba(184, 199, 255, 0.2);
+        box-shadow: 0 2px 3px rgba(41, 41, 42, 0.1);
+    }
+
+    & > div {
+
+        & > div {
+            pointer-events: none;
+            height: 45px;
+        }
+        
+    }
+
+    .ec-row-columns-one {
+
+        div {
+            position: relative;
+            width: 100%;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                border-radius: $sections-elements-box-radius;
+                background-color: #d9dce8;
+            }
+
+        }
+
+    }
+
+    .ec-row-columns-two {
+        display: grid;
+        grid-template-columns: 50% 50%;
+
+        div {
+            position: relative;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                border-radius: $sections-elements-box-radius;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                background-color: #d9dce8;
+            }
+
+            &:first-child {
+
+                &::before {
+                    right: 2.5px;
+                }
+
+            }
+
+            &:last-child {
+
+                &::before {
+                    left: 2.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-row-columns-two-2 {
+        display: grid;
+        grid-template-columns: 25% 75%;
+
+        div {
+            position: relative;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                border-radius: $sections-elements-box-radius;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                background-color: #d9dce8;
+            }
+
+            &:first-child {
+
+                &::before {
+                    right: 2.5px;
+                }
+
+            }
+
+            &:last-child {
+
+                &::before {
+                    left: 2.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-row-columns-two-3 {
+        display: grid;
+        grid-template-columns: 75% 25%;
+
+        div {
+            position: relative;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                border-radius: $sections-elements-box-radius;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                background-color: #d9dce8;
+            }
+
+            &:first-child {
+
+                &::before {
+                    right: 2.5px;
+                }
+
+            }
+
+            &:last-child {
+
+                &::before {
+                    left: 2.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-row-columns-three {
+        display: grid;
+        grid-template-columns: 33.33% 33.33% 33.33%;
+
+        div {
+            position: relative;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                border-radius: $sections-elements-box-radius;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                background-color: #d9dce8;
+            }
+
+            &:first-child {
+
+                &::before {
+                    right: 2.5px;
+                }
+
+            }
+
+            &:nth-child(2) {
+
+                &::before {
+                    right: 2.5px;
+                    left: 2.5px;
+                }
+
+            }
+
+            &:nth-child(3) {
+
+                &::before {
+                    left: 2.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-row-columns-four {
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%;
+
+        div {
+            position: relative;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                bottom: 5px;
+                left: 5px;
+                border-radius: $sections-elements-box-radius;
+                outline: 1px dashed #FFFFFF;
+                outline-offset: -4px;                
+                background-color: #d9dce8;
+            }
+
+            &:first-child {
+
+                &::before {
+                    right: 2.5px;
+                }
+
+            }
+
+            &:nth-child(2) {
+
+                &::before {
+                    right: 2.5px;
+                    left: 2.5px;
+                }
+
+            }
+
+            &:nth-child(3) {
+
+                &::before {
+                    right: 2.5px;
+                    left: 2.5px;
+                }
+
+            }
+
+            &:nth-child(4) {
+
+                &::before {
+                    left: 2.5px;
+                }
+
+            }
+
+        }
+
+    }
+
+}
+
+.ec-section {
+
+    .ec-row {
+    
+        & > div {
+            pointer-events: none;
+        }
+
+    }
+
+}

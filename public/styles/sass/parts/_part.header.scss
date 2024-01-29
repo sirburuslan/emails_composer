@@ -1,0 +1,195 @@
+// EC HEADER PART
+.ec-composer-header {
+    box-sizing: border-box;
+    padding: 12px 10px;
+    width: 100%;
+    height: 64px;
+    font-family: $font-1;
+    background-color: $color-brown;
+    box-shadow: 0 4px 15px 0 rgba(27,45,58,.05);
+
+    .ec-composer-mode {
+        display: flex;
+        position: relative;
+        z-index: 0;
+        margin: 0;
+        padding: 2px;
+        width: 200px;
+        height: 37px;
+        border: 0;
+        border-radius: 20px;
+        background-color: $color-brown-dark;
+
+        label {
+            flex: 0 0 70px;
+            position: inherit;
+            padding: 10px 15px;
+            line-height: 17px;
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.50);
+            cursor: pointer;
+
+            .ec-composer-mode-icon {
+                display: none;
+            }
+
+        }
+
+        .ec-composer-mode-active {
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 41px;
+            border-radius: 20px;
+            background-color: #FFFFFF;
+            transition: 0.27s ease;
+        }
+
+        [type="radio"] {
+            display: none;
+
+            &:checked + label {
+                color: $color-black;
+            }
+
+            @for $i from 0 through 1 {
+
+                &.ec-composer-mode-#{$i}:checked {
+                    display: none !important;
+
+                    ~ .ec-composer-mode-active {
+                        left: #{$i * 50%};
+                    }
+
+                }
+
+            }
+
+        }
+
+        @media only screen and (max-width: 700px) {
+                            
+            & {
+                width: 90px;
+                height: 37px;
+
+                label {
+                    display: flex;
+                    flex: 0 0 44px;
+                    padding: 10px 0px;
+                    line-height: 17px;
+                    font-size: 11px;
+
+                    .ec-composer-mode-text {
+                        display: none;
+                    }
+
+                    .ec-composer-mode-icon {
+                        display: block;
+                        margin: -3px auto 0;
+                    }
+
+                }
+        
+                .ec-composer-mode-active {
+                    width: 50px;
+                    height: 41px;
+                    border-radius: 20px;
+                }
+                
+                [type="radio"] {
+        
+                    @for $i from 0 through 1 {
+        
+                        &.ec-composer-mode-#{$i}:checked {
+        
+                            ~ .ec-composer-mode-active {
+                                left: #{$i * 47%};
+                            }
+        
+                        }
+        
+                    }
+        
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-header-buttons {
+
+        & > * {
+            @include ec-mixin-margin(3px 15px 6px 0);
+            width: 33px;
+            height: 33px;
+            border-radius: 50%;
+            line-height: 9px;
+            background-color: $color-brown-light;
+            color: #FFFFFF;
+
+            & > * {
+                font-size: 21px;
+            }
+
+            @media only screen and (max-width: 904px) {
+                            
+                & {
+                    @include ec-mixin-margin(6px 9px 6px 0);
+                    width: 28px;
+                    height: 28px;
+
+                    & > * {
+                        font-size: 16px;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    .ec-templates-button {
+        padding: 2px 20px;
+        height: 41px;
+        min-width: 110px;
+        border-radius: 20px;
+        line-height: 29px;
+        font-family: $font-1;
+        background-color: $color-green;
+        color: #FFFFFF;
+
+        * {
+            vertical-align: middle;
+            margin-top: -2px;
+            margin-right: 5px;
+        }
+
+        .ec-save-module-text {
+            margin-right: 0;
+        }
+
+        @media only screen and (max-width: 992px) {
+            padding: 2px 9px;
+            min-width: 30px;
+
+            * {
+                margin-right: 0;
+            }
+
+            .ec-save-module-text {
+                display: none;
+            }
+
+        }
+
+    }
+    
+}

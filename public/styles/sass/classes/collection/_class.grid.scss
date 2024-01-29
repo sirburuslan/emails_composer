@@ -1,0 +1,69 @@
+// GRID CLASSES
+
+.ec-grid {
+    display: flex;
+}
+
+.ec-grid-column-1,
+.ec-grid-column-2,
+.ec-grid-column-3,
+.ec-grid-column-4,
+.ec-grid-column-5,
+.ec-grid-column-6,
+.ec-grid-column-7,
+.ec-grid-column-8,
+.ec-grid-column-9,
+.ec-grid-column-10,
+.ec-grid-column-11,
+.ec-grid-column-12 {
+    display: inline-grid;
+}
+
+
+.ec-grid-column-1 {
+    flex: 0 0 8.333333333333333%;
+}
+
+.ec-grid-column-2 {
+    flex: 0 0 16.66666666666667%;
+}
+
+.ec-grid-column-3 {
+    flex: 0 0 25%;
+}
+
+.ec-grid-column-4 {
+    flex: 0 0 33.33333333333333%;
+}
+
+.ec-grid-column-5 {
+    flex: 0 0 41.66666666666667%;
+}
+
+.ec-grid-column-6 {
+    flex: 0 0 50%;
+}
+
+.ec-grid-column-7 {
+    flex: 0 0 58.33333333333333%;
+}
+
+.ec-grid-column-8 {
+    flex: 0 0 66.66666666666666%;
+}
+
+.ec-grid-column-9 {
+    flex: 0 0 75%;
+}
+
+.ec-grid-column-10 {
+    flex: 0 0 83.33333333333333%;
+}
+
+.ec-grid-column-11 {
+    flex: 0 0 91.66666666666666%;
+}
+
+.ec-grid-column-12 {
+    flex: 0 0 100%;
+}

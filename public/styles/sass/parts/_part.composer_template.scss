@@ -1,0 +1,37 @@
+// EC COMPOSER TEMPLATE PART
+.ec-composer-template-container {
+    display: flex;
+    overflow-y: overlay;
+    margin: 104px 0 0 0;
+    width: 100%;
+    height: calc(100vh - 104px);
+    min-height: 100px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    @include ec-mixin-scrollbar(0, 4px, 4px, transparent, transparent);
+}
+
+.ec-composer-container-template-and-code-show,
+.ec-composer-container-template-and-code-hide {
+
+    .ec-composer-template-container {
+        @include ec-mixin-transition(height, 0.3s, ease-in);
+    }
+    
+}
+
+.ec-composer-container-template-and-code {
+
+    .ec-composer-template-container {
+        height: calc(70vh - 104px);
+    }
+
+}
+
+.ec-composer-container-template-and-code-resize-active {
+
+    .ec-composer-template-container {
+        transition: none;
+    }
+
+}

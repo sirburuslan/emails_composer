@@ -1,0 +1,35 @@
+// EC HIDE DROPDOWN ANIMATION
+@keyframes ec-hide-dropdown {
+
+    0% {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+    60% {
+        transform: scaleY(0.7);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scaleY(0.4);
+        opacity: 0;
+    }
+
+}
+
+@keyframes ec-hide-dropdown-arrow {
+
+    0% {
+        opacity: 0.4;
+    }
+
+    1% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+}

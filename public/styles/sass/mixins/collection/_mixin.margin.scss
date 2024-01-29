@@ -1,0 +1,4 @@
+// MARGIN MIXIN
+@mixin ec-mixin-margin($margin: 0) {
+    margin: $margin;
+}

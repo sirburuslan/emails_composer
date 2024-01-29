@@ -1,0 +1,61 @@
+// SMALL TEXT EDITOR PLUGIN
+
+// VARIABLES
+:root {
+    --link-box-angle-left: 0;
+}
+
+.ec-ste-link-box {
+    position: absolute;
+    z-index: 100;
+    width: 300px;
+    height: 34px;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    box-shadow: $sections-modal-shadow;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: var(--link-box-angle-left);
+        width: 15px;
+        height: 11px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAAAXNSR0IArs4c6QAAAKpJREFUKFOlzkEKwkAMQNF29snGzZwg6dUUFEVRFFwpiqIoCp6tyQm6nZkLyBQqtba6MMuQ/0ia/Dnptz7P840xpkdEg667TkBEdoi4jKH3/s7MozakFVDVAwDMrbVlUxRFEkK4EtGkiXwAInJCxGkVV0FEvPdnZp7VkTdAVS8AMG7GdSSEcCSiRbV7ASJyQ8RhV9z4ZM/Mq7grAVV9AED/V1xHnHPbLMvWT7hJQwn0wmKVAAAAAElFTkSuQmCC);
+        background-repeat: no-repeat;
+        opacity: 0.4;
+        animation: 0.2s ec-show-dropdown-arrow ease-in-out forwards;
+    }
+
+    & > div {
+        padding: 3px;
+
+        input[type="text"] {
+            width: calc(100% - 64px);
+        }
+
+        .ec-ste-link-box-group-buttons {
+
+            button {
+                width: 30px;
+                height: 28px;
+                line-height: 35.5px;
+                background-color: #FFFFFF;
+
+                &:hover {
+                    background-color: rgba($color: $color-brown-light, $alpha: 0.5);
+                    color: #FFFFFF;
+                }
+
+                & > * {
+                    font-size: 19px;
+                    pointer-events: none;
+                }
+
+            }
+
+        }        
+
+    }
+
+}

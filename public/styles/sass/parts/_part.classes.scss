@@ -1,0 +1,15 @@
+// EC CLASSES PART
+
+.ec-drag-icon {
+    transform: rotate(90deg) !important;
+    color: $color-brown-dark !important;
+}
+
+.ec-close-icon {
+    @include ec-mixin-transition(transform, 0.1s, ease-in);
+
+    &:hover {
+        transform: scale(1.2) !important;
+    }
+
+}

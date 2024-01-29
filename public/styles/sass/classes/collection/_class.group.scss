@@ -1,0 +1,14 @@
+// GROUP CLASS
+
+.ec-group {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+
+    & > * {
+        flex: 1 1 auto;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+    }
+
+}
