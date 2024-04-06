@@ -53,22 +53,22 @@ export namespace Class {
             }
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Save this context
-            let $this = this;
+            const $this = this;
 
             // Get iframe
-            let iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Verify if iframe exists
             if ( iframe ) {
 
                 // Get content document
-                let iframeDocument: Document | null = iframe.contentDocument;
+                const iframeDocument: Document | null = iframe.contentDocument;
 
                 // Get html
-                let html = iframeDocument?.getElementsByClassName('ec-composer-template');
+                const html = iframeDocument?.getElementsByClassName('ec-composer-template');
 
                 // Verify if html is not undefined
                 if ( html !== undefined ) {
@@ -77,19 +77,19 @@ export namespace Class {
                     if ( html.length > 0 ) {
 
                         // Select the target node that you want to observe for changes
-                        let target_node: HTMLElement | null = html[0].closest('.ec-composer-template');
+                        const target_node: HTMLElement | null = html[0].closest('.ec-composer-template');
 
                         // Options for the observer (specify what types of mutations to observe)
-                        let config = { attributes: true, childList: true, subtree: true, characterData: true };
+                        const config = { attributes: true, childList: true, subtree: true, characterData: true };
 
                         // Create an observer instance linked to the callback function
                         this._observer = new MutationObserver((mutations_list: MutationRecord[]): void => {
 
                             // List the mutations
-                            for ( let mutation of mutations_list ) {
+                            for ( const mutation of mutations_list ) {
 
                                 // Get the mutation target
-                                let mutation_target = mutation.target as Element;
+                                const mutation_target = mutation.target as Element;
 
                                 // Verify if any content was removed
                                 if ( (typeof mutation_target.classList !== 'undefined') && (mutation_target.classList.contains('ec-hide-content') || mutation_target.classList.contains('ec-composer-template-content-line')) ) {
@@ -100,9 +100,7 @@ export namespace Class {
                                 } else if ( mutation.nextSibling ) {
 
                                     // Check if was dropped an element
-                                    if ( (mutation.nextSibling as Element).classList[0] === 'ec-composer-template-cell-drop' ) {
-
-                                        console.log(84);
+                                    if ((mutation.nextSibling instanceof Element) && mutation.nextSibling && mutation.nextSibling.classList && (mutation.nextSibling.classList.length > 0) && (mutation.nextSibling.classList[0] === 'ec-composer-template-cell-drop')) {
 
                                         // Set removed marker
                                         Backup._removed = 1;
@@ -237,19 +235,19 @@ export namespace Class {
                                             Backup._removed = 0;
 
                                             // Elements ids container
-                                            let elements_ids: string[] = [];
+                                            const elements_ids: string[] = [];
 
                                             // Get the elements
-                                            let elements: HTMLCollectionOf<Element> = target_node!.getElementsByClassName('ec-element-content');
+                                            const elements: HTMLCollectionOf<Element> = target_node!.getElementsByClassName('ec-element-content');
 
                                             // Verify if elements exists
                                             if ( elements.length > 0 ) {
 
                                                 // List the elements
-                                                for ( let element of elements ) {
+                                                for ( const element of elements ) {
 
                                                     // Get element's id
-                                                    let element_id: string | null = element.getAttribute('data-id');
+                                                    const element_id: string | null = element.getAttribute('data-id');
 
                                                     // Verify if element's id exists
                                                     if ( !element_id ) {
@@ -270,19 +268,19 @@ export namespace Class {
                                             content = content.replaceAll('ec-composer-template-editor', '');
 
                                             // Define template data
-                                            let template_data: {content: string, elements_ids: string[]} = {
+                                            const template_data: {content: string, elements_ids: string[]} = {
                                                 content: remove_buttons(content),
                                                 elements_ids: elements_ids
                                             };
                                             
                                             // Prepare update
-                                            let update: {template_id: string, template: {content: string, elements_ids: string[]}} = {
+                                            const update: {template_id: string, template: {content: string, elements_ids: string[]}} = {
                                                 template_id: params.template_id as string,
                                                 template: template_data
                                             };
 
                                             // Send a create update request
-                                            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                                            const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                                             // Process the response
                                             send_request.then((response: {success: boolean, message: string}): void => {
@@ -317,40 +315,40 @@ export namespace Class {
                                                                 params.selector!.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.remove('ec-composer-reload-html-active-icon');
 
                                                                 // Get iframe for template
-                                                                let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                                const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                                                 // Check if iframe exists
                                                                 if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                                                     // Get the iframe document
-                                                                    let idocument: Document | null = iframe_template[0].contentDocument;
+                                                                    const idocument: Document | null = iframe_template[0].contentDocument;
 
                                                                     // Check if document is not null
                                                                     if ( idocument !== null ) {
 
                                                                         // Get the element content
-                                                                        let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                        const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                                                         // Check if content exists
                                                                         if ( element_content ) {
 
                                                                             // Set options
-                                                                            let options: {lines: boolean, spaces: boolean} = {
+                                                                            const options: {lines: boolean, spaces: boolean} = {
                                                                                 lines: true,
                                                                                 spaces: true
                                                                             };
 
                                                                             // Format html code class
-                                                                            let format_html_code = new Plugins.HtmlFormatter();
+                                                                            const format_html_code = new Plugins.HtmlFormatter();
 
                                                                             // Get the iframe for html code
-                                                                            let iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                                                            const iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
 
                                                                             // Check if iframe exists
                                                                             if ( iframe_html[0] instanceof HTMLIFrameElement ) {
 
                                                                                 // Get the iframe document
-                                                                                let idocument_html: Document | null = iframe_html[0].contentDocument;
+                                                                                const idocument_html: Document | null = iframe_html[0].contentDocument;
 
                                                                                 // Check if document is not null
                                                                                 if ( idocument_html !== null ) {
@@ -367,7 +365,7 @@ export namespace Class {
                                                                                     .then((html: string): void => {
 
                                                                                         // Get lines box
-                                                                                        let clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
+                                                                                        const clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
 
                                                                                         // Display the html
                                                                                         clines!.innerHTML = html;
@@ -424,7 +422,7 @@ export namespace Class {
                                                 }, 2000);
 
                                                 // Decode response
-                                                let obj_data = response as {success: boolean, message: string};
+                                                const obj_data = response as {success: boolean, message: string};
 
                                                 // Check if the template was created
                                                 if ( !obj_data.success ) {
@@ -463,10 +461,10 @@ export namespace Class {
                                         } else {
 
                                             // Get target
-                                            let target = (mutation_target.nodeName === '#text')?mutation_target.parentElement:mutation_target;
+                                            const target = (mutation_target.nodeName === '#text')?mutation_target.parentElement:mutation_target;
 
                                             // Get closest div
-                                            let div: HTMLDivElement | null = target!.closest('div');
+                                            const div: HTMLDivElement | null = target!.closest('div');
 
                                             // Check if div is not null
                                             if ( div !== null ) {
@@ -478,10 +476,10 @@ export namespace Class {
                                                 if ( (div.innerHTML.split('ec-composer-template-content').length > 1) && !(mutation_target.classList.contains('ec-hide-content') && mutation_target.classList.contains('ec-composer-template-content-line') ) ) {
                                                     
                                                     // Get the lines
-                                                    let lines: HTMLCollectionOf<Element> = html![0].getElementsByClassName('ec-composer-template-content-line');
+                                                    const lines: HTMLCollectionOf<Element> = html![0].getElementsByClassName('ec-composer-template-content-line');
 
                                                     // Get index of the div
-                                                    let structure: number = Array.prototype.indexOf.call(lines, div.closest('.ec-composer-template-content-line'));
+                                                    const structure: number = Array.prototype.indexOf.call(lines, div.closest('.ec-composer-template-content-line'));
 
                                                     // Check if structure exists
                                                     if ( structure > -1 ) {
@@ -517,10 +515,10 @@ export namespace Class {
                                                 } else {
 
                                                     // Find all divs
-                                                    let divs: HTMLCollectionOf<HTMLDivElement> = html![0].getElementsByTagName('div');
+                                                    const divs: HTMLCollectionOf<HTMLDivElement> = html![0].getElementsByTagName('div');
 
                                                     // Get index of the div
-                                                    let index: number = Array.prototype.indexOf.call(divs, div);
+                                                    const index: number = Array.prototype.indexOf.call(divs, div);
 
                                                     // Ready index
                                                     let ready_index: number = 0;
@@ -558,13 +556,13 @@ export namespace Class {
                                                 }
 
                                                 // Prepare update
-                                                let update: {template_id: string, html?: {index?: number, structure?: number, content: string}} = {
+                                                const update: {template_id: string, html?: {index?: number, structure?: number, content: string}} = {
                                                     template_id: params.template_id as string,
                                                     html: html_data
                                                 };
 
                                                 // Send a create update request
-                                                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                                                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                                                 // Process the response
                                                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -599,40 +597,40 @@ export namespace Class {
                                                                     params.selector!.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.remove('ec-composer-reload-html-active-icon');
 
                                                                     // Get iframe for template
-                                                                    let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                                    const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                                                     // Check if iframe exists
                                                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                                                         // Get the iframe document
-                                                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                                                         // Check if document is not null
                                                                         if ( idocument !== null ) {
 
                                                                             // Get the element content
-                                                                            let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                            const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                                                             // Check if content exists
                                                                             if ( element_content ) {
 
                                                                                 // Set options
-                                                                                let options: {lines: boolean, spaces: boolean} = {
+                                                                                const options: {lines: boolean, spaces: boolean} = {
                                                                                     lines: true,
                                                                                     spaces: true
                                                                                 };
 
                                                                                 // Format html code class
-                                                                                let format_html_code = new Plugins.HtmlFormatter();
+                                                                                const format_html_code = new Plugins.HtmlFormatter();
 
                                                                                 // Get the iframe for html code
-                                                                                let iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                                                                const iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
 
                                                                                 // Check if iframe exists
                                                                                 if ( iframe_html[0] instanceof HTMLIFrameElement ) {
 
                                                                                     // Get the iframe document
-                                                                                    let idocument_html: Document | null = iframe_html[0].contentDocument;
+                                                                                    const idocument_html: Document | null = iframe_html[0].contentDocument;
 
                                                                                     // Check if document is not null
                                                                                     if ( idocument_html !== null ) {
@@ -649,7 +647,7 @@ export namespace Class {
                                                                                         .then((html: string): void => {
 
                                                                                             // Get lines box
-                                                                                            let clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
+                                                                                            const clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
 
                                                                                             // Display the html
                                                                                             clines!.innerHTML = html;
@@ -706,7 +704,7 @@ export namespace Class {
                                                     }, 2000);
 
                                                     // Decode response
-                                                    let obj_data = response as {success: boolean, message: string};
+                                                    const obj_data = response as {success: boolean, message: string};
 
                                                     // Check if the template was created
                                                     if ( !obj_data.success ) {
@@ -777,16 +775,16 @@ export namespace Class {
             Classes.Timer.schedule_event('update_css', (): void => {
             
                 // Init http request
-                let http_send = new Classes.Https();
+                const http_send = new Classes.Https();
 
                 // Save this context
-                let $this = this;
+                const $this = this;
                 
                 // Show the animation
                 $this.saving_animation(params, 'show');
 
                 // Prepare update
-                let update: {template_id: string, css: {content: string}} = {
+                const update: {template_id: string, css: {content: string}} = {
                     template_id: params.template_id as string,
                     css: {
                         content: content
@@ -794,7 +792,7 @@ export namespace Class {
                 };
 
                 // Send a create update request
-                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                 // Process the response
                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -824,43 +822,43 @@ export namespace Class {
                                     params.selector!.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
 
                                     // Get iframe for template
-                                    let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                     // Check if iframe exists
                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                         // Get the iframe document
-                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                         // Check if document is not null
                                         if ( idocument !== null ) {
 
                                             // Get the element content
-                                            let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                            const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                             // Check if content exists
                                             if ( element_content ) {
 
                                                 // Get the element's ID
-                                                let element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                                const element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
 
                                                 // Verify if element's ID exists
                                                 if ( typeof element_id === 'string' ) {
 
                                                     // Get element's style
-                                                    let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                     // Verify if element's style exists
                                                     if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                         // Set options
-                                                        let options: {lines: boolean, spaces: boolean} = {
+                                                        const options: {lines: boolean, spaces: boolean} = {
                                                             lines: true,
                                                             spaces: true
                                                         };
 
                                                         // Format css code class
-                                                        let format_css_code = new Plugins.CssFormatter();
+                                                        const format_css_code = new Plugins.CssFormatter();
                                                         
                                                         // Format the code
                                                         format_css_code.format(options, element_style.innerHTML)
@@ -868,13 +866,13 @@ export namespace Class {
                                                         .then((html: string): void => {
 
                                                             // Get the iframe for css code
-                                                            let iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                            const iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
 
                                                             // Check if iframe exists
                                                             if ( iframe_css[0] instanceof HTMLIFrameElement ) {
 
                                                                 // Get the iframe document
-                                                                let idocument_css: Document | null = iframe_css[0].contentDocument;
+                                                                const idocument_css: Document | null = iframe_css[0].contentDocument;
 
                                                                 // Check if document is not null
                                                                 if ( idocument_css !== null ) {
@@ -886,7 +884,7 @@ export namespace Class {
                                                                     </div>`;
 
                                                                     // Get lines box
-                                                                    let clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
+                                                                    const clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
 
                                                                     // Display the html
                                                                     clines!.innerHTML = html;
@@ -947,7 +945,7 @@ export namespace Class {
                     }, 2000);
 
                     // Decode response
-                    let obj_data = response as {success: boolean, message: string};
+                    const obj_data = response as {success: boolean, message: string};
 
                     // Check if the template was created
                     if ( !obj_data.success ) {
@@ -1001,10 +999,10 @@ export namespace Class {
             Classes.Timer.schedule_event('update_css', (): void => {
             
                 // Init http request
-                let http_send = new Classes.Https();
+                const http_send = new Classes.Https();
 
                 // Save this context
-                let $this = this;
+                const $this = this;
 
                 // Check if animation should be showed
                 if ( animation ) {
@@ -1015,7 +1013,7 @@ export namespace Class {
                 }
 
                 // Prepare update
-                let update: {template_id: string, element_id: string, css: {content: string}} = {
+                const update: {template_id: string, element_id: string, css: {content: string}} = {
                     template_id: params.template_id as string,
                     element_id: element_id,
                     css: {
@@ -1024,7 +1022,7 @@ export namespace Class {
                 };
 
                 // Send a create update request
-                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
                 // Process the response
                 send_request.then((response: {success: boolean, message: string}): void => {
@@ -1059,43 +1057,43 @@ export namespace Class {
                                     params.selector!.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
 
                                     // Get iframe for template
-                                    let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                     // Check if iframe exists
                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                         // Get the iframe document
-                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                         // Check if document is not null
                                         if ( idocument !== null ) {
 
                                             // Get the element content
-                                            let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                            const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                             // Check if content exists
                                             if ( element_content ) {
 
                                                 // Get the element's ID
-                                                let element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                                const element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
 
                                                 // Verify if element's ID exists
                                                 if ( typeof element_id === 'string' ) {
 
                                                     // Get element's style
-                                                    let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                     // Verify if element's style exists
                                                     if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                         // Set options
-                                                        let options: {lines: boolean, spaces: boolean} = {
+                                                        const options: {lines: boolean, spaces: boolean} = {
                                                             lines: true,
                                                             spaces: true
                                                         };
 
                                                         // Format css code class
-                                                        let format_css_code = new Plugins.CssFormatter();
+                                                        const format_css_code = new Plugins.CssFormatter();
                                                         
                                                         // Format the code
                                                         format_css_code.format(options, element_style.innerHTML)
@@ -1103,13 +1101,13 @@ export namespace Class {
                                                         .then((html: string): void => {
 
                                                             // Get the iframe for css code
-                                                            let iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                            const iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
 
                                                             // Check if iframe exists
                                                             if ( iframe_css[0] instanceof HTMLIFrameElement ) {
 
                                                                 // Get the iframe document
-                                                                let idocument_css: Document | null = iframe_css[0].contentDocument;
+                                                                const idocument_css: Document | null = iframe_css[0].contentDocument;
 
                                                                 // Check if document is not null
                                                                 if ( idocument_css !== null ) {
@@ -1121,7 +1119,7 @@ export namespace Class {
                                                                     </div>`;
 
                                                                     // Get lines box
-                                                                    let clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
+                                                                    const clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
 
                                                                     // Display the html
                                                                     clines!.innerHTML = html;
@@ -1192,7 +1190,7 @@ export namespace Class {
                     }
 
                     // Decode response
-                    let obj_data = response as {success: boolean, message: string};
+                    const obj_data = response as {success: boolean, message: string};
 
                     // Check if the template was created
                     if ( !obj_data.success ) {
@@ -1247,16 +1245,16 @@ export namespace Class {
         async save_module(params: params_type, elements: {[key: string]: string}, html: string): Promise<void> {
             
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Save this context
-            let $this = this;
+            const $this = this;
             
             // Show the animation
             $this.saving_animation(params, 'show');
 
             // Prepare update
-            let update: {template_id: string, css: {elements: {[key: string]: string}}, html: {content: string}} = {
+            const update: {template_id: string, css: {elements: {[key: string]: string}}, html: {content: string}} = {
                 template_id: params.template_id as string,
                 css: {
                     elements: elements
@@ -1267,7 +1265,7 @@ export namespace Class {
             };
 
             // Send a create update request
-            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+            const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
 
             // Process the response
             send_request.then((response: {success: boolean, message: string}): void => {
@@ -1297,43 +1295,43 @@ export namespace Class {
                                 params.selector!.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
 
                                 // Get iframe for template
-                                let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                 // Check if iframe exists
                                 if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                     // Get the iframe document
-                                    let idocument: Document | null = iframe_template[0].contentDocument;
+                                    const idocument: Document | null = iframe_template[0].contentDocument;
 
                                     // Check if document is not null
                                     if ( idocument !== null ) {
 
                                         // Get the element content
-                                        let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                        const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                         // Check if content exists
                                         if ( element_content ) {
 
                                             // Get the element's ID
-                                            let element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                            const element_id: string | null | undefined = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
 
                                             // Verify if element's ID exists
                                             if ( typeof element_id === 'string' ) {
 
                                                 // Get element's style
-                                                let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                 // Verify if element's style exists
                                                 if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                     // Set options
-                                                    let options: {lines: boolean, spaces: boolean} = {
+                                                    const options: {lines: boolean, spaces: boolean} = {
                                                         lines: true,
                                                         spaces: true
                                                     };
 
                                                     // Format css code class
-                                                    let format_css_code = new Plugins.CssFormatter();
+                                                    const format_css_code = new Plugins.CssFormatter();
                                                     
                                                     // Format the code
                                                     format_css_code.format(options, element_style.innerHTML)
@@ -1341,13 +1339,13 @@ export namespace Class {
                                                     .then((html: string): void => {
 
                                                         // Get the iframe for css code
-                                                        let iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                        const iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
 
                                                         // Check if iframe exists
                                                         if ( iframe_css[0] instanceof HTMLIFrameElement ) {
 
                                                             // Get the iframe document
-                                                            let idocument_css: Document | null = iframe_css[0].contentDocument;
+                                                            const idocument_css: Document | null = iframe_css[0].contentDocument;
 
                                                             // Check if document is not null
                                                             if ( idocument_css !== null ) {
@@ -1359,7 +1357,7 @@ export namespace Class {
                                                                 </div>`;
 
                                                                 // Get lines box
-                                                                let clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
+                                                                const clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
 
                                                                 // Display the html
                                                                 clines!.innerHTML = html;
@@ -1420,7 +1418,7 @@ export namespace Class {
                 }, 2000);
 
                 // Decode response
-                let obj_data = response as {success: boolean, message: string};
+                const obj_data = response as {success: boolean, message: string};
 
                 // Check if the template was created
                 if ( !obj_data.success ) {
@@ -1467,13 +1465,13 @@ export namespace Class {
         private saving_animation(params: params_type, type: string): void {
 
             // Get the ec-composer-save-changes-modal
-            let save_changes_modal: HTMLCollectionOf<Element> = params.selector!.getElementsByClassName('ec-composer-save-changes-modal');
+            const save_changes_modal: HTMLCollectionOf<Element> = params.selector!.getElementsByClassName('ec-composer-save-changes-modal');
 
             // Verify if modal exists
             if ( save_changes_modal.length > 0 ) {
 
                 // Get the save changes icon
-                let save_changes_icon: Element = params.selector!.getElementsByClassName('ec-composer-save-changes-icon')[0];
+                const save_changes_icon: Element = params.selector!.getElementsByClassName('ec-composer-save-changes-icon')[0];
 
                 // Check if type is show
                 if ( type === 'show' ) {

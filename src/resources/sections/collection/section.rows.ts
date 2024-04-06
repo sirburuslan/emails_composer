@@ -37,7 +37,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
             let show = params.options('builder')?.resources?.rows?.sections?.general?.show?' ec-section-show':'';
 
             // Prepare the rows
-            let rows: string = '<div class="ec-row">'
+            const rows: string = '<div class="ec-row">'
                 + '<div class="ec-row-columns-one" data-format="1">'
                     + '<div></div>'
                 + '</div>'

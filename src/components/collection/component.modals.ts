@@ -27,7 +27,7 @@ export namespace Components {
                     target: (e: MouseEvent): void => {
 
                         // Get the target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Verify if the click is in a modal
                         if ( target.closest('.ec-composer-shadow') ) {
@@ -51,13 +51,13 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get the target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Add hide shadow class
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-hide');
 
                         // Get the modal
-                        let modal: Element | null = target.closest('.ec-composer-modal');
+                        const modal: Element | null = target.closest('.ec-composer-modal');
 
                         // Verify if modal is not null
                         if ( modal ) {
@@ -93,7 +93,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get the target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Set a pause
                         setTimeout((): void => {
@@ -112,10 +112,10 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get the target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Get the dropdown
-                        let dropdown: Element | null = target.closest('.ec-composer-modal-select-dropdown');
+                        const dropdown: Element | null = target.closest('.ec-composer-modal-select-dropdown');
 
                         // Set the selected id
                         dropdown!.getElementsByClassName('ec-button')[0].setAttribute('data-id', target.getAttribute('data-id')!);

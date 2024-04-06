@@ -52,7 +52,7 @@ export namespace Components {
                         if ( e.buttons === 1 ) {
 
                             // Save target
-                            let target: any = e.target;
+                            const target: any = e.target;
 
                             // List all elements
                             Array.from(params.selector.getElementsByClassName('ec-element')).map((element): void => {
@@ -66,19 +66,19 @@ export namespace Components {
                             target.classList.add('ec-element-temp');   
 
                             // Clone element
-                            let element: any = target.cloneNode(true);
+                            const element: any = target.cloneNode(true);
 
                             // Get client rect of the cloned element
-                            let cloned: DOMRect = target.getBoundingClientRect();
+                            const cloned: DOMRect = target.getBoundingClientRect();
 
                             // Set ec-element-drag-active class
                             element.classList.add('ec-element-drag-active');
                             
                             // Get the top position
-                            let top: number = (e.clientY - cloned.y);
+                            const top: number = (e.clientY - cloned.y);
 
                             // Get the left position
-                            let left: number = (e.clientX - cloned.x);
+                            const left: number = (e.clientX - cloned.x);
 
                             // Set top
                             element.setAttribute('data-top', top);

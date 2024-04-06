@@ -121,7 +121,7 @@ export namespace Resources.Options {
             } else {
 
                 // Create the property
-                let property: option_property_type = {
+                const property: option_property_type = {
                     element_name: (typeof option.element === 'string')?option.element:''
                 };
 
@@ -146,7 +146,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -161,61 +161,61 @@ export namespace Resources.Options {
                             target.classList.add('ec-option-align-active-button');
 
                             // Get the option name
-                            let option_name: string | null | undefined = target.closest('li')?.getAttribute('data-option');
+                            const option_name: string | null | undefined = target.closest('li')?.getAttribute('data-option');
 
                             // Get the element's name
-                            let element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
+                            const element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
 
                             // Check if option name exists
                             if ( option_name ) {
 
                                 // Get the device type
-                                let device = target.closest('.ec-sections')!.getAttribute('data-scope') as string;
+                                const device = target.closest('.ec-sections')!.getAttribute('data-scope') as string;
 
                                 // Get property
-                                let property: option_property_type = this.get_property(Resources.Options.Align.saved_options[option_name + '_' + element_name]);                                        
+                                const property: option_property_type = this.get_property(Resources.Options.Align.saved_options[option_name + '_' + element_name]);                                        
 
                                 // Verify if the option is saved
                                 if ( (typeof Resources.Options.Align.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null) ) {
 
                                     // Get the element's id
-                                    let element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                    const element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
 
                                     // Check if element's id exists
                                     if ( element_id ) {
 
                                         // Get iframe
-                                        let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                        const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                         // Verify if iframe exists
                                         if ( iframe ) {
 
                                             // Get content document
-                                            let iframeDocument: Document | null = iframe.contentDocument;
+                                            const iframeDocument: Document | null = iframe.contentDocument;
 
                                             // Check if iframeDocument is not null
                                             if ( iframeDocument !== null ) {
 
                                                 // Get the style tag
-                                                let style: HTMLStyleElement | null = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                const style: HTMLStyleElement | null = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                 // Check if style exists
                                                 if ( style !== null ) {
 
                                                     // Get the sheet
-                                                    let sheet: CSSStyleSheet | null = style.sheet;
+                                                    const sheet: CSSStyleSheet | null = style.sheet;
 
                                                     // Set property name
-                                                    let property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
+                                                    const property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
 
                                                     // Update a property value
-                                                    let style_content: string = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction')!, device);
+                                                    const style_content: string = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction')!, device);
 
                                                     // Set style
                                                     style.innerHTML = style_content;
 
                                                     // Init the backup class
-                                                    let backup = new Classes.Backup();
+                                                    const backup = new Classes.Backup();
 
                                                     // Save backup
                                                     backup.update_css_element_id(element_id!, this.params, style_content);

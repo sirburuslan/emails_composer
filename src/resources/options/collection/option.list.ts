@@ -40,32 +40,32 @@ export namespace Resources.Options {
             let items: string = '';
 
             // Unique checkbox id
-            let unique_id: number = Math.random();
+            const unique_id: number = Math.random();
 
             // Verify if the option has items
             if ( option.items.length > 0 ) {
 
                 // Values container
-                let values: {[key: string]: string | number | ((key: string) => string) } = {
+                const values: {[key: string]: string | number | ((key: string) => string) } = {
                     get_value: (key: string): string => {
                         return values.hasOwnProperty(key)?' value="' + values[key] + '"':'';
                     }
                 };
 
                 // Get iframe
-                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Verify if iframe exists
                 if ( iframe ) {
 
                     // Get content document
-                    let iframeDocument: Document | null = iframe.contentDocument;
+                    const iframeDocument: Document | null = iframe.contentDocument;
 
                     // Check if iframeDocument is not null
                     if ( iframeDocument !== null ) {
                         
                         // Get the template
-                        let template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                        const template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
 
                         // Check for utm source
                         if ( template.getAttribute('data-utm-source') ) {
@@ -112,7 +112,7 @@ export namespace Resources.Options {
                 }
 
                 // List the items
-                for ( let item of option.items ) {
+                for ( const item of option.items ) {
 
                     // Add item
                     items += '<li data-name="' + item.name + '">'
@@ -172,7 +172,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -182,19 +182,19 @@ export namespace Resources.Options {
                             e.preventDefault();
 
                             // Get iframe
-                            let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                            const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                             // Verify if iframe exists
                             if ( iframe ) {
 
                                 // Get content document
-                                let iframeDocument: Document | null = iframe.contentDocument;
+                                const iframeDocument: Document | null = iframe.contentDocument;
 
                                 // Check if iframeDocument is not null
                                 if ( iframeDocument !== null ) {
                                     
                                     // Get the template
-                                    let template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                                    const template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
 
                                     // Get closest li and verify if is utm_source
                                     if ( target.closest('li')!.getAttribute('data-name') === 'utm_source' ) {

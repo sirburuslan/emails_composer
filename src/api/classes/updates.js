@@ -706,7 +706,7 @@ export default class Updates {
 
                 // Get the elements
                 let elements = Object.keys(clean_string(req.body.css.elements));
-
+                
                 // Verify if elements exists
                 if ( elements.length < 1 ) {
 
@@ -731,12 +731,12 @@ export default class Updates {
 
                     // Create the css object
                     let new_css = {
-                        content: clean_string(req.body.css.elements[element_id])
+                        content: clean_css(req.body.css.elements[element_id])
                     }
 
                     // Turn object to json
                     let css_json = JSON.stringify(new_css, null, 4);
-                    
+
                     // Save css update
                     let css_update = create_file(elements_dir + '/' + element_id + '.json', css_json);
                     

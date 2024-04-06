@@ -42,19 +42,19 @@ export namespace Class {
         async get_history_all(params: params_type, page: number = 1, limit: number = 10): Promise<void> {
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
 
             // Check if success exists
             if ( get_history.success ) {
 
                 // Get data
-                let data = get_history.data as string[];
+                const data = get_history.data as string[];
 
                 // Get total records
-                let thistory = data?.length;
+                const thistory = data?.length;
 
                 // History container
                 let history = '';
@@ -71,7 +71,7 @@ export namespace Class {
                     let updates: string = '';
 
                     // Total updates
-                    let tupdates: number = data[h][1].length;
+                    const tupdates: number = data[h][1].length;
 
                     // List the updates
                     for ( let u = 0; u < tupdates; u++ ) {
@@ -82,7 +82,7 @@ export namespace Class {
                         }
 
                         // Active class
-                        let active: string = (u < 1 && h < 1)?' ec-history-record-active':'';
+                        const active: string = (u < 1 && h < 1)?' ec-history-record-active':'';
 
                         // Restore button container
                         let restore_button: string = '<button type="button" class="ec-button ec-history-restore-button">'
@@ -156,10 +156,10 @@ export namespace Class {
                 setTimeout(() => {
 
                     // Get the section footer with pagination
-                    let section_footer: HTMLElement = params.selector.getElementsByClassName('ec-section-history')[0].getElementsByClassName('ec-section-footer')[0] as HTMLElement;
+                    const section_footer: HTMLElement = params.selector.getElementsByClassName('ec-section-history')[0].getElementsByClassName('ec-section-footer')[0] as HTMLElement;
 
                     // Get the button for pagination
-                    let pagination_button = section_footer.getElementsByClassName('ec-loading-button')[0] as HTMLElement;
+                    const pagination_button = section_footer.getElementsByClassName('ec-loading-button')[0] as HTMLElement;
 
                     // Disable button animation
                     section_footer.getElementsByTagName('a')[0].classList.remove('ec-load-more-active');
@@ -215,22 +215,22 @@ export namespace Class {
         async get_history_by_date(params: params_type, date: number, page: number = 0, limit: number = 4): Promise<void> {
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id  + '/' + date + '/' + page + '/' + limit);
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id  + '/' + date + '/' + page + '/' + limit);
 
             // Check if success exists
             if ( get_history.success ) {
 
                 // Get data
-                let data = get_history.data as string[];
+                const data = get_history.data as string[];
 
                 // Updates container
                 let updates: string = '';
 
                 // Total updates
-                let tupdates: number = data.length;
+                const tupdates: number = data.length;
 
                 // List the updates
                 for ( let u = 0; u < tupdates; u++ ) {
@@ -270,7 +270,7 @@ export namespace Class {
                 } else {
 
                     // Get pagination
-                    let pagination: HTMLElement | null = params.selector.querySelector('.ec-section-history .ec-history-component[data-history="' + date + '"] .ec-history-navigation');
+                    const pagination: HTMLElement | null = params.selector.querySelector('.ec-section-history .ec-history-component[data-history="' + date + '"] .ec-history-navigation');
 
                     // Check if pagination is not null
                     if ( pagination !== null ) {
@@ -303,10 +303,10 @@ export namespace Class {
         async get_history_recent(params: params_type, iframe: string): Promise<void> {
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Get the history records
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
 
             // Check if success exists
             if ( get_history.success ) {
@@ -315,13 +315,13 @@ export namespace Class {
                 if ( typeof get_history.data !== 'undefined' ) {
 
                     // Prepare the data
-                    let content = get_history.data as {name?: string, html?: string, css?: {content: string, elements?: Array<{element_id: string, content: string}>} };
+                    const content = get_history.data as {name?: string, html?: string, css?: {content: string, elements?: Array<{element_id: string, content: string}>} };
 
                     // Get iframe for template
-                    let itemplate = params.selector!.getElementsByClassName(iframe)[0] as HTMLIFrameElement;
+                    const itemplate = params.selector!.getElementsByClassName(iframe)[0] as HTMLIFrameElement;
 
                     // Get content document
-                    let idocument: Document | null = itemplate.contentDocument;
+                    const idocument: Document | null = itemplate.contentDocument;
 
                     // Verify if template's name exists
                     if (typeof content.name !== 'undefined') {
@@ -335,7 +335,7 @@ export namespace Class {
                     if ( (typeof content.html !== 'undefined') && (idocument !== null) ) {
                     
                         // Get the iframe body
-                        let body: Element = idocument.body;
+                        const body: Element = idocument.body;
 
                         // Verify if content.html is <div class="ec-composer-template"></div>
                         if ( content.html === '<div class="ec-composer-template"></div>' ) {
@@ -375,7 +375,7 @@ export namespace Class {
                         if ( body.getElementsByClassName('ec-composer-template').length > 0 ) {
 
                             // Get template
-                            let template = body.getElementsByClassName('ec-composer-template')[0] as HTMLElement;
+                            const template = body.getElementsByClassName('ec-composer-template')[0] as HTMLElement;
 
                             // Add ec-composer-template-editor class
                             template.classList.add('ec-composer-template-editor');
@@ -399,10 +399,10 @@ export namespace Class {
                         }
 
                         // Get structures buttons
-                        let structure_buttons: string = get_structure_buttons();
+                        const structure_buttons: string = get_structure_buttons();
                         
                         // Get all structures
-                        let structures: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-composer-template-content-line');
+                        const structures: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-composer-template-content-line');
 
                         // Verify if structures exists
                         if ( structures.length > 0 ) {
@@ -418,10 +418,10 @@ export namespace Class {
                         }
 
                         // Get elements buttons
-                        let elements_buttons: string = get_element_buttons();
+                        const elements_buttons: string = get_element_buttons();
 
                         // Get all elements
-                        let elements: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-element-content');
+                        const elements: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-element-content');
 
                         // Verify if elements exists
                         if ( elements.length > 0 ) {
@@ -437,7 +437,7 @@ export namespace Class {
                         }
 
                         // Get all texts cells
-                        let texts: NodeListOf<Element> = body.querySelectorAll('.ec-element-content[data-name="text"]');
+                        const texts: NodeListOf<Element> = body.querySelectorAll('.ec-element-content[data-name="text"]');
 
                         // Verify if texts exists
                         if ( texts.length > 0 ) {
@@ -458,7 +458,7 @@ export namespace Class {
                     }
 
                     // Elements id container
-                    let elements_id: string[] = [];
+                    const elements_id: string[] = [];
                     
                     // Verify if CSS exists
                     if ( (typeof content.css !== 'undefined') && (idocument !== null) ) {
@@ -470,13 +470,13 @@ export namespace Class {
                             let elements_styles: string = '';
 
                             // List the elements
-                            for ( let element of content.css.elements ) {
+                            for ( const element of content.css.elements ) {
 
                                 // Set id
                                 elements_id.push(element.element_id);
 
                                 // Create style
-                                let style: HTMLElement = document.createElement('style');
+                                const style: HTMLElement = document.createElement('style');
 
                                 // Add element's id
                                 style.setAttribute('data-element', element.element_id);
@@ -510,16 +510,16 @@ export namespace Class {
                                 idocument.head.querySelector('style[data-scope="default"]')!.innerHTML = content.css.content;
 
                                 // Properties list
-                                let properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                                const properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                                 // Get default's style
-                                let default_styles: Element | null | undefined = idocument.head.querySelector('style[data-scope="default"]');
+                                const default_styles: Element | null | undefined = idocument.head.querySelector('style[data-scope="default"]');
 
                                 // Verify if default's style exists
                                 if ( (typeof default_styles !== 'undefined') && default_styles ) {
 
                                     // Get the sheet
-                                    let sheet: CSSStyleSheet | null = (default_styles as HTMLStyleElement).sheet;
+                                    const sheet: CSSStyleSheet | null = (default_styles as HTMLStyleElement).sheet;
 
                                     // Check if sheet exists
                                     if ( sheet !== null ) {
@@ -528,16 +528,16 @@ export namespace Class {
                                         if ( sheet.cssRules.length > 0 ) {
 
                                             // List all rules
-                                            for ( let rule of sheet.cssRules ) {
+                                            for ( const rule of sheet.cssRules ) {
 
                                                 // Check if media exists
                                                 if ( typeof (rule as CSSMediaRule).media === 'undefined' ) {
 
                                                     // Get style
-                                                    let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                                                    const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                                                     // List the properties
-                                                    for ( let property of (rule as CSSStyleRule).style ) {
+                                                    for ( const property of (rule as CSSStyleRule).style ) {
 
                                                         // Verify if element's name is already saved
                                                         if ( typeof properties_list[(rule as CSSStyleRule).selectorText] !== 'undefined' ) {
@@ -606,7 +606,7 @@ export namespace Class {
                             idocument.head.querySelector('style[data-scope="default"]')!.innerHTML = get_styles('default');
 
                             // Set background's color
-                            let background = '#7a7a7b';
+                            const background = '#7a7a7b';
 
                             // Set background color in template
                             (params.selector.getElementsByClassName('ec-composer-container')[0] as HTMLElement).style.backgroundColor = background;
@@ -641,10 +641,10 @@ export namespace Class {
         async restore_history_record(params: params_type, time: number): Promise<void> {
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Restore and get the history record
-            let get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id  + '/' + time);
+            const get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id  + '/' + time);
 
             // Check if success exists
             if ( get_history.success ) {
@@ -662,22 +662,22 @@ export namespace Class {
                 /*if ( typeof get_history.data !== 'undefined' ) {
 
                     // Prepare the data
-                    let content = get_history.data as {html?: string };
+                    const content = get_history.data as {html?: string };
 
                     // Verify if html exists
                     if ( typeof content.html !== 'undefined' ) {
 
                         // Get iframe for template
-                        let itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content document
-                        let idocument: Document | null = itemplate.contentDocument;
+                        const idocument: Document | null = itemplate.contentDocument;
 
                         // Check if idocument is not null
                         if ( idocument ) {
 
                             // Get the iframe body
-                            let body: Element = idocument.body;
+                            const body: Element = idocument.body;
 
                             // Empty the content
                             body.innerHTML = '';
@@ -689,7 +689,7 @@ export namespace Class {
                             if ( body.getElementsByClassName('ec-composer-template').length > 0 ) {
 
                                 // Get template
-                                let template = body.getElementsByClassName('ec-composer-template')[0] as HTMLElement;
+                                const template = body.getElementsByClassName('ec-composer-template')[0] as HTMLElement;
 
                                 // Add transform
                                 template.style.cssText = `
@@ -716,10 +716,10 @@ export namespace Class {
                             body.classList.remove('ec-composer-template-preview');
 
                             // Get structures buttons
-                            let structure_buttons: string = get_structure_buttons();
+                            const structure_buttons: string = get_structure_buttons();
 
                             // Get all structures
-                            let structures: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-composer-template-content-line');
+                            const structures: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-composer-template-content-line');
 
                             // Verify if structures exists
                             if ( structures.length > 0 ) {
@@ -735,10 +735,10 @@ export namespace Class {
                             }
 
                             // Get elements buttons
-                            let elements_buttons: string = get_element_buttons();
+                            const elements_buttons: string = get_element_buttons();
 
                             // Get all elements
-                            let elements: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-element-content');
+                            const elements: HTMLCollectionOf<Element> = body.getElementsByClassName('ec-element-content');
 
                             // Verify if elements exists
                             if ( elements.length > 0 ) {
@@ -754,7 +754,7 @@ export namespace Class {
                             }
 
                             // Get all texts cells
-                            let texts: NodeListOf<Element> = body.querySelectorAll('.ec-element-content[data-name="text"]');
+                            const texts: NodeListOf<Element> = body.querySelectorAll('.ec-element-content[data-name="text"]');
 
                             // Verify if texts exists
                             if ( texts.length > 0 ) {

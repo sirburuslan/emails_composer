@@ -38,25 +38,25 @@ export namespace Components {
                         if ( e.buttons === 1 ) {
 
                             // Save target
-                            let target = e.target as Element;
+                            const target = e.target as Element;
 
                             // Set temp class
                             target.classList.add('ec-row-temp');   
 
                             // Clone structure
-                            let structure = target.cloneNode(true) as HTMLElement;
+                            const structure = target.cloneNode(true) as HTMLElement;
 
                             // Get client rect of the cloned structure
-                            let cloned: DOMRect = target.getBoundingClientRect();
+                            const cloned: DOMRect = target.getBoundingClientRect();
 
                             // Set ec-row-drag-active class
                             structure.classList.add('ec-row-drag-active');
                             
                             // Get the top position
-                            let top: number = (e.clientY - cloned.y);
+                            const top: number = (e.clientY - cloned.y);
 
                             // Get the left position
-                            let left: number = (e.clientX - cloned.x);
+                            const left: number = (e.clientX - cloned.x);
 
                             // Set top
                             structure.setAttribute('data-top', top.toString());
@@ -80,16 +80,16 @@ export namespace Components {
                             target.closest('.ec-composer')!.insertAdjacentElement('beforeend', structure);
 
                             // Get iframe
-                            let iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
 
                             // Get all lines
-                            let lines: HTMLCollectionOf<Element> = iframe.contentWindow!.document.getElementsByClassName('ec-composer-template-content-line');
+                            const lines: HTMLCollectionOf<Element> = iframe.contentWindow!.document.getElementsByClassName('ec-composer-template-content-line');
 
                             // List the lines
-                            for ( let line of lines ) {
+                            for ( const line of lines ) {
 
                                 // Create a div for drop locations
-                                let drops: any = document.createElement('div');
+                                const drops: any = document.createElement('div');
 
                                 // Add ec-composer-template-content-line-drop class
                                 drops.classList.add('ec-composer-template-content-line-drop');
@@ -103,7 +103,7 @@ export namespace Components {
                             }
 
                             // Create a div for drop locations
-                            let drops: Element = document.createElement('div');
+                            const drops: Element = document.createElement('div');
 
                             // Add ec-composer-template-content-line-drop class
                             drops.classList.add('ec-composer-template-content-line-drop');

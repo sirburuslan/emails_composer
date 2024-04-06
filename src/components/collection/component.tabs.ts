@@ -35,19 +35,19 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target: EventTarget | null = e.target;
+                        const target: EventTarget | null = e.target;
 
                         // We need to check if the target is a html element
                         if ( target instanceof HTMLElement ) {
 
                             // Get the parent
-                            let nav = target.closest('.ec-composer-nav') as Element;
+                            const nav = target.closest('.ec-composer-nav') as Element;
 
                             // Check for active tab
                             if ( nav.getElementsByClassName('ec-composer-nav-link').length > 0 ) {
 
                                 // Get the href link of the tab
-                                let href_link: string | null = target.getAttribute('href');
+                                const href_link: string | null = target.getAttribute('href');
 
                                 // Check if the tab has a link
                                 if ( href_link ) {
@@ -56,7 +56,7 @@ export namespace Components {
                                     if ( params.selector!.querySelector(href_link) ) {
 
                                         // Get the previous active tab link which should be hidden
-                                        let old_href_link: string | null = nav.getElementsByClassName('ec-composer-nav-link-active')[0]?.getAttribute('href');
+                                        const old_href_link: string | null = nav.getElementsByClassName('ec-composer-nav-link-active')[0]?.getAttribute('href');
 
                                         // Check if old href link exists if is not null
                                         if ( old_href_link ) {
@@ -84,7 +84,7 @@ export namespace Components {
                                                 target.classList.add('ec-composer-nav-link-active');
 
                                                 // Get all tabs because we need to hide them
-                                                let all_tabs: HTMLCollectionOf<Element> = params.selector!.querySelector(href_link)!.closest('.ec-tabs')!.getElementsByClassName('ec-tab');
+                                                const all_tabs: HTMLCollectionOf<Element> = params.selector!.querySelector(href_link)!.closest('.ec-tabs')!.getElementsByClassName('ec-tab');
                                                     
                                                 // Check now if all tabs is a list with the wanted value
                                                 if ( all_tabs ) {

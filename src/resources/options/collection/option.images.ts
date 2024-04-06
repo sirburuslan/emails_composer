@@ -43,10 +43,10 @@ export namespace Resources.Options {
         prepare_template(params: params_type, option: option_images_type): {template: string} {
 
             // Set link option
-            let has_link: string = option.has_link?' data-link="1"':' data-link="0"';
+            const has_link: string = option.has_link?' data-link="1"':' data-link="0"';
 
             // Unique checkbox id
-            let unique_id: number = Date.now();
+            const unique_id: number = Date.now();
 
             return {
 
@@ -181,7 +181,7 @@ export namespace Resources.Options {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-media-upload-box-drop-area') ) {
@@ -211,7 +211,7 @@ export namespace Resources.Options {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-media') && !target.closest('.ec-media-upload-box-drop-area') ) {
@@ -233,7 +233,7 @@ export namespace Resources.Options {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
                     
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-media') ) {
@@ -265,7 +265,7 @@ export namespace Resources.Options {
                 target: (e: Event): void => {
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-media') ) {
@@ -321,7 +321,7 @@ export namespace Resources.Options {
                 target: (e: Event): void => {
                     
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-media') ) {
@@ -342,7 +342,7 @@ export namespace Resources.Options {
                             let index: number = 0;
 
                             // List images
-                            for ( let image of target.files ) {
+                            for ( const image of target.files ) {
 
                                 // Add image to the uploaded list
                                 uploaded_images += '<li class="ec-media-uploaded-file ec-media-uploaded-file-uploading" data-file="' + image.lastModified + '_' + image.size + '">'
@@ -370,7 +370,7 @@ export namespace Resources.Options {
                                 + '</li>';
 
                                 // Init the form data
-                                let form = new FormData();
+                                const form = new FormData();
 
                                 // Append file name
                                 form.append('file_name', image.lastModified + '_' + image.size);
@@ -379,7 +379,7 @@ export namespace Resources.Options {
                                 form.append('file', image);
 
                                 // Init the HTTP Request class
-                                let http: XMLHttpRequest = new XMLHttpRequest();
+                                const http: XMLHttpRequest = new XMLHttpRequest();
                         
                                 // Set the url and method
                                 http.open('POST', params.options('api_url') + 'api/upload_image', true);
@@ -391,16 +391,16 @@ export namespace Resources.Options {
                                     if (e.lengthComputable) {
 
                                         // Calculate the percentage
-                                        let percent: number = (e.loaded / e.total) * 100;
+                                        const percent: number = (e.loaded / e.total) * 100;
 
                                         // Get total file size
-                                        let file_size: string | null = target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-upload-total')!.getAttribute('data-total');
+                                        const file_size: string | null = target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-upload-total')!.getAttribute('data-total');
 
                                         // Check if file size exists
                                         if ( file_size ) {
 
                                             // Calculate upload size
-                                            let uploaded_size: number = (percent / 100) * parseInt(file_size);
+                                            const uploaded_size: number = (percent / 100) * parseInt(file_size);
 
                                             // Display the upload done
                                             target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-done')!.textContent = format_file_size(uploaded_size);   
@@ -411,10 +411,10 @@ export namespace Resources.Options {
                                         target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-percentage')!.textContent = percent.toFixed(0) + '%';                                        
 
                                         // Get progress width
-                                        let progress_width: number = (target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress') as HTMLElement).clientWidth;
+                                        const progress_width: number = (target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress') as HTMLElement).clientWidth;
 
                                         // Calculate progress bar width
-                                        let progress_bar: number = (percent / 100) * progress_width;
+                                        const progress_bar: number = (percent / 100) * progress_width;
 
                                         // Set progress bar width
                                         (target.closest('.ec-option-media')!.querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress-bar') as HTMLElement).style.width = progress_bar.toFixed(0) + 'px';
@@ -432,7 +432,7 @@ export namespace Resources.Options {
                                     if (http.status >= 200 && http.status < 300) {
 
                                         // Turn response to json
-                                        let data: {success: boolean, message: string, file_name: string} = JSON.parse(http.response);
+                                        const data: {success: boolean, message: string, file_name: string} = JSON.parse(http.response);
 
                                         // Verify if file name exists in the data and the file wasn't uploaded
                                         if ( typeof data.file_name !== 'undefined' ) {
@@ -495,7 +495,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-media') ) {
@@ -642,22 +642,22 @@ export namespace Resources.Options {
                                 });
 
                                 // Get the element's name
-                                let element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
+                                const element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
 
                                 // Get iframe
-                                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                 // Verify if iframe exists
                                 if ( iframe ) {
 
                                     // Get content document
-                                    let iframeDocument: Document | null = iframe.contentDocument;
+                                    const iframeDocument: Document | null = iframe.contentDocument;
 
                                     // Check if iframeDocument is not null
                                     if ( iframeDocument !== null ) {
 
                                         // Get content's data
-                                        let content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                        const content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                         // Verify if content data exists
                                         if ( content_data ) {
@@ -669,7 +669,7 @@ export namespace Resources.Options {
                                                 content_data.getElementsByClassName('ec-element-image')[0].classList.add('ec-element-cover');
 
                                                 // Create the image cover
-                                                let image_cover: Element = document.createElement('div');
+                                                const image_cover: Element = document.createElement('div');
 
                                                 // Add html
                                                 image_cover.innerHTML = (iframeDocument.querySelector('.ec-element-content-active')!.getAttribute('data-name') === 'video')?params.icons('video'):params.icons('image');
@@ -706,10 +706,10 @@ export namespace Resources.Options {
                                 });
 
                                 // Get the element's name
-                                let element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
+                                const element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
 
                                 // Create the image
-                                let image: HTMLImageElement = document.createElement('img');
+                                const image: HTMLImageElement = document.createElement('img');
 
                                 // Set src
                                 image.src = target.getAttribute('href') as string;
@@ -721,19 +721,19 @@ export namespace Resources.Options {
                                 image.setAttribute('data-id', target.getAttribute('data-id')!);
 
                                 // Get iframe
-                                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                 // Verify if iframe exists
                                 if ( iframe ) {
 
                                     // Get content document
-                                    let iframeDocument: Document | null = iframe.contentDocument;
+                                    const iframeDocument: Document | null = iframe.contentDocument;
 
                                     // Check if iframeDocument is not null
                                     if ( iframeDocument !== null ) {
 
                                         // Get content's data
-                                        let content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                        const content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                         // Verify if content data exists
                                         if ( content_data ) {

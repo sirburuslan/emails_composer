@@ -80,13 +80,13 @@ const types: {[key: string]: element_options_type} = {
 const get_element_by_name = (name: string, params: params_type): {[key: string]: any} | undefined => {
 
     // Get the namespace
-    let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + name.charAt(0).toUpperCase() + name.substring(1))?.value.Resources.Elements;
+    const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + name.charAt(0).toUpperCase() + name.substring(1))?.value.Resources.Elements;
 
     // Verify if the element exists
     if ( typeof name_space !== 'undefined' ) {
 
         // Get key
-        let key = Object.keys(name_space)[0] as string;
+        const key = Object.keys(name_space)[0] as string;
 
         // Get the element class
         return new name_space[key]();
@@ -112,7 +112,7 @@ const get_element_by_name = (name: string, params: params_type): {[key: string]:
 const get_element_options = (options: options_type, properties_list: {[key: string]: {[key: string]: number | string}}, params: params_type, device: string): string | undefined => {
 
     // Get the options by device
-    let options_by_device = (device === 'desktop')?options.desktop:options.mobile;
+    const options_by_device = (device === 'desktop')?options.desktop:options.mobile;
 
     // Check if options exists
     if ( options_by_device.length > 0 ) {
@@ -121,7 +121,7 @@ const get_element_options = (options: options_type, properties_list: {[key: stri
         let sections: string = '';
 
         // List the sections
-        for ( let option of options_by_device ) {
+        for ( const option of options_by_device ) {
             
             // Options container
             let options_list: string = '';
@@ -130,7 +130,7 @@ const get_element_options = (options: options_type, properties_list: {[key: stri
             if ( option.list.length > 0 ) {
 
                 // List the options
-                for ( let list of option.list ) {
+                for ( const list of option.list ) {
 
                     // Check if template exists
                     if ( typeof list.template === 'undefined' ) {
@@ -151,10 +151,10 @@ const get_element_options = (options: options_type, properties_list: {[key: stri
                     }
 
                     // Get the option template
-                    let template: string = list.template;
+                    const template: string = list.template;
 
                     // Get the option
-                    let the_option: string | undefined = new types[template](params).get_option(list);
+                    const the_option: string | undefined = new types[template](params).get_option(list);
 
                     // Check if option exists
                     if ( the_option ) {
@@ -220,13 +220,13 @@ const get_element_options = (options: options_type, properties_list: {[key: stri
 const move_element = (selector: any, clientY: number, clientX: number, drop_icon: string): void => {
 
     // Get element
-    let element: any = selector.getElementsByClassName('ec-element-drag-active')[0];
+    const element: any = selector.getElementsByClassName('ec-element-drag-active')[0];
                                     
     // Get top
     let top: number = (clientY - parseInt(element.getAttribute('data-top')));
 
     // Get left
-    let left: number = (clientX - parseInt(element.getAttribute('data-left')));
+    const left: number = (clientX - parseInt(element.getAttribute('data-left')));
 
     // Set top position
     element.style.top = top + 'px';
@@ -235,10 +235,10 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
     element.style.left = left + 'px';
 
     // Get iframe
-    let iframe: HTMLIFrameElement = selector.getElementsByClassName('ec-composer-template-container')[0];
+    const iframe: HTMLIFrameElement = selector.getElementsByClassName('ec-composer-template-container')[0];
 
     // Get the document from iframe
-    let idocument: Document | null = iframe.contentDocument;
+    const idocument: Document | null = iframe.contentDocument;
 
     // Check if idocument is not null
     if ( !idocument ) {
@@ -251,7 +251,7 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
     }
 
     // Get bounding client rect
-    let client_rect: DOMRect = iframe.getBoundingClientRect();
+    const client_rect: DOMRect = iframe.getBoundingClientRect();
 
     // Verify if the mouse is over iframe
     if ( (clientX >= client_rect.x) && (clientX <= (client_rect.x + client_rect.width)) && (clientY >= client_rect.y) && (clientY <= (client_rect.y + client_rect.height)) ) {
@@ -260,22 +260,19 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
         if ( idocument.getElementsByClassName('ec-composer-template-cell-drop').length < 1 ) {
 
             // Get all cells
-            let cells: any = idocument.querySelectorAll('.ec-composer-template .ec-composer-template-cell');
+            const cells: any = idocument.querySelectorAll('.ec-composer-template .ec-composer-template-cell');
 
             // Verify if cells exists
             if ( cells.length > 0 ) {
 
                 // Total cells
-                let tcells: number = cells.length;
-
-                // Counter
-                let c: number = 0;
+                const tcells: number = cells.length;
 
                 // List the cells
-                do {
+                for ( let c: number = 0; c < tcells; c++ ) {
 
                     // Create a div for drop locations
-                    let drops: Element = document.createElement('div');
+                    const drops: Element = document.createElement('div');
 
                     // Add ec-composer-template-cell-drop class
                     drops.classList.add('ec-composer-template-cell-drop');
@@ -286,30 +283,24 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
                     // Insert drop
                     cells[c].insertAdjacentElement('afterBegin', drops);
 
-                    // Increase the counter
-                    c++;
-
-                } while ( c < tcells );
+                }
 
             }
 
             // Get all contents
-            let contents: any = idocument.querySelectorAll('.ec-composer-template .ec-element-content');
+            const contents: any = idocument.querySelectorAll('.ec-composer-template .ec-element-content');
             
             // Verify if contents exists
             if ( contents.length > 0 ) {
 
                 // Total contents
-                let tcontents: number = contents.length;
-
-                // Counter
-                let co: number = 0;
+                const tcontents: number = contents.length;
 
                 // List the contents
-                do {
+                for ( let co: number = 0; co < tcontents; co++ ) {
 
                     // Create a div for drop locations
-                    let drops: Element = document.createElement('div');
+                    const drops: Element = document.createElement('div');
 
                     // Add ec-composer-template-cell-drop class
                     drops.classList.add('ec-composer-template-cell-drop');
@@ -323,7 +314,7 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
                     // Increase the counter
                     co++;
 
-                } while ( co < tcontents );
+                }
 
             }
 
@@ -424,10 +415,10 @@ const move_element = (selector: any, clientY: number, clientX: number, drop_icon
                     if ( idocument !== null ) {
 
                         // Get line
-                        let line: any = element.closest('.ec-composer-template-content-line');
+                        const line: any = element.closest('.ec-composer-template-content-line');
 
                         // Get all lines
-                        let lines: any = idocument.getElementsByClassName('ec-composer-template-content-line');
+                        const lines: any = idocument.getElementsByClassName('ec-composer-template-content-line');
 
                         // Check if is the last line
                         if ( (lines.length - 1) === Array.from(lines).indexOf.call(lines, line) ) {
@@ -474,22 +465,22 @@ const reset_elements = (params: params_type): void => {
         params.selector.getElementsByClassName('ec-element-drag-active')[0].remove();
 
         // Get iframe
-        let iframe: HTMLIFrameElement | null = params.selector.querySelector('.ec-composer-template-container');
+        const iframe: HTMLIFrameElement | null = params.selector.querySelector('.ec-composer-template-container');
 
         // Add ec-element-temp class
         params.selector.getElementsByClassName('ec-element-temp')[0].classList.add('ec-element-temp-show');
 
         // Save the show temp element
-        let temp_show: Element = params.selector.getElementsByClassName('ec-element-temp-show')[0];
+        const temp_show: Element = params.selector.getElementsByClassName('ec-element-temp-show')[0];
 
         // Save drop active
-        let drop_active: HTMLCollectionOf<Element> =  iframe!.contentWindow!.document.getElementsByClassName('ec-composer-template-cell-drop-active');
+        const drop_active: HTMLCollectionOf<Element> =  iframe!.contentWindow!.document.getElementsByClassName('ec-composer-template-cell-drop-active');
 
         // check if active drops exists
         if ( drop_active.length > 0 ) {
 
             // Get element's class by name
-            let element = get_element_by_name(temp_show.getAttribute('data-name')!, params);
+            const element = get_element_by_name(temp_show.getAttribute('data-name')!, params);
 
             // Check if element exists
             if ( typeof element !== 'undefined' ) {
@@ -500,13 +491,13 @@ const reset_elements = (params: params_type): void => {
                 let buttons: string = '';
 
                 // Create a group with buttons
-                let gbuttons: HTMLElement = document.createElement('div');
+                const gbuttons: HTMLElement = document.createElement('div');
 
                 // Set buttons
                 gbuttons.classList.add('ec-composer-element-buttons-group');
 
                 // Create the move button
-                let mbutton: HTMLElement = document.createElement('button');
+                const mbutton: HTMLElement = document.createElement('button');
 
                 // Set type
                 mbutton.setAttribute('type', 'button');
@@ -521,7 +512,7 @@ const reset_elements = (params: params_type): void => {
                 gbuttons.innerHTML += mbutton.outerHTML;
 
                 // Create the clone button
-                let clone: HTMLElement = document.createElement('button');
+                const clone: HTMLElement = document.createElement('button');
 
                 // Set type
                 clone.setAttribute('type', 'button');
@@ -536,7 +527,7 @@ const reset_elements = (params: params_type): void => {
                 gbuttons.innerHTML += clone.outerHTML;
 
                 // Create the delete element button
-                let delement: HTMLElement = document.createElement('button');
+                const delement: HTMLElement = document.createElement('button');
 
                 // Set type
                 delement.setAttribute('type', 'button');
@@ -556,13 +547,13 @@ const reset_elements = (params: params_type): void => {
                 /*---------------------- CREATE ELEMENT CONTENT ------------------------*/ 
 
                 // Return content
-                let element_content: string = element.get_content(params);
+                const element_content: string = element.get_content(params);
 
                 // Create a id for the element
-                let element_id: string = 'ec-element-' + Date.now();
+                const element_id: string = 'ec-element-' + Date.now();
 
                 // Create new div
-                let div: Element = document.createElement('div');
+                const div: Element = document.createElement('div');
 
                 // Set element content
                 div.innerHTML = '<div class="ec-element-content" data-id="' + element_id + '" data-name="' + temp_show.getAttribute('data-name') + '">'
@@ -576,31 +567,31 @@ const reset_elements = (params: params_type): void => {
                 /*---------------------- CREATE ELEMENT STYLES ------------------------*/ 
 
                 // Get the element's options
-                let element_options: options_type = element.get_options(params);
+                const element_options: options_type = element.get_options(params);
 
                 // Get the element's styles
-                let element_styles: string = element.get_styles(element_id);
+                const element_styles: string = element.get_styles(element_id);
 
                 // Verify if the element has options
                 if ( element_options.desktop.length > 0 ) {
 
                     // Properties container
-                    let properties: Array<{[key: string]: string | number}> = [];
+                    const properties: Array<{[key: string]: string | number}> = [];
 
                     // List the sections
-                    for ( let element_option of element_options.desktop ) {
+                    for ( const element_option of element_options.desktop ) {
 
                         // Verify if options exists
                         if ( element_option.list.length > 0 ) {
 
                             // List the options
-                            for ( let list of element_option.list ) {
+                            for ( const list of element_option.list ) {
 
                                 // Get the option template
-                                let template: string = list.template;
+                                const template: string = list.template;
 
                                 // Get the css property
-                                let css_property: option_property_type = new types[template](params).get_property(list);
+                                const css_property: option_property_type = new types[template](params).get_property(list);
 
                                 // Check if css property exists
                                 if ( typeof css_property !== 'undefined' ) {
@@ -620,19 +611,19 @@ const reset_elements = (params: params_type): void => {
                     if ( properties.length > 0 ) {
 
                         // Get the styles
-                        let styles: string | undefined = prepare_styles(element_id, properties, element_styles);
+                        const styles: string | undefined = prepare_styles(element_id, properties, element_styles);
 
                         // Verify if styles exists
                         if ( typeof styles !== 'undefined' ) {
 
                             // Get iframe
-                            let iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                            const iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                             // Verify if iframe exists
                             if ( iframe ) {
 
                                 // Get content document
-                                let iframeDocument: Document | null = iframe.contentDocument;
+                                const iframeDocument: Document | null = iframe.contentDocument;
 
                                 // Check if iframeDocument is not null
                                 if ( iframeDocument !== null ) {
@@ -644,13 +635,13 @@ const reset_elements = (params: params_type): void => {
                                     setTimeout((): void => {
 
                                         // Get the style tag
-                                        let style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-element="' + element_id + '"]');
+                                        const style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-element="' + element_id + '"]');
 
                                         // Check if style exists
                                         if ( style !== null ) {
 
                                             // Init the backup class
-                                            let backup = new Classes.Backup();
+                                            const backup = new Classes.Backup();
 
                                             // Save backup
                                             backup.update_css_element_id(element_id!, params, style.innerHTML, false);
@@ -703,10 +694,10 @@ const reset_elements = (params: params_type): void => {
 const unselect_element = (params: params_type): void => {
 
     // Get iframe
-    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
     // Get the document from iframe
-    let idocument: Document | null = iframe.contentDocument;
+    const idocument: Document | null = iframe.contentDocument;
 
     // Remove the mobile class from iframe
     iframe.closest('.ec-composer-container')!.classList.remove('ec-composer-template-mobile');
@@ -721,13 +712,13 @@ const unselect_element = (params: params_type): void => {
     if ( idocument!.getElementsByClassName('ec-element-content-active').length > 0 ) {
 
         // Get active class
-        let active: Element = idocument!.getElementsByClassName('ec-element-content-active')[0];
+        const active: Element = idocument!.getElementsByClassName('ec-element-content-active')[0];
 
         // Remove ec-element-content-active class
         active.classList.remove('ec-element-content-active');
 
         // Get options
-        let options: Element = params.selector.getElementsByClassName('ec-composer-element-options')[0];
+        const options: Element = params.selector.getElementsByClassName('ec-composer-element-options')[0];
 
         // Remove the element's id from the options settings
         options.removeAttribute('data-element');

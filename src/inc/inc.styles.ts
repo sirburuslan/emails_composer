@@ -30,7 +30,7 @@ export const get_styles = (scope: string): string => {
     if ( scope === 'template' ) {
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Add content
         style.textContent = `
@@ -433,7 +433,7 @@ export const get_styles = (scope: string): string => {
     } else if ( scope === 'html' ) {
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Add content
         style.textContent = `
@@ -621,7 +621,7 @@ export const get_styles = (scope: string): string => {
     } else if ( scope === 'css' ) {
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Add content
         style.textContent = `
@@ -835,13 +835,13 @@ export const get_styles = (scope: string): string => {
     } else if ( scope === 'default' ) {
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Set the scope
         style.setAttribute('data-scope', 'default');
 
         // Get the fonts link
-        let fonts_link: string = get_fonts_link();
+        const fonts_link: string = get_fonts_link();
 
         // Add content
         style.textContent = `
@@ -1057,7 +1057,7 @@ export const get_styles = (scope: string): string => {
     } else if ( scope === 'library' ) {
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Add content
         style.textContent = `
@@ -1111,16 +1111,16 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
     if ( properties.length > 0 ) {
 
         // Elements styles container
-        let elements_styles: {[key: string]: Array<{[key: string]: number | string}>} = {};
+        const elements_styles: {[key: string]: Array<{[key: string]: number | string}>} = {};
 
         // Syles container
         let styles: string = '';
 
         // List the properties
-        for ( let property of properties ) {
+        for ( const property of properties ) {
 
             // Save element name
-            let element_name = property.element_name?property.element_name as string:'';
+            const element_name = property.element_name?property.element_name as string:'';
 
             // Remove element name
             delete property.element_name;               
@@ -1155,7 +1155,7 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
         }
 
         // Create style
-        let style: HTMLElement = document.createElement('style');
+        const style: HTMLElement = document.createElement('style');
 
         // Add element's id
         style.setAttribute('data-element', element_id);
@@ -1173,7 +1173,7 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
         if ( Object.keys(elements_styles).length > 0 ) {
 
             // List the elements styles
-            for ( let element of Object.keys(elements_styles) ) {
+            for ( const element of Object.keys(elements_styles) ) {
 
                 // Add selector
                 css_style += `\n.ec-element-content[data-id="${element_id}"] .ec-element-content-data ${element} {`;
@@ -1185,7 +1185,7 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
                 if ( elements_styles[element].length > 0 ) {
 
                     // List the properties
-                    for ( let property of elements_styles[element] ) {
+                    for ( const property of elements_styles[element] ) {
 
                         // Add property
                         css_style += `    ` + Object.keys(property)[0] + ': ' + Object.values(property)[0] + `;`;
@@ -1220,7 +1220,7 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
         if ( Object.keys(elements_styles).length > 0 ) {
 
             // List the elements styles
-            for ( let element of Object.keys(elements_styles) ) {
+            for ( const element of Object.keys(elements_styles) ) {
 
                 // Add selector
                 css_style += `\n    .ec-element-content[data-id="${element_id}"] .ec-element-content-data ${element} {`;
@@ -1232,7 +1232,7 @@ export const prepare_styles = (element_id: string, properties: Array<{[key: stri
                 if ( elements_styles[element].length > 0 ) {
 
                     // List the properties
-                    for ( let property of elements_styles[element] ) {
+                    for ( const property of elements_styles[element] ) {
 
                         // Add property
                         css_style += `        ` + Object.keys(property)[0] + ': ' + Object.values(property)[0] + `;`;
@@ -1281,16 +1281,16 @@ export const get_property_value = (sheet: CSSStyleSheet | null, element_id: stri
         if ( sheet.cssRules.length > 0 ) {
 
             // List all rules
-            for ( let rule of sheet.cssRules ) {
+            for ( const rule of sheet.cssRules ) {
 
                 // Check if is the element's selector
                 if ( (rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data' ) {
 
                     // Get style
-                    let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                    const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                     // List the properties
-                    for ( let property of (rule as CSSStyleRule).style ) {
+                    for ( const property of (rule as CSSStyleRule).style ) {
 
                         // Verify if property is property_name
                         if ( property === name ) {
@@ -1383,7 +1383,7 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
         if ( sheet.cssRules.length > 0 ) {
 
             // List all rules
-            for ( let rule of sheet.cssRules ) {
+            for ( const rule of sheet.cssRules ) {
 
                 // Check if rule is import
                 if ( typeof (rule as CSSImportRule).href !== 'undefined' ) {
@@ -1410,19 +1410,19 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                             if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                 // List all rules
-                                for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                     // Set start selector
                                     style_list += adapt_selector((media_rule as CSSStyleRule).selectorText) + ' {'; 
 
                                     // Get style
-                                    let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                    const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                     // Property found counter
                                     let property_found: number = 0;
 
                                     // List the properties
-                                    for ( let property of (media_rule as CSSStyleRule).style ) {
+                                    for ( const property of (media_rule as CSSStyleRule).style ) {
                                         
                                         // Check if is the element's selector
                                         if ( (((((media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || ((media_rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile') ) {
@@ -1473,19 +1473,19 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                             if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                 // List all rules
-                                for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                     // Set start selector
                                     style_list += adapt_selector((media_rule as CSSStyleRule).selectorText) + ' {'; 
 
                                     // Get style
-                                    let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                    const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                     // Property found counter
                                     let property_found: number = 0;
 
                                     // List the properties
-                                    for ( let property of (media_rule as CSSStyleRule).style ) {
+                                    for ( const property of (media_rule as CSSStyleRule).style ) {
                                         
                                         // Check if is the element's selector
                                         if ( (((((media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || ((media_rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile') ) {
@@ -1541,13 +1541,13 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                         style_list += adapt_selector((rule as CSSStyleRule).selectorText) + ' {'; 
                         
                         // Get style
-                        let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                        const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                         // Property found counter
                         let property_found: number = 0;
 
                         // List the properties
-                        for ( let property of (rule as CSSStyleRule).style ) {
+                        for ( const property of (rule as CSSStyleRule).style ) {
                         
                             // Check if is the element's selector
                             if ( (((((rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || ((rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'desktop') ) {
@@ -1605,19 +1605,19 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                             if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                 // List all rules
-                                for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                     // Set start selector
                                     style_list += adapt_selector((media_rule as CSSStyleRule).selectorText) + ' {'; 
 
                                     // Get style
-                                    let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                    const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                     // Property found counter
                                     let property_found: number = 0;
 
                                     // List the properties
-                                    for ( let property of (media_rule as CSSStyleRule).style ) {
+                                    for ( const property of (media_rule as CSSStyleRule).style ) {
                                         
                                         // Check if is the element's selector
                                         if ( (((((media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || ((media_rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile') ) {
@@ -1668,19 +1668,19 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                             if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                 // List all rules
-                                for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                     // Set start selector
                                     style_list += adapt_selector((media_rule as CSSStyleRule).selectorText) + ' {'; 
 
                                     // Get style
-                                    let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                    const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                     // Property found counter
                                     let property_found: number = 0;
 
                                     // List the properties
-                                    for ( let property of (media_rule as CSSStyleRule).style ) {
+                                    for ( const property of (media_rule as CSSStyleRule).style ) {
                                         
                                         // Check if is the element's selector
                                         if ( (((((media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || ((media_rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile') ) {
@@ -1736,13 +1736,13 @@ export const update_property_value = (sheet: CSSStyleSheet | null, element_id: s
                         style_list += adapt_selector((rule as CSSStyleRule).selectorText) + ' {'; 
                         
                         // Get style
-                        let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                        const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                         // Property found counter
                         let property_found: number = 0;
 
                         // List the properties
-                        for ( let property of (rule as CSSStyleRule).style ) {
+                        for ( const property of (rule as CSSStyleRule).style ) {
                         
                             // Check if is the element's selector
                             if ( ((rule as CSSStyleRule).selectorText === element_name) && (property === property_name) ) {

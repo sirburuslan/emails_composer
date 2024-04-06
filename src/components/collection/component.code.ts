@@ -87,16 +87,16 @@ export namespace Components {
                         if ( e.buttons === 1 ) {
 
                             // Get the container
-                            let container: Element = params.selector.getElementsByClassName('ec-composer-container')[0];
+                            const container: Element = params.selector.getElementsByClassName('ec-composer-container')[0];
 
                             // Get the container rect
-                            let container_rect: DOMRect = container.getBoundingClientRect();
+                            const container_rect: DOMRect = container.getBoundingClientRect();
 
                             // Get the client top position
-                            let client_y: number = (e.clientY > -1)?(e.clientY - container_rect.y):0;
+                            const client_y: number = (e.clientY > -1)?(e.clientY - container_rect.y):0;
 
                             // Get the difference
-                            let difference: number = container_rect.height - (client_y - 94);
+                            const difference: number = container_rect.height - (client_y - 94);
 
                             // Check if the difference is greather than 199 px
                             if ( difference > 199 ) {
@@ -235,22 +235,22 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Get iframe for template
-                        let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                        const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                         // Check if iframe exists
                         if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                             // Get the iframe document
-                            let idocument: Document | null = iframe_template[0].contentDocument;
+                            const idocument: Document | null = iframe_template[0].contentDocument;
 
                             // Check if document is not null
                             if ( idocument !== null ) {
 
                                 // Get the element's ID
-                                let element_id: string | null | undefined = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-id');
+                                const element_id: string | null | undefined = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-id');
 
                                 // Verify if element's ID exists
                                 if ( typeof element_id === 'string' ) {
@@ -259,7 +259,7 @@ export namespace Components {
                                     target.closest('.ec-composer-container')!.getElementsByClassName('ec-composer-code-container')[0].setAttribute('data-element', element_id);
 
                                     // Get the element content
-                                    let element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                    const element_content: Element | null = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                     // Check if content exists
                                     if ( element_content ) {
@@ -274,16 +274,16 @@ export namespace Components {
                                         target.closest('.ec-composer-container')!.classList.add('ec-composer-container-template-and-code-show');
 
                                         // Format html code class
-                                        let format_html_code = new Plugins.HtmlFormatter();
+                                        const format_html_code = new Plugins.HtmlFormatter();
 
                                         // Get the iframe for html code
-                                        let iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                        const iframe_html: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-html-container');
 
                                         // Check if iframe exists
                                         if ( iframe_html[0] instanceof HTMLIFrameElement ) {
 
                                             // Get the iframe document
-                                            let idocument_html: Document | null = iframe_html[0].contentDocument;
+                                            const idocument_html: Document | null = iframe_html[0].contentDocument;
 
                                             // Check if document is not null
                                             if ( idocument_html !== null ) {
@@ -303,7 +303,7 @@ export namespace Components {
                                                 .then((html: string): void => {
 
                                                     // Get lines box
-                                                    let clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
+                                                    const clines: Element | null = idocument_html!.body.querySelector('.ec-composer-code-lines');
 
                                                     // Display the html
                                                     clines!.innerHTML = html;
@@ -312,10 +312,10 @@ export namespace Components {
                                                     show_index(idocument_html!.body);
 
                                                     // Get the index
-                                                    let index: Element = idocument_html!.getElementsByClassName('ec-composer-code-index')[0];
+                                                    const index: Element = idocument_html!.getElementsByClassName('ec-composer-code-index')[0];
 
                                                     // Get the lines
-                                                    let lines: Element = idocument_html!.getElementsByClassName('ec-composer-code-lines')[0];
+                                                    const lines: Element = idocument_html!.getElementsByClassName('ec-composer-code-lines')[0];
 
                                                     // Scroll the lines
                                                     index.addEventListener('scroll', function () {
@@ -371,13 +371,13 @@ export namespace Components {
                                     }
 
                                     // Get element's style
-                                    let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                    const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                     // Verify if element's style exists
                                     if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                         // Format css code class
-                                        let format_css_code = new Plugins.CssFormatter();
+                                        const format_css_code = new Plugins.CssFormatter();
                                         
                                         // Format the code
                                         format_css_code.format({lines: true, spaces: true}, element_style.innerHTML)
@@ -385,13 +385,13 @@ export namespace Components {
                                         .then((html: string): void => {
 
                                             // Get the iframe for css code
-                                            let iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                            const iframe_css: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-element-css-container');
 
                                             // Check if iframe exists
                                             if ( iframe_css[0] instanceof HTMLIFrameElement ) {
 
                                                 // Get the iframe document
-                                                let idocument_css: Document | null = iframe_css[0].contentDocument;
+                                                const idocument_css: Document | null = iframe_css[0].contentDocument;
 
                                                 // Check if document is not null
                                                 if ( idocument_css !== null ) {
@@ -406,7 +406,7 @@ export namespace Components {
                                                     </div>`;
 
                                                     // Get lines box
-                                                    let clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
+                                                    const clines: Element | null = idocument_css!.body.querySelector('.ec-composer-code-lines');
 
                                                     // Display the html
                                                     clines!.innerHTML = html;
@@ -415,10 +415,10 @@ export namespace Components {
                                                     show_index(idocument_css!.body);
 
                                                     // Get the index
-                                                    let index: Element = idocument_css!.getElementsByClassName('ec-composer-code-index')[0];
+                                                    const index: Element = idocument_css!.getElementsByClassName('ec-composer-code-index')[0];
 
                                                     // Get the lines
-                                                    let lines: Element = idocument_css!.getElementsByClassName('ec-composer-code-lines')[0];
+                                                    const lines: Element = idocument_css!.getElementsByClassName('ec-composer-code-lines')[0];
 
                                                     // Scroll the lines
                                                     index.addEventListener('scroll', function () {
@@ -482,7 +482,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target: any = e.target;
+                        const target: any = e.target;
 
                         // Add ec-composer-container-template-and-code-hide class
                         target.closest('.ec-composer-container')!.classList.add('ec-composer-container-template-and-code-hide');
@@ -516,10 +516,10 @@ export namespace Components {
                         e.preventDefault();
                         
                         // Get the target.
-                        let target: any = e.target;
+                        const target: any = e.target;
 
                         // Get the tab id
-                        let tab_id: string = target.getAttribute('data-tab');
+                        const tab_id: string = target.getAttribute('data-tab');
 
                         // Check if the link has active class
                         if ( target.classList.contains('ec-composer-code-active-tab') ) {
@@ -568,22 +568,22 @@ export namespace Components {
             let line: HTMLElement | null = null;
 
             // Get iframe
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = iframe.contentWindow;
+            const cwindow: Window | null = iframe.contentWindow;
 
             // Check if cwindow exists
             if ( cwindow ) {
 
                 // Get selection
-                let selection: Selection | null = cwindow.getSelection();
+                const selection: Selection | null = cwindow.getSelection();
 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
 
                     // Check if closest element is a line
                     if ( range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-editor-line') ) {
@@ -605,7 +605,7 @@ export namespace Components {
                             line = (range.commonAncestorContainer as HTMLElement);
 
                             // Create line code
-                            let line_code: Element = document.createElement('div');
+                            const line_code: Element = document.createElement('div');
 
                             // Set class
                             line_code.classList.add('ec-composer-code-editor-line-code');
@@ -623,7 +623,7 @@ export namespace Components {
                     } else if ( (range.commonAncestorContainer.parentElement?.className === 'ec-composer-code-editor') && (range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-lines').length > 0) ) {
 
                         // Create div
-                        let div: HTMLElement = document.createElement('div');
+                        const div: HTMLElement = document.createElement('div');
 
                         // Add ec-composer-code-editor-line class
                         div.classList.add('ec-composer-code-editor-line');
@@ -640,13 +640,13 @@ export namespace Components {
                     if ( line ) {
                         
                         // Create a node start for the new range
-                        let node_start: Text = document.createTextNode('');
+                        const node_start: Text = document.createTextNode('');
 
                         // Insert the node start
                         range.insertNode(node_start);
 
                         // Create a sup element
-                        let sup: HTMLElement = document.createElement('sup');
+                        const sup: HTMLElement = document.createElement('sup');
 
                         // Set data content
                         sup.setAttribute('data-content', 'ec-composer-code-editor-caret');
@@ -658,13 +658,13 @@ export namespace Components {
                         node_start.replaceWith(sup);
 
                         // Get html from line
-                        let line_html: string = line.innerHTML.replace('<div class="ec-composer-code-editor-line-code">', '').replace('</div>', '');
+                        const line_html: string = line.innerHTML.replace('<div class="ec-composer-code-editor-line-code">', '').replace('</div>', '');
                         
                         // Format the string
                         this._format_string(line_html, line.closest('.ec-composer-code-editor')!.getAttribute('data-type')!, (html) => {
                             
                             // Create line code
-                            let line_code: Element = document.createElement('div');
+                            const line_code: Element = document.createElement('div');
 
                             // Set class
                             line_code.classList.add('ec-composer-code-editor-line-code');
@@ -682,10 +682,10 @@ export namespace Components {
                                 line!.querySelector('sup[data-content="ec-composer-code-editor-caret"]')!.replaceWith(node_start);
 
                                 // Get all line nodes
-                                let nodes: Array<Node> = this._nodes_list(line!);
+                                const nodes: Array<Node> = this._nodes_list(line!);
 
                                 // Create a new Range object
-                                let new_range: Range = document.createRange();
+                                const new_range: Range = document.createRange();
 
                                 // Set range start by using the new created text node
                                 new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -707,10 +707,10 @@ export namespace Components {
                             }
 
                             // Get the code editor
-                            let editor: Element | null = line!.closest('.ec-composer-code-editor');
+                            const editor: Element | null = line!.closest('.ec-composer-code-editor');
 
                             // Get the element's ID
-                            let element_id: string | null = params.selector.getElementsByClassName('ec-composer-code-container')[0].getAttribute('data-element');
+                            const element_id: string | null = params.selector.getElementsByClassName('ec-composer-code-container')[0].getAttribute('data-element');
 
                             // Verify if element id exists
                             if ( element_id ) {
@@ -730,16 +730,16 @@ export namespace Components {
                                 if ( editor!.getAttribute('data-type') === 'html' ) {
 
                                     // Sanitize the html code
-                                    let html_code: string = (line!.closest('.ec-composer-code-lines')! as HTMLElement).innerText;
+                                    const html_code: string = (line!.closest('.ec-composer-code-lines')! as HTMLElement).innerText;
 
                                     // Get iframe for template
-                                    let iframe_template: HTMLCollectionOf<HTMLIFrameElement> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template: HTMLCollectionOf<HTMLIFrameElement> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                     // Check if iframe exists
                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                         // Get the iframe document
-                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                         // Check if document is not null
                                         if ( idocument !== null ) {
@@ -754,22 +754,22 @@ export namespace Components {
                                 } else {
 
                                     // Sanitize the css code
-                                    let css_code: string = line!.closest('.ec-composer-code-lines')!.textContent!;
+                                    const css_code: string = line!.closest('.ec-composer-code-lines')!.textContent!;
 
                                     // Get iframe for template
-                                    let iframe_template: HTMLCollectionOf<HTMLIFrameElement> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template: HTMLCollectionOf<HTMLIFrameElement> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                     // Check if iframe exists
                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                         // Get the iframe document
-                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                         // Check if document is not null
                                         if ( idocument !== null ) {
 
                                             // Get element's style
-                                            let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                             // Verify if element's style exists
                                             if ( (typeof element_style !== 'undefined') && element_style ) {
@@ -778,7 +778,7 @@ export namespace Components {
                                                 element_style.innerHTML = sanitize_code(css_code);
                                                 
                                                 // Init the backup class
-                                                let backup = new Classes.Backup();
+                                                const backup = new Classes.Backup();
 
                                                 // Save backup
                                                 backup.update_css_element_id(element_id, params, element_style.textContent!);
@@ -786,52 +786,52 @@ export namespace Components {
                                                 setTimeout(() => {
 
                                                     // Get the element's name
-                                                    let element_name: string | null | undefined = idocument!.querySelector('.ec-element-content-active')?.getAttribute('data-name');
+                                                    const element_name: string | null | undefined = idocument!.querySelector('.ec-element-content-active')?.getAttribute('data-name');
 
                                                     // Get the namespace
-                                                    let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name!.charAt(0).toUpperCase() + element_name!.substring(1))?.value.Resources.Elements;
+                                                    const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name!.charAt(0).toUpperCase() + element_name!.substring(1))?.value.Resources.Elements;
 
                                                     // Get key
-                                                    let key = Object.keys(name_space)[0] as string;
+                                                    const key = Object.keys(name_space)[0] as string;
 
                                                     // Get the element class
-                                                    let element_class = new name_space[key]();
+                                                    const element_class = new name_space[key]();
 
                                                     // Get the element's options
-                                                    let element_options: options_type = element_class.get_options(params);
+                                                    const element_options: options_type = element_class.get_options(params);
 
                                                     // Verify if the element has options
                                                     if ( element_options.desktop.length > 0 ) {
 
                                                         // Desktop properties list
-                                                        let desktop_properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                                                        const desktop_properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                                                         // Get iframe for template
-                                                        let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                        const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                                         // Check if iframe exists
                                                         if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                                             // Get the iframe document
-                                                            let idocument: Document | null = iframe_template[0].contentDocument;
+                                                            const idocument: Document | null = iframe_template[0].contentDocument;
 
                                                             // Check if document is not null
                                                             if ( idocument !== null ) {
 
                                                                 // Get element's style
-                                                                let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                                 // Verify if element's style exists
                                                                 if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                                     // Get the style tag
-                                                                    let style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                    const style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                                     // Check if style exists
                                                                     if ( (typeof style !== 'undefined') && style ) {
 
                                                                         // Get the sheet
-                                                                        let sheet: CSSStyleSheet | null = style.sheet;
+                                                                        const sheet: CSSStyleSheet | null = style.sheet;
 
                                                                         // Check if sheet exists
                                                                         if ( sheet !== null ) {
@@ -840,7 +840,7 @@ export namespace Components {
                                                                             if ( sheet.cssRules.length > 0 ) {
 
                                                                                 // List all rules
-                                                                                for ( let rule of sheet.cssRules ) {
+                                                                                for ( const rule of sheet.cssRules ) {
 
                                                                                     // Check if media exists
                                                                                     if ( typeof (rule as CSSMediaRule).media === 'undefined' ) {
@@ -849,10 +849,10 @@ export namespace Components {
                                                                                         if ( (rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"]' ) {
 
                                                                                             // Get style
-                                                                                            let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                                                                                            const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                                                                                             // List the properties
-                                                                                            for ( let property of (rule as CSSStyleRule).style ) {
+                                                                                            for ( const property of (rule as CSSStyleRule).style ) {
 
                                                                                                 // Verify if element's name is already saved
                                                                                                 if ( typeof desktop_properties_list['desktop'] !== 'undefined' ) {
@@ -890,7 +890,7 @@ export namespace Components {
                                                         }
 
                                                         // Get html for options
-                                                        let html: string | undefined = get_element_options(element_options, desktop_properties_list, params, 'desktop');
+                                                        const html: string | undefined = get_element_options(element_options, desktop_properties_list, params, 'desktop');
 
                                                         // Check if html exists
                                                         if ( typeof html !== 'undefined' ) {
@@ -906,34 +906,34 @@ export namespace Components {
                                                     if ( element_options.mobile.length > 0 ) {
 
                                                         // Mobile properties list
-                                                        let mobile_properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                                                        const mobile_properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                                                         // Get iframe for template
-                                                        let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                        const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                                         // Check if iframe exists
                                                         if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                                             // Get the iframe document
-                                                            let idocument: Document | null = iframe_template[0].contentDocument;
+                                                            const idocument: Document | null = iframe_template[0].contentDocument;
 
                                                             // Check if document is not null
                                                             if ( idocument !== null ) {
 
                                                                 // Get element's style
-                                                                let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                                 // Verify if element's style exists
                                                                 if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                                     // Get the style tag
-                                                                    let style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                    const style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                                     // Check if style exists
                                                                     if ( (typeof style !== 'undefined') && style ) {
 
                                                                         // Get the sheet
-                                                                        let sheet: CSSStyleSheet | null = style.sheet;
+                                                                        const sheet: CSSStyleSheet | null = style.sheet;
 
                                                                         // Check if sheet exists
                                                                         if ( sheet !== null ) {
@@ -942,7 +942,7 @@ export namespace Components {
                                                                             if ( sheet.cssRules.length > 0 ) {
 
                                                                                 // List all rules
-                                                                                for ( let rule of sheet.cssRules ) {
+                                                                                for ( const rule of sheet.cssRules ) {
 
                                                                                     // Check if media exists
                                                                                     if ( typeof (rule as CSSMediaRule).media !== 'undefined' ) {
@@ -954,16 +954,16 @@ export namespace Components {
                                                                                             if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                                                                                 // List all rules
-                                                                                                for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                                                                                for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                                                                                     // Check if is the element's selector
                                                                                                     if ( (media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"]' ) {
 
                                                                                                         // Get style
-                                                                                                        let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                                                                                        const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                                                                                         // List the properties
-                                                                                                        for ( let property of (media_rule as CSSStyleRule).style ) {
+                                                                                                        for ( const property of (media_rule as CSSStyleRule).style ) {
                                                                                                             
                                                                                                             // Verify if element's name is already saved
                                                                                                             if ( typeof mobile_properties_list['mobile'] !== 'undefined' ) {
@@ -1007,7 +1007,7 @@ export namespace Components {
                                                         }
 
                                                         // Get html for options
-                                                        let html: string | undefined = get_element_options(element_options, mobile_properties_list, params, 'mobile');
+                                                        const html: string | undefined = get_element_options(element_options, mobile_properties_list, params, 'mobile');
 
                                                         // Check if html exists
                                                         if ( typeof html !== 'undefined' ) {
@@ -1076,7 +1076,7 @@ export namespace Components {
                 let node_string: string = '';
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -1110,31 +1110,31 @@ export namespace Components {
         _enter = (params: any): void => {
 
             // Get iframe
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = iframe.contentWindow;
+            const cwindow: Window | null = iframe.contentWindow;
 
             // Check if cwindow exists
             if ( cwindow ) {
 
                 // Get selection
-                let selection: Selection | null = cwindow.getSelection();
+                const selection: Selection | null = cwindow.getSelection();
 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
 
                     // Get the lines
-                    let llines: HTMLCollectionOf<Element> | undefined = range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-lines')?.getElementsByClassName('ec-composer-code-editor-line');
+                    const llines: HTMLCollectionOf<Element> | undefined = range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-lines')?.getElementsByClassName('ec-composer-code-editor-line');
 
                     // Check if lines exists
                     if ( typeof llines !== 'undefined' ) {
 
                         // Line index
-                        let line_index: number = Array.from(llines).indexOf.call(llines, range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-editor-line')!);
+                        const line_index: number = Array.from(llines).indexOf.call(llines, range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-editor-line')!);
 
                         // Space before
                         let before: {spaces: number, complete: number} = (typeof llines[line_index] !== 'undefined')?this._space_before(llines[line_index].getElementsByClassName('ec-composer-code-editor-line-code')[0].childNodes):{spaces: 0, complete: 0};
@@ -1205,7 +1205,7 @@ export namespace Components {
             if (e.inputType === 'insertParagraph') {
 
                 // Get target
-                let target = e.target as Element;
+                const target = e.target as Element;
 
                 // Check if class name is ec-composer-code-lines
                 if ( target.className === 'ec-composer-code-lines' ) {
@@ -1214,10 +1214,10 @@ export namespace Components {
                     setTimeout((): void => {
 
                         // Get the index
-                        let index: Element = target.closest('.ec-composer-code-editor')!.getElementsByClassName('ec-composer-code-index')[0];
+                        const index: Element = target.closest('.ec-composer-code-editor')!.getElementsByClassName('ec-composer-code-index')[0];
 
                         // Get the lines
-                        let lines: Element = target;
+                        const lines: Element = target;
 
                         // Scroll the index
                         index.scrollTop = lines.scrollTop;
@@ -1251,22 +1251,22 @@ export namespace Components {
         _delete = (params: any): void => {
 
             // Get iframe
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = iframe.contentWindow;
+            const cwindow: Window | null = iframe.contentWindow;
 
             // Check if cwindow exists
             if ( cwindow ) {
 
                 // Get selection
-                let selection: Selection | null = cwindow.getSelection();
+                const selection: Selection | null = cwindow.getSelection();
                 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
 
                     // Check if are selected multiple lines
                     if ( range.startContainer.parentElement!.getBoundingClientRect().y !== range.endContainer.parentElement!.getBoundingClientRect().y ) {
@@ -1303,22 +1303,22 @@ export namespace Components {
         _delete2 = (params: any): void => {
 
             // Get iframe
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = iframe.contentWindow;
+            const cwindow: Window | null = iframe.contentWindow;
 
             // Check if cwindow exists
             if ( cwindow ) {
 
                 // Get selection
-                let selection: Selection | null = cwindow.getSelection();
+                const selection: Selection | null = cwindow.getSelection();
 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
                     
                     // Check if are selected multiple lines
                     if ( range.startContainer.parentElement!.getBoundingClientRect().y !== range.endContainer.parentElement!.getBoundingClientRect().y ) {
@@ -1348,34 +1348,34 @@ export namespace Components {
         _paste = (e: MouseEvent, params: any): void => {
 
             // Get iframe
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = iframe.contentWindow;
+            const cwindow: Window | null = iframe.contentWindow;
 
             // Get the clipboard data
-            let clipboard: DataTransfer | null = (e as unknown as ClipboardEvent).clipboardData;
+            const clipboard: DataTransfer | null = (e as unknown as ClipboardEvent).clipboardData;
 
             // Check if cwindow exists
             if ( cwindow && clipboard ) {
 
                 // Get selection
-                let selection: Selection | null = cwindow.getSelection();
+                const selection: Selection | null = cwindow.getSelection();
 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
 
                     // Get the line
-                    let line: Element | null = range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-editor-line');
+                    const line: Element | null = range.commonAncestorContainer.parentElement!.closest('.ec-composer-code-editor-line');
 
                     // Verify if line code is not null
                     if ( line ) {
 
                         // Create a text node
-                        let text_node = document.createTextNode(clipboard.getData('text'));
+                        const text_node = document.createTextNode(clipboard.getData('text'));
 
                         // Insert the node start
                         range.insertNode(text_node);
@@ -1384,7 +1384,7 @@ export namespace Components {
                         selection!.removeAllRanges();
 
                         // Get the line code
-                        let line_code: HTMLCollectionOf<Element> = line.getElementsByClassName('ec-composer-code-editor-line-code');
+                        const line_code: HTMLCollectionOf<Element> = line.getElementsByClassName('ec-composer-code-editor-line-code');
 
                         // Check if line code exists
                         if ( line_code.length > 0 ) {
@@ -1393,10 +1393,10 @@ export namespace Components {
                             if ( line_code[0].closest('.ec-composer-code-editor')!.getAttribute('data-type') === 'html' ) {
 
                                 // Format html code class
-                                let format_html_code = new Plugins.HtmlFormatter();
+                                const format_html_code = new Plugins.HtmlFormatter();
 
                                 // Editor parameters
-                                let params: {lines: boolean, spaces: boolean} = {
+                                const params: {lines: boolean, spaces: boolean} = {
                                     lines: false,
                                     spaces: false
                                 }
@@ -1421,10 +1421,10 @@ export namespace Components {
                             } else {
 
                                 // Format css code class
-                                let format_css_code: any = new Plugins.CssFormatter();
+                                const format_css_code: any = new Plugins.CssFormatter();
 
                                 // Editor parameters
-                                let params: {lines: boolean, spaces: boolean} = {
+                                const params: {lines: boolean, spaces: boolean} = {
                                     lines: false,
                                     spaces: false
                                 }
@@ -1466,7 +1466,7 @@ export namespace Components {
         _reset_lines = (range: Range): void => {
 
             // Get the lines
-            let llines: HTMLCollectionOf<Element> = range.commonAncestorContainer.parentElement!.getElementsByClassName('ec-composer-code-editor-line');
+            const llines: HTMLCollectionOf<Element> = range.commonAncestorContainer.parentElement!.getElementsByClassName('ec-composer-code-editor-line');
 
             // Line container
             let line: HTMLElement | null = null;
@@ -1488,7 +1488,7 @@ export namespace Components {
             if ( llines.length > 0 ) {
 
                 // List the lines
-                for ( let lline of llines ) {
+                for ( const lline of llines ) {
 
                     // Check if is the current line
                     if ( line && (line.isSameNode(lline)) ) {
@@ -1530,7 +1530,7 @@ export namespace Components {
             if (parent.childNodes && parent.childNodes.length > 0) {
 
                 // List the nodes
-                for (let child of parent.childNodes) {
+                for (const child of parent.childNodes) {
 
                         // Add child to result
                         result.push(child);
@@ -1556,7 +1556,7 @@ export namespace Components {
         _space_before(childrens: NodeListOf<Node>): {spaces: number, complete: number} {
 
             // Space before
-            let before: {spaces: number, complete: number} = {spaces: 0, complete: 0}
+            const before: {spaces: number, complete: number} = {spaces: 0, complete: 0}
 
             // Get the childrens
             Array.from(childrens).map((child: Node): void => {
@@ -1608,7 +1608,7 @@ export namespace Components {
         _html_to_plain(html: string): string {
 
             // Create a div
-            let div: any = document.createElement('div');
+            const div: any = document.createElement('div');
         
             // Set html to div
             div.innerHTML = html;
@@ -1629,7 +1629,7 @@ export namespace Components {
         _format_string(html: string, type: string, func: (html: string) => void): string {
             
             // Get caret
-            let caret: string | undefined = html.split('<sup data-content="ec-composer-code-editor-caret"></sup>').shift();
+            const caret: string | undefined = html.split('<sup data-content="ec-composer-code-editor-caret"></sup>').shift();
             
             // Get caret position
             let caret_pos: number | undefined = 0;
@@ -1638,7 +1638,7 @@ export namespace Components {
             if ( typeof caret !== 'undefined' ) {
 
                 // Create a div
-                let div: Element = document.createElement('div');
+                const div: Element = document.createElement('div');
 
                 // Set content
                 div.textContent = caret;
@@ -1649,7 +1649,7 @@ export namespace Components {
             }
            
             // Turn html to plain text
-            let plain_text: string = this._html_to_plain(html);
+            const plain_text: string = this._html_to_plain(html);
 
             // Verify if is a css code
             if (type === 'css') {
@@ -1666,10 +1666,10 @@ export namespace Components {
             }
             
             // Format html or css code class
-            let format_html_code = (type === 'html')?new Plugins.HtmlFormatter():new Plugins.CssFormatter();
+            const format_html_code = (type === 'html')?new Plugins.HtmlFormatter():new Plugins.CssFormatter();
 
             // Editor parameters
-            let params: {lines: boolean, spaces: boolean} = {
+            const params: {lines: boolean, spaces: boolean} = {
                 lines: false,
                 spaces: false
             }
@@ -1691,16 +1691,16 @@ export namespace Components {
                 } else {
 
                     // Load dom parser
-                    let dom_parser: DOMParser = new DOMParser();
+                    const dom_parser: DOMParser = new DOMParser();
 
                     // Turn html to nodes
-                    let nodes_list: Document = dom_parser.parseFromString(html, 'text/html');
+                    const nodes_list: Document = dom_parser.parseFromString(html, 'text/html');
 
                     // Reset text counter
                     this._text_count = 0;
 
                     // Add caret in the html
-                    let new_html: string = this._add_caret(nodes_list.getElementsByTagName('body')[0], caret_pos!, '');
+                    const new_html: string = this._add_caret(nodes_list.getElementsByTagName('body')[0], caret_pos!, '');
 
                     // Display html
                     func(new_html);
@@ -1746,7 +1746,7 @@ export namespace Components {
                 let node_end: string = '';
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Exclude body
                 if (parent.nodeName !== 'BODY') {
@@ -1760,7 +1760,7 @@ export namespace Components {
                 }
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
                  
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {

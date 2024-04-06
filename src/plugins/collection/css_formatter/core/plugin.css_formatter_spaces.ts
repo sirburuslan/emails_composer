@@ -55,10 +55,10 @@ export namespace CssFormatter {
         add_spaces(fcode: string): string {
 
             // Split the code
-            let splits: string[] = fcode.split('');
+            const splits: string[] = fcode.split('');
 
             // Total splits
-            let tsplits: number = splits.length;
+            const tsplits: number = splits.length;
 
             // Verify if splits exists
             if ( tsplits > 0 ) {

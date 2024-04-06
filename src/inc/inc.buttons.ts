@@ -26,7 +26,7 @@ export const get_structure_buttons = (): string => {
     let buttons: string = '';
 
     // Create the move button
-    let mbutton: any = document.createElement('button');
+    const mbutton: any = document.createElement('button');
 
     // Set type
     mbutton.setAttribute('type', 'button');
@@ -41,13 +41,13 @@ export const get_structure_buttons = (): string => {
     buttons += mbutton.outerHTML;
 
     // Create a group with buttons
-    let gbuttons: any = document.createElement('div');
+    const gbuttons: any = document.createElement('div');
 
     // Set buttons
     gbuttons.classList.add('ec-composer-template-content-buttons-group');
 
     // Create the new content button
-    let ncontent: any = document.createElement('button');
+    const ncontent: any = document.createElement('button');
 
     // Set type
     ncontent.setAttribute('type', 'button');
@@ -62,7 +62,7 @@ export const get_structure_buttons = (): string => {
     gbuttons.innerHTML = ncontent.outerHTML;
 
     // Create the save content button
-    let scontent: any = document.createElement('button');
+    const scontent: any = document.createElement('button');
 
     // Set type
     scontent.setAttribute('type', 'button');
@@ -77,7 +77,7 @@ export const get_structure_buttons = (): string => {
     gbuttons.innerHTML += scontent.outerHTML;
 
     // Create the delete content button
-    let dcontent: any = document.createElement('button');
+    const dcontent: any = document.createElement('button');
 
     // Set type
     dcontent.setAttribute('type', 'button');
@@ -109,13 +109,13 @@ export const get_element_buttons = (): string => {
     let buttons: string = '';
 
     // Create a group with buttons
-    let gbuttons: HTMLElement = document.createElement('div');
+    const gbuttons: HTMLElement = document.createElement('div');
 
     // Set buttons
     gbuttons.classList.add('ec-composer-element-buttons-group');
 
     // Create the move button
-    let mbutton: HTMLElement = document.createElement('button');
+    const mbutton: HTMLElement = document.createElement('button');
 
     // Set type
     mbutton.setAttribute('type', 'button');
@@ -130,7 +130,7 @@ export const get_element_buttons = (): string => {
     gbuttons.innerHTML += mbutton.outerHTML;
 
     // Create the clone button
-    let clone: HTMLElement = document.createElement('button');
+    const clone: HTMLElement = document.createElement('button');
 
     // Set type
     clone.setAttribute('type', 'button');
@@ -145,7 +145,7 @@ export const get_element_buttons = (): string => {
     gbuttons.innerHTML += clone.outerHTML;
 
     // Create the delete element button
-    let delement: HTMLElement = document.createElement('button');
+    const delement: HTMLElement = document.createElement('button');
 
     // Set type
     delement.setAttribute('type', 'button');
@@ -174,7 +174,7 @@ export const get_element_buttons = (): string => {
 export const get_placeholder = (): string => {
 
     // Create placeholder
-    let placeholder: any = document.createElement('a');
+    const placeholder: any = document.createElement('a');
 
     // Set href
     placeholder.setAttribute('href', '#');
@@ -183,7 +183,7 @@ export const get_placeholder = (): string => {
     placeholder.classList.add('ec-composer-template-cell-placeholder');
 
     // Create text
-    let text: any = document.createElement('span');
+    const text: any = document.createElement('span');
 
     // Add class
     text.classList.add('ec-composer-template-cell-placeholder-text');

@@ -22,7 +22,7 @@ import { params_type } from '../resources/types/types.index.js';
 export const show_modal_message = (params: params_type, type: string, message: string ): void => {
 
     // Get the open modal
-    let modal: Element | null = params.selector.querySelector('.ec-composer-modal-show');
+    const modal: Element | null = params.selector.querySelector('.ec-composer-modal-show');
 
     // Verify if the message field exists
     if ( modal!.getElementsByClassName('ec-composer-modal-message').length > 0 ) {

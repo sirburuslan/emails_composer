@@ -49,7 +49,7 @@ export namespace Resources.Options {
             if ( option.items.length > 0 ) {
 
                 // List the items
-                for ( let item of option.items ) {
+                for ( const item of option.items ) {
 
                     // Add item to the list
                     items += '<li>'
@@ -77,7 +77,7 @@ export namespace Resources.Options {
             }
 
             // Prepare the item selector
-            let selector: string = '<div class="ec-option-selector-dropdown">'
+            const selector: string = '<div class="ec-option-selector-dropdown">'
                 + '<button type="button" class="ec-button ec-display-flex ec-justify-content-space-between">'
                     + '<span>'
                         + value
@@ -128,7 +128,7 @@ export namespace Resources.Options {
             } else {
 
                 // Create the property
-                let property: option_property_type = {
+                const property: option_property_type = {
                     element_name: (typeof option.element === 'string')?option.element:''
                 };
 
@@ -153,17 +153,17 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Save target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Check if the click is on the selector
                     if ( target.closest('.ec-option-selector-items') ) {
                         e.preventDefault();
 
                         // Get the selected item
-                        let selected: string | null = target.textContent;
+                        const selected: string | null = target.textContent;
 
                         // Get the item's ID
-                        let item_id: number | string | null = target.getAttribute('data-item');
+                        const item_id: number | string | null = target.getAttribute('data-item');
 
                         // Verify if selected exists
                         if ( selected && item_id ) {
@@ -172,58 +172,58 @@ export namespace Resources.Options {
                             target.closest('.ec-option-selector-dropdown')!.querySelector('.ec-button > span:first-child')!.textContent = selected;
 
                             // Get the option name
-                            let option_name: string | null | undefined = target.closest('.ec-display-flex')?.getAttribute('data-option');
+                            const option_name: string | null | undefined = target.closest('.ec-display-flex')?.getAttribute('data-option');
 
                             // Get the element's name
-                            let element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
+                            const element_name: string = target.closest('.ec-display-flex')?.getAttribute('data-element')?target.closest('.ec-display-flex')?.getAttribute('data-element') as string:'';
 
                             // Check if font exists
                             if ( option_name ) {
 
                                 // Get the device type
-                                let device = target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
+                                const device = target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
 
                                 // Get the element's id
-                                let element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                const element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
 
                                 // Check if element's id exists
                                 if ( element_id ) {
 
                                     // Get iframe
-                                    let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                    const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                     // Verify if iframe exists
                                     if ( iframe ) {
 
                                         // Get content document
-                                        let iframeDocument: Document | null = iframe.contentDocument;
+                                        const iframeDocument: Document | null = iframe.contentDocument;
 
                                         // Check if iframeDocument is not null
                                         if ( iframeDocument !== null ) {
 
                                             // Get the style tag
-                                            let style: HTMLStyleElement | null = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const style: HTMLStyleElement | null = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
 
                                             // Check if style exists
                                             if ( style !== null ) {
                                                 
                                                 // Get the sheet
-                                                let sheet: CSSStyleSheet | null = style.sheet;
+                                                const sheet: CSSStyleSheet | null = style.sheet;
 
                                                 // Get property
-                                                let property: option_property_type = this.get_property(Resources.Options.Selector.saved_options[option_name + '_' + element_name]);    
+                                                const property: option_property_type = this.get_property(Resources.Options.Selector.saved_options[option_name + '_' + element_name]);    
 
                                                 // Set property name
-                                                let property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
+                                                const property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
 
                                                 // Update a property value
-                                                let style_content: string = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
+                                                const style_content: string = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
 
                                                 // Set style
                                                 style.innerHTML = style_content;
 
                                                 // Init the backup class
-                                                let backup = new Classes.Backup();
+                                                const backup = new Classes.Backup();
 
                                                 // Save backup
                                                 backup.update_css_element_id(element_id!, this.params, style_content);

@@ -99,10 +99,10 @@ export namespace Components {
                             params.selector.getElementsByClassName('ec-composer-preview')[0].classList.add('ec-composer-preview-show');
 
                             // Get the builder options
-                            let builder_options: builder_options_type = get_option('builder');
+                            const builder_options: builder_options_type = get_option('builder');
 
                             // Get iframe for template
-                            let itemplate: HTMLIFrameElement = document.createElement('iframe');
+                            const itemplate: HTMLIFrameElement = document.createElement('iframe');
 
                             // Set class
                             itemplate.classList.add('ec-composer-template-preview');
@@ -123,7 +123,7 @@ export namespace Components {
                                 if ( builder_options.css.length > 0 ) {
 
                                     // Create the link
-                                    let css_link = document.createElement('link');
+                                    const css_link = document.createElement('link');
 
                                     // Set url
                                     css_link.setAttribute('href', builder_options.css[0].href);
@@ -139,13 +139,13 @@ export namespace Components {
                             }
                             
                             // Get the fonts link
-                            let fonts_link: string = get_fonts_link();
+                            const fonts_link: string = get_fonts_link();
 
                             // Check if font exists
                             if ( fonts_link ) {
 
                                 // Create a link
-                                let link: HTMLLinkElement = document.createElement('link');
+                                const link: HTMLLinkElement = document.createElement('link');
 
                                 // Set href
                                 link.setAttribute('href', fonts_link);
@@ -206,13 +206,13 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get the template's name
-                        let template_name: string | null = (e.target as Element).closest('.ec-composer-name')!.getElementsByClassName('ec-composer-name-text')[0].textContent;
+                        const template_name: string | null = (e.target as Element).closest('.ec-composer-name')!.getElementsByClassName('ec-composer-name-text')[0].textContent;
 
                         // Verify if template's name is not null
                         if ( template_name ) {
 
                             // Prepare the post's fields
-                            let post_fields: {
+                            const post_fields: {
                                 template_id: string,
                                 template_name: string
                             } = {
@@ -221,7 +221,7 @@ export namespace Components {
                             };
 
                             // Prepare the request parameters
-                            let request_params: {[key: string]: string | {
+                            const request_params: {[key: string]: string | {
                                 [key: string]: string
                             }} = {
                                 method: 'POST',
@@ -232,7 +232,7 @@ export namespace Components {
                             };
 
                             // Get the response
-                            let response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
+                            const response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
 
                             // Verify if the response is failed
                             if (!response.ok) {
@@ -260,7 +260,7 @@ export namespace Components {
                             }
 
                             // Turn response into json
-                            let json = await response.json();
+                            const json = await response.json();
 
                             // Remove unsaved changes class
                             (e.target as Element).closest('.ec-composer-name')!.classList.remove('ec-composer-name-unsaved-changes');
@@ -318,13 +318,13 @@ export namespace Components {
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
                         
                         // Get the settings modal
-                        let settings_modal: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-settings-modal"]');
+                        const settings_modal: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-settings-modal"]');
 
                         // Add show modal class
                         settings_modal!.classList.add('ec-composer-modal-show');
 
                         // These are the default tempate's options
-                        let default_options: options_template_type = [{
+                        const default_options: options_template_type = [{
     
                             title: params.words('position'),
                             list: [{
@@ -487,28 +487,28 @@ export namespace Components {
                         }];
 
                         // Properties list
-                        let properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                        const properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                         // Get iframe for template
-                        let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                        const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                         // Check if iframe exists
                         if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                             // Get the iframe document
-                            let idocument: Document | null = iframe_template[0].contentDocument;
+                            const idocument: Document | null = iframe_template[0].contentDocument;
 
                             // Check if document is not null
                             if ( idocument !== null ) {
 
                                 // Get default's style
-                                let default_styles: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-scope="default"]');
+                                const default_styles: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-scope="default"]');
 
                                 // Verify if default's style exists
                                 if ( (typeof default_styles !== 'undefined') && default_styles ) {
 
                                     // Get the sheet
-                                    let sheet: CSSStyleSheet | null = default_styles.sheet;
+                                    const sheet: CSSStyleSheet | null = default_styles.sheet;
 
                                     // Check if sheet exists
                                     if ( sheet !== null ) {
@@ -517,16 +517,16 @@ export namespace Components {
                                         if ( sheet.cssRules.length > 0 ) {
 
                                             // List all rules
-                                            for ( let rule of sheet.cssRules ) {
+                                            for ( const rule of sheet.cssRules ) {
 
                                                 // Check if media exists
                                                 if ( typeof (rule as CSSMediaRule).media === 'undefined' ) {
 
                                                     // Get style
-                                                    let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                                                    const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                                                     // List the properties
-                                                    for ( let property of (rule as CSSStyleRule).style ) {
+                                                    for ( const property of (rule as CSSStyleRule).style ) {
 
                                                         // Verify if element's name is already saved
                                                         if ( typeof properties_list[(rule as CSSStyleRule).selectorText] !== 'undefined' ) {
@@ -560,7 +560,7 @@ export namespace Components {
                         }
 
                         // Get the template's options
-                        let template_options: string | undefined = get_template_options(default_options, properties_list, params);
+                        const template_options: string | undefined = get_template_options(default_options, properties_list, params);
 
                         // Verify if options exists
                         if ( typeof template_options !== 'undefined' ) {
@@ -583,7 +583,7 @@ export namespace Components {
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
                         
                         // Get the export modal
-                        let export_modal: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
+                        const export_modal: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
 
                         // Add show modal class
                         export_modal!.classList.add('ec-composer-modal-show');
@@ -609,16 +609,16 @@ export namespace Components {
                         }, 300);
 
                         // Get the saved events list
-                        let events_list: Array<{node: any, action: string, target: any, iframe: string, capture: boolean}> | null = Classes.Events.events_list;
+                        const events_list: Array<{node: any, action: string, target: any, iframe: string, capture: boolean}> | null = Classes.Events.events_list;
 
                         // Verify if events list exists
                         if ( events_list && (events_list.length > 0) ) {
 
                             // List the events list
-                            for ( let event of events_list ) {
+                            for ( const event of events_list ) {
 
                                 // Get the parameters
-                                let {node, action, target, iframe, capture} = event;
+                                const {node, action, target, iframe, capture} = event;
 
                                 // Check if the node is empty
                                 if ( !node ) {
@@ -627,7 +627,7 @@ export namespace Components {
                                     if ( iframe ) {
 
                                         // Get iframe
-                                        let iframes: any = document.querySelectorAll(iframe);
+                                        const iframes: any = document.querySelectorAll(iframe);
 
                                         // Verify if iframe exists
                                         if ( typeof iframes !== 'undefined' ) {
@@ -647,7 +647,7 @@ export namespace Components {
                                 } else {
 
                                     // Get all nodes
-                                    let all_nodes = node.length;
+                                    const all_nodes = node.length;
 
                                     // List the nodes
                                     for ( var a = 0; a < all_nodes; a++ ) {
@@ -679,25 +679,25 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get the target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Add show shadow class
                         target.classList.add('ec-save-download-active-button');
 
                         // Get the export module modal
-                        let export_module: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
+                        const export_module: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
 
                         // Remove the class ec-composer-modal-message-error
                         export_module!.getElementsByClassName('ec-composer-modal-message')[0].classList.remove('ec-composer-modal-message-error');
 
                         // Prepare the request fields
-                        let fields: {template_id?: string, format: string} = {
+                        const fields: {template_id?: string, format: string} = {
                             template_id: params.template_id,
                             format: 'html'
                         };
 
                         // Prepare the request parameters
-                        let request_params: {[key: string]: string | {
+                        const request_params: {[key: string]: string | {
                             [key: string]: string
                         }} = {
                             method: 'POST',
@@ -708,7 +708,7 @@ export namespace Components {
                         };
 
                         // Rest request
-                        let request = fetch(params.options('api_url') + 'api/download_template', request_params);
+                        const request = fetch(params.options('api_url') + 'api/download_template', request_params);
 
                         // Process success response
                         request.then(response => {

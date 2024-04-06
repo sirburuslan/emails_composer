@@ -45,7 +45,7 @@ export namespace HtmlFormatter {
                 } else {
 
                     // Prepare tag
-                    let tag_full: string = '<' + tag;                    
+                    const tag_full: string = '<' + tag;                    
 
                     // Set start
                     start = ( (tag_full.split('/>').length > 1) || (tag_full.split('</').length > 1) || (tag_full.split('<\/').length > 1) )?false:true;
@@ -104,7 +104,7 @@ export namespace HtmlFormatter {
                     } else {
 
                         // Prepare tag
-                        let tag: string = '<' + tags[i];                
+                        const tag: string = '<' + tags[i];                
 
                         // Set start
                         start = ( (tag.split('/>').length > 1) || (tag.split('</').length > 1) || (tag.split('<\/').length > 1) )?false:true;

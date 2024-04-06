@@ -122,7 +122,7 @@ export namespace Plugins {
             if (parent.children && parent.children.length > 0) {
 
                 // List the childrens
-                for (let child of parent.children) {
+                for (const child of parent.children) {
 
                         // Add child to result
                         result.push(child);
@@ -152,7 +152,7 @@ export namespace Plugins {
             if (parent.childNodes && parent.childNodes.length > 0) {
 
                 // List the nodes
-                for (let child of parent.childNodes) {
+                for (const child of parent.childNodes) {
 
                         // Add child to result
                         result.push(child);
@@ -195,7 +195,7 @@ export namespace Plugins {
             }
 
             // Get template
-            let template: Element | null = range.startContainer.parentElement!.closest('.ec-composer-template');
+            const template: Element | null = range.startContainer.parentElement!.closest('.ec-composer-template');
 
             // Check if template is not null
             if ( template ) {
@@ -207,25 +207,25 @@ export namespace Plugins {
                     this.extract_selected(range.startContainer.parentElement!.closest('.ec-element-content-data')!, '');
 
                     // Get before code
-                    let before: string = this.contents.before;
+                    const before: string = this.contents.before;
 
                     // Get selected code
-                    let selected: string = '<sup data-content="ec-small-editor-temp-selection-start"></sup>' + this.contents.selected + '<sup data-content="ec-small-editor-temp-selection-end"></sup>';
+                    const selected: string = '<sup data-content="ec-small-editor-temp-selection-start"></sup>' + this.contents.selected + '<sup data-content="ec-small-editor-temp-selection-end"></sup>';
 
                     // Get after code
-                    let after: string = this.contents.after;  
+                    const after: string = this.contents.after;  
                   
                     // Load dom parser
-                    let dom_parser: DOMParser = new DOMParser();
+                    const dom_parser: DOMParser = new DOMParser();
 
                     // Prepare the nodes
-                    let content_nodes: Document = dom_parser.parseFromString(before + '' + selected + '' + after, 'text/html');
+                    const content_nodes: Document = dom_parser.parseFromString(before + '' + selected + '' + after, 'text/html');
                     
                     // Get the start element
-                    let start_element: HTMLElement | null = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
+                    const start_element: HTMLElement | null = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
 
                     // Get the end element
-                    let end_element: HTMLElement | null = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
+                    const end_element: HTMLElement | null = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
 
                     // Save tag start
                     this.contents.tag_start = 'ec-small-editor-temp-selection-start';
@@ -277,13 +277,13 @@ export namespace Plugins {
                             if ( closest_start_tag.getAttribute('style') + ';' !== preferences['style'] ) {
 
                                 // Load dom parser
-                                let dom_parser: DOMParser = new DOMParser();
+                                const dom_parser: DOMParser = new DOMParser();
 
                                 // Prepare the nodes
-                                let content: Document = dom_parser.parseFromString(ready_code, 'text/html');
+                                const content: Document = dom_parser.parseFromString(ready_code, 'text/html');
                                 
                                 // Get the content data
-                                let content_data: Element = content.getElementsByClassName('ec-element-content-data')[0];
+                                const content_data: Element = content.getElementsByClassName('ec-element-content-data')[0];
 
                                 // Add custom tags
                                 ready_code = this.add_tag(content_data, '');                             
@@ -303,7 +303,7 @@ export namespace Plugins {
                     if ( (tag === 'a') && preferences && preferences['href'] ) {
 
                         // Set href
-                        let href: string = ' href="' + preferences['href'] + '"';
+                        const href: string = ' href="' + preferences['href'] + '"';
 
                         // Replace same tag
                         ready_code = ready_code.split('</' + tag + '><' + tag + href + '>').join('');
@@ -312,13 +312,13 @@ export namespace Plugins {
                     } else if ( this.custom_tags.includes(tag) && preferences && preferences['style'] ) {
 
                         // Load dom parser
-                        let dom_parser: DOMParser = new DOMParser();
+                        const dom_parser: DOMParser = new DOMParser();
 
                         // Prepare the nodes
-                        let content: Document = dom_parser.parseFromString(ready_code, 'text/html');
+                        const content: Document = dom_parser.parseFromString(ready_code, 'text/html');
                         
                         // Get the content data
-                        let content_data: Element = content.getElementsByClassName('ec-element-content-data')[0];
+                        const content_data: Element = content.getElementsByClassName('ec-element-content-data')[0];
 
                         // Remove joined custom tags
                         ready_code = this.remove_custom_tags(content_data, '');
@@ -332,7 +332,7 @@ export namespace Plugins {
                     }
             
                     // Prepare the nodes
-                    let content: Document = dom_parser.parseFromString(ready_code, 'text/html');
+                    const content: Document = dom_parser.parseFromString(ready_code, 'text/html');
 
                     // Check if content data exists
                     if ( content.getElementsByClassName('ec-element-content-data').length > 0 ) {
@@ -343,10 +343,10 @@ export namespace Plugins {
                     }
 
                     // Get iframe for template
-                    let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                    const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                     // Get the sup start html element which should be replaced with a marker
-                    let sup_start: Element | null = template.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
+                    const sup_start: Element | null = template.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
 
                     // Get the sup end html element which should be replaced with a marker
                     let sup_end: Element | null = template.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
@@ -355,25 +355,25 @@ export namespace Plugins {
                     if ( !sup_end ) {
 
                         // Filter the text nodes
-                        let texts: Node[] = Array.from(this.nodes_list(template.querySelector('.ec-element-content-data')!)).filter(node => node.nodeName === '#text');
+                        const texts: Node[] = Array.from(this.nodes_list(template.querySelector('.ec-element-content-data')!)).filter(node => node.nodeName === '#text');
 
                         // First we should verify if text nodes exists
                         if ( texts.length > 0 ) {
 
                             // Last text in the created array
-                            let last: Node = texts[(texts.length - 1)];
+                            const last: Node = texts[(texts.length - 1)];
 
                             // Get the node parent
-                            let node_parent: HTMLElement | null = last.parentElement;
+                            const node_parent: HTMLElement | null = last.parentElement;
                             
                             // Create a sup
-                            let sup: Element = document.createElement('sup');
+                            const sup: Element = document.createElement('sup');
 
                             // Add data content
                             sup.setAttribute('data-content', this.contents.tag_end);
 
                             // Clone last
-                            let clast: Node = last.cloneNode(true);
+                            const clast: Node = last.cloneNode(true);
 
                             // Insert sup
                             node_parent!.replaceChild(sup, last);
@@ -392,13 +392,13 @@ export namespace Plugins {
                     if ( sup_start && sup_end ) {
 
                         // Get content window
-                        let cwindow: Window | null = itemplate.contentWindow;
+                        const cwindow: Window | null = itemplate.contentWindow;
 
                         // Create a node start for the new range
-                        let node_start: Text = document.createTextNode('');
+                        const node_start: Text = document.createTextNode('');
 
                         // Create a node end for the new range
-                        let node_end: Text = document.createTextNode('');
+                        const node_end: Text = document.createTextNode('');
 
                         // Add node start to the sup start
                         sup_start.parentElement!.insertBefore(node_start, sup_start);
@@ -407,7 +407,7 @@ export namespace Plugins {
                         sup_end.parentElement!.insertBefore(node_end, sup_end);
 
                         // Create a new Range object
-                        let new_range: Range = document.createRange();
+                        const new_range: Range = document.createRange();
 
                         // Set range start by using the new created text node
                         new_range.setStart(sup_start.parentElement!.childNodes[Array.from(sup_start.parentElement!.childNodes).indexOf(node_start)], 0);
@@ -416,7 +416,7 @@ export namespace Plugins {
                         new_range.setEnd(sup_end.parentElement!.childNodes[Array.from(sup_end.parentElement!.childNodes).indexOf(node_end)], 0);
 
                         // Create a new Selection object
-                        let selection: Selection | null = cwindow!.getSelection();
+                        const selection: Selection | null = cwindow!.getSelection();
 
                         // Verify if the selection is not null
                         if ( selection ) {
@@ -440,7 +440,7 @@ export namespace Plugins {
                 } else {
 
                     // Get the parent element from the range object
-                    let parent_element: HTMLElement | null = range.startContainer.parentElement;
+                    const parent_element: HTMLElement | null = range.startContainer.parentElement;
 
                     // Verify if the parent element is not null
                     if ( parent_element !== null ) {
@@ -485,13 +485,13 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Node container
                 let node_string: string = html_node.outerHTML.split('>').shift() + '>';
 
                 // Node end html
-                let node_end: string = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
+                const node_end: string = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
 
                 // Check if start is not complete
                 if ( this.counters.start_complete < 1 ) {
@@ -518,7 +518,7 @@ export namespace Plugins {
                 } 
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Check if is the node is selected
                     if ( node.isSameNode(this.range!.startContainer) ) {
@@ -660,7 +660,7 @@ export namespace Plugins {
                             if (node.nodeType === Node.ELEMENT_NODE) {
 
                                 // Create element from node
-                                let element = node as HTMLElement;
+                                const element = node as HTMLElement;
                                 
                                 // Check if the tag is empty
                                 if ( element.childNodes.length < 1 ) {
@@ -738,7 +738,7 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Node container
                 let node_string: string = '';
@@ -781,7 +781,7 @@ export namespace Plugins {
                 }
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -796,7 +796,7 @@ export namespace Plugins {
                             if ( (this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined') ) {
 
                                 // Set href
-                                let href: string = ' href="' + this.tag_preferences.href + '"';
+                                const href: string = ' href="' + this.tag_preferences.href + '"';
 
                                 // Set html
                                 text_node = '<' + this.tag + href + '>' + node.textContent! + '</' + this.tag + '>';
@@ -830,7 +830,7 @@ export namespace Plugins {
                             if ( (this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined') ) {
 
                                 // Set href
-                                let href: string = ' href="' + this.tag_preferences.href + '"';
+                                const href: string = ' href="' + this.tag_preferences.href + '"';
 
                                 // Set html
                                 text_node = '<' + this.tag + href + '>' + node.textContent! + '</' + this.tag + '>';
@@ -871,7 +871,7 @@ export namespace Plugins {
                     } else {
 
                         // Get tag
-                        let tag = node as HTMLElement;
+                        const tag = node as HTMLElement;
 
                         // Check if start sup exists
                         if (tag.getAttribute('data-content') === this.contents.tag_start) {
@@ -922,13 +922,13 @@ export namespace Plugins {
                         }
 
                         // Parameters
-                        let params: {[key: string]: string | number} = {};
+                        const params: {[key: string]: string | number} = {};
 
                         // Check if node is an element node
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
 
                             // Verify if style exists
                             if ( element.getAttribute('style') ) {
@@ -944,7 +944,7 @@ export namespace Plugins {
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
                      
                             // Check if the tag is empty
                             if ( element.childNodes.length < 1 ) {
@@ -1004,7 +1004,7 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Node container
                 let node_string: string = '';
@@ -1034,7 +1034,7 @@ export namespace Plugins {
                 }
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -1057,7 +1057,7 @@ export namespace Plugins {
                                 if ( (this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined') ) {
 
                                     // Set href
-                                    let href: string = ' href="' + this.tag_preferences.href + '"';
+                                    const href: string = ' href="' + this.tag_preferences.href + '"';
 
                                     // Set html
                                     text_node = '<' + this.tag + href + '>' + node.textContent! + '</' + this.tag + '>';
@@ -1100,7 +1100,7 @@ export namespace Plugins {
                     } else {
 
                         // Get tag
-                        let tag = node as HTMLElement;
+                        const tag = node as HTMLElement;
 
                         // Check if start sup exists
                         if (tag.getAttribute('data-content') === this.contents.tag_start) {
@@ -1125,13 +1125,13 @@ export namespace Plugins {
                         }
 
                         // Parameters
-                        let params: {[key: string]: string | number} = {};
+                        const params: {[key: string]: string | number} = {};
 
                         // Check if node is an element node
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
 
                             // Verify if style exists
                             if ( element.getAttribute('style') ) {
@@ -1147,7 +1147,7 @@ export namespace Plugins {
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
                             
                             // Check if the tag is empty
                             if ( element.childNodes.length < 1 ) {
@@ -1200,7 +1200,7 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Node container
                 let node_string: string = !params?.start?html_node.outerHTML.split('>').shift() + '>':'';
@@ -1212,7 +1212,7 @@ export namespace Plugins {
                 let custom: number = 0;
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -1226,7 +1226,7 @@ export namespace Plugins {
                     } else {
 
                         // Parameters for tags
-                        let params: {start: number, end: number} = {start: 0, end: 0};
+                        const params: {start: number, end: number} = {start: 0, end: 0};
 
                         // Check if custom tag is 1
                         if ( custom < 1 ) {
@@ -1235,19 +1235,19 @@ export namespace Plugins {
                             if (node.nodeType === Node.ELEMENT_NODE) {
 
                                 // Create element from node
-                                let element = node as HTMLElement;
+                                const element = node as HTMLElement;
 
                                 // Get the next sibling
-                                let next_sibling: Element | null = element.nextElementSibling;
+                                const next_sibling: Element | null = element.nextElementSibling;
 
                                 // Check if style exists
                                 if ( next_sibling && element.getAttribute('style') ) {
 
                                     // Current style
-                                    let cstyle: string = element.getAttribute('style')?.replaceAll(';', '')?element.getAttribute('style')!.replaceAll(';', ''):'';
+                                    const cstyle: string = element.getAttribute('style')?.replaceAll(';', '')?element.getAttribute('style')!.replaceAll(';', ''):'';
 
                                     // Next style
-                                    let nstyle: string = next_sibling.getAttribute('style')?.replaceAll(';', '')?next_sibling.getAttribute('style')!.replaceAll(';', ''):'';
+                                    const nstyle: string = next_sibling.getAttribute('style')?.replaceAll(';', '')?next_sibling.getAttribute('style')!.replaceAll(';', ''):'';
 
                                     // Verify if the style and tags are same
                                     if ( (element.nodeName === next_sibling.nodeName) && (cstyle === nstyle) ) {
@@ -1275,7 +1275,7 @@ export namespace Plugins {
                         }
 
                         // Get tag
-                        let tag = node as HTMLElement;
+                        const tag = node as HTMLElement;
 
                         // Check if start sup exists
                         if (tag.getAttribute('data-content') === this.contents.tag_start) {
@@ -1297,7 +1297,7 @@ export namespace Plugins {
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
                             
                             // Check if the tag is empty
                             if ( element.childNodes.length < 1 ) {
@@ -1340,16 +1340,16 @@ export namespace Plugins {
         format = (e: KeyboardEvent, params: params_type): void => {
 
             // Get the editor
-            let editor: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-small-text-editor');
+            const editor: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-small-text-editor');
 
             // Get iframe for template
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = itemplate.contentWindow;
+            const cwindow: Window | null = itemplate.contentWindow;
 
             // Create a new Selection object
-            let selection: Selection | null = cwindow!.getSelection();
+            const selection: Selection | null = cwindow!.getSelection();
 
             // Remove selections in the iframe
             if ( selection && (selection.rangeCount > 0) ) {
@@ -1361,19 +1361,19 @@ export namespace Plugins {
                 if ( target.closest('.ec-element-content-data') ) {
 
                     // Get range
-                    let range: Range = selection.getRangeAt(0);
+                    const range: Range = selection.getRangeAt(0);
 
                     // Elements list
                     let elements: Element | null = null;
 
                     // Create a text node
-                    let text: Text = document.createTextNode((e as unknown as InputEvent).data as string);
+                    const text: Text = document.createTextNode((e as unknown as InputEvent).data as string);
 
                     // Nodes which should be ended
-                    let end_list: Array<Node> = [];
+                    const end_list: Array<Node> = [];
 
                     // Get the italic button
-                    let italic = editor[0].getElementsByClassName('ec-ste-format-italic-button')[0] as Element;
+                    const italic = editor[0].getElementsByClassName('ec-ste-format-italic-button')[0] as Element;
 
                     // Check if the button is active
                     if ( italic.classList.contains('ec-ste-active-button') ) {
@@ -1407,7 +1407,7 @@ export namespace Plugins {
                     }
 
                     // Get the underlined button
-                    let underlined = editor[0].getElementsByClassName('ec-ste-format-underlined-button')[0] as Element;
+                    const underlined = editor[0].getElementsByClassName('ec-ste-format-underlined-button')[0] as Element;
 
                     // Check if the button is active
                     if ( underlined.classList.contains('ec-ste-active-button') ) {
@@ -1419,7 +1419,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create u element
-                                let u: Element = document.createElement('u');
+                                const u: Element = document.createElement('u');
 
                                 // Append elements to u
                                 u.appendChild(elements);
@@ -1457,7 +1457,7 @@ export namespace Plugins {
                     }  
                     
                     // Get the strikethrough button
-                    let strikethrough = editor[0].getElementsByClassName('ec-ste-format-strikethrough-button')[0] as Element;
+                    const strikethrough = editor[0].getElementsByClassName('ec-ste-format-strikethrough-button')[0] as Element;
 
                     // Check if the button is active
                     if ( strikethrough.classList.contains('ec-ste-active-button') ) {
@@ -1469,7 +1469,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create s element
-                                let s: Element = document.createElement('s');
+                                const s: Element = document.createElement('s');
 
                                 // Append elements to s
                                 s.appendChild(elements);  
@@ -1507,7 +1507,7 @@ export namespace Plugins {
                     }
 
                     // Get the node
-                    let node: Node = range.commonAncestorContainer;
+                    const node: Node = range.commonAncestorContainer;
 
                     // Check if node is an element node
                     if (node.nodeType === Node.ELEMENT_NODE) {
@@ -1523,19 +1523,19 @@ export namespace Plugins {
                     }
 
                     // Get the properties
-                    let properties: CSSStyleDeclaration = window.getComputedStyle(target);
+                    const properties: CSSStyleDeclaration = window.getComputedStyle(target);
 
                     // Get the font name
-                    let font_name: string = properties.fontFamily;
+                    const font_name: string = properties.fontFamily;
 
                     // Get the selected font name
-                    let selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                    const selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                     // Get the fonts list
-                    let fonts_list: font_type[] = Object.values(fonts);
+                    const fonts_list: font_type[] = Object.values(fonts);
 
                     // Check if the font exists
-                    let font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
+                    const font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
 
                     // Check if font exists
                     if ( typeof font !== 'undefined' ) {
@@ -1544,7 +1544,7 @@ export namespace Plugins {
                         if (font.property.replaceAll("'", '').replaceAll('"', "") !== font_name.replaceAll("'", '').replaceAll('"', "")) {
 
                             // Get the font family
-                            let font_family: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
+                            const font_family: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
 
                             // Verify if font tag exists
                             if ( font_family ) {
@@ -1555,7 +1555,7 @@ export namespace Plugins {
                             }
 
                             // Get the CustomElementRegistry
-                            let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                            const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                             // Verify if custom element is defined
                             if ( customElementRegistry.get('font-family') ) {
@@ -1569,7 +1569,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create a new element
-                                let new_font_family: HTMLElement = document.createElement('font-family');
+                                const new_font_family: HTMLElement = document.createElement('font-family');
 
                                 // Set style
                                 new_font_family.setAttribute('style', `font-family:${font.property};`);
@@ -1598,25 +1598,25 @@ export namespace Plugins {
                     }
 
                     // Get the font family
-                    /*let font_family: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
+                    /*const font_family: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
 
                     // Verify if font tag exists
                     if ( font_family ) {
 
                         // Get the properties
-                        let properties: CSSStyleDeclaration = window.getComputedStyle(font_family);
+                        const properties: CSSStyleDeclaration = window.getComputedStyle(font_family);
 
                         // Get the font name
-                        let font_name: string = properties.fontFamily;
+                        const font_name: string = properties.fontFamily;
 
                         // Get the selected font name
-                        let selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                         // Get the fonts list
-                        let fonts_list: font_type[] = Object.values(fonts);
+                        const fonts_list: font_type[] = Object.values(fonts);
 
                         // Check if the font exists
-                        let font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
+                        const font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
 
                         // Check if font exists
                         if ( typeof font !== 'undefined' ) {
@@ -1628,7 +1628,7 @@ export namespace Plugins {
                                 end_list!.push(font_family);
 
                                 // Get the CustomElementRegistry
-                                let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                                const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                                 // Verify if custom element is defined
                                 if ( customElementRegistry.get('font-family') ) {
@@ -1642,7 +1642,7 @@ export namespace Plugins {
                                 if ( elements ) {
 
                                     // Create a new element
-                                    let new_font_family: HTMLElement = document.createElement('font-family');
+                                    const new_font_family: HTMLElement = document.createElement('font-family');
 
                                     // Set style
                                     new_font_family.setAttribute('style', `font-family:${font.property};`);
@@ -1673,19 +1673,19 @@ export namespace Plugins {
                     } else {
 
                         // Get the selected font name
-                        let selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const selected_font: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                         // Get the fonts list
-                        let fonts_list: font_type[] = Object.values(fonts);
+                        const fonts_list: font_type[] = Object.values(fonts);
 
                         // Check if the font exists
-                        let font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
+                        const font: font_type | undefined = fonts_list.find(item => item.name === selected_font);
 
                         // Check if font exists
                         if ( font ) {
 
                             // Get the CustomElementRegistry
-                            let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                            const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                             // Verify if custom element is defined
                             if ( customElementRegistry.get('font-family') ) {
@@ -1699,7 +1699,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create a new element
-                                let new_font_family: HTMLElement = document.createElement('font-family');
+                                const new_font_family: HTMLElement = document.createElement('font-family');
 
                                 // Set style
                                 new_font_family.setAttribute('style', `font-family:${font.property};`);
@@ -1728,13 +1728,13 @@ export namespace Plugins {
                     }*/
 
                     // Get the selected font weight
-                    let selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
+                    const selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
 
                     // Check if the weight was changed
                     if ( properties.fontWeight !== selected_weight ) {
 
                         // Get the font weight
-                        let font_weight: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
+                        const font_weight: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
 
                         // Verify if font tag exists
                         if ( font_weight ) {
@@ -1745,7 +1745,7 @@ export namespace Plugins {
                         }
 
                         // Get the CustomElementRegistry
-                        let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                        const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                         // Verify if custom element is defined
                         if ( customElementRegistry.get('font-weight') ) {
@@ -1759,7 +1759,7 @@ export namespace Plugins {
                         if ( elements ) {
 
                             // Create a new element
-                            let new_font_weight: HTMLElement = document.createElement('font-weight');
+                            const new_font_weight: HTMLElement = document.createElement('font-weight');
 
                             // Set style
                             new_font_weight.setAttribute('style', `font-weight:${selected_weight};`);
@@ -1786,16 +1786,16 @@ export namespace Plugins {
                     }
 
                     // Get the font weight
-                    /*let font_weight: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
+                    /*const font_weight: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
 
                     // Verify if font tag exists
                     if ( font_weight ) {
 
                         // Get the properties
-                        let properties: CSSStyleDeclaration = window.getComputedStyle(font_weight);
+                        const properties: CSSStyleDeclaration = window.getComputedStyle(font_weight);
 
                         // Get the selected font weight
-                        let selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
+                        const selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
 
                         // Check if the weight was changed
                         if ( properties.fontWeight !== selected_weight ) {
@@ -1804,7 +1804,7 @@ export namespace Plugins {
                             end_list!.push(font_weight);
 
                             // Get the CustomElementRegistry
-                            let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                            const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                             // Verify if custom element is defined
                             if ( customElementRegistry.get('font-weight') ) {
@@ -1818,7 +1818,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create a new element
-                                let new_font_weight: HTMLElement = document.createElement('font-weight');
+                                const new_font_weight: HTMLElement = document.createElement('font-weight');
 
                                 // Set style
                                 new_font_weight.setAttribute('style', `font-weight:${selected_weight};`);
@@ -1847,10 +1847,10 @@ export namespace Plugins {
                     } else {
 
                         // Get the selected font weight
-                        let selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
+                        const selected_weight: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
 
                         // Get the CustomElementRegistry
-                        let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                        const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                         // Verify if custom element is defined
                         if ( customElementRegistry.get('font-weight') ) {
@@ -1864,7 +1864,7 @@ export namespace Plugins {
                         if ( elements ) {
 
                             // Create a new element
-                            let new_font_weight: HTMLElement = document.createElement('font-weight');
+                            const new_font_weight: HTMLElement = document.createElement('font-weight');
 
                             // Set style
                             new_font_weight.setAttribute('style', `font-weight:${selected_weight};`);
@@ -1891,13 +1891,13 @@ export namespace Plugins {
                     }*/
 
                     // Get the selected font size
-                    let selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
+                    const selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
 
                     // Check if the size was changed
                     if ( properties.fontSize !== selected_size ) {
 
                         // Get the font size
-                        let font_size: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
+                        const font_size: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
 
                         // Verify if font tag exists
                         if ( font_size ) {
@@ -1908,7 +1908,7 @@ export namespace Plugins {
                         }
 
                         // Get the CustomElementRegistry
-                        let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                        const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                         // Verify if custom element is defined
                         if ( customElementRegistry.get('font-size') ) {
@@ -1922,7 +1922,7 @@ export namespace Plugins {
                         if ( elements ) {
 
                             // Create a new element
-                            let new_font_size: HTMLElement = document.createElement('font-size');
+                            const new_font_size: HTMLElement = document.createElement('font-size');
 
                             // Set style
                             new_font_size.setAttribute('style', `font-size:${selected_size};`);
@@ -1949,16 +1949,16 @@ export namespace Plugins {
                     }
 
                     // Get the font size
-                    /*let font_size: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
+                    /*const font_size: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
 
                     // Verify if font tag exists
                     if ( font_size ) {
 
                         // Get the properties
-                        let properties: CSSStyleDeclaration = window.getComputedStyle(font_size);
+                        const properties: CSSStyleDeclaration = window.getComputedStyle(font_size);
 
                         // Get the selected font size
-                        let selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
+                        const selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
 
                         // Check if the size was changed
                         if ( properties.fontSize !== selected_size ) {
@@ -1967,7 +1967,7 @@ export namespace Plugins {
                             end_list!.push(font_size);
 
                             // Get the CustomElementRegistry
-                            let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                            const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                             // Verify if custom element is defined
                             if ( customElementRegistry.get('font-size') ) {
@@ -1981,7 +1981,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create a new element
-                                let new_font_size: HTMLElement = document.createElement('font-size');
+                                const new_font_size: HTMLElement = document.createElement('font-size');
 
                                 // Set style
                                 new_font_size.setAttribute('style', `font-size:${selected_size};`);
@@ -2010,10 +2010,10 @@ export namespace Plugins {
                     } else {
 
                         // Get the selected font size
-                        let selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
+                        const selected_size: string | null | undefined = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
 
                         // Get the CustomElementRegistry
-                        let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                        const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                         // Verify if custom element is defined
                         if ( customElementRegistry.get('font-size') ) {
@@ -2027,7 +2027,7 @@ export namespace Plugins {
                         if ( elements ) {
 
                             // Create a new element
-                            let new_font_size: HTMLElement = document.createElement('font-size');
+                            const new_font_size: HTMLElement = document.createElement('font-size');
 
                             // Set style
                             new_font_size.setAttribute('style', `font-size:${selected_size};`);
@@ -2054,31 +2054,31 @@ export namespace Plugins {
                     }*/
 
                     // Get the text color
-                    let rgba: string = properties.color;
+                    const rgba: string = properties.color;
 
                     // Initialize the Color class
-                    let color = new PluginsList.Color();
+                    const color = new PluginsList.Color();
 
                     // Set validation rules
-                    let is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                    const is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                     
                     // Verify if the rgba is valid
                     if ( is_valid ) {
 
                         // Extract the rgba
-                        let [, r, g, b, a] = is_valid.map(Number);
+                        const [, r, g, b, a] = is_valid.map(Number);
 
                         // Convert to hex color
-                        let hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
+                        const hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
 
                         // Get the selected text color
-                        let selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
+                        const selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
                         
                         // Verify if the color should be changed
                         if ( selected_color !== hex ) {
 
                             // Get the text color
-                            let text_color: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
+                            const text_color: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
 
                             // Verify if text color exists
                             if ( text_color ) {
@@ -2089,7 +2089,7 @@ export namespace Plugins {
                             }
 
                             // Get the CustomElementRegistry
-                            let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                            const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                             // Verify if custom element is defined
                             if ( customElementRegistry.get('text-color') ) {
@@ -2103,7 +2103,7 @@ export namespace Plugins {
                             if ( elements ) {
 
                                 // Create a new element
-                                let new_text_color: HTMLElement = document.createElement('text-color');
+                                const new_text_color: HTMLElement = document.createElement('text-color');
 
                                 // Set style
                                 new_text_color.setAttribute('style', `color:${selected_color};`);
@@ -2132,34 +2132,34 @@ export namespace Plugins {
                     }
 
                     // Get the text color
-                    /*let text_color: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
+                    /*const text_color: Element | null = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
 
                     // Verify if text color exists
                     if ( text_color ) {
 
                         // Get the properties
-                        let properties: CSSStyleDeclaration = window.getComputedStyle(text_color);
+                        const properties: CSSStyleDeclaration = window.getComputedStyle(text_color);
 
                         // Get the text color
-                        let rgba: string = properties.color;
+                        const rgba: string = properties.color;
 
                         // Initialize the Color class
-                        let color = new PluginsList.Color();
+                        const color = new PluginsList.Color();
 
                         // Set validation rules
-                        let is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                        const is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                         
                         // Verify if the rgba is valid
                         if ( is_valid ) {
 
                             // Extract the rgba
-                            let [, r, g, b, a] = is_valid.map(Number);
+                            const [, r, g, b, a] = is_valid.map(Number);
 
                             // Convert to hex color
-                            let hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
+                            const hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
 
                             // Get the selected text color
-                            let selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
+                            const selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
                             
                             // Verify if the color should be changed
                             if ( selected_color !== hex ) {
@@ -2168,7 +2168,7 @@ export namespace Plugins {
                                 end_list!.push(text_color);
 
                                 // Get the CustomElementRegistry
-                                let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                                const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                                 // Verify if custom element is defined
                                 if ( customElementRegistry.get('text-color') ) {
@@ -2182,7 +2182,7 @@ export namespace Plugins {
                                 if ( elements ) {
 
                                     // Create a new element
-                                    let new_text_color: HTMLElement = document.createElement('text-color');
+                                    const new_text_color: HTMLElement = document.createElement('text-color');
 
                                     // Set style
                                     new_text_color.setAttribute('style', `color:${selected_color};`);
@@ -2213,10 +2213,10 @@ export namespace Plugins {
                     } else {
 
                         // Get the selected text color
-                        let selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
+                        const selected_color: string | null | undefined = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
 
                         // Get the CustomElementRegistry
-                        let customElementRegistry: CustomElementRegistry = window.customElements;                                
+                        const customElementRegistry: CustomElementRegistry = window.customElements;                                
 
                         // Verify if custom element is defined
                         if ( customElementRegistry.get('text-color') ) {
@@ -2230,7 +2230,7 @@ export namespace Plugins {
                         if ( elements ) {
 
                             // Create a new element
-                            let new_text_color: HTMLElement = document.createElement('text-color');
+                            const new_text_color: HTMLElement = document.createElement('text-color');
 
                             // Set style
                             new_text_color.setAttribute('style', `color:${selected_color};`);
@@ -2263,7 +2263,7 @@ export namespace Plugins {
                     if ( parent_element ) {
 
                         // List the childrens
-                        for ( let child of target.closest('.ec-element-content-data')!.children ) {
+                        for ( const child of target.closest('.ec-element-content-data')!.children ) {
 
                             // Check if parent element was found
                             if ( this.children_list(child).indexOf(parent_element) > -1 ) {
@@ -2281,13 +2281,13 @@ export namespace Plugins {
                         if ( end_list.length > 0 ) {
 
                             // Get parent element nodes
-                            let parent_element_nodes: Array<Node> | undefined = this.nodes_list(parent_element);   
+                            const parent_element_nodes: Array<Node> | undefined = this.nodes_list(parent_element);   
                             
                             // Verify if nodes exists
                             if ( parent_element_nodes ) {
 
                                 // Create a node start for the new range
-                                let node_start: Text = document.createTextNode('');
+                                const node_start: Text = document.createTextNode('');
 
                                 // Insert the node start
                                 range.insertNode(node_start);
@@ -2296,7 +2296,7 @@ export namespace Plugins {
                                 let last_child: Node | null = null;
                                 
                                 // List the nodes
-                                for ( let node of parent_element_nodes ) {
+                                for ( const node of parent_element_nodes ) {
 
                                     // Check if is last node
                                     if ( range.commonAncestorContainer.isSameNode(node) ) {
@@ -2312,14 +2312,14 @@ export namespace Plugins {
                                 if ( last_child ) {
 
                                     // Get the parents
-                                    let parents = this.prepare_tags(range.startContainer, parent_element, node_start, end_list);
+                                    const parents = this.prepare_tags(range.startContainer, parent_element, node_start, end_list);
                                     
                                     // Verify if parents is not null
                                     if ( parents ) {
                                         e.preventDefault();
                 
                                         // Create a new Range object
-                                        let new_range: Range = document.createRange();
+                                        const new_range: Range = document.createRange();
 
                                         // Replace the childs
                                         parents.parent.replaceChildren(...parents.child);
@@ -2341,10 +2341,10 @@ export namespace Plugins {
                                         }
 
                                         // List the paren't nodes
-                                        for ( let node of parents.parent.parentElement!.childNodes ) {
+                                        for ( const node of parents.parent.parentElement!.childNodes ) {
 
                                             // Save node as child
-                                            let child: Node = node;
+                                            const child: Node = node;
     
                                             // Verify if the node is same as parent
                                             if ( node.isSameNode(parents.parent) ) {
@@ -2398,10 +2398,10 @@ export namespace Plugins {
                             range.insertNode(elements);
 
                             // Create a new Range object
-                            let new_range: Range = document.createRange();
+                            const new_range: Range = document.createRange();
 
                             // Get the nodes
-                            let nodes: Array<Node> = this.nodes_list(parent_element);
+                            const nodes: Array<Node> = this.nodes_list(parent_element);
 
                             // Set range start by using the new created text node
                             new_range.setStart(nodes[Array.from(nodes).indexOf(text)], text.length);
@@ -2452,16 +2452,16 @@ export namespace Plugins {
             let total_ends: number = end_list.length;   
             
             // Tags to start all elements
-            let tags_to_start: string[] = [];            
+            const tags_to_start: string[] = [];            
 
             // Tags to end all elements
-            let tags_to_end: string[] = [];
+            const tags_to_end: string[] = [];
 
             // Tags to start only unclosed elements
-            let tags_to_start_2: string[] = [];            
+            const tags_to_start_2: string[] = [];            
 
             // Tags to end only unclosed elements
-            let tags_to_end_2: string[] = [];
+            const tags_to_end_2: string[] = [];
           
             // Start with the given element
             let currentElement = node.parentElement;
@@ -2509,34 +2509,34 @@ export namespace Plugins {
             if ( first_parent ) {
 
                 // Verify if after the node start exists text
-                let text_after_range: Boolean = this.is_end(first_parent as Node, node_start, 0, false);
+                const text_after_range: Boolean = this.is_end(first_parent as Node, node_start, 0, false);
 
                 // If text exists should be created new tags
                 if ( text_after_range ) {
 
                     // Generate unique ID
-                    let unique_id: string = 'ec-small-editor-temp-' + this.generate_unique_id();
+                    const unique_id: string = 'ec-small-editor-temp-' + this.generate_unique_id();
 
                     // Create sup
-                    let sup: Element = document.createElement('sup');
+                    const sup: Element = document.createElement('sup');
 
                     // Set data content
                     sup.setAttribute('data-content', unique_id);
 
                     // Turn nodes to string
-                    let nodes_to_string: string = this.turn_nodes_to_text(first_parent, node_start, '', tags_to_end.join('') + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join('') + tags_to_start.reverse().join(''));
+                    const nodes_to_string: string = this.turn_nodes_to_text(first_parent, node_start, '', tags_to_end.join('') + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join('') + tags_to_start.reverse().join(''));
 
                     // Load dom parser
-                    let dom_parser: DOMParser = new DOMParser();
+                    const dom_parser: DOMParser = new DOMParser();
 
                     // Prepare the nodes
-                    let content_nodes: Document = dom_parser.parseFromString(nodes_to_string, 'text/html');
+                    const content_nodes: Document = dom_parser.parseFromString(nodes_to_string, 'text/html');
 
                     // Add node start to content nodes
                     content_nodes.getElementsByTagName('body')[0].appendChild(node_start);
 
                     // Get sup in the response
-                    let sup_el: Element | null = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
+                    const sup_el: Element | null = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
 
                     // Check if sup exists
                     if ( sup_el ) {
@@ -2555,28 +2555,28 @@ export namespace Plugins {
                 } else {
 
                     // Generate unique ID
-                    let unique_id: string = 'ec-small-editor-temp-' + this.generate_unique_id();
+                    const unique_id: string = 'ec-small-editor-temp-' + this.generate_unique_id();
 
                     // Create sup
-                    let sup: Element = document.createElement('sup');
+                    const sup: Element = document.createElement('sup');
 
                     // Set data content
                     sup.setAttribute('data-content', unique_id);
 
                     // Turn nodes to string
-                    let nodes_to_string: string = this.turn_nodes_to_text(first_parent, node_start, '', '');
+                    const nodes_to_string: string = this.turn_nodes_to_text(first_parent, node_start, '', '');
 
                     // Load dom parser
-                    let dom_parser: DOMParser = new DOMParser();
+                    const dom_parser: DOMParser = new DOMParser();
 
                     // Prepare the nodes
-                    let content_nodes: Document = dom_parser.parseFromString(nodes_to_string + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join(''), 'text/html');
+                    const content_nodes: Document = dom_parser.parseFromString(nodes_to_string + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join(''), 'text/html');
 
                     // Add node start to content nodes
                     content_nodes.getElementsByTagName('body')[0].appendChild(node_start);
 
                     // Get sup in the response
-                    let sup_el: Element | null = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
+                    const sup_el: Element | null = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
 
                     // Check if sup exists
                     if ( sup_el ) {
@@ -2621,7 +2621,7 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -2676,16 +2676,16 @@ export namespace Plugins {
             if ( parent.childNodes.length > 0 ) {
 
                 // Get html node
-                let html_node = parent as HTMLElement;
+                const html_node = parent as HTMLElement;
 
                 // Node container
                 let node_string: string = html_node.outerHTML.split('>').shift() + '>';
 
                 // Node end html
-                let node_end: string = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
+                const node_end: string = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
 
                 // List the nodes
-                for ( let node of parent.childNodes ) {
+                for ( const node of parent.childNodes ) {
 
                     // Verify if is text
                     if ( node.nodeName === '#text' ) {
@@ -2709,7 +2709,7 @@ export namespace Plugins {
                         if (node.nodeType === Node.ELEMENT_NODE) {
 
                             // Create element from node
-                            let element = node as HTMLElement;
+                            const element = node as HTMLElement;
                             
                             // Check if the tag is empty
                             if ( element.childNodes.length < 1 ) {
@@ -2752,22 +2752,22 @@ export namespace Plugins {
         list = (e: MouseEvent, params: params_type): void => {
 
             // Get iframe for template
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = itemplate.contentWindow;
+            const cwindow: Window | null = itemplate.contentWindow;
 
             // Create a new Selection object
-            let selection: Selection | null = cwindow!.getSelection();
+            const selection: Selection | null = cwindow!.getSelection();
 
             // Remove selections in the iframe
             if ( selection && (selection.rangeCount > 0) ) {
 
                 // Get range
-                let range: Range = selection.getRangeAt(0);
+                const range: Range = selection.getRangeAt(0);
 
                 // Get target
-                let target = e.target as HTMLElement;
+                const target = e.target as HTMLElement;
 
                 // Get range parent element
                 let parent_element: HTMLElement | null = range.commonAncestorContainer.parentElement;
@@ -2779,19 +2779,19 @@ export namespace Plugins {
                     target.classList.add('ec-ste-active-button');
 
                     // Get the paragraph
-                    let p = (range.commonAncestorContainer.nodeName === 'P')?range.commonAncestorContainer as Element:parent_element!.closest('p') as Element || parent_element as Element;
+                    const p = (range.commonAncestorContainer.nodeName === 'P')?range.commonAncestorContainer as Element:parent_element!.closest('p') as Element || parent_element as Element;
 
                     // Create a node start for the new range
-                    let node_start: Text = document.createTextNode('');
+                    const node_start: Text = document.createTextNode('');
 
                     // Insert the node start
                     range.insertNode(node_start);
 
                     // Create ul or ol
-                    let parent: Element = target.classList.contains('ec-ste-list-bulleted-button')?document.createElement('ul'):document.createElement('ol');
+                    const parent: Element = target.classList.contains('ec-ste-list-bulleted-button')?document.createElement('ul'):document.createElement('ol');
 
                     // Create a li
-                    let li: HTMLLIElement = document.createElement('li');
+                    const li: HTMLLIElement = document.createElement('li');
 
                     // Append paragraph to li
                     li.replaceChildren(...p.childNodes);
@@ -2803,10 +2803,10 @@ export namespace Plugins {
                     p.replaceWith(parent);
 
                     // Get the nodes of the parent
-                    let nodes: Array<Node> = this.nodes_list(parent);
+                    const nodes: Array<Node> = this.nodes_list(parent);
 
                     // Create a new Range object
-                    let new_range: Range = document.createRange();
+                    const new_range: Range = document.createRange();
 
                     // Set range start by using the new created text node
                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -2840,28 +2840,28 @@ export namespace Plugins {
                                 target.classList.remove('ec-ste-active-button');
 
                                 // Get the ul
-                                let ul: HTMLElement | null = parent_element.closest('ul')?parent_element.closest('ul'):parent_element.closest('ol');
+                                const ul: HTMLElement | null = parent_element.closest('ul')?parent_element.closest('ul'):parent_element.closest('ol');
 
                                 // Get the li item
-                                let li: HTMLElement | null = parent_element.closest('li');
+                                const li: HTMLElement | null = parent_element.closest('li');
 
                                 // Verify if li is not null
                                 if ( ul && li ) {
 
                                     // Get content data
-                                    let content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
+                                    const content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
 
                                     // Get the parent element
                                     let parent_element: Element | null = range.startContainer.parentElement;
 
                                     // Create a node start for the new range
-                                    let node_start: Text = document.createTextNode('');
+                                    const node_start: Text = document.createTextNode('');
 
                                     // Insert the node start
                                     range.insertNode(node_start);
 
                                     // Create a paragraph
-                                    let p: HTMLElement = document.createElement('p');
+                                    const p: HTMLElement = document.createElement('p');
 
                                     // Append the li nodes to paragraph
                                     p.replaceChildren(...li.childNodes);
@@ -2873,7 +2873,7 @@ export namespace Plugins {
                                     if ( parent_element ) {
 
                                         // List the childrens
-                                        for ( let child of content_data!.children ) {
+                                        for ( const child of content_data!.children ) {
 
                                             // Check if parent element was found
                                             if ( this.nodes_list(child).indexOf(node_start) > -1 ) {
@@ -2890,10 +2890,10 @@ export namespace Plugins {
                                     }
                                     
                                     // Get the nodes of the parent
-                                    let nodes: Array<Node> = this.nodes_list(p);
+                                    const nodes: Array<Node> = this.nodes_list(p);
 
                                     // Create a new Range object
-                                    let new_range: Range = document.createRange();
+                                    const new_range: Range = document.createRange();
 
                                     // Set range start by using the new created text node
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -2920,28 +2920,28 @@ export namespace Plugins {
                                 target.classList.remove('ec-ste-active-button');
 
                                 // Get the ul
-                                let ul: HTMLElement | null = parent_element.closest('ul')?parent_element.closest('ul'):parent_element.closest('ol');
+                                const ul: HTMLElement | null = parent_element.closest('ul')?parent_element.closest('ul'):parent_element.closest('ol');
 
                                 // Get the li item
-                                let li: HTMLElement | null = parent_element.closest('li');
+                                const li: HTMLElement | null = parent_element.closest('li');
 
                                 // Verify if li is not null
                                 if ( ul && li ) {
 
                                     // Create a node start for the new range
-                                    let node_start: Text = document.createTextNode('');
+                                    const node_start: Text = document.createTextNode('');
 
                                     // Insert the node start
                                     range.insertNode(node_start);
 
                                     // Get content data
-                                    let content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
+                                    const content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
 
                                     // Get total child nodes
-                                    let tnodes: number = ul.childNodes.length;
+                                    const tnodes: number = ul.childNodes.length;
 
                                     // Clone ul
-                                    let cloned_ul: Node = ul.cloneNode(true);
+                                    const cloned_ul: Node = ul.cloneNode(true);
 
                                     // List the child
                                     Array.from(cloned_ul.childNodes).map(() => {
@@ -2949,22 +2949,22 @@ export namespace Plugins {
                                     });
 
                                     // This is a container to save the ul items before paragraph
-                                    let before_ul_empty = cloned_ul as HTMLUListElement;
+                                    const before_ul_empty = cloned_ul as HTMLUListElement;
 
                                     // This is a container to save the ul items after paragraph
-                                    let after_ul_empty = cloned_ul.cloneNode(true) as HTMLUListElement;
+                                    const after_ul_empty = cloned_ul.cloneNode(true) as HTMLUListElement;
 
                                     // Create the before list with li items
-                                    let before_li: DocumentFragment = new DocumentFragment();
+                                    const before_li: DocumentFragment = new DocumentFragment();
 
                                     // Create the after list with li items
-                                    let after_li: DocumentFragment = new DocumentFragment();
+                                    const after_li: DocumentFragment = new DocumentFragment();
 
                                     // Selected li
-                                    let sel_index: number = Array.prototype.indexOf.call(Array.from(ul.getElementsByTagName('li')), li);
+                                    const sel_index: number = Array.prototype.indexOf.call(Array.from(ul.getElementsByTagName('li')), li);
 
                                     // Create a paragraph
-                                    let p: HTMLElement = document.createElement('p');
+                                    const p: HTMLElement = document.createElement('p');
 
                                     // Li index
                                     let index: number = 0;
@@ -3036,7 +3036,7 @@ export namespace Plugins {
                                     if ( parent_element ) {
 
                                         // List the childrens
-                                        for ( let child of content_data!.children ) {
+                                        for ( const child of content_data!.children ) {
 
                                             // Check if parent element was found
                                             if ( this.nodes_list(child).indexOf(node_start) > -1 ) {
@@ -3053,10 +3053,10 @@ export namespace Plugins {
                                     }
                                     
                                     // Get the nodes of the parent
-                                    let nodes: Array<Node> = this.nodes_list(p);
+                                    const nodes: Array<Node> = this.nodes_list(p);
 
                                     // Create a new Range object
-                                    let new_range: Range = document.createRange();
+                                    const new_range: Range = document.createRange();
 
                                     // Set range start by using the new created text node
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -3088,7 +3088,7 @@ export namespace Plugins {
                             target.classList.add('ec-ste-active-button');
                             
                             // Create a node start for the new range
-                            let node_start: Text = document.createTextNode('');
+                            const node_start: Text = document.createTextNode('');
 
                             // Insert the node start
                             range.insertNode(node_start);
@@ -3097,19 +3097,19 @@ export namespace Plugins {
                             if ( parent_element.closest('ul') ) {
 
                                 // Select the <ul> element you want to convert
-                                let ul: HTMLUListElement | null = parent_element.closest('ul');
+                                const ul: HTMLUListElement | null = parent_element.closest('ul');
 
                                 // Verify if ul exists
                                 if (ul) {
 
                                     // Get content data
-                                    let content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
+                                    const content_data = (ul.closest('.ec-element-content-data') as HTMLInputElement);
 
                                     // Create a new <ol> element
-                                    let ol: HTMLOListElement = document.createElement('ol');
+                                    const ol: HTMLOListElement = document.createElement('ol');
 
                                     // Get all li nodes
-                                    let li: NodeListOf<HTMLLIElement> = ul.querySelectorAll('li');
+                                    const li: NodeListOf<HTMLLIElement> = ul.querySelectorAll('li');
 
                                     // List all ul items
                                     li.forEach((item) => {
@@ -3123,10 +3123,10 @@ export namespace Plugins {
                                     ul.replaceWith(ol);
 
                                     // Get the nodes of the parent
-                                    let nodes: Array<Node> = this.nodes_list(ol);
+                                    const nodes: Array<Node> = this.nodes_list(ol);
 
                                     // Create a new Range object
-                                    let new_range: Range = document.createRange();
+                                    const new_range: Range = document.createRange();
 
                                     // Set range start by using the new created text node
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -3150,19 +3150,19 @@ export namespace Plugins {
                             } else {
 
                                 // Select the <ol> element
-                                let ol: HTMLOListElement | null = parent_element.closest('ol');
+                                const ol: HTMLOListElement | null = parent_element.closest('ol');
 
                                 // Verify if ol exists
                                 if ( ol ) {
 
                                     // Get content data
-                                    let content_data = (ol.closest('.ec-element-content-data') as HTMLInputElement);
+                                    const content_data = (ol.closest('.ec-element-content-data') as HTMLInputElement);
 
                                     // Create a new <ul> element
-                                    let ul: HTMLUListElement = document.createElement('ul');
+                                    const ul: HTMLUListElement = document.createElement('ul');
 
                                     // Get all li nodes
-                                    let li: NodeListOf<HTMLLIElement> = ol.querySelectorAll('li');
+                                    const li: NodeListOf<HTMLLIElement> = ol.querySelectorAll('li');
 
                                     // List all ol items
                                     li.forEach((item) => {
@@ -3176,10 +3176,10 @@ export namespace Plugins {
                                     ol.replaceWith(ul);
 
                                     // Get the nodes of the parent
-                                    let nodes: Array<Node> = this.nodes_list(ul);
+                                    const nodes: Array<Node> = this.nodes_list(ul);
 
                                     // Create a new Range object
-                                    let new_range: Range = document.createRange();
+                                    const new_range: Range = document.createRange();
 
                                     // Set range start by using the new created text node
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
@@ -3223,7 +3223,7 @@ export namespace Plugins {
         get_styles = (e: KeyboardEvent | MouseEvent, params: params_type): void => {
             
             // Save target
-            let target = e.target as Element;
+            const target = e.target as Element;
 
             // Check for target
             if ( target !== null ) {
@@ -3232,19 +3232,19 @@ export namespace Plugins {
                 if ( target.closest('.ec-element-content-data') ) {
                    
                     // Get element
-                    let element: HTMLElement | null = target.closest('.ec-element-content');
+                    const element: HTMLElement | null = target.closest('.ec-element-content');
 
                     // Get the element's id
-                    let element_id: string | null | undefined = element?.getAttribute('data-id');                                
+                    const element_id: string | null | undefined = element?.getAttribute('data-id');                                
 
                     // Get the element's name
-                    let element_name: string | null | undefined = element?.getAttribute('data-name');
+                    const element_name: string | null | undefined = element?.getAttribute('data-name');
 
                     // Check if name exists
                     if ( typeof element_name === 'string' ) {
 
                         // Select text tools editor
-                        let tools_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const tools_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
 
                         // Verify if the element's ID is already present
                         if ( params.selector.getElementsByClassName('ec-composer-element-options')[0].getAttribute('data-element') !== element_id ) {
@@ -3268,10 +3268,10 @@ export namespace Plugins {
                         if ( (element_name === 'text') && tools_editor.classList.contains('ec-ste-show') ) {
 
                             // Get iframe
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                             // Get content window
-                            let cwindow: Window | null = iframe.contentWindow;
+                            const cwindow: Window | null = iframe.contentWindow;
 
                             // Check if cwindow exists
                             if ( cwindow ) {
@@ -3283,13 +3283,13 @@ export namespace Plugins {
                                     params.selector.getElementsByClassName('ec-ste-active-button')[0]?.classList.remove('ec-ste-active-button');
 
                                     // Get the styles
-                                    let styles: CSSStyleDeclaration = window.getComputedStyle(target);
+                                    const styles: CSSStyleDeclaration = window.getComputedStyle(target);
                                     
                                     // Check if styles is not null
                                     if ( styles ) {
 
                                         // Get the textAlign
-                                        let text_align: string = styles.textAlign;
+                                        const text_align: string = styles.textAlign;
 
                                         // Check if the direction is allowed
                                         if ( this.text_align_directions.includes(text_align) ) {
@@ -3300,7 +3300,7 @@ export namespace Plugins {
                                         }
 
                                         // Get the font style
-                                        let font_style: string = styles.fontStyle; 
+                                        const font_style: string = styles.fontStyle; 
 
                                         // Verify if text is italic
                                         if ( (font_style === 'italic') || target?.closest('i') ) {
@@ -3316,7 +3316,7 @@ export namespace Plugins {
                                         }
 
                                         // Get the text decoration
-                                        let text_decoration: string = styles.textDecoration;
+                                        const text_decoration: string = styles.textDecoration;
                                         
                                         // Verify if text is underline
                                         if ( (text_decoration.search('underline') > -1) || target?.closest('u') ) {
@@ -3348,13 +3348,13 @@ export namespace Plugins {
                                         setTimeout((): void => {
 
                                             // Create a new Selection object
-                                            let selection: Selection | null = cwindow!.getSelection();
+                                            const selection: Selection | null = cwindow!.getSelection();
 
                                             // Remove selections in the iframe
                                             if ( selection && (selection.rangeCount > 0) ) {
 
                                                 // Get range
-                                                let range: Range = selection.getRangeAt(0);
+                                                const range: Range = selection.getRangeAt(0);
 
                                                 // Default styles container
                                                 let styles: CSSStyleDeclaration | null = null;
@@ -3386,7 +3386,7 @@ export namespace Plugins {
                                                 if ( styles ) {
 
                                                     // Get the textAlign
-                                                    let text_align: string = styles.textAlign;
+                                                    const text_align: string = styles.textAlign;
 
                                                     // Check if the direction is allowed
                                                     if ( this.text_align_directions.includes(text_align) ) {
@@ -3495,22 +3495,22 @@ export namespace Plugins {
                         }
 
                         // Get the namespace
-                        let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
+                        const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
 
                         // Verify if the element exists
                         if ( typeof name_space !== 'undefined' ) {
 
                             // Get the namespace
-                            let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
+                            const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
 
                             // Get key
-                            let key = Object.keys(name_space)[0] as string;
+                            const key = Object.keys(name_space)[0] as string;
 
                             // Get the element class
-                            let element_class = new name_space[key]();
+                            const element_class = new name_space[key]();
 
                             // Get the element's options
-                            let element_options: options_type = element_class.get_options(params);
+                            const element_options: options_type = element_class.get_options(params);
                             
                             // Verify if the element has options
                             if ( element_options ) {
@@ -3519,16 +3519,16 @@ export namespace Plugins {
                                 if ( element_options.desktop.length > 0 ) {
 
                                     // Desktop elements
-                                    let desktop_elements: string[] = [];
+                                    const desktop_elements: string[] = [];
 
                                     // List the options groups
-                                    for ( let group of element_options.desktop ) {
+                                    for ( const group of element_options.desktop ) {
 
                                         // Check if the option has element
                                         if ( group.list.length > 0 ) {
 
                                             // List the options
-                                            for ( let option of group.list ) {
+                                            for ( const option of group.list ) {
 
                                                 // Verify if the option has element
                                                 if ( option.element && (desktop_elements.indexOf(option.element) < 0) ) {
@@ -3545,37 +3545,37 @@ export namespace Plugins {
                                     }
 
                                     // Desktop properties list
-                                    let desktop_properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                                    const desktop_properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                                     // Mobile properties list
-                                    let mobile_properties_list: {[key: string]: {[key: string]: number | string}} = {};
+                                    const mobile_properties_list: {[key: string]: {[key: string]: number | string}} = {};
 
                                     // Get iframe for template
-                                    let iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template: HTMLCollectionOf<Element> = params.selector.getElementsByClassName('ec-composer-template-container');
 
                                     // Check if iframe exists
                                     if ( iframe_template[0] instanceof HTMLIFrameElement ) {
 
                                         // Get the iframe document
-                                        let idocument: Document | null = iframe_template[0].contentDocument;
+                                        const idocument: Document | null = iframe_template[0].contentDocument;
 
                                         // Check if document is not null
                                         if ( idocument !== null ) {
 
                                             // Get element's style
-                                            let element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const element_style: Element | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                             // Verify if element's style exists
                                             if ( (typeof element_style !== 'undefined') && element_style ) {
 
                                                 // Get the style tag
-                                                let style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                const style: HTMLStyleElement | null | undefined = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                 // Check if style exists
                                                 if ( (typeof style !== 'undefined') && style ) {
 
                                                     // Get the sheet
-                                                    let sheet: CSSStyleSheet | null = style.sheet;
+                                                    const sheet: CSSStyleSheet | null = style.sheet;
 
                                                     // Check if sheet exists
                                                     if ( sheet !== null ) {
@@ -3584,7 +3584,7 @@ export namespace Plugins {
                                                         if ( sheet.cssRules.length > 0 ) {
 
                                                             // List all rules
-                                                            for ( let rule of sheet.cssRules ) {
+                                                            for ( const rule of sheet.cssRules ) {
 
                                                                 // Check if media exists
                                                                 if ( typeof (rule as CSSMediaRule).media !== 'undefined' ) {
@@ -3596,16 +3596,16 @@ export namespace Plugins {
                                                                         if ( (rule as CSSMediaRule).cssRules.length > 0 ) {
 
                                                                             // List all rules
-                                                                            for ( let media_rule of (rule as CSSMediaRule).cssRules ) {
+                                                                            for ( const media_rule of (rule as CSSMediaRule).cssRules ) {
 
                                                                                 // Check if is the element's selector
                                                                                 if ( (media_rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data' ) {
 
                                                                                     // Get style
-                                                                                    let style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
+                                                                                    const style: CSSStyleDeclaration = (media_rule as CSSStyleRule).style;
 
                                                                                     // List the properties
-                                                                                    for ( let property of (media_rule as CSSStyleRule).style ) {
+                                                                                    for ( const property of (media_rule as CSSStyleRule).style ) {
                                                                                         
                                                                                         // Verify if element's name is already saved
                                                                                         if ( typeof mobile_properties_list['mobile'] !== 'undefined' ) {
@@ -3638,10 +3638,10 @@ export namespace Plugins {
                                                                     if ( (rule as CSSStyleRule).selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data' ) {
 
                                                                         // Get style
-                                                                        let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                                                                        const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                                                                         // List the properties
-                                                                        for ( let property of (rule as CSSStyleRule).style ) {
+                                                                        for ( const property of (rule as CSSStyleRule).style ) {
 
                                                                             // Verify if element's name is already saved
                                                                             if ( typeof desktop_properties_list['desktop'] !== 'undefined' ) {
@@ -3666,15 +3666,15 @@ export namespace Plugins {
                                                                     if ( desktop_elements.length > 0 ) {
 
                                                                         // List the elements
-                                                                        for ( let element_name of desktop_elements ) {
+                                                                        for ( const element_name of desktop_elements ) {
 
                                                                             if ( ((rule as CSSStyleRule).selectorText.slice(-(' ' + element_name).length) === ' ' + element_name) ) {
 
                                                                                 // Get style
-                                                                                let style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
+                                                                                const style: CSSStyleDeclaration = (rule as CSSStyleRule).style;
 
                                                                                 // List the properties
-                                                                                for ( let property of (rule as CSSStyleRule).style ) {
+                                                                                for ( const property of (rule as CSSStyleRule).style ) {
 
                                                                                     // Verify if element's name is already saved
                                                                                     if ( typeof desktop_properties_list[element_name] !== 'undefined' ) {
@@ -3719,7 +3719,7 @@ export namespace Plugins {
                                     if ( params.selector.getElementsByClassName('ec-composer-element-options')[0].getAttribute('data-element') !== element_id ) {
 
                                         // Get the options class
-                                        let options_class: Element = params.selector.getElementsByClassName('ec-composer-element-options')[0];                                        
+                                        const options_class: Element = params.selector.getElementsByClassName('ec-composer-element-options')[0];                                        
 
                                         // Verify if the ec-composer-element-options-show class exists
                                         if ( options_class.classList.contains('ec-composer-element-options-show') ) {
@@ -3751,7 +3751,7 @@ export namespace Plugins {
                                             if ( target.closest('.ec-composer-template')!.getElementsByClassName('ec-element-content-active').length > 0 ) {
 
                                                 // Get active class
-                                                let active: Element = target.closest('.ec-composer-template')!.getElementsByClassName('ec-element-content-active')[0];
+                                                const active: Element = target.closest('.ec-composer-template')!.getElementsByClassName('ec-element-content-active')[0];
 
                                                 // Remove ec-element-content-active class
                                                 active.classList.remove('ec-element-content-active');
@@ -3765,7 +3765,7 @@ export namespace Plugins {
                                             target.closest('.ec-element-content')!.classList.add('ec-element-content-active');
                                             
                                             // Get html for options
-                                            let desktop_html: string | undefined = get_element_options(element_options, desktop_properties_list, params, 'desktop');
+                                            const desktop_html: string | undefined = get_element_options(element_options, desktop_properties_list, params, 'desktop');
 
                                             // Check if html exists
                                             if ( typeof desktop_html !== 'undefined' ) {
@@ -3776,7 +3776,7 @@ export namespace Plugins {
                                             }
 
                                             // Get html for options
-                                            let mobile_html: string | undefined = get_element_options(element_options, mobile_properties_list, params, 'mobile');
+                                            const mobile_html: string | undefined = get_element_options(element_options, mobile_properties_list, params, 'mobile');
 
                                             // Check if html exists
                                             if ( typeof mobile_html !== 'undefined' ) {
@@ -3829,10 +3829,10 @@ export namespace Plugins {
         generate_unique_id = (): string => {
 
             // Convert timestamp to base36
-            let unique_string: string = Date.now().toString(36); 
+            const unique_string: string = Date.now().toString(36); 
 
             // Get random
-            let random_string: string = Math.random().toString(36);
+            const random_string: string = Math.random().toString(36);
 
             // Return text
             return `${unique_string}-${random_string}`;

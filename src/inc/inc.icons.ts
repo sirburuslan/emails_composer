@@ -26,7 +26,7 @@ export const get_icon = (icon: string, extra?: object): string => {
     if ( icons.hasOwnProperty(icon) ) {
 
         // Get icon
-        let icon_obj: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(icons, icon);
+        const icon_obj: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(icons, icon);
 
         // Check if icon_obj exists and has the value property
         if (icon_obj && icon_obj.value && typeof icon_obj.value.get_icon === 'function') {

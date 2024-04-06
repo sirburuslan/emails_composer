@@ -86,7 +86,7 @@ export namespace Controllers {
             } else {
 
                 // Get the builder options
-                let builder_options: builder_options_type = get_option('builder');
+                const builder_options: builder_options_type = get_option('builder');
 
                 // Check if options exists
                 if ( typeof builder_options !== 'boolean' ) {
@@ -98,13 +98,13 @@ export namespace Controllers {
                         if ( builder_options.css.length > 0 ) {
 
                             // List the hrefs
-                            for ( let css of builder_options.css ) {
+                            for ( const css of builder_options.css ) {
 
                                 // Check if href is already added
                                 if ( !document.querySelector('link[href="' + css.href + '"]') ) {
 
                                     // Create the link
-                                    let css_link = document.createElement('link');
+                                    const css_link = document.createElement('link');
 
                                     // Set url
                                     css_link.setAttribute('href', css.href);
@@ -126,16 +126,16 @@ export namespace Controllers {
                 }
 
                 // Default css url
-                let default_css_url = get_option('css_url') + 'main.css';
+                const default_css_url = get_option('css_url') + 'main.css';
 
                 // Get the css link
-                let css_link = document.querySelector('link[href="' + default_css_url + '"]');
+                const css_link = document.querySelector('link[href="' + default_css_url + '"]');
 
                 // Verify if the css link already exists
                 if ( !css_link ) {
 
                     // Create the link
-                    let link = document.createElement('link');
+                    const link = document.createElement('link');
 
                     // Set url
                     link.setAttribute('href', default_css_url);
@@ -159,16 +159,16 @@ export namespace Controllers {
         setup(): void {
 
             // Get the builder options
-            let builder_options: builder_options_type = get_option('builder');
+            const builder_options: builder_options_type = get_option('builder');
 
             // Select the element
-            let selector = document.querySelector<HTMLElement>(this.element);
+            const selector = document.querySelector<HTMLElement>(this.element);
 
             // Set overflow
             selector!.style.overflow = 'hidden';
 
             // Builder container
-            let container = '<div class="ec-composer"></div>';
+            const container = '<div class="ec-composer"></div>';
 
             // Set container
             selector!.innerHTML = container;
@@ -203,225 +203,210 @@ export namespace Controllers {
                 
             }
 
-            // Set pause
-            setTimeout(() => {
+            // View params
+            const view_params: params_type = {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                selector: selector as HTMLElement
+            };
 
-                // View params
-                let view_params: params_type = {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    selector: selector as HTMLElement
-                };
+            // Prepare the builder
+            let builder = '';
 
-                // Prepare the builder
-                let builder = '';
+            // Add header to the builder
+            builder += header(view_params);
 
-                // Add header to the builder
-                builder += header(view_params);
+            // Add the menu to the builder
+            builder += menu(view_params);
 
-                // Add the menu to the builder
-                builder += menu(view_params);
+            // Add the element to the builder
+            builder += element(view_params);                    
 
-                // Add the element to the builder
-                builder += element(view_params);                    
+            // Add the body to the builder
+            builder += body(view_params);                   
 
-                // Add the body to the builder
-                builder += body(view_params);                   
+            // Display the builder
+            selector!.querySelector('.ec-composer')!.innerHTML += builder;
 
-                // Display the builder
-                selector!.querySelector('.ec-composer')!.innerHTML += builder;
+            // Get iframe for template
+            const itemplate: any = selector!.getElementsByClassName('ec-composer-template-container');
 
-                // Get iframe for template
-                let itemplate: any = selector!.getElementsByClassName('ec-composer-template-container');
+            // Check for css
+            if ( typeof builder_options.css === 'object' ) {
 
-                // Check for css
-                if ( typeof builder_options.css === 'object' ) {
+                // Check for css hrefs
+                if ( builder_options.css.length > 0 ) {
 
-                    // Check for css hrefs
-                    if ( builder_options.css.length > 0 ) {
+                    // Create the link
+                    const css_link = document.createElement('link');
 
-                        // Create the link
-                        let css_link = document.createElement('link');
-
-                        // Set url
-                        css_link.setAttribute('href', builder_options.css[0].href);
-
-                        // Set rel
-                        css_link.setAttribute('rel', 'stylesheet');
-
-                        // Add link to the page
-                        itemplate[0].contentDocument.head.innerHTML += css_link.outerHTML;
-
-                    }
-
-                }
-                
-                // Get the fonts link
-                let fonts_link: string = get_fonts_link();
-
-                // Check if font exists
-                if ( fonts_link ) {
-
-                    // Create a link
-                    let link: HTMLLinkElement = document.createElement('link');
-
-                    // Set href
-                    link.setAttribute('href', fonts_link);
+                    // Set url
+                    css_link.setAttribute('href', builder_options.css[0].href);
 
                     // Set rel
-                    link.setAttribute('rel', 'stylesheet');
+                    css_link.setAttribute('rel', 'stylesheet');
 
-                    // Append link to the document
-                    document.head.appendChild(link);
-
-                    // Append link to iframe
-                    itemplate[0].contentDocument.head.innerHTML += link.outerHTML;
+                    // Add link to the page
+                    itemplate[0].contentDocument.head.innerHTML += css_link.outerHTML;
 
                 }
 
-                // Append styles
-                itemplate[0].contentDocument.head.innerHTML += get_styles('template');
-
-                // Append styles
-                itemplate[0].contentDocument.head.innerHTML += get_styles('library');
-
-                // Append styles
-                itemplate[0].contentDocument.head.innerHTML += get_styles('default');
-
-                // Append template container
-                itemplate[0].contentDocument.body.innerHTML = '<div class="ec-composer-template"></div>';
-
-                // Append table
-                itemplate[0].contentDocument.body.getElementsByClassName('ec-composer-template')[0].innerHTML = get_content({
-                    'format': 1
-                }).outerHTML;
-
-            }, 300);
-
-            // Set pause
-            setTimeout(() => {
-
-                // Prepare the tabs
-                let tabs = '';
-
-                // Add elements tab to the builder
-                tabs += elements({
-                    template_id: template_id
-                });     
-                
-                // Add rows tab to the builder
-                tabs += rows({
-                    template_id: template_id
-                }); 
-
-                // Add modules tab to the builder
-                tabs += modules({
-                    template_id: template_id
-                });
-                
-                // Add history tab to the builder
-                tabs += history({
-                    template_id: template_id
-                });
-
-                // Display the tabs
-                selector!.querySelector('.ec-tabs')!.innerHTML += tabs;
-
-            }, 700);
+            }
             
-            // Set pause
-            setTimeout(() => {
+            // Get the fonts link
+            const fonts_link: string = get_fonts_link();
 
-                // Add elements section
-                selector!.querySelector('#ec-tab-elements-' + template_id)!.innerHTML += get_section('elements', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    selector: selector
-                });
+            // Check if font exists
+            if ( fonts_link ) {
 
-                // Add rows section
-                selector!.querySelector('#ec-tab-rows-' + template_id)!.innerHTML += get_section('rows', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
+                // Create a link
+                const link: HTMLLinkElement = document.createElement('link');
 
-                // Display the rows in the modal
-                selector!.querySelector('.ec-composer-modal[data-scope="ec-composer-rows-modal"] .ec-composer-modal-body .ec-rows')!.innerHTML += get_section('rows', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    only_rows: 1
-                });                    
+                // Set href
+                link.setAttribute('href', fonts_link);
 
-                // Add modules section
-                selector!.querySelector('#ec-tab-modules-' + template_id)!.innerHTML += get_section('modules', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
+                // Set rel
+                link.setAttribute('rel', 'stylesheet');
 
-                // Add history section
-                selector!.querySelector('#ec-tab-history-' + template_id)!.innerHTML += get_section('history', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
+                // Append link to the document
+                document.head.appendChild(link);
 
-                // Get components
-                let components_list = Object.keys(Components);
-                
-                // Verify if components exists
-                if ( components_list.length > 0 ) {
+                // Append link to iframe
+                itemplate[0].contentDocument.head.innerHTML += link.outerHTML;
 
-                    // List the components
-                    for ( let component of components_list ) {
+            }
 
-                        // Component class
-                        let component_class: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(Components, component);
+            // Append styles
+            itemplate[0].contentDocument.head.innerHTML += get_styles('template');
 
-                        // Get the events
-                        let component_events = new component_class!.value().get_events({
-                            options: get_option,
-                            words: get_word,
-                            icons: get_icon,
-                            selector: selector,
-                            template_id: template_id
-                        });
-                        
-                        // Verify if events exists
-                        if ( component_events.length > 0 ) {
+            // Append styles
+            itemplate[0].contentDocument.head.innerHTML += get_styles('library');
 
-                            // List the events
-                            for ( let event of component_events ) {
+            // Append styles
+            itemplate[0].contentDocument.head.innerHTML += get_styles('default');
 
-                                // Check if the event has valid parameters
-                                if ( (typeof event.capture === 'boolean') && (typeof event.target === 'function') && (typeof event.action === 'string') ) {
+            // Append template container
+            itemplate[0].contentDocument.body.innerHTML = '<div class="ec-composer-template"></div>';
 
-                                    // Set iframe
-                                    let iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
+            // Append table
+            itemplate[0].contentDocument.body.getElementsByClassName('ec-composer-template')[0].innerHTML = get_content({
+                'format': 1
+            }).outerHTML;
 
-                                    // Verify if element exists
-                                    if ( typeof event.element === 'string' ) {
+            // Prepare the tabs
+            let tabs = '';
 
-                                        // Register event
-                                        new Classes.Events().addEventListener(selector!.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
+            // Add elements tab to the builder
+            tabs += elements({
+                template_id: template_id
+            });     
+            
+            // Add rows tab to the builder
+            tabs += rows({
+                template_id: template_id
+            }); 
 
-                                    } else {
+            // Add modules tab to the builder
+            tabs += modules({
+                template_id: template_id
+            });
+            
+            // Add history tab to the builder
+            tabs += history({
+                template_id: template_id
+            });
 
-                                        // Register event
-                                        new Classes.Events().addEventListener('', event.action, event.target, iframe, event.capture);
-                                        
-                                    }
+            // Display the tabs
+            selector!.querySelector('.ec-tabs')!.innerHTML += tabs;
 
+            // Add elements section
+            selector!.querySelector('#ec-tab-elements-' + template_id)!.innerHTML += get_section('elements', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                selector: selector
+            });
+
+            // Add rows section
+            selector!.querySelector('#ec-tab-rows-' + template_id)!.innerHTML += get_section('rows', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+
+            // Display the rows in the modal
+            selector!.querySelector('.ec-composer-modal[data-scope="ec-composer-rows-modal"] .ec-composer-modal-body .ec-rows')!.innerHTML += get_section('rows', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                only_rows: 1
+            });                    
+
+            // Add modules section
+            selector!.querySelector('#ec-tab-modules-' + template_id)!.innerHTML += get_section('modules', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+
+            // Add history section
+            selector!.querySelector('#ec-tab-history-' + template_id)!.innerHTML += get_section('history', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+
+            // Get components
+            const components_list = Object.keys(Components);
+            
+            // Verify if components exists
+            if ( components_list.length > 0 ) {
+
+                // List the components
+                for ( const component of components_list ) {
+
+                    // Component class
+                    const component_class: PropertyDescriptor | undefined = Object.getOwnPropertyDescriptor(Components, component);
+
+                    // Get the events
+                    const component_events = new component_class!.value().get_events({
+                        options: get_option,
+                        words: get_word,
+                        icons: get_icon,
+                        selector: selector,
+                        template_id: template_id
+                    });
+                    
+                    // Verify if events exists
+                    if ( component_events.length > 0 ) {
+
+                        // List the events
+                        for ( const event of component_events ) {
+
+                            // Check if the event has valid parameters
+                            if ( (typeof event.capture === 'boolean') && (typeof event.target === 'function') && (typeof event.action === 'string') ) {
+
+                                // Set iframe
+                                const iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
+
+                                // Verify if element exists
+                                if ( typeof event.element === 'string' ) {
+
+                                    // Register event
+                                    new Classes.Events().addEventListener(selector!.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
+
+                                } else {
+
+                                    // Register event
+                                    new Classes.Events().addEventListener('', event.action, event.target, iframe, event.capture);
+                                    
                                 }
 
                             }
@@ -432,7 +417,7 @@ export namespace Controllers {
 
                 }
 
-            }, 1000);
+            }
 
         }
 
@@ -444,22 +429,22 @@ export namespace Controllers {
         uniqueid(): string {
 
             // String
-            let allowed: string = 'abcdefghijklmnopqrstuvwxyz';
+            const allowed: string = 'abcdefghijklmnopqrstuvwxyz';
 
             // Total characters
-            let tchars = allowed.length;
+            const tchars = allowed.length;
 
             // First number
-            let first_number: number = Math.floor(Math.random() * tchars);
+            const first_number: number = Math.floor(Math.random() * tchars);
 
             // First char
-            let first_char: string = allowed.slice(first_number, (first_number + 1));
+            const first_char: string = allowed.slice(first_number, (first_number + 1));
 
             // Second number
-            let second_number: number = Math.floor(Math.random() * tchars);
+            const second_number: number = Math.floor(Math.random() * tchars);
 
             // Second char
-            let second_char: string = allowed.slice(second_number, (second_number + 1));
+            const second_char: string = allowed.slice(second_number, (second_number + 1));
 
             return first_char + second_char + Date.now();
 
@@ -474,13 +459,13 @@ export namespace Controllers {
         template(template_id: string, create: boolean): void {  
 
             // Set element
-            let element: string = this.element;
+            const element: string = this.element;
 
             // Select the element
-            let selector = document.querySelector(element) as HTMLElement;
+            const selector = document.querySelector(element) as HTMLElement;
             
             // Create params
-            let params: params_type = {
+            const params: params_type = {
                 options: get_option,
                 selector: selector,
                 words: get_word,
@@ -489,7 +474,7 @@ export namespace Controllers {
             };
 
             // Init http request
-            let http_send = new Classes.Https();
+            const http_send = new Classes.Https();
 
             // Check if selector is not undefined
             if ( selector !== undefined ) {
@@ -504,13 +489,13 @@ export namespace Controllers {
                         new Classes.Backup().save_html_update(params);
 
                         // Create template
-                        let send_request = new Promise((resolve, reject): void => {
+                        const send_request = new Promise((resolve, reject): void => {
 
                             // Get the template's content
-                            let template_html: string = get_template(params);
+                            const template_html: string = get_template(params);
 
                             // Set template
-                            let template: {
+                            const template: {
                                 template_id: string,
                                 html: string,
                                 css: string,
@@ -523,7 +508,7 @@ export namespace Controllers {
                             };
 
                             // Send a create template request
-                            let response = http_send.post(get_option('api_url') + 'api/create_template', template);
+                            const response = http_send.post(get_option('api_url') + 'api/create_template', template);
 
                             // Return response
                             resolve(response);

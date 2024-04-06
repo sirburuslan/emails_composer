@@ -45,13 +45,13 @@ export namespace Resources.Options {
             let value: string = option.value;
 
             // Get iframe
-            let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Verify if iframe exists
             if ( iframe ) {
 
                 // Get content document
-                let iframeDocument: Document | null = iframe.contentDocument;
+                const iframeDocument: Document | null = iframe.contentDocument;
 
                 // Check if iframeDocument is not null
                 if ( iframeDocument !== null ) {
@@ -60,7 +60,7 @@ export namespace Resources.Options {
                     if ( option.element ) {
 
                         // Get the element
-                        let element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
+                        const element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
 
                         // Verify if element is not null
                         if ( element ) {
@@ -73,7 +73,7 @@ export namespace Resources.Options {
                     } else {
 
                         // Get the element
-                        let element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                        const element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                         // Verify if element is not null
                         if ( element ) {
@@ -90,10 +90,10 @@ export namespace Resources.Options {
             }
 
             // Set the element
-            let element: string = (option.element !== '')?' data-element="' + option.element + '"':'';
+            const element: string = (option.element !== '')?' data-element="' + option.element + '"':'';
 
             // Unique checkbox id
-            let unique_id: number = Math.random();
+            const unique_id: number = Math.random();
 
             return {
 
@@ -150,7 +150,7 @@ export namespace Resources.Options {
                 target: (e: KeyboardEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -174,16 +174,16 @@ export namespace Resources.Options {
                                 target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.remove('ec-option-url-group-active-button');
 
                                 // Get the option url
-                                let option_url: HTMLElement | null = target.closest('.ec-option-url-group');
+                                const option_url: HTMLElement | null = target.closest('.ec-option-url-group');
 
                                 // Get input
-                                let input: HTMLCollectionOf<HTMLInputElement> | undefined = option_url!.getElementsByTagName('input');
+                                const input: HTMLCollectionOf<HTMLInputElement> | undefined = option_url!.getElementsByTagName('input');
 
                                 // Check if input is not undefined
                                 if ( input !== undefined ) {
 
                                     // Get value
-                                    let value: string | undefined = input[0].value;
+                                    const value: string | undefined = input[0].value;
 
                                     // Check if value exists
                                     if ( value !== undefined ) {
@@ -195,37 +195,37 @@ export namespace Resources.Options {
                                             target.closest('.ec-option-url-group')?.getElementsByTagName('button')[1].classList.add('ec-option-url-group-active-button');
 
                                             // Get the option name
-                                            let option_name: string | null | undefined = option_url!.closest('li')?.getAttribute('data-option');
+                                            const option_name: string | null | undefined = option_url!.closest('li')?.getAttribute('data-option');
 
                                             // Check if option name exists
                                             if ( option_name ) {
 
                                                 // Get the element's id
-                                                let element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                const element_id: string | null | undefined = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
 
                                                 // Check if element's id exists
                                                 if ( element_id ) {
 
                                                     // Get iframe
-                                                    let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                                    const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                                     // Verify if iframe exists
                                                     if ( iframe ) {
 
                                                         // Get content document
-                                                        let iframeDocument: Document | null = iframe.contentDocument;
+                                                        const iframeDocument: Document | null = iframe.contentDocument;
 
                                                         // Check if iframeDocument is not null
                                                         if ( iframeDocument !== null ) {
 
                                                             // Set the element name
-                                                            let element_name: string | null = target.closest('.ec-option-url-group')!.getAttribute('data-element')?target.closest('.ec-option-url-group')!.getAttribute('data-element'):'';
+                                                            const element_name: string | null = target.closest('.ec-option-url-group')!.getAttribute('data-element')?target.closest('.ec-option-url-group')!.getAttribute('data-element'):'';
 
                                                             // Verify if the element is not empty
                                                             if ( element_name ) {
 
                                                                 // Get the element
-                                                                let element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
+                                                                const element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
 
                                                                 // Verify if element is not null
                                                                 if ( element ) {
@@ -238,7 +238,7 @@ export namespace Resources.Options {
                                                             } else {
 
                                                                 // Get the element
-                                                                let element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                const element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                                                 // Verify if element is not null
                                                                 if ( element ) {

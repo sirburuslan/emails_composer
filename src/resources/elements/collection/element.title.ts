@@ -102,25 +102,25 @@ export namespace Resources.Elements {
         get_options = (params: params_type): options_type => {
 
             // Sizes container
-            let sizes: Array<{item_id: number | string, item_name: number | string}> = [];
+            const sizes: Array<{item_id: number | string, item_name: number | string}> = [];
 
             // Get the fonts list
-            let fonts_list: font_type[] = Object.values(fonts);
+            const fonts_list: font_type[] = Object.values(fonts);
 
             // Selected font
-            let selected_font: string = 'opensans';
+            const selected_font: string = 'opensans';
 
             // Check if the font exists
-            let font: font_type | undefined = fonts_list.find(item => item.slug === selected_font);
+            const font: font_type | undefined = fonts_list.find(item => item.slug === selected_font);
 
             // Weights container
-            let weights: Array<{item_id: number | string, item_name: number | string}> = [];
+            const weights: Array<{item_id: number | string, item_name: number | string}> = [];
 
             // Verify if font exists
             if ( typeof font !== 'undefined' ) {
 
                 // List the weights
-                for ( let weight of font.weight ) {
+                for ( const weight of font.weight ) {
 
                     // Add weight to the list
                     weights.push({
@@ -646,7 +646,7 @@ export namespace Resources.Elements {
         get_styles = (element_id: string): string => {
             
             // Styles container
-            let styles = ``;
+            const styles = ``;
 
             return styles;
 

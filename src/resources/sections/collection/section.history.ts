@@ -34,7 +34,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
         if ( params.options('builder')?.resources?.history?.sections?.general?.enabled ) {
 
             // Show class
-            let show = params.options('builder')?.resources?.history?.sections?.general?.show?' ec-section-show':'';
+            const show = params.options('builder')?.resources?.history?.sections?.general?.show?' ec-section-show':'';
 
             // Add general history section
             section += '<div class="ec-section ec-section-history' + show + '">'

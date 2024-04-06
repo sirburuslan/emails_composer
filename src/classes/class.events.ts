@@ -49,7 +49,7 @@ export namespace Class {
                 if ( iframe ) {
 
                     // Get iframe
-                    let iframes: any = document.querySelectorAll(iframe);
+                    const iframes: any = document.querySelectorAll(iframe);
 
                     // Verify if iframe exists
                     if ( typeof iframes !== 'undefined' ) {
@@ -69,7 +69,7 @@ export namespace Class {
             } else {
 
                 // Get all nodes
-                let all_nodes = node.length;
+                const all_nodes = node.length;
 
                 // List the nodes
                 for ( var a = 0; a < all_nodes; a++ ) {

@@ -33,10 +33,10 @@ export namespace Plugins {
             try {
 
                 // Parse the input as a URL
-                let parse_url = new URL(url);
+                const parse_url = new URL(url);
             
                 // Allowed protocols
-                let protocols: string[] = ['http:', 'https:'];
+                const protocols: string[] = ['http:', 'https:'];
 
                 // Verify if the protocol is allowed
                 if (!protocols.includes(parse_url.protocol)) {

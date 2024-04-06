@@ -51,28 +51,28 @@ const sections: InterfaceSections.Interfaces.Sections = {
         let advanced_elements_list = '';
 
         // Key the keys
-        let elements_keys = Object.keys(elements);
+        const elements_keys = Object.keys(elements);
 
         // Total elements
-        let total_elements = elements_keys.length;
+        const total_elements = elements_keys.length;
 
         // List the elements
         for ( var f = 0; f < total_elements; f++ ) {
 
             // Get the namespace
-            let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, elements_keys[f])?.value.Resources.Elements;
+            const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, elements_keys[f])?.value.Resources.Elements;
 
             // Get key
-            let key = Object.keys(name_space)[0] as string;
+            const key = Object.keys(name_space)[0] as string;
 
             // Get the element class
-            let element_class = new name_space[key]();
+            const element_class = new name_space[key]();
 
             // Get element
-            let get_element: string = element_class.get_element(params);
+            const get_element: string = element_class.get_element(params);
 
             // Get info
-            let get_info: {[key: string]: any} = element_class.get_info(params);
+            const get_info: {[key: string]: any} = element_class.get_info(params);
 
             // Check if category is general
             if ( get_info.category === 'general' ) {
@@ -93,7 +93,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
         if ( params.options('builder')?.resources?.elements?.sections?.general?.enabled ) {
 
             // Show class
-            let show = params.options('builder')?.resources?.elements?.sections?.general?.show?' ec-section-show':'';
+            const show = params.options('builder')?.resources?.elements?.sections?.general?.show?' ec-section-show':'';
 
             // Add general elements section
             section += '<div class="ec-section' + show + '">'
@@ -119,7 +119,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
         if ( params.options('builder')?.resources?.elements?.sections?.advanced?.enabled ) {
 
             // Show class
-            let show = params.options('builder')?.resources?.elements?.sections?.advanced?.show?' ec-section-show':'';
+            const show = params.options('builder')?.resources?.elements?.sections?.advanced?.show?' ec-section-show':'';
 
             // Add advanced elements section
             section += '<div class="ec-section' + show + '">'
@@ -151,25 +151,25 @@ const sections: InterfaceSections.Interfaces.Sections = {
             if ( Object.keys(elements).length > 0 ) {
 
                 // List the elements
-                for ( let element of Object.keys(elements) ) {
+                for ( const element of Object.keys(elements) ) {
 
                     // Get the namespace
-                    let name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, element)?.value.Resources.Elements;
+                    const name_space: {[key: string]: any} = Object.getOwnPropertyDescriptor(elements, element)?.value.Resources.Elements;
 
                     // Get key
-                    let key = Object.keys(name_space)[0] as string;
+                    const key = Object.keys(name_space)[0] as string;
 
                     // Get the element class
-                    let element_class = new name_space[key]();
+                    const element_class = new name_space[key]();
 
                     // Get element's events
-                    let element_events: events_type | undefined = element_class.get_events(params);
+                    const element_events: events_type | undefined = element_class.get_events(params);
                     
                     // Check if events exists
                     if ( typeof element_events !== 'undefined' ) {
 
                         // List the events
-                        for ( let event of element_events ) {
+                        for ( const event of element_events ) {
 
                             // Verify if event is not null
                             if ( !event ) {
@@ -177,7 +177,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
                             }
 
                             // Check if iframe exists
-                            let iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
+                            const iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
 
                             // Verify if element exists
                             if ( typeof event.element === 'string' ) {
@@ -204,22 +204,22 @@ const sections: InterfaceSections.Interfaces.Sections = {
             if ( Object.keys(templates).length > 0 ) {
 
                 // List the templates
-                for ( let template of Object.keys(templates) ) {
+                for ( const template of Object.keys(templates) ) {
 
                     // Get the elements options class
-                    let the_options_class: element_options_type = Object.getOwnPropertyDescriptor(templates, template)?.value;
+                    const the_options_class: element_options_type = Object.getOwnPropertyDescriptor(templates, template)?.value;
                     
                     // Get the events
-                    let template_events: events_type | undefined = new the_options_class(params).get_events(params);
+                    const template_events: events_type | undefined = new the_options_class(params).get_events(params);
 
                     // Verify if events types exists
                     if ( template_events !== undefined ) {
 
                         // List the events
-                        for ( let event of template_events ) {
+                        for ( const event of template_events ) {
 
                             // Check if iframe exists
-                            let iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
+                            const iframe: string = (typeof event.iframe !== 'undefined')?event.iframe:'';
 
                             // Verify if element exists
                             if ( typeof event.element === 'string' ) {

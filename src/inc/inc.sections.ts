@@ -29,16 +29,13 @@ export const get_section = (section: string, params: any): string => {
         let sections_list: string = '';
 
         // Key the keys
-        let sections_keys: string[] = Object.keys(sections);
+        const sections_keys: string[] = Object.keys(sections);
 
         // Total sections
-        let total_sections: number = sections_keys.length;
-
-        // Counter
-        let i: number = 0;
+        const total_sections: number = sections_keys.length;
 
         // List the sections
-        do {
+        for ( let i: number = 0; i < total_sections; i++ ) {
 
             // Check if is the required section
             if ( section !== sections_keys[i] ) {
@@ -51,12 +48,9 @@ export const get_section = (section: string, params: any): string => {
             }
 
             // Add section to the list
-            sections_list += Object.getOwnPropertyDescriptor(sections, sections_keys[i])?.value.get_section(params);            
+            sections_list += Object.getOwnPropertyDescriptor(sections, sections_keys[i])?.value.get_section(params);      
 
-            // Increase i
-            i++;
-
-        } while ( i < total_sections );
+        }
 
         return sections_list;
 

@@ -58,7 +58,7 @@ export namespace Plugins {
             this._params = params;
 
             // Before edit css
-            let before_css: string = css;      
+            const before_css: string = css;      
 
             // Verify if the spaces parameter exists
             if ( typeof this._params.spaces !== 'undefined' ) {
@@ -95,7 +95,7 @@ export namespace Plugins {
             this._characters = css.split("");
       
             // Total characters
-            let tcharacters: number = this._characters.length;
+            const tcharacters: number = this._characters.length;
 
             // Verify if characters exists
             if ( tcharacters > 0 ) {
@@ -254,7 +254,7 @@ export namespace Plugins {
             }
          
             // Add lines
-            let ready_code = new CssFormatterLines.CssFormatter.Lines().add_lines(this._fcode);
+            const ready_code = new CssFormatterLines.CssFormatter.Lines().add_lines(this._fcode);
 
             // Return success code
             return new Promise((resolve: (value: string) => void, reject: (value: string) => void): void => {

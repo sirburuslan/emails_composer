@@ -30,17 +30,17 @@ export namespace Components {
                     target: (e: any): void => {
 
                         // Save target
-                        let target: HTMLElement = e.target;
+                        const target: HTMLElement = e.target;
 
                         // Verify if closest .ec-loading-navigation-button exists
                         if ( target.closest('.ec-loading-navigation-button') ) {
                             e.preventDefault();
 
                             // Get the history
-                            let history: string | null | undefined = target.closest('.ec-history-component')?.getAttribute('data-history');
+                            const history: string | null | undefined = target.closest('.ec-history-component')?.getAttribute('data-history');
 
                             // Get the page
-                            let page: string | null | undefined = target.closest('a')?.getAttribute('data-page');
+                            const page: string | null | undefined = target.closest('a')?.getAttribute('data-page');
 
                             // Check if page is not null
                             if ( (typeof history === 'string') && (typeof page === 'string') ) {
@@ -87,7 +87,7 @@ export namespace Components {
                                 target.classList.add('ec-load-more-active');
 
                                 // Get the page
-                                let page: string | null = target.getAttribute('data-page');
+                                const page: string | null = target.getAttribute('data-page');
 
                                 // Check if page exists
                                 if ( page ) {

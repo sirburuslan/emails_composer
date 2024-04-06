@@ -73,12 +73,12 @@ export namespace Class {
         async create_module(params: params_type, module: module_type): Promise<void> {
 
             // Create the fields
-            let fields: { module: module_type } = {
+            const fields: { module: module_type } = {
                 module: module
             };
 
             // Create the request params
-            let request_params: {[key: string]: string | {
+            const request_params: {[key: string]: string | {
                 [key: string]: string
             }} = {
                 method: 'POST',
@@ -89,7 +89,7 @@ export namespace Class {
             };
 
             // Execute request
-            let response = await fetch(params.options('api_url') + 'api/create_module', request_params);
+            const response = await fetch(params.options('api_url') + 'api/create_module', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
@@ -117,7 +117,7 @@ export namespace Class {
             }
 
             // Process the response
-            let json: {success: boolean, message: string} = await response.json();
+            const json: {success: boolean, message: string} = await response.json();
 
             // Remove the class ec-save-module-button
             params.selector.querySelector('.ec-composer-modal-show')!.getElementsByClassName('ec-save-module-button')[0].classList.remove('ec-saving-module-button');
@@ -129,7 +129,7 @@ export namespace Class {
                 show_modal_message(params, 'success', json.message);   
                 
                 // Get the create module modal
-                let create_module: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                const create_module: Element | null = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
 
                 // Empty the name
                 (create_module!.getElementsByClassName('ec-menu-module-name')[0] as HTMLInputElement).value = '';
@@ -181,7 +181,7 @@ export namespace Class {
         async get_modules(params: params_type, type: string, page: number): Promise<void> {
 
             // Prepare the fields
-            let fields: { type: string, page: number, category?: string, search?: string } = {
+            const fields: { type: string, page: number, category?: string, search?: string } = {
                 type: type,
                 page: page,
                 search: (type === 'personal')?(params.selector.querySelector('.ec-modules-component .ec-search-personal-modules') as HTMLInputElement).value:(params.selector.querySelector('.ec-modules-component .ec-search-default-modules') as HTMLInputElement).value
@@ -191,7 +191,7 @@ export namespace Class {
             if (type === 'default') {
 
                 // Get the category
-                let category: string | null = params.selector.querySelector('.ec-option-selector-dropdown .ec-button')!.getAttribute('data-id');
+                const category: string | null = params.selector.querySelector('.ec-option-selector-dropdown .ec-button')!.getAttribute('data-id');
 
                 // Verify if a category is selected
                 if ( category ) {
@@ -204,7 +204,7 @@ export namespace Class {
             }
 
             // Create the request parameters
-            let request_params: {[key: string]: string | {
+            const request_params: {[key: string]: string | {
                 [key: string]: string
             }} = {
                 method: 'POST',
@@ -215,7 +215,7 @@ export namespace Class {
             };
 
             // Get the response
-            let response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
+            const response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
@@ -246,7 +246,7 @@ export namespace Class {
             }
 
             // Process the response
-            let json = await response.json();
+            const json = await response.json();
 
             // Check if type is personal
             if (type === 'personal') {
@@ -264,7 +264,7 @@ export namespace Class {
                     let modules_list: string = '';
 
                     // List the modules
-                    for ( let module of json.modules ) {
+                    for ( const module of json.modules ) {
 
                         // Add module to the modules list
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
@@ -317,7 +317,7 @@ export namespace Class {
                     let modules_list: string = '';
 
                     // List the modules
-                    for ( let module of json.modules ) {
+                    for ( const module of json.modules ) {
 
                         // Add module to the modules list
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
@@ -369,13 +369,13 @@ export namespace Class {
         async get_module(params: params_type, module_id: string, module_type: string): Promise<void> {
 
             // Prepare the fields
-            let fields: {module_id: string, module_type: string} = {
+            const fields: {module_id: string, module_type: string} = {
                 module_id: module_id,
                 module_type: module_type
             };
 
             // Prepare the request parameters
-            let request_params: {[key: string]: string | {
+            const request_params: {[key: string]: string | {
                 [key: string]: string
             }} = {
                 method: 'POST',
@@ -386,7 +386,7 @@ export namespace Class {
             };
 
             // Request the module
-            let response = await fetch(params.options('api_url') + 'api/get_module', request_params);
+            const response = await fetch(params.options('api_url') + 'api/get_module', request_params);
 
             // Verify if the response is failed
             if (!response.ok) {
@@ -414,7 +414,7 @@ export namespace Class {
             }
 
             // Process the response
-            let json: {success: boolean, message?: string, html?: string, css?: string} = await response.json();
+            const json: {success: boolean, message?: string, html?: string, css?: string} = await response.json();
 
             // Verify if the module was created
             if ( json.success ) {
@@ -429,13 +429,13 @@ export namespace Class {
                 json_html = json_html!.replaceAll(/<img(.*?)>/g, '<img$1/>');                
 
                 // Parse HTML to DOM
-                let html: Document = new DOMParser().parseFromString(json_html, "text/xml");
+                const html: Document = new DOMParser().parseFromString(json_html, "text/xml");
 
                 // Get the elements ids from html
-                let html_elements: HTMLCollectionOf<Element> = html.getElementsByClassName('ec-element-content');
+                const html_elements: HTMLCollectionOf<Element> = html.getElementsByClassName('ec-element-content');
 
                 // Elements ids container
-                let elements_ids: string[] = [];
+                const elements_ids: string[] = [];
 
                 // Verify if html elements exists
                 if ( html_elements.length > 0 ) {
@@ -444,10 +444,10 @@ export namespace Class {
                     let index: number = 0;
 
                     // List the elements
-                    for ( let element of html_elements ) {
+                    for ( const element of html_elements ) {
 
                         // Create a id for the element
-                        let element_id: string = 'ec-element-' + index + '-' + Date.now();
+                        const element_id: string = 'ec-element-' + index + '-' + Date.now();
 
                         // Add element's id to elements_ids
                         elements_ids.push(element_id);
@@ -466,10 +466,10 @@ export namespace Class {
                 }
 
                 // Get iframe for template
-                let itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Get content document
-                let idocument: Document | null = itemplate.contentDocument;
+                const idocument: Document | null = itemplate.contentDocument;
 
                 // Check if idocument is not null
                 if ( idocument ) {
@@ -478,13 +478,13 @@ export namespace Class {
                     if ( elements_ids.length > 0 ) {
 
                         // Get the module's placeholder
-                        let module_placeholder: HTMLCollectionOf<Element> = idocument.getElementsByClassName('ec-composer-template-module-placeholder');
+                        const module_placeholder: HTMLCollectionOf<Element> = idocument.getElementsByClassName('ec-composer-template-module-placeholder');
 
                         // Verify if module placeholder exists
                         if ( module_placeholder.length > 0 ) {
 
                             // Get structures buttons
-                            let structure_buttons: string = get_structure_buttons();                            
+                            const structure_buttons: string = get_structure_buttons();                            
 
                             // Replace the module placeholder
                             module_placeholder[0].closest('.ec-composer-template-content-line')!.outerHTML = json.html!.replace('ec-composer-template-content-line', 'ec-composer-template-content-line ec-composer-template-content-line-temp-show');
@@ -506,16 +506,16 @@ export namespace Class {
                         }
 
                         // Get the element buttons
-                        let element_buttons: string = get_element_buttons();
+                        const element_buttons: string = get_element_buttons();
 
                         // CSS Elements
                         let css_elements: {[key: string]: string} | null = null;
 
                         // List the elements ids
-                        for ( let element_id of elements_ids ) {
+                        for ( const element_id of elements_ids ) {
 
                             // Get the style tag
-                            let style: HTMLStyleElement | null = idocument.head.querySelector('style[data-element="' + element_id + '"]');
+                            const style: HTMLStyleElement | null = idocument.head.querySelector('style[data-element="' + element_id + '"]');
 
                             // Check if style exists
                             if ( style !== null ) {
@@ -546,7 +546,7 @@ export namespace Class {
                         if ( css_elements !== null ) {
 
                             // Init the backup class
-                            let backup = new Classes.Backup();
+                            const backup = new Classes.Backup();
 
                             // Save backup
                             backup.save_module(params, css_elements, remove_buttons(idocument.getElementsByClassName('ec-composer-template')[0].outerHTML));

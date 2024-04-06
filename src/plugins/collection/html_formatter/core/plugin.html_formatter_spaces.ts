@@ -86,7 +86,7 @@ export namespace HtmlFormatter {
         add_spaces(fcode: string): string {
 
             // Split the code
-            let splits: string[] = fcode.split('<');
+            const splits: string[] = fcode.split('<');
 
             // Verify if the code is splitted
             if ( splits.length < 2 ) {
@@ -97,16 +97,13 @@ export namespace HtmlFormatter {
             this._general = new HtmlFormatterGeneral.HtmlFormatter.General();
 
             // Total splits
-            let tsplits: number = splits.length;
-
-            // Splits counter
-            let s: number = 0;
+            const tsplits: number = splits.length;
 
             // List the splits
-            do {
+            for ( let s: number = 0; s < tsplits; s++ ) {
 
                 // Get tag
-                let get_tag = this._general.get_tag(splits[s]);
+                const get_tag = this._general.get_tag(splits[s]);
                 
                 // Check if tag exists
                 if ( !get_tag.tag ) {
@@ -122,10 +119,10 @@ export namespace HtmlFormatter {
                 }
 
                 // Get previous tag
-                let previous_tag: {[key: string]: string | boolean | number | undefined} = this._general.get_tag_by_index(splits, (s - 1));
+                const previous_tag: {[key: string]: string | boolean | number | undefined} = this._general.get_tag_by_index(splits, (s - 1));
 
                 // Get next tag
-                let next_tag: {[key: string]: string | boolean | number | undefined} = this._general.get_tag_by_index(splits, (s + 1));                
+                const next_tag: {[key: string]: string | boolean | number | undefined} = this._general.get_tag_by_index(splits, (s + 1));                
 
                 // Check if tag is start
                 if ( get_tag.start ) {
@@ -248,7 +245,7 @@ export namespace HtmlFormatter {
                     } else if ( get_tag.text && next_tag.start ) {
 
                         // Get current tag
-                        let ctag: string | undefined = splits[s].split('>').shift();
+                        const ctag: string | undefined = splits[s].split('>').shift();
 
                         // Add end
                         temp = this._space.repeat(this._cspace) + '<' + ctag + '>';
@@ -372,10 +369,7 @@ export namespace HtmlFormatter {
 
                 }
 
-                // Increase s
-                s++;
-
-            } while ( s < tsplits );
+            }
 
             return this._open;
 

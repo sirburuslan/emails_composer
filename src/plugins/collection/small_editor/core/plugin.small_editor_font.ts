@@ -44,16 +44,16 @@ export namespace PluginsSmallEditorCore {
         change_font_family = (e: MouseEvent, params: params_type): void => {
 
             // Save target
-            let target = e.target as Element;
+            const target = e.target as Element;
 
             // Get the font
-            let font: string | null = target.getAttribute('data-font');
+            const font: string | null = target.getAttribute('data-font');
 
             // Check if font exists
             if ( font ) {
 
                 // Get index
-                let index: number = Object.keys(fonts).indexOf(font);
+                const index: number = Object.keys(fonts).indexOf(font);
 
                 // Verify if index exists
                 if ( typeof index !== 'number' ) {
@@ -65,10 +65,10 @@ export namespace PluginsSmallEditorCore {
                 }
 
                 // Get the font parameters
-                let font_params: font_type = Object.values(fonts)[index];
+                const font_params: font_type = Object.values(fonts)[index];
 
                 // Get the weights
-                let weights: number[] = font_params.weight;
+                const weights: number[] = font_params.weight;
 
                 // Weights list
                 let weights_list: string = '';
@@ -77,7 +77,7 @@ export namespace PluginsSmallEditorCore {
                 if ( weights.length > 0 ) {
 
                     // List the weights
-                    for ( let weight of weights ) {
+                    for ( const weight of weights ) {
 
                         // Add weight
                         weights_list += '<li>'
@@ -97,40 +97,40 @@ export namespace PluginsSmallEditorCore {
                 target.closest('.ec-small-text-editor')!.getElementsByClassName('ec-ste-text-weights')[0].innerHTML = weights_list;
 
                 // Get iframe
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Get content window
-                let cwindow: Window | null = iframe.contentWindow;
+                const cwindow: Window | null = iframe.contentWindow;
 
                 // Check if cwindow exists
                 if ( cwindow ) {
 
                     // Get selection
-                    let selection: Selection | null = cwindow.getSelection();
+                    const selection: Selection | null = cwindow.getSelection();
 
                     // Remove selections in the iframe
                     if ( selection && (selection.rangeCount > 0) ) {
 
                         // Select the text editor
-                        let text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
 
                         // Get the font name
-                        let font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                         // Get the fonts list
-                        let fonts_list: font_type[] = Object.values(fonts);
+                        const fonts_list: font_type[] = Object.values(fonts);
 
                         // Check if the font exists
-                        let font: font_type | undefined = fonts_list.find(item => item.name === font_name);
+                        const font: font_type | undefined = fonts_list.find(item => item.name === font_name);
 
                         // Check if font exists
                         if ( font ) {
 
                             // Init small editor
-                            let small_editor = new Plugins.Small_editor();
+                            const small_editor = new Plugins.Small_editor();
 
                             // Get range
-                            let range: Range = selection.getRangeAt(0);
+                            const range: Range = selection.getRangeAt(0);
 
                             // Apply the tags
                             small_editor.apply_tags(params, range, 'font-family', {'style': `font-family:${font.property};`});
@@ -154,10 +154,10 @@ export namespace PluginsSmallEditorCore {
         change_font_size = (e: MouseEvent, params: params_type): void => {
 
             // Save target
-            let target = e.target as Element;
+            const target = e.target as Element;
 
             // Get the size
-            let size: string | null = target.getAttribute('data-size');
+            const size: string | null = target.getAttribute('data-size');
 
             // Check if size exists
             if ( size ) {
@@ -166,40 +166,40 @@ export namespace PluginsSmallEditorCore {
                 target.closest('.ec-ste-dropdown')!.getElementsByTagName('span')[0]!.textContent = size;
 
                 // Get iframe
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Get content window
-                let cwindow: Window | null = iframe.contentWindow;
+                const cwindow: Window | null = iframe.contentWindow;
 
                 // Check if cwindow exists
                 if ( cwindow ) {
 
                     // Get selection
-                    let selection: Selection | null = cwindow.getSelection();
+                    const selection: Selection | null = cwindow.getSelection();
 
                     // Remove selections in the iframe
                     if ( selection && (selection.rangeCount > 0) ) {
 
                         // Select the text editor
-                        let text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
 
                         // Get the font name
-                        let font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                         // Get the fonts list
-                        let fonts_list: font_type[] = Object.values(fonts);
+                        const fonts_list: font_type[] = Object.values(fonts);
 
                         // Check if the font exists
-                        let font: font_type | undefined = fonts_list.find(item => item.name === font_name);
+                        const font: font_type | undefined = fonts_list.find(item => item.name === font_name);
 
                         // Check if font exists
                         if ( font ) {
 
                             // Init small editor
-                            let small_editor = new Plugins.Small_editor();
+                            const small_editor = new Plugins.Small_editor();
 
                             // Get range
-                            let range: Range = selection.getRangeAt(0);
+                            const range: Range = selection.getRangeAt(0);
 
                             // Apply the tags
                             small_editor.apply_tags(params, range, 'font-size', {'style': `font-size:${size};`});
@@ -223,10 +223,10 @@ export namespace PluginsSmallEditorCore {
         change_font_weight = (e: MouseEvent, params: params_type): void => {
 
             // Save target
-            let target = e.target as Element;
+            const target = e.target as Element;
 
             // Get the weight
-            let weight: string | null = target.getAttribute('data-weight');
+            const weight: string | null = target.getAttribute('data-weight');
 
             // Check if weight exists
             if ( weight ) {
@@ -235,40 +235,40 @@ export namespace PluginsSmallEditorCore {
                 target.closest('.ec-ste-dropdown')!.getElementsByTagName('span')[0]!.textContent = weight;
 
                 // Get iframe
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Get content window
-                let cwindow: Window | null = iframe.contentWindow;
+                const cwindow: Window | null = iframe.contentWindow;
 
                 // Check if cwindow exists
                 if ( cwindow ) {
 
                     // Get selection
-                    let selection: Selection | null = cwindow.getSelection();
+                    const selection: Selection | null = cwindow.getSelection();
 
                     // Remove selections in the iframe
                     if ( selection && (selection.rangeCount > 0) ) {
 
                         // Select the text editor
-                        let text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
 
                         // Get the font name
-                        let font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const font_name: string | null | undefined = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
 
                         // Get the fonts list
-                        let fonts_list: font_type[] = Object.values(fonts);
+                        const fonts_list: font_type[] = Object.values(fonts);
 
                         // Check if the font exists
-                        let font: font_type | undefined = fonts_list.find(item => item.name === font_name);
+                        const font: font_type | undefined = fonts_list.find(item => item.name === font_name);
 
                         // Check if font exists
                         if ( font ) {
 
                             // Init small editor
-                            let small_editor = new Plugins.Small_editor();
+                            const small_editor = new Plugins.Small_editor();
 
                             // Get range
-                            let range: Range = selection.getRangeAt(0);
+                            const range: Range = selection.getRangeAt(0);
 
                             // Apply the tags
                             small_editor.apply_tags(params, range, 'font-weight', {'style': `font-weight:${weight};`});
@@ -297,22 +297,22 @@ export namespace PluginsSmallEditorCore {
             let target = e.target as Element;
 
             // Get iframe for template
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = itemplate.contentWindow;
+            const cwindow: Window | null = itemplate.contentWindow;
 
             // Create a new Selection object
-            let selection: Selection | null = cwindow!.getSelection();
+            const selection: Selection | null = cwindow!.getSelection();
 
             // Remove selections in the iframe
             if ( selection && (selection.rangeCount > 0) ) {
 
                 // Get range
-                let range: Range = selection.getRangeAt(0);
+                const range: Range = selection.getRangeAt(0);
 
                 // Get the node
-                let node: Node = range.commonAncestorContainer;
+                const node: Node = range.commonAncestorContainer;
 
                 // Check if node is an element node
                 if (node.nodeType === Node.ELEMENT_NODE) {
@@ -330,19 +330,19 @@ export namespace PluginsSmallEditorCore {
             }
 
             // Select the text editor
-            let text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+            const text_editor: Element = params.selector.getElementsByClassName('ec-small-text-editor')[0];
 
             // Get the properties
-            let properties: CSSStyleDeclaration = window.getComputedStyle(target);
+            const properties: CSSStyleDeclaration = window.getComputedStyle(target);
 
             // Get the font name
-            let font_name: string = properties.fontFamily;
+            const font_name: string = properties.fontFamily;
 
             // Get the fonts list
-            let fonts_list: font_type[] = Object.values(fonts);
+            const fonts_list: font_type[] = Object.values(fonts);
 
             // Check if the font exists
-            let font: font_type | undefined = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
+            const font: font_type | undefined = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
 
             // Check if font exists
             if ( font ) {
@@ -351,7 +351,7 @@ export namespace PluginsSmallEditorCore {
                 text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')!.textContent = font.name;
 
                 // Get the weights
-                let weights: number[] = font.weight;
+                const weights: number[] = font.weight;
 
                 // Weights list
                 let weights_list: string = '';
@@ -360,7 +360,7 @@ export namespace PluginsSmallEditorCore {
                 if ( weights.length > 0 ) {
 
                     // List the weights
-                    for ( let weight of weights ) {
+                    for ( const weight of weights ) {
 
                         // Add weight
                         weights_list += '<li>'
@@ -379,22 +379,22 @@ export namespace PluginsSmallEditorCore {
             }
             
             // Get the font tag
-            /*let font_family: Element | null = this.get_styles(target, 'font-family');
+            /*const font_family: Element | null = this.get_styles(target, 'font-family');
 
             // Verify if font tag exists
             if ( font_family ) {
 
                 // Get the properties
-                let properties: CSSStyleDeclaration = window.getComputedStyle(font_family);
+                const properties: CSSStyleDeclaration = window.getComputedStyle(font_family);
 
                 // Get the font name
-                let font_name: string = properties.fontFamily;
+                const font_name: string = properties.fontFamily;
 
                 // Get the fonts list
-                let fonts_list: font_type[] = Object.values(fonts);
+                const fonts_list: font_type[] = Object.values(fonts);
 
                 // Check if the font exists
-                let font: font_type | undefined = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
+                const font: font_type | undefined = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
 
                 // Check if font exists
                 if ( font ) {
@@ -403,16 +403,16 @@ export namespace PluginsSmallEditorCore {
                     text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')!.textContent = font.name;
 
                     // Get the weights
-                    let weights: number[] = font.weight;
+                    const weights: number[] = font.weight;
 
                     // Weights list
-                    let weights_list: string = '';
+                    const weights_list: string = '';
 
                     // Verify if weights exists
                     if ( weights.length > 0 ) {
 
                         // List the weights
-                        for ( let weight of weights ) {
+                        for ( const weight of weights ) {
 
                             // Add weight
                             weights_list += '<li>'
@@ -433,25 +433,25 @@ export namespace PluginsSmallEditorCore {
             } else {
 
                 // Get the fonts list
-                let fonts_list: font_type[] = Object.values(fonts);
+                const fonts_list: font_type[] = Object.values(fonts);
 
                 // Check if the font exists
-                let font: font_type | undefined = fonts_list.find(item => item.slug === 'lato');
+                const font: font_type | undefined = fonts_list.find(item => item.slug === 'lato');
 
                 // Check if font exists
                 if ( font ) {
 
                     // Get the weights
-                    let weights: number[] = font.weight;
+                    const weights: number[] = font.weight;
 
                     // Weights list
-                    let weights_list: string = '';
+                    const weights_list: string = '';
 
                     // Verify if weights exists
                     if ( weights.length > 0 ) {
 
                         // List the weights
-                        for ( let weight of weights ) {
+                        for ( const weight of weights ) {
 
                             // Add weight
                             weights_list += '<li>'
@@ -484,13 +484,13 @@ export namespace PluginsSmallEditorCore {
             text_editor.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')!.textContent = properties.fontSize;
 
             // Get the font size
-            /*let font_size: Element | null = this.get_styles(target, 'font-size');
+            /*const font_size: Element | null = this.get_styles(target, 'font-size');
             
             // Verify if font size exists
             if ( font_size ) {
 
                 // Get the properties
-                let properties: CSSStyleDeclaration = window.getComputedStyle(font_size);
+                const properties: CSSStyleDeclaration = window.getComputedStyle(font_size);
 
                 // Set font size
                 text_editor.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')!.textContent = properties.fontSize;
@@ -506,13 +506,13 @@ export namespace PluginsSmallEditorCore {
             text_editor.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')!.textContent = properties.fontWeight;
 
             // Get the font weight
-            /*let font_weight: Element | null = this.get_styles(target, 'font-weight');
+            /*const font_weight: Element | null = this.get_styles(target, 'font-weight');
             
             // Verify if font weight exists
             if ( font_weight ) {
 
                 // Get the properties
-                let properties: CSSStyleDeclaration = window.getComputedStyle(font_weight);
+                const properties: CSSStyleDeclaration = window.getComputedStyle(font_weight);
 
                 // Set font weight
                 text_editor.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')!.textContent = properties.fontWeight;
@@ -525,22 +525,22 @@ export namespace PluginsSmallEditorCore {
             }*/
 
             // Get the text color
-            let rgba: string = properties.color;
+            const rgba: string = properties.color;
 
             // Initialize the Color class
-            let color = new Plugins.Color();
+            const color = new Plugins.Color();
 
             // Set validation rules
-            let is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+            const is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
             
             // Verify if the rgba is valid
             if ( is_valid ) {
 
                 // Extract the rgba
-                let [, r, g, b, a] = is_valid.map(Number);
+                const [, r, g, b, a] = is_valid.map(Number);
 
                 // Convert to hex color
-                let hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
+                const hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
 
                 // Change the button color
                 params.selector.querySelector('.ec-small-text-editor .ec-button-color')!.getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
@@ -555,31 +555,31 @@ export namespace PluginsSmallEditorCore {
             }
 
             // Get the text color
-            /*let text_color: Element | null = this.get_styles(target, 'color');
+            /*const text_color: Element | null = this.get_styles(target, 'color');
             
             // Verify if text color exists
             if ( text_color ) {
 
                 // Get the properties
-                let properties: CSSStyleDeclaration = window.getComputedStyle(text_color);
+                const properties: CSSStyleDeclaration = window.getComputedStyle(text_color);
 
                 // Get the text color
-                let rgba: string = properties.color;
+                const rgba: string = properties.color;
 
                 // Initialize the Color class
-                let color = new Plugins.Color();
+                const color = new Plugins.Color();
 
                 // Set validation rules
-                let is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                const is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                 
                 // Verify if the rgba is valid
                 if ( is_valid ) {
 
                     // Extract the rgba
-                    let [, r, g, b, a] = is_valid.map(Number);
+                    const [, r, g, b, a] = is_valid.map(Number);
 
                     // Convert to hex color
-                    let hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
+                    const hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
 
                     // Change the button color
                     params.selector.querySelector('.ec-small-text-editor .ec-button-color')!.getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
@@ -614,7 +614,7 @@ export namespace PluginsSmallEditorCore {
             while (current) {
 
                 // Get the style
-                let style: any = current?.style;
+                const style: any = current?.style;
 
                 // Check if the current element has the desired style property
                 if ( style && current.style && style.getPropertyValue(name) ) {

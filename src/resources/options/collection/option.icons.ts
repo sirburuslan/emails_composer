@@ -51,7 +51,7 @@ export namespace Resources.Options {
             }, 300);
 
             // Unique checkbox id
-            let unique_id: number = Math.random();
+            const unique_id: number = Math.random();
 
             return {
 
@@ -135,7 +135,7 @@ export namespace Resources.Options {
                 target: (e: Event): void => {
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-option-icons') ) {
@@ -184,7 +184,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -271,10 +271,10 @@ export namespace Resources.Options {
                             } else if ( target.closest('.ec-sizes') && (target.nodeName === 'A') ) {
 
                                 // Get icon's id
-                                let icon_id: string | null = target.closest('.ec-sizes')!.closest('li')!.getAttribute('data-icon');
+                                const icon_id: string | null = target.closest('.ec-sizes')!.closest('li')!.getAttribute('data-icon');
 
                                 // Get size's id
-                                let size: string | null = target.getAttribute('data-size');
+                                const size: string | null = target.getAttribute('data-size');
 
                                 // Download the icon
                                 download_icon(params, icon_id!, size!);

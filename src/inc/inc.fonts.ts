@@ -29,13 +29,13 @@ const get_all_fonts = (): string => {
     if ( Object.keys(fonts).length > 0 ) {
 
         // Get only the fonts without keys
-        let fonts_list: Array<font_type> = Object.values(fonts);
+        const fonts_list: Array<font_type> = Object.values(fonts);
 
         // Open the list
         fonts_html += '<ul class="ec-fonts">';
 
         // List the fonts
-        for ( let font of fonts_list ) {
+        for ( const font of fonts_list ) {
 
             // Add font
             fonts_html += '<li>'
@@ -69,10 +69,10 @@ const get_fonts_link = (): string => {
     if ( Object.keys(fonts).length > 0 ) {
 
         // Get only the fonts without keys
-        let fonts_list: Array<font_type> = Object.values(fonts);
+        const fonts_list: Array<font_type> = Object.values(fonts);
 
         // List the fonts
-        for ( let font of fonts_list ) {
+        for ( const font of fonts_list ) {
 
             // Add font
             fonts_url += font.link + '&';

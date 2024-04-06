@@ -28,22 +28,22 @@ import { params_type } from '../resources/types/types.index.js';
 const create_content = (format: number = 1): HTMLTableElement => {
 
     // Create table
-    let table: HTMLTableElement = document.createElement('table');
+    const table: HTMLTableElement = document.createElement('table');
 
     // Set table's class
     table.classList.add('ec-composer-template-row');
 
     // Create a row
-    let row: HTMLTableRowElement = table.insertRow(0);
+    const row: HTMLTableRowElement = table.insertRow(0);
 
     // Create cell
-    let cell: HTMLDivElement = document.createElement('div');
+    const cell: HTMLDivElement = document.createElement('div');
 
     // Add class
     cell.classList.add('ec-composer-template-cell');
 
     // Create placeholder
-    let placeholder: Element = document.createElement('a');
+    const placeholder: Element = document.createElement('a');
 
     // Set href
     placeholder.setAttribute('href', '#');
@@ -52,7 +52,7 @@ const create_content = (format: number = 1): HTMLTableElement => {
     placeholder.classList.add('ec-composer-template-cell-placeholder');
 
     // Create text
-    let text: HTMLSpanElement = document.createElement('span');
+    const text: HTMLSpanElement = document.createElement('span');
 
     // Add class
     text.classList.add('ec-composer-template-cell-placeholder-text');
@@ -154,10 +154,10 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     /*---------------------- CREATE CONTENT ------------------------*/
 
     // Prepare the format
-    let format: number = (typeof params.format === 'number')?params.format:1;
+    const format: number = (typeof params.format === 'number')?params.format:1;
 
     // Create content
-    let content: HTMLTableElement = create_content(format);
+    const content: HTMLTableElement = create_content(format);
 
     /*---------------------- CREATE BUTTONS ------------------------*/ 
     
@@ -165,7 +165,7 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     let buttons: string = '';
 
     // Create the move button
-    let mbutton: Element = document.createElement('button');
+    const mbutton: Element = document.createElement('button');
 
     // Set type
     mbutton.setAttribute('type', 'button');
@@ -180,13 +180,13 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     buttons += mbutton.outerHTML;
 
     // Create a group with buttons
-    let gbuttons: Element = document.createElement('div');
+    const gbuttons: Element = document.createElement('div');
 
     // Set buttons
     gbuttons.classList.add('ec-composer-template-content-buttons-group');
 
     // Create the new content button
-    let ncontent: HTMLButtonElement = document.createElement('button');
+    const ncontent: HTMLButtonElement = document.createElement('button');
 
     // Set type
     ncontent.setAttribute('type', 'button');
@@ -201,7 +201,7 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     gbuttons.innerHTML = ncontent.outerHTML;
 
     // Create the save content button
-    let scontent: HTMLButtonElement = document.createElement('button');
+    const scontent: HTMLButtonElement = document.createElement('button');
 
     // Set type
     scontent.setAttribute('type', 'button');
@@ -216,7 +216,7 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     gbuttons.innerHTML += scontent.outerHTML;
 
     // Create the delete content button
-    let dcontent: HTMLButtonElement = document.createElement('button');
+    const dcontent: HTMLButtonElement = document.createElement('button');
 
     // Set type
     dcontent.setAttribute('type', 'button');
@@ -236,7 +236,7 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     /*---------------------- CREATE LINES ------------------------*/        
 
     // Create border for content
-    let cline = document.createElement('div');
+    const cline = document.createElement('div');
 
     // Add class
     cline.classList.add('ec-composer-template-content-line');
@@ -244,13 +244,13 @@ const get_content = (params: {format: number}): HTMLDivElement => {
     /*---------------------- CREATE TABLE ------------------------*/
 
     // Create the table element
-    let table: HTMLTableElement = document.createElement('table');
+    const table: HTMLTableElement = document.createElement('table');
 
     // Set table's class
     table.classList.add('ec-composer-template-content');
 
     // Create the table body
-    let tbody: HTMLTableSectionElement = table.createTBody();
+    const tbody: HTMLTableSectionElement = table.createTBody();
     
     // Create row
     tbody.insertRow(0).insertCell(0).innerHTML = content.outerHTML;
@@ -271,13 +271,13 @@ const get_content = (params: {format: number}): HTMLDivElement => {
 const reset_contents = (params: params_type): void => {
 
     // Get iframe
-    let iframe: HTMLCollectionOf<Element> = document.getElementsByClassName('ec-composer-template-container-active');
+    const iframe: HTMLCollectionOf<Element> = document.getElementsByClassName('ec-composer-template-container-active');
 
     // Verify if a drag active content exists
     if ( iframe.length > 0 ) {
 
         // Iframe document
-        let iframe_document: Document = (iframe[0] as HTMLIFrameElement).contentWindow!.document;
+        const iframe_document: Document = (iframe[0] as HTMLIFrameElement).contentWindow!.document;
 
         // Verify if the class ec-composer-template-content-line-drag-active exists
         if ( iframe_document.getElementsByClassName('ec-composer-template-content-line-drag-active').length > 0 ) {
@@ -289,7 +289,7 @@ const reset_contents = (params: params_type): void => {
                 iframe_document.getElementsByClassName('ec-composer-template-content-line-temp')[0].classList.add('ec-composer-template-content-line-temp-show');
 
                 // Save the show temp element
-                let temp_show: Element = iframe_document.getElementsByClassName('ec-composer-template-content-line-temp-show')[0];
+                const temp_show: Element = iframe_document.getElementsByClassName('ec-composer-template-content-line-temp-show')[0];
 
                 // Set pause
                 setTimeout((): void => {
@@ -323,13 +323,13 @@ const reset_contents = (params: params_type): void => {
         } else if ( iframe_document.getElementsByClassName('ec-composer-element-drag-active').length > 0 ) {
 
             // Get temp
-            let temp: Element = iframe_document.getElementsByClassName('ec-element-content-temp')[0];
+            const temp: Element = iframe_document.getElementsByClassName('ec-element-content-temp')[0];
 
             // Save cell
-            let cell: Element | null = temp.closest('.ec-composer-template-cell');
+            const cell: Element | null = temp.closest('.ec-composer-template-cell');
 
             // Save drop active
-            let drop_active: HTMLCollectionOf<Element> = iframe_document.getElementsByClassName('ec-composer-template-cell-drop-active');
+            const drop_active: HTMLCollectionOf<Element> = iframe_document.getElementsByClassName('ec-composer-template-cell-drop-active');
 
             // Verify if drop is active
             if ( drop_active.length > 0 ) {
@@ -362,7 +362,7 @@ const reset_contents = (params: params_type): void => {
             if ( cell && cell.getElementsByClassName('ec-element-content').length < 1 ) {
 
                 // Create placeholder
-                let placeholder: HTMLAnchorElement = document.createElement('a');
+                const placeholder: HTMLAnchorElement = document.createElement('a');
 
                 // Set href
                 placeholder.setAttribute('href', '#');
@@ -374,7 +374,7 @@ const reset_contents = (params: params_type): void => {
                 placeholder.classList.add('ec-show-content');                                    
 
                 // Create text
-                let text: HTMLSpanElement = document.createElement('span');
+                const text: HTMLSpanElement = document.createElement('span');
 
                 // Add class
                 text.classList.add('ec-composer-template-cell-placeholder-text');

@@ -46,28 +46,28 @@ export namespace Resources.Options {
             let items: string = '';
 
             // Unique checkbox id
-            let unique_id: number = Math.random();
+            const unique_id: number = Math.random();
 
             // Get iframe
-            let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Verify if iframe exists
             if ( iframe ) {
 
                 // Get content document
-                let iframeDocument: Document | null = iframe.contentDocument;
+                const iframeDocument: Document | null = iframe.contentDocument;
 
                 // Check if iframeDocument is not null
                 if ( iframeDocument !== null ) {
                     
                     // Get the list
-                    let list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                    const list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
 
                     // Verify if list exists
                     if ( list ) {
 
                         // Get the list items
-                        let list_items: NodeListOf<Node> = list.childNodes;
+                        const list_items: NodeListOf<Node> = list.childNodes;
 
                         // Verify if nodes exists
                         if ( list_items.length > 0 ) {
@@ -76,7 +76,7 @@ export namespace Resources.Options {
                             let count: number = 1;
 
                             // List the list items
-                            for ( let item of list_items ) {
+                            for ( const item of list_items ) {
 
                                 // Check if is LI
                                 if ( item.nodeName !== 'LI' ) {
@@ -84,7 +84,7 @@ export namespace Resources.Options {
                                 }
 
                                 // Get the item's link
-                                let item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
+                                const item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
 
                                 // Verify if the item's link exists
                                 if ( item_link.length < 1 ) {
@@ -92,10 +92,10 @@ export namespace Resources.Options {
                                 }
 
                                 // Get href
-                                let href: string | null = item_link[0].getAttribute('href');
+                                const href: string | null = item_link[0].getAttribute('href');
 
                                 // Get text
-                                let text: string | null = item_link[0].textContent;
+                                const text: string | null = item_link[0].textContent;
 
                                 // Add item
                                 items += '<li data-index="' + count + '">'
@@ -185,7 +185,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -198,10 +198,10 @@ export namespace Resources.Options {
                             if ( target.classList.contains('ec-menu-item-text') ) {
 
                                 // Get the li text
-                                let li_text: string | null = (target as HTMLInputElement).value;
+                                const li_text: string | null = (target as HTMLInputElement).value;
 
                                 // Get the li index
-                                let li_index: string | null = target.closest('li')!.getAttribute('data-index');
+                                const li_index: string | null = target.closest('li')!.getAttribute('data-index');
 
                                 // Verify if the li index exists
                                 if ( li_index ) {
@@ -210,25 +210,25 @@ export namespace Resources.Options {
                                     Classes.Timer.schedule_event('edit_menu_item_text', (): void => {
 
                                         // Get iframe
-                                        let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                        const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                         // Verify if iframe exists
                                         if ( iframe ) {
 
                                             // Get content document
-                                            let iframeDocument: Document | null = iframe.contentDocument;
+                                            const iframeDocument: Document | null = iframe.contentDocument;
 
                                             // Check if iframeDocument is not null
                                             if ( iframeDocument !== null ) {
                                                 
                                                 // Get the list
-                                                let list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                const list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
 
                                                 // Verify if list exists
                                                 if ( list ) {
 
                                                     // Get the list items
-                                                    let list_items: NodeListOf<Node> = list.childNodes;
+                                                    const list_items: NodeListOf<Node> = list.childNodes;
 
                                                     // Verify if nodes exists
                                                     if ( list_items.length > 0 ) {
@@ -237,7 +237,7 @@ export namespace Resources.Options {
                                                         let count: number = 1;
 
                                                         // List the list items
-                                                        for ( let item of list_items ) {
+                                                        for ( const item of list_items ) {
 
                                                             // Check if is LI
                                                             if ( item.nodeName !== 'LI' ) {
@@ -245,7 +245,7 @@ export namespace Resources.Options {
                                                             }
 
                                                             // Get the item's link
-                                                            let item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
+                                                            const item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
 
                                                             // Verify if the item's link exists
                                                             if ( item_link.length < 1 ) {
@@ -282,10 +282,10 @@ export namespace Resources.Options {
                             } else if ( target.classList.contains('ec-menu-item-url') ) {
 
                                 // Get the li url
-                                let li_url: string | null = (target as HTMLInputElement).value;
+                                const li_url: string | null = (target as HTMLInputElement).value;
 
                                 // Get the li index
-                                let li_index: string | null = target.closest('li')!.getAttribute('data-index');
+                                const li_index: string | null = target.closest('li')!.getAttribute('data-index');
 
                                 // Add the ec-option-url-group-active-button class
                                 target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.add('ec-option-url-group-active-button');
@@ -306,25 +306,25 @@ export namespace Resources.Options {
                                         target.closest('.ec-option-url-group')!.getElementsByTagName('button')[0].classList.remove('ec-option-url-group-active-button');
 
                                         // Get iframe
-                                        let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                        const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                         // Verify if iframe exists
                                         if ( iframe ) {
 
                                             // Get content document
-                                            let iframeDocument: Document | null = iframe.contentDocument;
+                                            const iframeDocument: Document | null = iframe.contentDocument;
 
                                             // Check if iframeDocument is not null
                                             if ( iframeDocument !== null ) {
                                                 
                                                 // Get the list
-                                                let list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                const list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
 
                                                 // Verify if list exists
                                                 if ( list ) {
 
                                                     // Get the list items
-                                                    let list_items: NodeListOf<Node> = list.childNodes;
+                                                    const list_items: NodeListOf<Node> = list.childNodes;
 
                                                     // Verify if nodes exists
                                                     if ( list_items.length > 0 ) {
@@ -333,7 +333,7 @@ export namespace Resources.Options {
                                                         let count: number = 1;
 
                                                         // List the list items
-                                                        for ( let item of list_items ) {
+                                                        for ( const item of list_items ) {
 
                                                             // Check if is LI
                                                             if ( item.nodeName !== 'LI' ) {
@@ -341,7 +341,7 @@ export namespace Resources.Options {
                                                             }
 
                                                             // Get the item's link
-                                                            let item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
+                                                            const item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
 
                                                             // Verify if the item's link exists
                                                             if ( item_link.length < 1 ) {
@@ -402,7 +402,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -412,37 +412,37 @@ export namespace Resources.Options {
                             e.preventDefault();
 
                             // Get the list parent
-                            let ul: Element | null = target.closest('ul');
+                            const ul: Element | null = target.closest('ul');
 
                             // Verify if the item should be deleted
                             if ( target.classList.contains('ec-delete-item') ) {
 
                                 // Get the li index
-                                let li_index: string | null = target.closest('li')!.getAttribute('data-index');
+                                const li_index: string | null = target.closest('li')!.getAttribute('data-index');
 
                                 // Verify if li index is not null
                                 if ( li_index ) {
 
                                     // Get iframe
-                                    let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                    const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                     // Verify if iframe exists
                                     if ( iframe ) {
 
                                         // Get content document
-                                        let iframeDocument: Document | null = iframe.contentDocument;
+                                        const iframeDocument: Document | null = iframe.contentDocument;
 
                                         // Check if iframeDocument is not null
                                         if ( iframeDocument !== null ) {
                                             
                                             // Get the list
-                                            let list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                            const list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
 
                                             // Verify if list exists
                                             if ( list ) {
 
                                                 // Get the list items
-                                                let list_items: NodeListOf<Node> = list.childNodes;
+                                                const list_items: NodeListOf<Node> = list.childNodes;
 
                                                 // Verify if nodes exists
                                                 if ( list_items.length > 0 ) {
@@ -451,7 +451,7 @@ export namespace Resources.Options {
                                                     let count: number = 1;
 
                                                     // List the list items
-                                                    for ( let item of list_items ) {
+                                                    for ( const item of list_items ) {
 
                                                         // Check if is LI
                                                         if ( item.nodeName !== 'LI' ) {
@@ -459,7 +459,7 @@ export namespace Resources.Options {
                                                         }
 
                                                         // Get the item's link
-                                                        let item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
+                                                        const item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
 
                                                         // Verify if the item's link exists
                                                         if ( item_link.length < 1 ) {
@@ -500,7 +500,7 @@ export namespace Resources.Options {
                                     let count: number = 1;
 
                                     // List the items
-                                    for ( let item of ul!.getElementsByTagName('li') ) {
+                                    for ( const item of ul!.getElementsByTagName('li') ) {
 
                                         // Update the data-index
                                         item.setAttribute('data-index', count.toString());
@@ -518,43 +518,43 @@ export namespace Resources.Options {
                             } else if ( target.classList.contains('ec-clone-item') && (target.closest('.ec-display-flex')!.getAttribute('data-option') === 'menu') ) {
 
                                 // Get the list parent
-                                let ul: Element | null = target.closest('ul');
+                                const ul: Element | null = target.closest('ul');
 
                                 // Get the item
-                                let item: Element | null = target.closest('li');
+                                const item: Element | null = target.closest('li');
 
                                 // Clone the item
-                                let cloned_item = item!.cloneNode(true) as Element;
+                                const cloned_item = item!.cloneNode(true) as Element;
 
                                 // Append cloned item
                                 item!.insertAdjacentElement('afterend', cloned_item);
 
                                 // Get the li index
-                                let li_index: string | null = target.closest('li')!.getAttribute('data-index');
+                                const li_index: string | null = target.closest('li')!.getAttribute('data-index');
 
                                 // Verify if li index is not null
                                 if ( li_index ) {
 
                                     // Get iframe
-                                    let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                    const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                     // Verify if iframe exists
                                     if ( iframe ) {
 
                                         // Get content document
-                                        let iframeDocument: Document | null = iframe.contentDocument;
+                                        const iframeDocument: Document | null = iframe.contentDocument;
 
                                         // Check if iframeDocument is not null
                                         if ( iframeDocument !== null ) {
                                             
                                             // Get the list
-                                            let list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                            const list: HTMLElement | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
 
                                             // Verify if list exists
                                             if ( list ) {
 
                                                 // Get the list items
-                                                let list_items: NodeListOf<Node> = list.childNodes;
+                                                const list_items: NodeListOf<Node> = list.childNodes;
 
                                                 // Verify if nodes exists
                                                 if ( list_items.length > 0 ) {
@@ -563,7 +563,7 @@ export namespace Resources.Options {
                                                     let count: number = 1;
 
                                                     // List the list items
-                                                    for ( let item of list_items ) {
+                                                    for ( const item of list_items ) {
 
                                                         // Check if is LI
                                                         if ( item.nodeName !== 'LI' ) {
@@ -571,7 +571,7 @@ export namespace Resources.Options {
                                                         }
 
                                                         // Get the item's link
-                                                        let item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
+                                                        const item_link: HTMLCollectionOf<Element> = (item as Element).getElementsByTagName('a');
 
                                                         // Verify if the item's link exists
                                                         if ( item_link.length < 1 ) {
@@ -582,7 +582,7 @@ export namespace Resources.Options {
                                                         if ( parseInt(li_index) === count ) {
 
                                                             // Clone the item
-                                                            let cloned_item = (item as Element)!.cloneNode(true) as Element;
+                                                            const cloned_item = (item as Element)!.cloneNode(true) as Element;
 
                                                             // Append cloned item
                                                             (item as Element)!.insertAdjacentElement('afterend', cloned_item);
@@ -613,7 +613,7 @@ export namespace Resources.Options {
                                     let count: number = 1;
 
                                     // List the items
-                                    for ( let item of ul!.getElementsByTagName('li') ) {
+                                    for ( const item of ul!.getElementsByTagName('li') ) {
 
                                         // Update the data-index
                                         item.setAttribute('data-index', count.toString());

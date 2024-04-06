@@ -52,19 +52,19 @@ export namespace Resources.Options {
             if ( typeof option.custom === 'string' ) {
                 
                 // Initialize the Color class
-                let color = new Plugins.Color();
+                const color = new Plugins.Color();
 
                 // Set validation rules
-                let is_valid: any = option.custom.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                const is_valid: any = option.custom.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                 
                 // Verify if the rgba is valid
                 if ( is_valid ) {
 
                     // Extract the rgba
-                    let [, r, g, b, a] = is_valid.map(Number);
+                    const [, r, g, b, a] = is_valid.map(Number);
 
                     // Convert to hex color
-                    let hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
+                    const hex: string = color.convert_rgb_to_hex(r, g, b, a || 1);
                     
                     // Verify if hex exists
                     if ( hex ) {
@@ -79,7 +79,7 @@ export namespace Resources.Options {
             }
 
             // Set the element
-            let element: string = (option.element !== '')?' data-element="' + option.element + '"':'';
+            const element: string = (option.element !== '')?' data-element="' + option.element + '"':'';
 
             return {
 
@@ -120,7 +120,7 @@ export namespace Resources.Options {
             } else {
 
                 // Create the property
-                let property: option_property_type = {
+                const property: option_property_type = {
                     element_name: (typeof option.element === 'string')?option.element:''
                 };
 
@@ -148,7 +148,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Save target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Check for target
                     if ( target !== null ) {
@@ -164,22 +164,22 @@ export namespace Resources.Options {
                             if ( target.closest('.ec-composer-element-options') && target.closest('.ec-composer-element-options') ) {
 
                                 // Get the element's ID
-                                let element_id: string | null = target.closest('.ec-composer-element-options')!.getAttribute('data-element');
+                                const element_id: string | null = target.closest('.ec-composer-element-options')!.getAttribute('data-element');
 
                                 // Get iframe
-                                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                 // Verify if iframe exists
                                 if ( iframe ) {
 
                                     // Get content document
-                                    let iframeDocument: Document | null = iframe.contentDocument;
+                                    const iframeDocument: Document | null = iframe.contentDocument;
 
                                     // Check if iframeDocument is not null
                                     if ( iframeDocument !== null ) {
 
                                         // Get the active elements
-                                        let elements: HTMLCollectionOf<Element> = iframeDocument.getElementsByClassName('ec-element-content-active');
+                                        const elements: HTMLCollectionOf<Element> = iframeDocument.getElementsByClassName('ec-element-content-active');
 
                                         // Check if active elements exists
                                         if ( elements.length > 0 ) {
@@ -191,55 +191,55 @@ export namespace Resources.Options {
                                                 Classes.Observer.monitor_element('option_color', target, {attributes: true}, (mutations: MutationRecord[]) => {
 
                                                     // List the mutations
-                                                    for (let mutation of mutations) {
+                                                    for (const mutation of mutations) {
 
                                                         // Verify if the change is for data-color
                                                         if (mutation.attributeName === 'data-color') {
 
                                                             // Get target
-                                                            let mutation_target = (mutation.target.nodeName === '#text')?mutation.target.parentElement:mutation.target as HTMLElement;
+                                                            const mutation_target = (mutation.target.nodeName === '#text')?mutation.target.parentElement:mutation.target as HTMLElement;
 
                                                             // Get the device type
-                                                            let device = mutation_target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
+                                                            const device = mutation_target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
 
                                                             // Get the option name
-                                                            let option_name: string | null | undefined = mutation_target?.closest('li')?.getAttribute('data-option');
+                                                            const option_name: string | null | undefined = mutation_target?.closest('li')?.getAttribute('data-option');
 
                                                             // Get the element's name
-                                                            let element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
+                                                            const element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
 
                                                             // Check if option name exists
                                                             if ( option_name ) {
 
                                                                 // Get property
-                                                                let property: option_property_type = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]); 
+                                                                const property: option_property_type = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]); 
 
                                                                 // Get color
-                                                                let color = target.getAttribute('data-color') as string;
+                                                                const color = target.getAttribute('data-color') as string;
 
                                                                 // Get the style tag
-                                                                let style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-element="' + element_id + '"]');
 
                                                                 // Check if style exists
                                                                 if ( style !== null ) {
 
                                                                     // Get the sheet
-                                                                    let sheet: CSSStyleSheet | null = style.sheet;
+                                                                    const sheet: CSSStyleSheet | null = style.sheet;
 
                                                                     // Set property name
-                                                                    let property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
+                                                                    const property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
 
                                                                     // Set the element name
-                                                                    let element_name: string | null = target.closest('.ec-button-color')!.getAttribute('data-element')?target.closest('.ec-button-color')!.getAttribute('data-element'):'';
+                                                                    const element_name: string | null = target.closest('.ec-button-color')!.getAttribute('data-element')?target.closest('.ec-button-color')!.getAttribute('data-element'):'';
 
                                                                     // Update a property value
-                                                                    let style_content: string = update_property_value(sheet, element_id!, element_name!, property_name, color, device);
+                                                                    const style_content: string = update_property_value(sheet, element_id!, element_name!, property_name, color, device);
 
                                                                     // Set style
                                                                     style.innerHTML = style_content;
 
                                                                     // Init the backup class
-                                                                    let backup = new Classes.Backup();
+                                                                    const backup = new Classes.Backup();
 
                                                                     // Save backup
                                                                     backup.update_css_element_id(element_id!, this.params, style_content);
@@ -265,13 +265,13 @@ export namespace Resources.Options {
                             } else if ( target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]') ) {
 
                                 // Get iframe
-                                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                 // Verify if iframe exists
                                 if ( iframe ) {
 
                                     // Get content document
-                                    let iframeDocument: Document | null = iframe.contentDocument;
+                                    const iframeDocument: Document | null = iframe.contentDocument;
 
                                     // Check if iframeDocument is not null
                                     if ( iframeDocument !== null ) {
@@ -283,46 +283,46 @@ export namespace Resources.Options {
                                             Classes.Observer.monitor_element('option_color', target, {attributes: true}, (mutations: MutationRecord[]) => {
 
                                                 // List the mutations
-                                                for (let mutation of mutations) {
+                                                for (const mutation of mutations) {
 
                                                     // Verify if the change is for data-color
                                                     if (mutation.attributeName === 'data-color') {
 
                                                         // Get target
-                                                        let mutation_target = (mutation.target.nodeName === '#text')?mutation.target.parentElement:mutation.target as HTMLElement;
+                                                        const mutation_target = (mutation.target.nodeName === '#text')?mutation.target.parentElement:mutation.target as HTMLElement;
 
                                                         // Get the device type
-                                                        let device = mutation_target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
+                                                        const device = mutation_target!.closest('.ec-sections')!.getAttribute('data-scope') as string;
 
                                                         // Get the option name
-                                                        let option_name: string | null | undefined = mutation_target?.closest('li')?.getAttribute('data-option');
+                                                        const option_name: string | null | undefined = mutation_target?.closest('li')?.getAttribute('data-option');
 
                                                         // Get the element's name
-                                                        let element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
+                                                        const element_name: string = target.closest('li')?.getAttribute('data-element')?target.closest('li')?.getAttribute('data-element') as string:'';
 
                                                         // Check if option name exists
                                                         if ( option_name ) {
 
                                                             // Get property
-                                                            let property: option_property_type = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]); 
+                                                            const property: option_property_type = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]); 
 
                                                             // Get color
-                                                            let color = target.getAttribute('data-color') as string;
+                                                            const color = target.getAttribute('data-color') as string;
 
                                                             // Get the style tag
-                                                            let style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-scope="default"]');
+                                                            const style: HTMLStyleElement | null = iframeDocument!.head.querySelector('style[data-scope="default"]');
 
                                                             // Check if style exists
                                                             if ( style !== null ) {
 
                                                                 // Get the sheet
-                                                                let sheet: CSSStyleSheet | null = style.sheet;
+                                                                const sheet: CSSStyleSheet | null = style.sheet;
 
                                                                 // Set property name
-                                                                let property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
+                                                                const property_name: string = (Object.keys(property!)[0] === 'element_name')?Object.keys(property!)[1].replaceAll('_', '-'):Object.keys(property!)[0].replaceAll('_', '-');
 
                                                                 // Update a property value
-                                                                let style_content: string = update_property_value(sheet, '', element_name!, property_name, color, device);
+                                                                const style_content: string = update_property_value(sheet, '', element_name!, property_name, color, device);
 
                                                                 // Set style
                                                                 style.innerHTML = style_content;
@@ -336,7 +336,7 @@ export namespace Resources.Options {
                                                                 }
 
                                                                 // Init the backup class
-                                                                let backup = new Classes.Backup();
+                                                                const backup = new Classes.Backup();
 
                                                                 // Save backup
                                                                 backup.update_default_css(this.params, style_content);

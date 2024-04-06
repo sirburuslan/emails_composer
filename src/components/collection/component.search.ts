@@ -29,10 +29,10 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target: any = e.target;
+                        const target: any = e.target;
 
                         // Get the parent
-                        let nav = target.closest('.ec-search');
+                        const nav = target.closest('.ec-search');
 
                         // Check for active tab
                         if ( nav.getElementsByClassName('ec-search-active-button').length > 0 ) {

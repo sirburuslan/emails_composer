@@ -21,16 +21,16 @@ const sections: InterfaceSections.Interfaces.Sections = {
         let categories: string = '';
         
         // Initialize the Modules class
-        let modules = new Classes.Modules();
+        const modules = new Classes.Modules();
 
         // Get the categories list
-        let categories_list: Array<{ name: string, slug: string }> = modules.get_modules_categories(params);
+        const categories_list: Array<{ name: string, slug: string }> = modules.get_modules_categories(params);
 
         // Verify if categories exists
         if ( categories_list.length > 0 ) {
 
             // List the categories
-            for ( let category of categories_list ) {
+            for ( const category of categories_list ) {
 
                 // Add category to the container
                 categories += '<li>'
@@ -60,7 +60,7 @@ const sections: InterfaceSections.Interfaces.Sections = {
         if ( params.options('builder')?.resources?.modules?.sections?.general?.enabled ) {
 
             // Show class
-            let show = params.options('builder')?.resources?.modules?.sections?.general?.show?' ec-section-show':'';
+            const show = params.options('builder')?.resources?.modules?.sections?.general?.show?' ec-section-show':'';
 
             // Add general modules section
             section += '<div class="ec-section' + show + '">'

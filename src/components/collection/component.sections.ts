@@ -30,7 +30,7 @@ export namespace Components {
                     target: (e: MouseEvent): void => {
 
                         // Target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
                         
                         // Check if target is valid
                         if ( target instanceof HTMLElement ) {
@@ -39,13 +39,13 @@ export namespace Components {
                             if ( target.closest('.ec-section-header') ) {
 
                                 // Save section
-                                let section: HTMLElement | null = target.closest('.ec-section');
+                                const section: HTMLElement | null = target.closest('.ec-section');
 
                                 // Check if section is not null
                                 if ( section !== null ) {
 
                                     // Get the section body
-                                    let section_body: HTMLElement | null = section.querySelector('.ec-section-body');
+                                    const section_body: HTMLElement | null = section.querySelector('.ec-section-body');
 
                                     // Check for the ec-section-show class
                                     if ( section!.classList.contains('ec-section-show') ) {
@@ -54,7 +54,7 @@ export namespace Components {
                                         section!.classList.add('ec-section-active');
 
                                         // Get first child
-                                        let first_child = section_body?.firstChild as HTMLElement;
+                                        const first_child = section_body?.firstChild as HTMLElement;
 
                                         // Set height
                                         section_body!.style.height = first_child.offsetHeight + 'px';
@@ -87,7 +87,7 @@ export namespace Components {
                                         section!.classList.add('ec-section-show');
 
                                         // Get first child
-                                        let first_child = section_body?.firstChild as HTMLElement;
+                                        const first_child = section_body?.firstChild as HTMLElement;
 
                                         // Set height
                                         section_body!.style.height = first_child.offsetHeight + 'px';
@@ -117,13 +117,13 @@ export namespace Components {
                     target: (e: MouseEvent): void => {
 
                         // Target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
                         
                         // Check if target is valid
                         if ( target instanceof HTMLElement ) {
 
                             // Get the .ec-composer-main class which is the parent of the panel
-                            let composer_main: HTMLElement | null = target.closest('.ec-composer-main');
+                            const composer_main: HTMLElement | null = target.closest('.ec-composer-main');
 
                             // Verify if composer_main is instance of the html element
                             if ( composer_main instanceof HTMLElement ) {

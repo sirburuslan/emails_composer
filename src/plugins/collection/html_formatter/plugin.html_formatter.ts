@@ -77,10 +77,10 @@ export namespace Plugins {
             }
 
             // Split the characters
-            let characters: string[] = this._to_html(html).replaceAll(' &nbsp;', ' ').replaceAll('&nbsp;', ' ').split("");
+            const characters: string[] = this._to_html(html).replaceAll(' &nbsp;', ' ').replaceAll('&nbsp;', ' ').split("");
             
             // Total characters
-            let tcharacters: number = characters.length;
+            const tcharacters: number = characters.length;
 
             // Verify if characters exists
             if ( tcharacters > 0 ) {
@@ -320,7 +320,7 @@ export namespace Plugins {
             }
 
             // Add lines
-            let ready_code = new HtmlFormatterLines.HtmlFormatter.Lines().add_lines(this._fcode);
+            const ready_code = new HtmlFormatterLines.HtmlFormatter.Lines().add_lines(this._fcode);
             
             // Return success code
             return new Promise((resolve: (value: string) => void, reject: (value: string) => void): void => {

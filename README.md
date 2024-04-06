@@ -56,18 +56,3 @@
         features. If you encounter any bugs, please report them.
     </span>
 </p>
-<p class="c4"><span class="c0"></span></p>
-<p class="c9">
-    <span class="c0">
-        I created this library for my personal portfolio. I do not have any plans to sell it. If you would like to encourage me to continue improving it (adding more elements, modules, and advanced features like an image editor), you can do
-        so by making a donation.
-    </span>
-</p>
-<p class="c4"><span class="c5"></span></p>
-<p class="c9">
-    <span class="c7 c10">
-        <a class="c3" href="https://www.paypal.com/donate/?hosted_button_id=UX8NJ2LEH77Y6">
-            https://www.paypal.com/donate/?hosted_button_id=UX8NJ2LEH77Y6
-        </a>
-    </span>
-</p>

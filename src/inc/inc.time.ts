@@ -23,16 +23,16 @@ import { params_type } from '../resources/types/types.index.js';
 export const get_date = (params: params_type, timestamp: string ): string => {
 
     // Create the date
-    let the_date = new Date(parseInt(timestamp) * 1000);
+    const the_date = new Date(parseInt(timestamp) * 1000);
 
     // Set year
-    let year = the_date.getFullYear();
+    const year = the_date.getFullYear();
 
     // Set month
-    let month = (the_date.getMonth() + 1).toString().padStart(2, '0');
+    const month = (the_date.getMonth() + 1).toString().padStart(2, '0');
 
     // Set date
-    let date = the_date.getDate().toString().padStart(2, '0');
+    const date = the_date.getDate().toString().padStart(2, '0');
 
     return year + '-' + month + '-' + date;
 
@@ -49,16 +49,16 @@ export const get_date = (params: params_type, timestamp: string ): string => {
 export const get_time = (params: params_type, timestamp: string ): string => {
 
     // Create the date
-    let the_date = new Date(parseInt(timestamp) * 1000);
+    const the_date = new Date(parseInt(timestamp) * 1000);
 
     // Get hour
-    let hours = the_date.getHours();
+    const hours = the_date.getHours();
 
     // Get minutes
-    let minutes = the_date.getMinutes().toString().padStart(2, '0');
+    const minutes = the_date.getMinutes().toString().padStart(2, '0');
 
     // Set meridiam
-    let meridiam = (hours > 12)?'PM':'AM';
+    const meridiam = (hours > 12)?'PM':'AM';
 
     return ((hours > 12)?(hours - 12):hours).toString().padStart(2, '0') + ':' + minutes + ' ' + meridiam;
 

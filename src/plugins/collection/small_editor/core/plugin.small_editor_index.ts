@@ -19,7 +19,7 @@ import * as Font from './plugin.small_editor_font.js';
 import * as Color from './plugin.small_editor_color.js';
 
 // Create the PluginsSmallEditorCore object
-let PluginsSmallEditorCore = {
+const PluginsSmallEditorCore = {
     Link: Link.PluginsSmallEditorCore.Link,
     Font: Font.PluginsSmallEditorCore.Font,
     Color: Color.PluginsSmallEditorCore.Color

@@ -9963,8 +9963,7 @@ var Class$6;
                                     Backup._removed = 1;
                                 }
                                 else if (mutation.nextSibling) {
-                                    if (mutation.nextSibling.classList[0] === 'ec-composer-template-cell-drop') {
-                                        console.log(84);
+                                    if ((mutation.nextSibling instanceof Element) && mutation.nextSibling && mutation.nextSibling.classList && (mutation.nextSibling.classList.length > 0) && (mutation.nextSibling.classList[0] === 'ec-composer-template-cell-drop')) {
                                         Backup._removed = 1;
                                     }
                                 }
@@ -17623,121 +17622,115 @@ var Controllers$1;
                 template_id = this.uniqueid();
                 this.template(template_id, true);
             }
-            setTimeout(() => {
-                let view_params = {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    selector: selector
-                };
-                let builder = '';
-                builder += header$1(view_params);
-                builder += menu$2(view_params);
-                builder += element(view_params);
-                builder += body(view_params);
-                selector.querySelector('.ec-composer').innerHTML += builder;
-                let itemplate = selector.getElementsByClassName('ec-composer-template-container');
-                if (typeof builder_options.css === 'object') {
-                    if (builder_options.css.length > 0) {
-                        let css_link = document.createElement('link');
-                        css_link.setAttribute('href', builder_options.css[0].href);
-                        css_link.setAttribute('rel', 'stylesheet');
-                        itemplate[0].contentDocument.head.innerHTML += css_link.outerHTML;
-                    }
+            let view_params = {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                selector: selector
+            };
+            let builder = '';
+            builder += header$1(view_params);
+            builder += menu$2(view_params);
+            builder += element(view_params);
+            builder += body(view_params);
+            selector.querySelector('.ec-composer').innerHTML += builder;
+            let itemplate = selector.getElementsByClassName('ec-composer-template-container');
+            if (typeof builder_options.css === 'object') {
+                if (builder_options.css.length > 0) {
+                    let css_link = document.createElement('link');
+                    css_link.setAttribute('href', builder_options.css[0].href);
+                    css_link.setAttribute('rel', 'stylesheet');
+                    itemplate[0].contentDocument.head.innerHTML += css_link.outerHTML;
                 }
-                let fonts_link = get_fonts_link();
-                if (fonts_link) {
-                    let link = document.createElement('link');
-                    link.setAttribute('href', fonts_link);
-                    link.setAttribute('rel', 'stylesheet');
-                    document.head.appendChild(link);
-                    itemplate[0].contentDocument.head.innerHTML += link.outerHTML;
-                }
-                itemplate[0].contentDocument.head.innerHTML += get_styles('template');
-                itemplate[0].contentDocument.head.innerHTML += get_styles('library');
-                itemplate[0].contentDocument.head.innerHTML += get_styles('default');
-                itemplate[0].contentDocument.body.innerHTML = '<div class="ec-composer-template"></div>';
-                itemplate[0].contentDocument.body.getElementsByClassName('ec-composer-template')[0].innerHTML = get_content({
-                    'format': 1
-                }).outerHTML;
-            }, 300);
-            setTimeout(() => {
-                let tabs = '';
-                tabs += elements$1({
-                    template_id: template_id
-                });
-                tabs += rows({
-                    template_id: template_id
-                });
-                tabs += modules$1({
-                    template_id: template_id
-                });
-                tabs += history$2({
-                    template_id: template_id
-                });
-                selector.querySelector('.ec-tabs').innerHTML += tabs;
-            }, 700);
-            setTimeout(() => {
-                selector.querySelector('#ec-tab-elements-' + template_id).innerHTML += get_section('elements', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    selector: selector
-                });
-                selector.querySelector('#ec-tab-rows-' + template_id).innerHTML += get_section('rows', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
-                selector.querySelector('.ec-composer-modal[data-scope="ec-composer-rows-modal"] .ec-composer-modal-body .ec-rows').innerHTML += get_section('rows', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon,
-                    only_rows: 1
-                });
-                selector.querySelector('#ec-tab-modules-' + template_id).innerHTML += get_section('modules', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
-                selector.querySelector('#ec-tab-history-' + template_id).innerHTML += get_section('history', {
-                    template_id: template_id,
-                    options: get_option,
-                    words: get_word,
-                    icons: get_icon
-                });
-                let components_list = Object.keys(Components);
-                if (components_list.length > 0) {
-                    for (let component of components_list) {
-                        let component_class = Object.getOwnPropertyDescriptor(Components, component);
-                        let component_events = new component_class.value().get_events({
-                            options: get_option,
-                            words: get_word,
-                            icons: get_icon,
-                            selector: selector,
-                            template_id: template_id
-                        });
-                        if (component_events.length > 0) {
-                            for (let event of component_events) {
-                                if ((typeof event.capture === 'boolean') && (typeof event.target === 'function') && (typeof event.action === 'string')) {
-                                    let iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
-                                    if (typeof event.element === 'string') {
-                                        new Classes$1.Events().addEventListener(selector.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
-                                    }
-                                    else {
-                                        new Classes$1.Events().addEventListener('', event.action, event.target, iframe, event.capture);
-                                    }
+            }
+            let fonts_link = get_fonts_link();
+            if (fonts_link) {
+                let link = document.createElement('link');
+                link.setAttribute('href', fonts_link);
+                link.setAttribute('rel', 'stylesheet');
+                document.head.appendChild(link);
+                itemplate[0].contentDocument.head.innerHTML += link.outerHTML;
+            }
+            itemplate[0].contentDocument.head.innerHTML += get_styles('template');
+            itemplate[0].contentDocument.head.innerHTML += get_styles('library');
+            itemplate[0].contentDocument.head.innerHTML += get_styles('default');
+            itemplate[0].contentDocument.body.innerHTML = '<div class="ec-composer-template"></div>';
+            itemplate[0].contentDocument.body.getElementsByClassName('ec-composer-template')[0].innerHTML = get_content({
+                'format': 1
+            }).outerHTML;
+            let tabs = '';
+            tabs += elements$1({
+                template_id: template_id
+            });
+            tabs += rows({
+                template_id: template_id
+            });
+            tabs += modules$1({
+                template_id: template_id
+            });
+            tabs += history$2({
+                template_id: template_id
+            });
+            selector.querySelector('.ec-tabs').innerHTML += tabs;
+            selector.querySelector('#ec-tab-elements-' + template_id).innerHTML += get_section('elements', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                selector: selector
+            });
+            selector.querySelector('#ec-tab-rows-' + template_id).innerHTML += get_section('rows', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+            selector.querySelector('.ec-composer-modal[data-scope="ec-composer-rows-modal"] .ec-composer-modal-body .ec-rows').innerHTML += get_section('rows', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon,
+                only_rows: 1
+            });
+            selector.querySelector('#ec-tab-modules-' + template_id).innerHTML += get_section('modules', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+            selector.querySelector('#ec-tab-history-' + template_id).innerHTML += get_section('history', {
+                template_id: template_id,
+                options: get_option,
+                words: get_word,
+                icons: get_icon
+            });
+            let components_list = Object.keys(Components);
+            if (components_list.length > 0) {
+                for (let component of components_list) {
+                    let component_class = Object.getOwnPropertyDescriptor(Components, component);
+                    let component_events = new component_class.value().get_events({
+                        options: get_option,
+                        words: get_word,
+                        icons: get_icon,
+                        selector: selector,
+                        template_id: template_id
+                    });
+                    if (component_events.length > 0) {
+                        for (let event of component_events) {
+                            if ((typeof event.capture === 'boolean') && (typeof event.target === 'function') && (typeof event.action === 'string')) {
+                                let iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
+                                if (typeof event.element === 'string') {
+                                    new Classes$1.Events().addEventListener(selector.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
+                                }
+                                else {
+                                    new Classes$1.Events().addEventListener('', event.action, event.target, iframe, event.capture);
                                 }
                             }
                         }
                     }
                 }
-            }, 1000);
+            }
         }
         uniqueid() {
             let allowed = 'abcdefghijklmnopqrstuvwxyz';

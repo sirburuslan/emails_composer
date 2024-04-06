@@ -32,7 +32,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Check if target is valid
                         if ( target ) {
@@ -79,7 +79,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Check if target is valid
                         if ( target ) {

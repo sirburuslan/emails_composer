@@ -15,10 +15,10 @@ import { InterfaceIcons } from '../../classes/classes.index.js';
 // Icons
 const align_space_around: InterfaceIcons.Interfaces.Icons = {
 
-    get_icon: (extra: any): string => {
+    get_icon: (extra: {icon_class: string | undefined}): string => {
 
         // Set class
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined')?' ' + extra.icon_class:'';
+        const icon_class = (typeof extra.icon_class !== 'undefined')?' ' + extra.icon_class:'';
 
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_space_around'

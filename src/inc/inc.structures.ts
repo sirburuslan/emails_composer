@@ -25,13 +25,13 @@ import {
 const move_structure = (selector: any, clientY: number, clientX: number, drop_icon: string): void => {
 
     // Get structure
-    let structure: HTMLElement|null = selector.getElementsByClassName('ec-row-drag-active')[0];
+    const structure: HTMLElement|null = selector.getElementsByClassName('ec-row-drag-active')[0];
                                     
     // Get top
-    let top: number = (clientY - parseInt(structure?.getAttribute('data-top')!));
+    const top: number = (clientY - parseInt(structure?.getAttribute('data-top')!));
 
     // Get left
-    let left: number = (clientX - parseInt(structure?.getAttribute('data-left')!));
+    const left: number = (clientX - parseInt(structure?.getAttribute('data-left')!));
 
     // Set top position
     structure!.style.top = top + 'px';
@@ -40,19 +40,19 @@ const move_structure = (selector: any, clientY: number, clientX: number, drop_ic
     structure!.style.left = left + 'px';
 
     // Get iframe
-    let iframe: HTMLIFrameElement | null = selector.getElementsByClassName('ec-composer-template-container')[0];
+    const iframe: HTMLIFrameElement | null = selector.getElementsByClassName('ec-composer-template-container')[0];
 
     // Get iframe client rect
-    let iframe_rect: DOMRect | undefined = iframe?.getBoundingClientRect();
+    const iframe_rect: DOMRect | undefined = iframe?.getBoundingClientRect();
 
     // Verify if a drag active content exists
     if ( (selector.getElementsByClassName('ec-row-drag-active').length > 0) && (iframe instanceof HTMLIFrameElement) ) {
 
         // Get line
-        let line: HTMLElement = selector.getElementsByClassName('ec-row-drag-active')[0];
+        const line: HTMLElement = selector.getElementsByClassName('ec-row-drag-active')[0];
 
         // Get iframe body
-        let iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
+        const iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
 
         // Check if iframe body exists
         if ( iframe_body ) {
@@ -63,7 +63,7 @@ const move_structure = (selector: any, clientY: number, clientX: number, drop_ic
             }
 
             // Dragged line position
-            let drag_line: number = (clientY - parseInt(line?.getAttribute('data-top')!));
+            const drag_line: number = (clientY - parseInt(line?.getAttribute('data-top')!));
 
             // Set position
             line!.style.top = drag_line + 'px';
@@ -72,13 +72,13 @@ const move_structure = (selector: any, clientY: number, clientX: number, drop_ic
             line!.style.opacity = '0.3';
 
             // Get line position
-            let line_position: DOMRect = line.getBoundingClientRect();
+            const line_position: DOMRect = line.getBoundingClientRect();
 
             // Calculate line top
-            let line_top: number = line_position.y;
+            const line_top: number = line_position.y;
 
             // Calculate line height
-            let line_height: number = line_position.height;        
+            const line_height: number = line_position.height;        
 
             // Verify if ec-composer-template-content-line-drop exists
             if ( iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop').length > 0 ) {
@@ -92,10 +92,10 @@ const move_structure = (selector: any, clientY: number, clientX: number, drop_ic
                 Array.from(iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop')).forEach((element: Element): void => {
                  
                     // Get element position
-                    let element_position: DOMRect = element.getBoundingClientRect();
+                    const element_position: DOMRect = element.getBoundingClientRect();
 
                     // Get element top
-                    let element_top: number = (iframe_rect instanceof DOMRect)?(iframe_rect.y + element_position.y):0;
+                    const element_top: number = (iframe_rect instanceof DOMRect)?(iframe_rect.y + element_position.y):0;
 
                     // Check if dragged line is over a drop line
                     if ( (line_top <= element_top) && ((line_top + line_height) >= element_top) ) {
@@ -140,22 +140,22 @@ const reset_structures = (params: any): void => {
     if ( params.selector.getElementsByClassName('ec-row-drag-active').length > 0 ) {
 
         // Get iframe
-        let iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+        const iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
 
         // Get iframe body
-        let iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
+        const iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
 
         // Check if iframe body exists
         if ( iframe_body ) {
 
             // Get child
-            let iframe_body_child: HTMLElement = iframe_body[0];
+            const iframe_body_child: HTMLElement = iframe_body[0];
 
             // Check if drop active exists
             if ( iframe_body_child.getElementsByClassName('ec-composer-template-content-line-drop-active').length > 0 ) {
 
                 // Get line
-                let new_line: any = get_content({
+                const new_line: any = get_content({
                     'format': ['1', '2', '3', '4', '5', '6'].includes(params.selector.getElementsByClassName('ec-row-drag-active')[0].querySelector('div[data-format]').getAttribute('data-format'))?parseInt(params.selector.getElementsByClassName('ec-row-drag-active')[0].querySelector('div[data-format]').getAttribute('data-format')):1
                 });
 

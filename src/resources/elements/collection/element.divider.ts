@@ -620,7 +620,7 @@ export namespace Resources.Elements {
         get_styles = (element_id: string): string => {
             
             // Styles container
-            let styles = ``;
+            const styles = ``;
 
             return styles;
 

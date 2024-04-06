@@ -56,7 +56,7 @@ export namespace Class {
 
                 /** 
                 // Init XMLHTTPRequest
-                let xmlhttp: XMLHttpRequest = new XMLHttpRequest();
+                const xmlhttp: XMLHttpRequest = new XMLHttpRequest();
 
                 // Open url
                 xmlhttp.open('GET', url, true);
@@ -68,7 +68,7 @@ export namespace Class {
                     if ( (xmlhttp.status >= 200) && (xmlhttp.status < 300) ) {
 
                         // Decode response
-                        let response = JSON.parse(xmlhttp.responseText);
+                        const response = JSON.parse(xmlhttp.responseText);
 
                         // Return
                         resolve(response);
@@ -120,7 +120,7 @@ export namespace Class {
                 };
 
                 // Prepare the parameters
-                let params: params_type = {
+                const params: params_type = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -142,7 +142,7 @@ export namespace Class {
                 }
 
                 // Execute a fetch request
-                let fetch_request = fetch(url, params);
+                const fetch_request = fetch(url, params);
 
                 // Process the response
                 fetch_request.then(response => {
@@ -162,7 +162,7 @@ export namespace Class {
 
                 /** 
                 // Init XMLHTTPRequest
-                let xmlhttp: XMLHttpRequest = new XMLHttpRequest();
+                const xmlhttp: XMLHttpRequest = new XMLHttpRequest();
 
                 // Open url
                 xmlhttp.open('POST', url, true);
@@ -177,7 +177,7 @@ export namespace Class {
                     if ( (xmlhttp.status >= 200) && (xmlhttp.status < 300) ) {
 
                         // Decode response
-                        let response = JSON.parse(xmlhttp.responseText);
+                        const response = JSON.parse(xmlhttp.responseText);
 
                         // Return
                         resolve(response);
@@ -200,7 +200,7 @@ export namespace Class {
                 });
 
                 // Turn params into string
-                let json_string: string = JSON.stringify(option);
+                const json_string: string = JSON.stringify(option);
 
                 // Send request with string
                 xmlhttp.send(json_string);*/
@@ -230,7 +230,7 @@ export namespace Class {
                 };
 
                 // Prepare the parameters
-                let params: params_type = {
+                const params: params_type = {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -242,7 +242,7 @@ export namespace Class {
                 params['body'] = JSON.stringify(update);
 
                 // Execute a fetch request
-                let fetch_request = fetch(url, params);
+                const fetch_request = fetch(url, params);
 
                 // Process the response
                 fetch_request.then(response => {
@@ -262,7 +262,7 @@ export namespace Class {
 
                 /** 
                 // Init XMLHTTPRequest
-                let xmlhttp: XMLHttpRequest = new XMLHttpRequest();
+                const xmlhttp: XMLHttpRequest = new XMLHttpRequest();
 
                 // Open url
                 xmlhttp.open('POST', url, true);
@@ -277,7 +277,7 @@ export namespace Class {
                     if ( (xmlhttp.status >= 200) && (xmlhttp.status < 300) ) {
 
                         // Decode response
-                        let response = JSON.parse(xmlhttp.responseText);
+                        const response = JSON.parse(xmlhttp.responseText);
 
                         // Return
                         resolve(response);
@@ -300,7 +300,7 @@ export namespace Class {
                 });
 
                 // Turn params into string
-                let json_string: string = JSON.stringify(option);
+                const json_string: string = JSON.stringify(option);
 
                 // Send request with string
                 xmlhttp.send(json_string);*/
@@ -340,7 +340,7 @@ export namespace Class {
 
                 /** 
                 // Init XMLHTTPRequest
-                let xmlhttp: XMLHttpRequest = new XMLHttpRequest();
+                const xmlhttp: XMLHttpRequest = new XMLHttpRequest();
 
                 // Open url
                 xmlhttp.open('DELETE', url, true);
@@ -352,7 +352,7 @@ export namespace Class {
                     if ( (xmlhttp.status >= 200) && (xmlhttp.status < 300) ) {
 
                         // Decode response
-                        let response = JSON.parse(xmlhttp.responseText);
+                        const response = JSON.parse(xmlhttp.responseText);
 
                         // Return
                         resolve(response);

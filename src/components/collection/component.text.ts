@@ -39,7 +39,7 @@ export namespace Components {
                     target: (e: KeyboardEvent): void => {
 
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Check if was pressed the Enter key
                         if (e.key === 'Enter') {
@@ -48,19 +48,19 @@ export namespace Components {
                             if ( target.closest('.ec-element-content-data') && (target.closest('.ec-element-content')!.getAttribute('data-name') === 'text') ) {
 
                                 // Get all children
-                                let childrens: HTMLCollection | undefined = target.closest('.ec-element-content-data')?.children;
+                                const childrens: HTMLCollection | undefined = target.closest('.ec-element-content-data')?.children;
 
                                 // Check if childrens exists
                                 if ( childrens ) {
 
                                     // List the childrens
-                                    for ( let children of childrens ) {
+                                    for ( const children of childrens ) {
 
                                         // Verify if nodename is DIV
                                         if ( children.nodeName === 'DIV' ) {
 
                                             // Create a paragraph
-                                            let paragraph: HTMLParagraphElement = document.createElement('p');
+                                            const paragraph: HTMLParagraphElement = document.createElement('p');
 
                                             // Set html
                                             paragraph.innerHTML = children.innerHTML;
@@ -87,13 +87,13 @@ export namespace Components {
                                 }                                
                                 
                                 // Get paragraphs
-                                let paragraphs: HTMLCollectionOf<HTMLParagraphElement> = target.closest('.ec-element-content-data')!.getElementsByTagName('p');
+                                const paragraphs: HTMLCollectionOf<HTMLParagraphElement> = target.closest('.ec-element-content-data')!.getElementsByTagName('p');
 
                                 // Check if there is no paragraphs
                                 if ( paragraphs.length < 1 ) {
 
                                     // Create a paragraph
-                                    let paragraph: HTMLParagraphElement = document.createElement('p');
+                                    const paragraph: HTMLParagraphElement = document.createElement('p');
 
                                     // Set html
                                     paragraph.innerHTML = (target.closest('.ec-element-content-data')!.innerHTML.length < 1)?'<br>':target.closest('.ec-element-content-data')!.innerHTML;
@@ -173,31 +173,31 @@ export namespace Components {
                                 if ( !(e.target as HTMLElement)!.closest('p') && !(e.target as HTMLElement)!.closest('li') ) {
 
                                     // Get iframe
-                                    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                     // Get content window
-                                    let cwindow: Window | null = iframe.contentWindow;
+                                    const cwindow: Window | null = iframe.contentWindow;
 
                                     // Check if cwindow exists
                                     if ( cwindow ) {
 
                                         // Get selection
-                                        let selection: Selection | null = cwindow.getSelection();
+                                        const selection: Selection | null = cwindow.getSelection();
 
                                         // Remove selections in the iframe
                                         if ( selection && (selection.rangeCount > 0) ) {
 
                                             // Get range
-                                            let range: Range = selection.getRangeAt(0);
+                                            const range: Range = selection.getRangeAt(0);
 
                                             // Check if range is not inside the paragraph
                                             if ( (range.startContainer.parentElement?.nodeName !== 'P') && (range.startContainer.nodeName !== 'P') && !range.startContainer.parentElement?.closest('p') && (range.startContainer.parentElement?.nodeName !== 'LI') && (range.startContainer.nodeName !== 'LI') && !range.startContainer.parentElement?.closest('li') ) {
                                                 
                                                 // Create a paragraph
-                                                let p: HTMLParagraphElement = document.createElement('p');
+                                                const p: HTMLParagraphElement = document.createElement('p');
 
                                                 // Create br
-                                                let br: HTMLBRElement = document.createElement('br');
+                                                const br: HTMLBRElement = document.createElement('br');
 
                                                 // Insert br in the paragraph
                                                 p.appendChild(br);
@@ -209,7 +209,7 @@ export namespace Components {
                                                 range.insertNode(p);
 
                                                 // Create a new range
-                                                let new_range: Range = document.createRange();
+                                                const new_range: Range = document.createRange();
 
                                                 // Set the range start to the beginning of the paragraph
                                                 new_range.setStart(p, 0);
@@ -246,7 +246,7 @@ export namespace Components {
                     target: (e: KeyboardEvent): void => {
                         
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Check for target
                         if ( target !== null ) {
@@ -255,7 +255,7 @@ export namespace Components {
                             if ( target.closest('.ec-color-input') ) {
 
                                 // Get hex color
-                                let hex: string = (target as HTMLInputElement).value;
+                                const hex: string = (target as HTMLInputElement).value;
 
                                 // Verify if hex is value
                                 if ( new Plugins.Color().is_hex_valid(hex) ) {
@@ -278,7 +278,7 @@ export namespace Components {
                     target: (e: MouseEvent): void => {
 
                         // Save target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Check for target
                         if ( target !== null ) {
@@ -298,7 +298,7 @@ export namespace Components {
                                 e.preventDefault();
 
                                 // Initialize the Color class
-                                let color = new Plugins.Color();
+                                const color = new Plugins.Color();
 
                                 // Get the filter color
                                 color.get_filter_color(e, params, (hex: string): void => {
@@ -316,7 +316,7 @@ export namespace Components {
                                 e.preventDefault();
 
                                 // Initialize the Color class
-                                let color = new Plugins.Color();
+                                const color = new Plugins.Color();
 
                                 // Get the gradient color
                                 color.get_gradient_color(e, params, (hex: string): void => {
@@ -361,7 +361,7 @@ export namespace Components {
                         }                        
 
                         // Initialize the Color class
-                        let color = new Plugins.Color();
+                        const color = new Plugins.Color();
 
                         // Remove dropdown
                         color.remove_dropdown(e, params);
@@ -377,7 +377,7 @@ export namespace Components {
                         if ( e.buttons === 1 ) {
 
                             // Save target
-                            let target = e.target as HTMLElement;
+                            const target = e.target as HTMLElement;
 
                             // Check for target
                             if ( target !== null ) {
@@ -387,7 +387,7 @@ export namespace Components {
                                     e.preventDefault();
 
                                     // Initialize the Color class
-                                    let color = new Plugins.Color();
+                                    const color = new Plugins.Color();
 
                                     // Change the opacity
                                     color.create_opacity(e, params, (hex: string): void => {
@@ -405,7 +405,7 @@ export namespace Components {
                                     e.preventDefault();
 
                                     // Initialize the Color class
-                                    let color = new Plugins.Color();
+                                    const color = new Plugins.Color();
 
                                     // Get the filter color
                                     color.get_filter_color(e, params, (hex: string): void => {
@@ -423,7 +423,7 @@ export namespace Components {
                                     e.preventDefault();
 
                                     // Initialize the Color class
-                                    let color = new Plugins.Color();
+                                    const color = new Plugins.Color();
         
                                     // Get the gradient color
                                     color.get_gradient_color(e, params, (hex: string): void => {
@@ -451,7 +451,7 @@ export namespace Components {
                     target: (e: any): void => {
 
                         // Save target
-                        let target: Element = e.target;
+                        const target: Element = e.target;
 
                         // Check if the class ec-ste-dropdown-show exists
                         if ( params.selector.getElementsByClassName('ec-ste-dropdown-show').length > 0 ) {
@@ -485,7 +485,7 @@ export namespace Components {
                             e.preventDefault();
 
                             // Initialize the Color class
-                            let color = new Plugins.Color();
+                            const color = new Plugins.Color();
 
                             // Remove dropdown
                             color.remove_dropdown(e, params);
@@ -564,31 +564,31 @@ export namespace Components {
                         e.preventDefault();
                         
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
 
                                 // Get range parent element
-                                let parent_element: HTMLElement | null = range.commonAncestorContainer.parentElement;
+                                const parent_element: HTMLElement | null = range.commonAncestorContainer.parentElement;
 
                                 // Check if parent_element exists
                                 if ( parent_element?.closest('.ec-element-content-data') ) {
 
                                     // Save target
-                                    let target = e.target as Element;
+                                    const target = e.target as Element;
 
                                     // Check if target exists
                                     if ( target ) {
@@ -611,13 +611,13 @@ export namespace Components {
                                             target.classList.add('ec-ste-active-button');
 
                                             // Get the direction
-                                            let direction: string | null = target.getAttribute('data-direction');
+                                            const direction: string | null = target.getAttribute('data-direction');
 
                                             // Check if direction is not null
                                             if ( direction ) {
 
                                                 // Get the paragraph or li parent
-                                                let parent = parent_element.closest('p')?parent_element.closest('p') as HTMLParagraphElement:parent_element.closest('li') as HTMLLIElement;
+                                                const parent = parent_element.closest('p')?parent_element.closest('p') as HTMLParagraphElement:parent_element.closest('li') as HTMLLIElement;
 
                                                 // Align text to left
                                                 new Plugins.Small_editor().text_align(parent, direction);
@@ -646,7 +646,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Verify if button is active
                         if ( target.classList.contains('ec-ste-active-button') ) {
@@ -662,25 +662,25 @@ export namespace Components {
                         }
                         
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Init small editor
-                                let small_editor = new Plugins.Small_editor();
+                                const small_editor = new Plugins.Small_editor();
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
 
                                 // Apply the tags
                                 small_editor.apply_tags(params, range, 'i');
@@ -698,7 +698,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Verify if button is active
                         if ( target.classList.contains('ec-ste-active-button') ) {
@@ -714,25 +714,25 @@ export namespace Components {
                         }
                         
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Init small editor
-                                let small_editor = new Plugins.Small_editor();
+                                const small_editor = new Plugins.Small_editor();
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
 
                                 // Apply the tags
                                 small_editor.apply_tags(params, range, 'u');
@@ -750,7 +750,7 @@ export namespace Components {
                         e.preventDefault();
 
                         // Get target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Verify if button is active
                         if ( target.classList.contains('ec-ste-active-button') ) {
@@ -766,25 +766,25 @@ export namespace Components {
                         }
                         
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Init small editor
-                                let small_editor = new Plugins.Small_editor();
+                                const small_editor = new Plugins.Small_editor();
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
 
                                 // Apply the tags
                                 small_editor.apply_tags(params, range, 's');
@@ -802,7 +802,7 @@ export namespace Components {
                         e.preventDefault();
                         
                         // Init small editor
-                        let small_editor = new Plugins.Small_editor();
+                        const small_editor = new Plugins.Small_editor();
 
                         // Add or remove lists
                         small_editor.list(e, params);
@@ -816,7 +816,7 @@ export namespace Components {
                         e.preventDefault();
    
                         // Init small editor
-                        let small_editor = new Plugins.Small_editor();
+                        const small_editor = new Plugins.Small_editor();
 
                         // Add or remove lists
                         small_editor.list(e, params);
@@ -830,7 +830,7 @@ export namespace Components {
                         e.preventDefault();
    
                         // Get target
-                        let target = e.target as HTMLElement;
+                        const target = e.target as HTMLElement;
 
                         // Verify if button is active
                         if ( target.classList.contains('ec-ste-active-button') ) {
@@ -846,25 +846,25 @@ export namespace Components {
                         }
                         
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Init small editor
-                                let small_editor = new Plugins.Small_editor();
+                                const small_editor = new Plugins.Small_editor();
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
 
                                 // Apply the tags
                                 small_editor.apply_tags(params, range, 'a', {'href': '#'});
@@ -882,10 +882,10 @@ export namespace Components {
                         e.preventDefault();
 
                         // Save target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Get the dropdown
-                        let dropdown: Element | null = target.closest('.ec-ste-dropdown');
+                        const dropdown: Element | null = target.closest('.ec-ste-dropdown');
 
                         // Check if dropdown exists
                         if ( dropdown ) {
@@ -934,22 +934,22 @@ export namespace Components {
                         new Plugins.Color().add_color_box(e, params);
 
                         // Get iframe
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content window
-                        let cwindow: Window | null = iframe.contentWindow;
+                        const cwindow: Window | null = iframe.contentWindow;
 
                         // Check if cwindow exists
                         if ( cwindow ) {
 
                             // Get selection
-                            let selection: Selection | null = cwindow.getSelection();
+                            const selection: Selection | null = cwindow.getSelection();
 
                             // Remove selections in the iframe
                             if ( selection && (selection.rangeCount > 0) ) {
 
                                 // Get range
-                                let range: Range = selection.getRangeAt(0);
+                                const range: Range = selection.getRangeAt(0);
                                 
                                 // Make active the content editable editor
                                 (range.commonAncestorContainer.parentElement!.closest('.ec-element-content-data') as HTMLInputElement)!.focus();
@@ -966,7 +966,7 @@ export namespace Components {
                     target: (e: MouseEvent): void => {
 
                         // Save target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Verify if the .ec-composer-container class is expanded for the small text editor
                         if ( target.closest('.ec-composer-container')?.classList.contains('ec-small-text-editor-expanded') ) {

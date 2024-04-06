@@ -27,13 +27,13 @@ import { params_type } from "../resources/types/types.index.js";
 export const format_file_size = (size: number): string => {
 
     // Set 1 kilobyte size
-    let kilobyte: number = 1024;
+    const kilobyte: number = 1024;
 
     // Set 1 megabyte size
-    let megabyte: number = kilobyte * 1024;
+    const megabyte: number = kilobyte * 1024;
 
     // Set 1 kilobyte size
-    let gigabyte: number = megabyte * 1024;
+    const gigabyte: number = megabyte * 1024;
 
     // Verify if the size is less than 1 kb
     if (size < kilobyte) {
@@ -67,19 +67,19 @@ export const format_file_size = (size: number): string => {
 export const get_images = async (params: params_type, page: number): Promise<void> => {
 
     // Get the search
-    let search = params.selector.querySelector('.ec-option-media .ec-search-input') as HTMLInputElement;
+    const search = params.selector.querySelector('.ec-option-media .ec-search-input') as HTMLInputElement;
 
     // Get the search value
-    let search_value = search.value;
+    const search_value = search.value;
 
     // Prepare the post's fields
-    let post_fields: { page: number; search?: string } = {
+    const post_fields: { page: number; search?: string } = {
         page: page,
         search: search_value
     };
 
     // Prepare the request parameters
-    let request_params: {[key: string]: string | {
+    const request_params: {[key: string]: string | {
         [key: string]: string
     }} = {
         method: 'POST',
@@ -90,7 +90,7 @@ export const get_images = async (params: params_type, page: number): Promise<voi
     };
 
     // Get the response
-    let response = await fetch(params.options('api_url') + 'api/get_images', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_images', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -118,7 +118,7 @@ export const get_images = async (params: params_type, page: number): Promise<voi
     }
 
     // Turn response into json
-    let json = await response.json();
+    const json = await response.json();
 
     // Verify if images exists
     if ( (typeof json.images !== 'undefined') && (json.images.length > 0) ) {
@@ -127,19 +127,19 @@ export const get_images = async (params: params_type, page: number): Promise<voi
         let image_id: number = 0;
 
         // Get iframe
-        let iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+        const iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
         // Verify if iframe exists
         if ( iframe ) {
 
             // Get content document
-            let iframeDocument: Document | null = iframe.contentDocument;
+            const iframeDocument: Document | null = iframe.contentDocument;
 
             // Check if iframeDocument is not null
             if ( iframeDocument !== null ) {
 
                 // Get the image
-                let image: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data img');
+                const image: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data img');
 
                 // Verify if image exists
                 if ( image && image.getAttribute('data-id') ) {
@@ -157,19 +157,19 @@ export const get_images = async (params: params_type, page: number): Promise<voi
         params.selector.querySelector('.ec-media-images')!.classList.remove('ec-media-images-not-found');
 
         // Preview container
-        let preview: string[] = [];
+        const preview: string[] = [];
 
         // Images counter
         let c: number = 0;
 
         // Get the gallery parent
-        let gallery: NodeListOf<Element> = params.selector.querySelectorAll('.ec-media-images .ec-media-images-list-two-columns > div')
+        const gallery: NodeListOf<Element> = params.selector.querySelectorAll('.ec-media-images .ec-media-images-list-two-columns > div')
 
         // List the images
-        for ( let image of json.images ) {
+        for ( const image of json.images ) {
 
             // Selected class
-            let selected_class: string = (image.id === image_id)?' class="ec-media-image-selected"':'';
+            const selected_class: string = (image.id === image_id)?' class="ec-media-image-selected"':'';
 
             // Verify if preview contains more than 2 items
             if ( (preview.length < 3) && (json.page! < 2) ) {
@@ -185,7 +185,7 @@ export const get_images = async (params: params_type, page: number): Promise<voi
             }
 
             // Create image
-            let image_single: string = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+            const image_single: string = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
                 + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                 + params.icons('task_alt')
             + '</a>';
@@ -271,13 +271,13 @@ export const get_images = async (params: params_type, page: number): Promise<voi
 export const get_icons = async (params: params_type, page: number): Promise<void> => {
 
     // Prepare the fields
-    let fields: { page: number; search?: string } = {
+    const fields: { page: number; search?: string } = {
         page: page,
         search: (params.selector.querySelector('.ec-option-icons .ec-search-input') as HTMLInputElement).value
     };
 
     // Create the parameters
-    let request_params: {[key: string]: string | {
+    const request_params: {[key: string]: string | {
         [key: string]: string
     }} = {
         method: 'POST',
@@ -288,7 +288,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
     };
 
     // Make the fetch request
-    let response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -316,7 +316,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
     }
 
     // Process the response
-    let json = await response.json();
+    const json = await response.json();
 
     // Verify if icons exists
     if ( (typeof json.icons !== 'undefined') && (json.icons.length > 0) ) {
@@ -325,7 +325,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
         params.selector.querySelector('.ec-media-icons')!.classList.remove('ec-media-icons-not-found');
 
         // Preview container
-        let preview: string[] = [];
+        const preview: string[] = [];
 
         // Icons container
         let icons: string = '';
@@ -334,7 +334,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
         let c: number = 0;
 
         // List the icons
-        for ( let icon of json.icons ) {
+        for ( const icon of json.icons ) {
 
             // Sizes container
             let sizes: string = '';
@@ -343,7 +343,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
             if ( icon.sizes.length > 0 ) {
 
                 // List the sizes
-                for ( let size of icon.sizes ) {
+                for ( const size of icon.sizes ) {
 
                     // Add size to the container
                     sizes += '<li>'
@@ -397,7 +397,7 @@ export const get_icons = async (params: params_type, page: number): Promise<void
         }
 
         // Get the gallery parent
-        let gallery: NodeListOf<Element> = params.selector.querySelectorAll('.ec-media-icons .ec-media-icons-list-all > ul');
+        const gallery: NodeListOf<Element> = params.selector.querySelectorAll('.ec-media-icons .ec-media-icons-list-all > ul');
 
         // Append icons
         gallery[0].insertAdjacentHTML('beforeend', icons);
@@ -466,13 +466,13 @@ export const get_icons = async (params: params_type, page: number): Promise<void
 export const download_icon = async (params: params_type, icon_id: string, size: string): Promise<void> => {
 
     // Prepare the fields
-    let fields: {icon_id: string, size: string} = {
+    const fields: {icon_id: string, size: string} = {
         icon_id: icon_id,
         size: size
     };
 
     // Prepare the request
-    let request_params: {[key: string]: string | {
+    const request_params: {[key: string]: string | {
         [key: string]: string
     }} = {
         method: 'POST',
@@ -483,7 +483,7 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
     };
 
     // Get the response
-    let response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -511,7 +511,7 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
     }
 
     // Process the response
-    let json: {success: boolean, message: string, file_name?: string, file_path?: string} = await response.json();
+    const json: {success: boolean, message: string, file_name?: string, file_path?: string} = await response.json();
 
     // Verify if file name exists in the data and the icon was downloaded
     if ( json.success && (typeof json.file_name !== 'undefined') ) {
@@ -519,7 +519,7 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
         setTimeout(() => {
 
             // Create the image
-            let image: HTMLImageElement = document.createElement('img');
+            const image: HTMLImageElement = document.createElement('img');
 
             // Set src
             image.src = params.options('share_url') + json.file_path!;
@@ -528,19 +528,19 @@ export const download_icon = async (params: params_type, icon_id: string, size: 
             image.alt = json.file_name as string;
 
             // Get iframe
-            let iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Verify if iframe exists
             if ( iframe ) {
 
                 // Get content document
-                let iframeDocument: Document | null = iframe.contentDocument;
+                const iframeDocument: Document | null = iframe.contentDocument;
 
                 // Check if iframeDocument is not null
                 if ( iframeDocument !== null ) {
 
                     // Get content's data
-                    let content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data .ec-element-image');
+                    const content_data: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data .ec-element-image');
 
                     // Verify if content data exists
                     if ( content_data ) {

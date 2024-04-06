@@ -25,7 +25,7 @@ export namespace CssFormatter {
         add_lines(fcode: string): string {
 
             // Split the code
-            let splits: any = fcode.split("\r\n");
+            const splits: any = fcode.split("\r\n");
             
             // Open container
             let open: string = '';

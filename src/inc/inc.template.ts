@@ -96,7 +96,7 @@ export const remove_buttons = (html: string): string => {
 const remove_javascript = (html: string): string => {
 
     // Prepare regex
-    let reg = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+    const reg = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
 
     // Apply and return
     return html.replace(reg, '');
@@ -113,16 +113,16 @@ const remove_javascript = (html: string): string => {
 export const get_template = (params: params_type): string => {
 
     // Get iframe
-    let iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+    const iframe: HTMLIFrameElement = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
     // Verify if iframe exists
     if ( iframe ) {
 
         // Get content document
-        let iframeDocument: Document | null = iframe.contentDocument;
+        const iframeDocument: Document | null = iframe.contentDocument;
 
         // Get html
-        let html: HTMLCollectionOf<Element> | undefined = iframeDocument?.getElementsByClassName('ec-composer-template');
+        const html: HTMLCollectionOf<Element> | undefined = iframeDocument?.getElementsByClassName('ec-composer-template');
 
         // Verify if html is not undefined
         if ( html !== undefined ) {
@@ -161,7 +161,7 @@ export const get_template_options = (options: options_template_type, properties_
         let sections: string = '';
 
         // List the sections
-        for ( let option of options ) {
+        for ( const option of options ) {
             
             // Options container
             let options_list: string = '';
@@ -170,7 +170,7 @@ export const get_template_options = (options: options_template_type, properties_
             if ( option.list.length > 0 ) {
 
                 // List the options
-                for ( let list of option.list ) {
+                for ( const list of option.list ) {
 
                     // Check if template exists
                     if ( typeof list.template === 'undefined' ) {
@@ -186,10 +186,10 @@ export const get_template_options = (options: options_template_type, properties_
                     }
 
                     // Get the option template
-                    let template: string = list.template;
+                    const template: string = list.template;
 
                     // Get the option
-                    let the_option: string | undefined = new types[template](params).get_option(list);
+                    const the_option: string | undefined = new types[template](params).get_option(list);
 
                     // Check if option exists
                     if ( the_option ) {

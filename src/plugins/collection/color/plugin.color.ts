@@ -27,7 +27,7 @@ export namespace Plugins {
         add_color_box(e: MouseEvent, params: params_type): void {
 
             // Save target
-            let target = e.target as HTMLElement;
+            const target = e.target as HTMLElement;
 
             // Check if ec-color-box exists
             if ( params.selector.getElementsByClassName('ec-color-box').length > 0 ) {
@@ -52,10 +52,10 @@ export namespace Plugins {
                 target.closest('.ec-button-color')!.classList.add('ec-button-color-active');
 
                 // Get the value
-                let value: string = (target.getAttribute('data-color') && (target.getAttribute('data-color') !== 'transparent'))?target.getAttribute('data-color')!.slice(0, 7):'';
+                const value: string = (target.getAttribute('data-color') && (target.getAttribute('data-color') !== 'transparent'))?target.getAttribute('data-color')!.slice(0, 7):'';
 
                 // Create color box
-                let box: string = '<div class="ec-dropdown ec-dropdown-show ec-dropdown-bottom ec-color-box">'
+                const box: string = '<div class="ec-dropdown ec-dropdown-show ec-dropdown-bottom ec-color-box">'
                     + '<div class="ec-grid">'
                         + '<div class="ec-grid-column-7">'
                             + '<div class="ec-color-opacity-filter">'
@@ -80,13 +80,13 @@ export namespace Plugins {
                 params.selector.getElementsByClassName('ec-composer')[0].insertAdjacentHTML('beforeend', box);
                 
                 // Get the button rect
-                let button_rect: DOMRect = target.getBoundingClientRect();
+                const button_rect: DOMRect = target.getBoundingClientRect();
 
                 // Get the color box
-                let color_box = params.selector.getElementsByClassName('ec-color-box')[0] as HTMLElement;
+                const color_box = params.selector.getElementsByClassName('ec-color-box')[0] as HTMLElement;
 
                 // Set top position
-                let top_position: number = (window.innerHeight > (button_rect.top + 40 + 230))?(button_rect.top + 40):(button_rect.top - 245);
+                const top_position: number = (window.innerHeight > (button_rect.top + 40 + 230))?(button_rect.top + 40):(button_rect.top - 245);
 
                 // Verify if the box should be above the button
                 if ( window.innerHeight < (button_rect.top + 40 + 230) ) {
@@ -100,7 +100,7 @@ export namespace Plugins {
                 color_box.style.cssText = 'top: ' + top_position + 'px;left:' + (button_rect.left - 201) + 'px';
 
                 // Convert color to rgb
-                let rgb_color: any = this.convert_hex_to_rgb(target.getAttribute('data-color')!); 
+                const rgb_color: any = this.convert_hex_to_rgb(target.getAttribute('data-color')!); 
 
                 // Draw a gradient
                 this.draw_gradient(params, {
@@ -129,7 +129,7 @@ export namespace Plugins {
         is_hex_valid = (hex: string): boolean => {
 
             // Prepare the regex pattern
-            let regex = /^#?([0-9A-Fa-f]{3}){1,2}$/;
+            const regex = /^#?([0-9A-Fa-f]{3}){1,2}$/;
 
             // Return the response
             return regex.test(hex);
@@ -153,9 +153,9 @@ export namespace Plugins {
             hex = hex.replaceAll('#', '');
 
             // Extract colors
-            let r: number = parseInt(hex.slice(0, 2), 16);
-            let g: number = parseInt(hex.slice(2, 4), 16);
-            let b: number = parseInt(hex.slice(4, 6), 16);
+            const r: number = parseInt(hex.slice(0, 2), 16);
+            const g: number = parseInt(hex.slice(2, 4), 16);
+            const b: number = parseInt(hex.slice(4, 6), 16);
 
             // Create rgb format
             let rgb: {r: number, g: number, b: number, a?: number};
@@ -175,7 +175,7 @@ export namespace Plugins {
             }
 
             // Extract the alpha
-            let a: number = parseInt(hex.slice(6, 8), 16) / 255;
+            const a: number = parseInt(hex.slice(6, 8), 16) / 255;
 
             // Prepare rgb
             rgb = {
@@ -215,12 +215,12 @@ export namespace Plugins {
             a = Math.min(1, Math.max(0, a));
             
             // Convert rgb to hexadecimal
-            let rh: string = r.toString(16).padStart(2, '0');
-            let gh: string = g.toString(16).padStart(2, '0');
-            let bh: string = b.toString(16).padStart(2, '0');
+            const rh: string = r.toString(16).padStart(2, '0');
+            const gh: string = g.toString(16).padStart(2, '0');
+            const bh: string = b.toString(16).padStart(2, '0');
             
             // Convert alpha to hexadecimal
-            let ah: string = Math.round(a * 255).toString(16).padStart(2, '0');
+            const ah: string = Math.round(a * 255).toString(16).padStart(2, '0');
             
             // Return hex
             return (a < 1)?`#${rh}${gh}${bh}${ah}`:`#${rh}${gh}${bh}`;
@@ -242,10 +242,10 @@ export namespace Plugins {
             b /= 255;
 
             // Get maximum color value
-            let max: number = Math.max(r, g, b);
+            const max: number = Math.max(r, g, b);
 
             // Get minimum color value
-            let min: number = Math.min(r, g, b);
+            const min: number = Math.min(r, g, b);
 
             // Define saturation and lightness
             let s: number = 0, l: number = 0;
@@ -313,7 +313,7 @@ export namespace Plugins {
         set_opacity = (params: params_type, r: number, g: number, b: number, a?: number): void => {
 
             // Get the opacity
-            let opacity = params.selector.getElementsByClassName('ec-color-opacity-filter')[0] as HTMLElement;
+            const opacity = params.selector.getElementsByClassName('ec-color-opacity-filter')[0] as HTMLElement;
 
             // Set gradient
             opacity.style.setProperty('--background', 'linear-gradient(to right, rgba(' + r + ', ' + g + ', ' + b + ', 1), rgba(255, 0, 0, 0))');
@@ -322,7 +322,7 @@ export namespace Plugins {
             if ( a ) {
 
                 // Get the opacity rect
-                let opacity_rect: DOMRect = opacity.getBoundingClientRect();
+                const opacity_rect: DOMRect = opacity.getBoundingClientRect();
 
                 // Set the left position
                 opacity.getElementsByTagName('span')[0].style.left = (opacity_rect.width - (((a * 100)/opacity_rect.width) * 100)) + 'px';
@@ -346,58 +346,58 @@ export namespace Plugins {
         create_opacity = (e: MouseEvent, params: params_type, callback: (hex: string) => void): void => {
 
             // Get target
-            let target = e.target as HTMLElement;
+            const target = e.target as HTMLElement;
 
             // Get filter
-            let filter: Element = params.selector.getElementsByClassName('ec-color-opacity-filter-active')[0];
+            const filter: Element = params.selector.getElementsByClassName('ec-color-opacity-filter-active')[0];
 
             // Get filter rect
-            let filter_rect: DOMRect = filter.getBoundingClientRect();
+            const filter_rect: DOMRect = filter.getBoundingClientRect();
 
             // Check if the mouse is over filter
             if ( ((e.clientX - filter_rect.x) >= 0) && ((e.clientX - filter_rect.x) <= (filter_rect.width - 4)) ) {
 
                 // Set left
-                let left: number = ((e.clientX - filter_rect.x) < 1)?0:(e.clientX - filter_rect.x);
+                const left: number = ((e.clientX - filter_rect.x) < 1)?0:(e.clientX - filter_rect.x);
 
                 // Set left position
                 filter.getElementsByTagName('span')[0].style.cssText = 'left: ' + left + 'px;';
 
                 // Get the slider width
-                let slider_width: number = (100 - ((((filter_rect.width - 4) - left) / (filter_rect.width - 4)) * 100));
+                const slider_width: number = (100 - ((((filter_rect.width - 4) - left) / (filter_rect.width - 4)) * 100));
 
                 // Get the slider opacity
-                let slider_opacity: string = ((100 - Math.round(slider_width)) < 10)?'0.1' + (100 - Math.round(slider_width)):((100 - Math.round(slider_width)) < 100)?'0.' + (100 - Math.round(slider_width)):'1';
+                const slider_opacity: string = ((100 - Math.round(slider_width)) < 10)?'0.1' + (100 - Math.round(slider_width)):((100 - Math.round(slider_width)) < 100)?'0.' + (100 - Math.round(slider_width)):'1';
 
                 // Get color input
-                let color_input = target.closest('.ec-grid')!.getElementsByClassName('ec-color-input') as HTMLCollectionOf<HTMLInputElement>;
+                const color_input = target.closest('.ec-grid')!.getElementsByClassName('ec-color-input') as HTMLCollectionOf<HTMLInputElement>;
 
                 // Check if color input exists
                 if ( color_input!.length > 0 ) {
 
                     // Get value
-                    let value: string | undefined = color_input[0]?.value;
+                    const value: string | undefined = color_input[0]?.value;
 
                     // Check if value exists
                     if ( value ) {
 
                         // Convert color to rgba
-                        let rgba_color: {r: number, g: number, b: number, a?: number} = this.convert_hex_to_rgb(value.slice(0, 7));
+                        const rgba_color: {r: number, g: number, b: number, a?: number} = this.convert_hex_to_rgb(value.slice(0, 7));
 
                         // Prepare the rgba
-                        let rgba: string = 'rgba(' + rgba_color['r'] + ', ' + rgba_color['g'] + ', ' + rgba_color['b'] + ', ' + slider_opacity + ')';
+                        const rgba: string = 'rgba(' + rgba_color['r'] + ', ' + rgba_color['g'] + ', ' + rgba_color['b'] + ', ' + slider_opacity + ')';
 
                         // Set validation rules
-                        let is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                        const is_valid: any = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                         
                         // Verify if the rgba is valid
                         if ( is_valid ) {
 
                             // Extract the rgba
-                            let [, r, g, b, a] = is_valid.map(Number);
+                            const [, r, g, b, a] = is_valid.map(Number);
 
                             // Convert to hex color
-                            let hex: string = this.convert_rgb_to_hex(r, g, b, a || 1);
+                            const hex: string = this.convert_rgb_to_hex(r, g, b, a || 1);
 
                             // Change the button color
                             callback(hex);
@@ -421,32 +421,32 @@ export namespace Plugins {
         draw_gradient = (params: params_type, rgb_color: any): void => {
 
             // Convert rgb to hsl
-            let hsl: any = this.convert_rgb_to_hsl(rgb_color['r'], rgb_color['g'], rgb_color['b']);
+            const hsl: any = this.convert_rgb_to_hsl(rgb_color['r'], rgb_color['g'], rgb_color['b']);
 
             // Get the gradient element
-            let gradient: any = params.selector.getElementsByClassName('ec-color-gradient-selector')[0];
+            const gradient: any = params.selector.getElementsByClassName('ec-color-gradient-selector')[0];
 
             // Get the gradient 2d context
-            let gradient_2d: any = gradient.getContext('2d', {willReadFrequently: true});
+            const gradient_2d: any = gradient.getContext('2d', {willReadFrequently: true});
 
             // Get the gradient width
-            let gradient_width: number = gradient.width;
+            const gradient_width: number = gradient.width;
 
             // Get the gradient height
-            let gradient_height: number = gradient.height;
+            const gradient_height: number = gradient.height;
 
             // Create the gradient
             gradient_2d.clearRect(0, 0, gradient_width, gradient_height);
 
             // Create a gradient from white to black
-            let wb_gradient: CanvasGradient = gradient_2d.createLinearGradient(0, 0, 0, gradient_height);
+            const wb_gradient: CanvasGradient = gradient_2d.createLinearGradient(0, 0, 0, gradient_height);
 
             // Add colors
             wb_gradient.addColorStop(0, '#FFFFFF');
             wb_gradient.addColorStop(1, '#000000');
 
             // Create a gradiend from a hsl color
-            let hsl_gradient: CanvasGradient = gradient_2d.createLinearGradient(0, 0, gradient_width, 0);
+            const hsl_gradient: CanvasGradient = gradient_2d.createLinearGradient(0, 0, gradient_width, 0);
 
             // Add colors
             hsl_gradient.addColorStop(0, `hsla(${Math.floor(hsl[0])},100%,50%,0)`);
@@ -480,22 +480,22 @@ export namespace Plugins {
         draw_filter = (params: params_type): void => {
 
             // Get the filter element
-            let filter: any = params.selector.getElementsByClassName('ec-color-gradient-filter')[0];
+            const filter: any = params.selector.getElementsByClassName('ec-color-gradient-filter')[0];
 
             // Get the filter 2d context
-            let filter_2d: any = filter.getContext('2d', {willReadFrequently: true});
+            const filter_2d: any = filter.getContext('2d', {willReadFrequently: true});
 
             // Get the filter width
-            let filter_width: number = filter.width;
+            const filter_width: number = filter.width;
 
             // Get the filter height
-            let filter_height: number = filter.height;
+            const filter_height: number = filter.height;
 
             // Draw rect in filter
             filter_2d.rect(0, 0, filter_width, filter_height);
 
             // Create a linear gradient in the filter
-            let filter_linear_gradient: any = filter_2d.createLinearGradient(0, 0, 0, filter_height);
+            const filter_linear_gradient: any = filter_2d.createLinearGradient(0, 0, 0, filter_height);
 
             // Set colors
             filter_linear_gradient.addColorStop(0, 'rgba(255, 0, 0, 1)');
@@ -524,16 +524,16 @@ export namespace Plugins {
         get_gradient_color = (e: MouseEvent, params: params_type, callback: (hex: string) => void): void => {
 
             // Get target
-            let target = e.target as HTMLElement;
+            const target = e.target as HTMLElement;
 
             // Get the gradient
-            let gradient: HTMLCanvasElement | null = target.closest('.ec-color-gradient-selector');
+            const gradient: HTMLCanvasElement | null = target.closest('.ec-color-gradient-selector');
 
             // Check gradient is not null
             if ( gradient instanceof HTMLCanvasElement ) {
 
                 // Create an image
-                let img: any = new Image();
+                const img: any = new Image();
 
                 // Set src
                 img.src = gradient.toDataURL();
@@ -542,7 +542,7 @@ export namespace Plugins {
                 img.onload = (): void => {
 
                     // Get the gradient rect
-                    let gradient_rect: DOMRect = gradient!.getBoundingClientRect();
+                    const gradient_rect: DOMRect = gradient!.getBoundingClientRect();
 
                     // Set image width
                     img.width = gradient_rect.width;
@@ -551,7 +551,7 @@ export namespace Plugins {
                     img.height = gradient_rect.height;
                     
                     // Create a new canvas
-                    let canvas: any = document.createElement('canvas');
+                    const canvas: any = document.createElement('canvas');
 
                     // Set canvas width
                     canvas.width = img.width;
@@ -563,10 +563,10 @@ export namespace Plugins {
                     canvas.getContext('2d', {willReadFrequently: true}).drawImage(img, 0, 0, img.width, img.height);
 
                     // Get the image data
-                    let image_data: any = canvas.getContext('2d', {willReadFrequently: true}).getImageData(e.offsetX, e.offsetY, 1, 1).data;
+                    const image_data: any = canvas.getContext('2d', {willReadFrequently: true}).getImageData(e.offsetX, e.offsetY, 1, 1).data;
 
                     // Get the color input
-                    let input: any = params.selector.getElementsByClassName('ec-color-input')[0];
+                    const input: any = params.selector.getElementsByClassName('ec-color-input')[0];
                     
                     // Change the color input value
                     input.value = "#" + ((1 << 24) | (image_data[0] << 16) | (image_data[1] << 8) | image_data[2]).toString(16).slice(1).toUpperCase();
@@ -593,22 +593,22 @@ export namespace Plugins {
         get_filter_color = (e: MouseEvent, params: params_type, callback: (hex: string) => void): void => {
 
             // Extract target
-            let target = e.target as HTMLElement;
+            const target = e.target as HTMLElement;
 
             // Get the gradient
-            let gradient: HTMLCanvasElement | null = target.closest('.ec-color-gradient-filter');
+            const gradient: HTMLCanvasElement | null = target.closest('.ec-color-gradient-filter');
 
             // Check if gradient exists
             if ( gradient ) {
 
                 // Get the filter 2d context
-                let filter_2d: any = gradient.getContext('2d', {willReadFrequently: true});
+                const filter_2d: any = gradient.getContext('2d', {willReadFrequently: true});
 
                 // Get the image data
-                let image_data: any = filter_2d.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+                const image_data: any = filter_2d.getImageData(e.offsetX, e.offsetY, 1, 1).data;
 
                 // Get the color input
-                let input: any = params.selector.getElementsByClassName('ec-color-input')[0];
+                const input: any = params.selector.getElementsByClassName('ec-color-input')[0];
                 
                 // Change the color input value
                 input.value = "#" + ((1 << 24) | (image_data[0] << 16) | (image_data[1] << 8) | image_data[2]).toString(16).slice(1).toUpperCase();
@@ -642,7 +642,7 @@ export namespace Plugins {
             if ( params.selector.getElementsByClassName('ec-color-box').length > 0 ) {
 
                 // Save target
-                let target = e.target as HTMLElement;
+                const target = e.target as HTMLElement;
 
                 // Check for target
                 if ( target !== null ) {
@@ -659,7 +659,7 @@ export namespace Plugins {
                         }
 
                         // Get the color box
-                        let color_box: Element = params.selector.getElementsByClassName('ec-color-box')[0];
+                        const color_box: Element = params.selector.getElementsByClassName('ec-color-box')[0];
 
                         // Add the hide class
                         color_box.classList.add('ec-dropdown-hide');

@@ -4,7 +4,7 @@
  *
  * @author Ruslan Sirbu
  * @version 0.0.1
- * @updated 2023-12-29
+ * @updated 2024-04-05
  *
  * Is an abstract class which provides rules to the options classes
  */
@@ -83,13 +83,13 @@ export namespace Abstracts {
         get_option = (option: option_number_type): string | undefined => {
 
             // Prepare the option
-            let obj: {template: string} | undefined = this.prepare_template(this.params, option);
+            const obj: {template: string} | undefined = this.prepare_template(this.params, option);
 
             // Check if obj is not undefined
             if ( (typeof obj !== 'undefined') && (obj.template !== 'undefined') ) {
 
                 // Element target
-                let element: string = option?.element?' data-element="' + option?.element + '"':'';                
+                const element: string = option?.element?' data-element="' + option?.element + '"':'';                
 
                 // Save option
                 Options.saved_options[option.name + '_' + element.replace(' data-element="', '').replace('"', '')] = option;

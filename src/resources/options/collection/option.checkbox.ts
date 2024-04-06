@@ -40,19 +40,19 @@ export namespace Resources.Options {
             let checked: string = (parseInt(option.value) > 0)?' checked':'';
 
             // Get iframe
-            let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Verify if iframe exists
             if ( iframe ) {
 
                 // Get content document
-                let iframeDocument: Document | null = iframe.contentDocument;
+                const iframeDocument: Document | null = iframe.contentDocument;
 
                 // Check if iframeDocument is not null
                 if ( iframeDocument !== null ) {
                     
                     // Get the template
-                    let template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                    const template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
 
                     // Check for google analytics
                     if ( template.getAttribute('data-google-analytics') ) {
@@ -67,7 +67,7 @@ export namespace Resources.Options {
             }
 
             // Unique checkbox id
-            let unique_id: number = Math.random();
+            const unique_id: number = Math.random();
 
             return {
 
@@ -114,7 +114,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -124,19 +124,19 @@ export namespace Resources.Options {
                             e.preventDefault();
 
                             // Get iframe
-                            let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                            const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                             // Verify if iframe exists
                             if ( iframe ) {
 
                                 // Get content document
-                                let iframeDocument: Document | null = iframe.contentDocument;
+                                const iframeDocument: Document | null = iframe.contentDocument;
 
                                 // Check if iframeDocument is not null
                                 if ( iframeDocument !== null ) {
                                     
                                     // Get the template
-                                    let template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                                    const template: Element | null = iframeDocument.getElementsByClassName('ec-composer-template')[0];
 
                                     // Set utm source
                                     template.setAttribute('data-google-analytics', (target as HTMLInputElement).checked?'1':'0');

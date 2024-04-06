@@ -28,16 +28,16 @@ export function body(params: params_type): string {
     let categories: string = '';
     
     // Initialize the Modules class
-    let modules = new Classes.Modules();
+    const modules = new Classes.Modules();
 
     // Get the categories list
-    let categories_list: Array<{ name: string, slug: string }> = modules.get_modules_categories(params);
+    const categories_list: Array<{ name: string, slug: string }> = modules.get_modules_categories(params);
 
     // Verify if categories exists
     if ( categories_list.length > 0 ) {
 
         // List the categories
-        for ( let category of categories_list ) {
+        for ( const category of categories_list ) {
 
             // Add category to the container
             categories += '<li>'

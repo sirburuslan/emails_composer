@@ -25,27 +25,21 @@ export namespace HtmlFormatter {
         add_lines(fcode: string): string {
 
             // Split the code
-            let splits: string[] = fcode.split("\r\n");
+            const splits: string[] = fcode.split("\r\n");
             
             // Open container
             let open: string = '';
 
             // Total splits
-            let total_splits: number = splits.length;
-
-            // Lines counter
-            let l: number = 1;
+            const total_splits: number = splits.length;
 
             // List the splits
-            do {
+            for ( let l: number = 1; l < total_splits; l++ ) {
 
                 // Add line
                 open += this.add_line(splits[(l - 1)].replaceAll('<span class="ec-code-whitespace"> </span>', '<span class="ec-code-whitespace">&nbsp;</span>'));
 
-                // Incease counter
-                l++;
-
-            } while(l < total_splits);
+            }
 
             return open;
 

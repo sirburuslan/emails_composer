@@ -36,7 +36,7 @@ export namespace Components {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-cover-upload-box-drop-area') ) {
@@ -66,7 +66,7 @@ export namespace Components {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]') && !target.closest('.ec-cover-upload-box-drop-area') ) {
@@ -88,7 +88,7 @@ export namespace Components {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;     
+                    const target = e.target as HTMLInputElement;     
                     
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]') ) {
@@ -123,7 +123,7 @@ export namespace Components {
                     if ( e.buttons === 1 ) {
 
                         // Save target
-                        let target = e.target as Element;
+                        const target = e.target as Element;
 
                         // Verify if is the class ec-module
                         if ( target.classList.contains('ec-module') ) {
@@ -141,19 +141,19 @@ export namespace Components {
                             target.classList.add('ec-module-temp');   
 
                             // Clone module
-                            let module = target.cloneNode(true) as HTMLElement;
+                            const module = target.cloneNode(true) as HTMLElement;
 
                             // Get client rect of the cloned module
-                            let cloned: DOMRect = target.getBoundingClientRect();
+                            const cloned: DOMRect = target.getBoundingClientRect();
 
                             // Set ec-module-drag-active class
                             module.classList.add('ec-module-drag-active');
                             
                             // Get the top position
-                            let top: number = (e.clientY - cloned.y);
+                            const top: number = (e.clientY - cloned.y);
 
                             // Get the left position
-                            let left: number = (e.clientX - cloned.x);
+                            const left: number = (e.clientX - cloned.x);
 
                             // Set top
                             module.setAttribute('data-top', top.toString());
@@ -177,16 +177,16 @@ export namespace Components {
                             target.closest('.ec-composer')!.insertAdjacentElement('beforeend', module);
 
                             // Get iframe
-                            let iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
 
                             // Get all lines
-                            let lines: HTMLCollectionOf<Element> = iframe.contentWindow!.document.getElementsByClassName('ec-composer-template-content-line');
+                            const lines: HTMLCollectionOf<Element> = iframe.contentWindow!.document.getElementsByClassName('ec-composer-template-content-line');
 
                             // List the lines
-                            for ( let line of lines ) {
+                            for ( const line of lines ) {
 
                                 // Create a div for drop locations
-                                let drops: any = document.createElement('div');
+                                const drops: any = document.createElement('div');
 
                                 // Add ec-composer-template-content-line-drop class
                                 drops.classList.add('ec-composer-template-content-line-drop');
@@ -200,7 +200,7 @@ export namespace Components {
                             }
 
                             // Create a div for drop locations
-                            let drops: Element = document.createElement('div');
+                            const drops: Element = document.createElement('div');
 
                             // Add ec-composer-template-content-line-drop class
                             drops.classList.add('ec-composer-template-content-line-drop');
@@ -230,13 +230,13 @@ export namespace Components {
                             e.preventDefault();
 
                             // Get module
-                            let module: HTMLElement = params.selector.getElementsByClassName('ec-module-drag-active')[0];
+                            const module: HTMLElement = params.selector.getElementsByClassName('ec-module-drag-active')[0];
                                                
                             // Get top
-                            let top: number = (e.clientY - parseInt(module.getAttribute('data-top')!));
+                            const top: number = (e.clientY - parseInt(module.getAttribute('data-top')!));
 
                             // Get left
-                            let left: number = (e.clientX - parseInt(module.getAttribute('data-left')!));
+                            const left: number = (e.clientX - parseInt(module.getAttribute('data-left')!));
 
                             // Set top position
                             module.style.top = top + 'px';
@@ -245,19 +245,19 @@ export namespace Components {
                             module.style.left = left + 'px';
 
                             // Get iframe
-                            let iframe: any = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const iframe: any = params.selector.getElementsByClassName('ec-composer-template-container')[0];
 
                             // Get iframe client rect
-                            let iframe_rect: DOMRect | undefined = iframe?.getBoundingClientRect();
+                            const iframe_rect: DOMRect | undefined = iframe?.getBoundingClientRect();
 
                             // Verify if a drag active content exists
                             if ( iframe instanceof HTMLIFrameElement ) {
 
                                 // Get line
-                                let line: HTMLElement = params.selector.getElementsByClassName('ec-module-drag-active')[0];
+                                const line: HTMLElement = params.selector.getElementsByClassName('ec-module-drag-active')[0];
 
                                 // Get iframe body
-                                let iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
+                                const iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
 
                                 // Check if iframe body exists
                                 if ( iframe_body ) {
@@ -268,13 +268,13 @@ export namespace Components {
                                     }
 
                                     // Get line position
-                                    let line_position: DOMRect = line.getBoundingClientRect();
+                                    const line_position: DOMRect = line.getBoundingClientRect();
 
                                     // Calculate line top
-                                    let line_top: number = line_position.y;
+                                    const line_top: number = line_position.y;
 
                                     // Calculate line height
-                                    let line_height: number = line_position.height;        
+                                    const line_height: number = line_position.height;        
 
                                     // Verify if ec-composer-template-content-line-drop exists
                                     if ( iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop').length > 0 ) {
@@ -294,10 +294,10 @@ export namespace Components {
                                             if ( found > 0 ) return;
 
                                             // Get element position
-                                            let element_position: DOMRect = element.getBoundingClientRect();
+                                            const element_position: DOMRect = element.getBoundingClientRect();
 
                                             // Get element top
-                                            let element_top: number = (iframe_rect instanceof DOMRect)?(iframe_rect.y + element_position.y):0;
+                                            const element_top: number = (iframe_rect instanceof DOMRect)?(iframe_rect.y + element_position.y):0;
 
                                             // Check if dragged line is over a drop line
                                             if ( (line_top <= element_top) && ((line_top + line_height) >= element_top) ) {
@@ -351,22 +351,22 @@ export namespace Components {
                     if ( params.selector.getElementsByClassName('ec-module-drag-active').length > 0 ) {
                             
                         // Get iframe
-                        let iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const iframe: HTMLIFrameElement = params.selector.getElementsByClassName('ec-composer-template-container')[0];
 
                         // Get iframe body
-                        let iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
+                        const iframe_body: HTMLCollectionOf<HTMLBodyElement> | undefined = iframe?.contentWindow!.document.getElementsByTagName('body');
 
                         // Check if iframe body exists
                         if ( iframe_body ) {
 
                             // Get child
-                            let iframe_body_child: HTMLElement = iframe_body[0];
+                            const iframe_body_child: HTMLElement = iframe_body[0];
 
                             // Check if drop active exists
                             if ( iframe_body_child.getElementsByClassName('ec-composer-template-content-line-drop-active').length > 0 ) {
 
                                 // Get line
-                                let new_line: Element = get_content({
+                                const new_line: Element = get_content({
                                     'format': 7
                                 });
 
@@ -389,10 +389,10 @@ export namespace Components {
                             params.selector.getElementsByClassName('ec-module-drag-active')[0].remove();
 
                             // Get the module's ID
-                            let module_id: string = params.selector.getElementsByClassName('ec-module-temp')[0].getAttribute('data-module');
+                            const module_id: string = params.selector.getElementsByClassName('ec-module-temp')[0].getAttribute('data-module');
 
                             // Get the module's type
-                            let module_type: string = (Array.prototype.indexOf.call(Array.from(params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-sections').getElementsByClassName('ec-search-section')), params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-section')) < 1)?'personal':'default';
+                            const module_type: string = (Array.prototype.indexOf.call(Array.from(params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-sections').getElementsByClassName('ec-search-section')), params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-section')) < 1)?'personal':'default';
 
                             // Remove the temporary class
                             params.selector.getElementsByClassName('ec-module-temp')[0].classList.remove('ec-module-temp');  
@@ -414,7 +414,7 @@ export namespace Components {
                     e.preventDefault();
 
                     // Get target
-                    let target = e.target as HTMLInputElement;    
+                    const target = e.target as HTMLInputElement;    
 
                     // Add the expand class
                     (target as Element).closest('.ec-composer-modal')!.getElementsByClassName('ec-module-advanced-fields')[0].classList.add('ec-module-advanced-fields-expand');
@@ -438,7 +438,7 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -496,13 +496,13 @@ export namespace Components {
                 target: (e: Event): void => {
                     
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
 
                         // Get the create module modal
-                        let create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                        const create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
 
                         // Verify if files exists
                         if ( (target.files !== null) && (target.files!.length > 0) ) {
@@ -520,7 +520,7 @@ export namespace Components {
                             let index: number = 0;
 
                             // List images
-                            for ( let image of target.files ) {
+                            for ( const image of target.files ) {
 
                                 // Add image to the uploaded list
                                 uploaded_images += '<li class="ec-cover-uploaded-file ec-cover-uploaded-file-uploading" data-file="' + image.lastModified + '_' + image.size + '">'
@@ -548,7 +548,7 @@ export namespace Components {
                                 + '</li>';
 
                                 // Init the form data
-                                let form = new FormData();
+                                const form = new FormData();
 
                                 // Append file name
                                 form.append('file_name', image.lastModified + '_' + image.size);
@@ -557,7 +557,7 @@ export namespace Components {
                                 form.append('file', image);
 
                                 // Init the HTTP Request class
-                                let http: XMLHttpRequest = new XMLHttpRequest();
+                                const http: XMLHttpRequest = new XMLHttpRequest();
                         
                                 // Set the url and method
                                 http.open('POST', params.options('api_url') + 'api/upload_module_cover', true);
@@ -569,16 +569,16 @@ export namespace Components {
                                     if (e.lengthComputable) {
 
                                         // Calculate the percentage
-                                        let percent: number = (e.loaded / e.total) * 100;
+                                        const percent: number = (e.loaded / e.total) * 100;
 
                                         // Get total file size
-                                        let file_size: string | null = create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-upload-total')!.getAttribute('data-total');
+                                        const file_size: string | null = create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-upload-total')!.getAttribute('data-total');
 
                                         // Check if file size exists
                                         if ( file_size ) {
 
                                             // Calculate upload size
-                                            let uploaded_size: number = (percent / 100) * parseInt(file_size);
+                                            const uploaded_size: number = (percent / 100) * parseInt(file_size);
 
                                             // Display the upload done
                                             create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-done')!.textContent = format_file_size(uploaded_size);   
@@ -589,10 +589,10 @@ export namespace Components {
                                         create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-percentage')!.textContent = percent.toFixed(0) + '%';                                        
 
                                         // Get progress width
-                                        let progress_width: number = (create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress') as Element).clientWidth;
+                                        const progress_width: number = (create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress') as Element).clientWidth;
 
                                         // Calculate progress bar width
-                                        let progress_bar: number = (percent / 100) * progress_width;
+                                        const progress_bar: number = (percent / 100) * progress_width;
 
                                         // Set progress bar width
                                         (create_module!.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress-bar') as HTMLElement).style.width = progress_bar.toFixed(0) + 'px';
@@ -610,7 +610,7 @@ export namespace Components {
                                     if (http.status >= 200 && http.status < 300) {
 
                                         // Turn response to json
-                                        let data: {success: boolean, message: string, file_name: string, original_name?: string} = JSON.parse(http.response);
+                                        const data: {success: boolean, message: string, file_name: string, original_name?: string} = JSON.parse(http.response);
 
                                         // Verify if file name exists in the data and the file wasn't uploaded
                                         if ( !data.success && (typeof data.file_name !== 'undefined') ) {
@@ -671,7 +671,7 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -699,14 +699,14 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
                         e.preventDefault();
 
                         // Get the create module modal
-                        let create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                        const create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
 
                         // Trigger click
                         (create_module!.getElementsByClassName('ec-file')[0] as HTMLElement).click();
@@ -722,7 +722,7 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -731,10 +731,10 @@ export namespace Components {
                         target.closest('.ec-composer-modal-footer')!.getElementsByClassName('ec-composer-modal-message')[0].classList.remove('ec-composer-modal-message-success', 'ec-composer-modal-message-error');
 
                         // Get the create module modal
-                        let create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                        const create_module: Element | null = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
 
                         // Create the module's content
-                        let module: module_type = {
+                        const module: module_type = {
                             name: (create_module!.getElementsByClassName('ec-menu-module-name')[0] as HTMLInputElement).value,
                             category: create_module!.getElementsByClassName('ec-module-category-button')[0].getAttribute('data-id'),
                             description: (create_module!.getElementsByClassName('ec-menu-module-description')[0] as HTMLInputElement).value
@@ -750,16 +750,16 @@ export namespace Components {
                         }
 
                         // Get iframe for template
-                        let itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                        const itemplate = params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                         // Get content document
-                        let idocument: Document | null = itemplate.contentDocument;
+                        const idocument: Document | null = itemplate.contentDocument;
 
                         // Check if idocument is not null
                         if ( idocument ) {
 
                             // Get the selected lines
-                            let selected_lines: HTMLCollectionOf<Element> = idocument.getElementsByClassName('ec-composer-template-content-line-selected');
+                            const selected_lines: HTMLCollectionOf<Element> = idocument.getElementsByClassName('ec-composer-template-content-line-selected');
 
                             // Verify if selected lines exists
                             if ( selected_lines.length > 0 ) {
@@ -771,16 +771,16 @@ export namespace Components {
                                 module['css'] = '';
 
                                 // Get the elements
-                                let elements: HTMLCollectionOf<Element> = selected_lines[0].getElementsByClassName('ec-element-content');
+                                const elements: HTMLCollectionOf<Element> = selected_lines[0].getElementsByClassName('ec-element-content');
 
                                 // Verify if elements exists
                                 if ( elements.length > 0 ) {
 
                                     // List the elements
-                                    for ( let element of elements ) {
+                                    for ( const element of elements ) {
 
                                         // Get element's id
-                                        let element_id: string | null = element.getAttribute('data-id');
+                                        const element_id: string | null = element.getAttribute('data-id');
 
                                         // Verify if element's id exists
                                         if ( !element_id ) {
@@ -788,7 +788,7 @@ export namespace Components {
                                         }
 
                                         // Get the style tag
-                                        let style: HTMLStyleElement | null = idocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                        const style: HTMLStyleElement | null = idocument.head.querySelector('style[data-element="' + element_id + '"]');
 
                                         // Verify if the tag style exists
                                         if ( style ) {
@@ -828,7 +828,7 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -898,14 +898,14 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
                         e.preventDefault();
 
                         // Get the module's type
-                        let module_type: string = (Array.prototype.indexOf.call(Array.from(target.closest('.ec-search-sections')!.getElementsByClassName('ec-search-section')), target.closest('.ec-search-section')) < 1)?'personal':'default';
+                        const module_type: string = (Array.prototype.indexOf.call(Array.from(target.closest('.ec-search-sections')!.getElementsByClassName('ec-search-section')), target.closest('.ec-search-section')) < 1)?'personal':'default';
 
                         // Add the ec-load-more-active class
                         target!.classList.add('ec-load-more-active')
@@ -914,7 +914,7 @@ export namespace Components {
                         setTimeout((): void => {
 
                             // Create page
-                            let page: number = target.closest('.ec-loading-button')!.getAttribute('data-page')?parseInt(target.closest('.ec-loading-button')!.getAttribute('data-page')!):1;
+                            const page: number = target.closest('.ec-loading-button')!.getAttribute('data-page')?parseInt(target.closest('.ec-loading-button')!.getAttribute('data-page')!):1;
 
                             // Load the modules
                             new Classes.Modules().get_modules(params, module_type, page);
@@ -932,7 +932,7 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -977,17 +977,17 @@ export namespace Components {
                 target: (e: MouseEvent): void => {
                     
                     // Get target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Verify if target exists
                     if ( target !== null ) {
                         e.preventDefault();
 
                         // Get the Category ID
-                        let category_id: string | null = target.getAttribute('data-id');
+                        const category_id: string | null = target.getAttribute('data-id');
 
                         // Get the Category's name
-                        let category_name: string | null = target.textContent;
+                        const category_name: string | null = target.textContent;
 
                         // Verify if Category ID and Category's name is not null
                         if ( category_id && category_name ) {

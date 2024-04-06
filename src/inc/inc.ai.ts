@@ -29,13 +29,13 @@ export const get_ai_content = async (params: params_type): Promise<void> => {
     params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-suggestions');
 
     // Get the service
-    let service = params.selector.querySelector('.ec-option-ai .ec-button-service')!.getAttribute('data-service');
+    const service = params.selector.querySelector('.ec-option-ai .ec-button-service')!.getAttribute('data-service');
 
     // Get the command
-    let command = params.selector.querySelector('.ec-option-ai .ec-textarea') as HTMLInputElement;
+    const command = params.selector.querySelector('.ec-option-ai .ec-textarea') as HTMLInputElement;
 
     // Prepare the post's fields
-    let post_fields: {
+    const post_fields: {
         service: string,
         command: string        
     } = {
@@ -44,7 +44,7 @@ export const get_ai_content = async (params: params_type): Promise<void> => {
     };
 
     // Prepare the request parameters
-    let request_params: {[key: string]: string | {
+    const request_params: {[key: string]: string | {
         [key: string]: string
     }} = {
         method: 'POST',
@@ -55,7 +55,7 @@ export const get_ai_content = async (params: params_type): Promise<void> => {
     };
 
     // Get the response
-    let response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
 
     // Verify if the response is failed
     if (!response.ok) {
@@ -100,7 +100,7 @@ export const get_ai_content = async (params: params_type): Promise<void> => {
     }
 
     // Turn response into json
-    let json = await response.json();
+    const json = await response.json();
 
     // Verify if the response is positive
     if ( json.success ) {

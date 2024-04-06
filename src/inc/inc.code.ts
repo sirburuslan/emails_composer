@@ -27,7 +27,7 @@ const show_index = (selector: Element | undefined | null): void => {
         if ( all_lines < 1 ) {
 
             // New line
-            let new_line: string = '<div class="ec-composer-code-editor-line"></div>';
+            const new_line: string = '<div class="ec-composer-code-editor-line"></div>';
 
             // Add line
             selector.querySelector('.ec-composer-code-lines')!.innerHTML = new_line;
@@ -47,7 +47,7 @@ const show_index = (selector: Element | undefined | null): void => {
         do {
 
             // Get height
-            let height: number = (selector!.querySelectorAll('.ec-composer-code-editor-line')[(number - 1)] as HTMLElement).offsetHeight;
+            const height: number = (selector!.querySelectorAll('.ec-composer-code-editor-line')[(number - 1)] as HTMLElement).offsetHeight;
 
             // Set line
             lines += '<div class="ec-composer-code-editor-line-index" style="height: ' + height + 'px;">'

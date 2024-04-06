@@ -48,7 +48,7 @@ export namespace Resources.Options {
         prepare_template(params: params_type, option: option_link_type): {template: string} {
 
             // Unique checkbox id
-            let unique_id: number = Date.now();
+            const unique_id: number = Date.now();
 
             // Default ai selected service slug
             let ai_selected_service_slug: string = '';
@@ -63,10 +63,10 @@ export namespace Resources.Options {
             if ( services && (Object.keys(services).length > 0) ) {
 
                 // List the services
-                for ( let service of Object.keys(services) ) {
+                for ( const service of Object.keys(services) ) {
 
                     // Get the service's data
-                    let service_data: ai_service_type = Object.getOwnPropertyDescriptor(services, service)?.value(params);
+                    const service_data: ai_service_type = Object.getOwnPropertyDescriptor(services, service)?.value(params);
 
                     // Verify if no service is selected
                     if ( !ai_selected_service_slug ) {
@@ -108,10 +108,10 @@ export namespace Resources.Options {
             if ( suggestions && (Object.keys(suggestions).length > 0) ) {
 
                 // List the suggestions
-                for ( let suggestion of Object.keys(suggestions) ) {
+                for ( const suggestion of Object.keys(suggestions) ) {
                     
                     // Get the suggestion's data
-                    let suggestion_data: ai_suggestion_type = Object.getOwnPropertyDescriptor(suggestions, suggestion)?.value(params);
+                    const suggestion_data: ai_suggestion_type = Object.getOwnPropertyDescriptor(suggestions, suggestion)?.value(params);
 
                     // Add suggestion to the list
                     default_suggestions += '<li>'
@@ -129,7 +129,7 @@ export namespace Resources.Options {
             default_suggestions += '</ul>';
 
             // Chat response
-            let chat_response = `<div class="ec-ai-chat-response">
+            const chat_response = `<div class="ec-ai-chat-response">
                 <div class="ec-ai-response"></div>
                 <div class="ec-ai-actions ec-right">
                     <a href="#" class="ec-insert-ai-response">
@@ -140,7 +140,7 @@ export namespace Resources.Options {
             </div>`;
 
             // Chat error
-            let chat_error = `<div class="ec-ai-chat-error">
+            const chat_error = `<div class="ec-ai-chat-error">
                 <div class="ec-ai-message"></div>
             </div>`;
 
@@ -207,7 +207,7 @@ export namespace Resources.Options {
                 target: (e: Event): void => {
 
                     // Get target
-                    let target = e.target as HTMLInputElement;
+                    const target = e.target as HTMLInputElement;
 
                     // Verify if target exists
                     if ( (target !== null) && target.closest('.ec-text-composer') ) {
@@ -216,7 +216,7 @@ export namespace Resources.Options {
                         Classes.Timer.schedule_event('search_ai_content', (): void => {
 
                             // Get the command
-                            let command = params.selector.querySelector('.ec-option-ai .ec-textarea') as HTMLInputElement;
+                            const command = params.selector.querySelector('.ec-option-ai .ec-textarea') as HTMLInputElement;
 
                             // Verify if command is not empty
                             if ( command.value.trim() !== '' ) {
@@ -257,7 +257,7 @@ export namespace Resources.Options {
                 target: (e: MouseEvent): void => {
 
                     // Get target
-                    let target = e.target as HTMLElement;
+                    const target = e.target as HTMLElement;
 
                     // Verify if target exists
                     if ( target !== null ) {
@@ -270,22 +270,22 @@ export namespace Resources.Options {
                             if ( target.closest('.ec-insert-ai-response') && (target.nodeName === 'A') ) {
 
                                 // Get the response
-                                let response: string | undefined = target.closest('.ec-ai-chat-response')?.getElementsByClassName('ec-ai-response')[0].innerHTML;
+                                const response: string | undefined = target.closest('.ec-ai-chat-response')?.getElementsByClassName('ec-ai-response')[0].innerHTML;
 
                                 // Get iframe
-                                let iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                                const iframe: HTMLIFrameElement = this.params.selector!.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                                 // Verify if iframe exists
                                 if ( iframe && response ) {
 
                                     // Get content document
-                                    let iframeDocument: Document | null = iframe.contentDocument;
+                                    const iframeDocument: Document | null = iframe.contentDocument;
 
                                     // Check if iframeDocument is not null
                                     if ( iframeDocument !== null ) {
 
                                         // Get the element
-                                        let element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                        const element: Element | null = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
 
                                         // Verify if element is not null
                                         if ( element ) {
@@ -305,13 +305,13 @@ export namespace Resources.Options {
                             e.preventDefault();
 
                             // Get the command
-                            let command: string | null = target.getAttribute('data-command');
+                            const command: string | null = target.getAttribute('data-command');
 
                             // Verify if command exists
                             if ( command ) {
 
                                 // Get the textarea
-                                let textarea = target.closest('.ec-option-ai')?.getElementsByClassName('ec-textarea')[0] as HTMLInputElement;
+                                const textarea = target.closest('.ec-option-ai')?.getElementsByClassName('ec-textarea')[0] as HTMLInputElement;
 
                                 // Enter the command in the textarea
                                 textarea.value = command;
@@ -325,13 +325,13 @@ export namespace Resources.Options {
                             e.preventDefault();
 
                             // Get the service slug
-                            let service_slug: string | null = target.getAttribute('data-service');
+                            const service_slug: string | null = target.getAttribute('data-service');
 
                             // Verify if service slug exists
                             if ( service_slug ) {
 
                                 // Get the service name
-                                let service_name = target.textContent;
+                                const service_name = target.textContent;
 
                                 // Set service slug
                                 target.closest('.ec-option-selector-dropdown')!.getElementsByClassName('ec-button')[0].setAttribute('data-service', service_slug);

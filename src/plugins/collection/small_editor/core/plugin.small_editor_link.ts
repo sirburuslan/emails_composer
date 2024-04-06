@@ -36,34 +36,34 @@ export namespace PluginsSmallEditorCore {
             setTimeout((): void => {
 
                 // Get iframe for template
-                let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+                const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
                 // Get iframe position
-                let itemplate_position: DOMRect = itemplate.getBoundingClientRect();
+                const itemplate_position: DOMRect = itemplate.getBoundingClientRect();
 
                 // Get content window
-                let cwindow: Window | null = itemplate.contentWindow;
+                const cwindow: Window | null = itemplate.contentWindow;
 
                 // Create a new Selection object
-                let selection: Selection | null = cwindow!.getSelection();
+                const selection: Selection | null = cwindow!.getSelection();
 
                 // Remove selections in the iframe
                 if ( selection && (selection.rangeCount > 0) ) {
 
                     // Save target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Check if the click is inside the text element
                     if ( target.closest('.ec-element-content-data') ) {
 
                         // Get range
-                        let range: Range = selection.getRangeAt(0);
+                        const range: Range = selection.getRangeAt(0);
 
                         // Get the range position
-                        let range_pos: DOMRect = range.getBoundingClientRect();
+                        const range_pos: DOMRect = range.getBoundingClientRect();
 
                         // Get a
-                        let a: HTMLElement | null = (range.commonAncestorContainer.parentElement!.nodeName === 'A')?range.commonAncestorContainer.parentElement:range.commonAncestorContainer.parentElement!.closest('a');
+                        const a: HTMLElement | null = (range.commonAncestorContainer.parentElement!.nodeName === 'A')?range.commonAncestorContainer.parentElement:range.commonAncestorContainer.parentElement!.closest('a');
 
                         // Verify if the link box was already added
                         if ( params.selector.getElementsByClassName('ec-ste-link-box').length < 1 ) {
@@ -72,10 +72,10 @@ export namespace PluginsSmallEditorCore {
                             if ( a ) {
 
                                 // Get href
-                                let href: string | null = a!.getAttribute('href');
+                                const href: string | null = a!.getAttribute('href');
 
                                 // Create the link box
-                                let link_box: string = `<div class="ec-ste-link-box">
+                                const link_box: string = `<div class="ec-ste-link-box">
                                     <div class="ec-display-flex ec-justify-content-start">
                                         <input type="text" value="${href}" placeholder="${params.words('enter_url')}" maxlength="1000">
                                         <div class="ec-ste-link-box-group-buttons">
@@ -93,16 +93,16 @@ export namespace PluginsSmallEditorCore {
                         }
 
                         // Get the link box element
-                        let link_box_el = params.selector.getElementsByClassName('ec-ste-link-box')[0] as HTMLElement;
+                        const link_box_el = params.selector.getElementsByClassName('ec-ste-link-box')[0] as HTMLElement;
 
                         // Verify if there is the space to show the link box
                         if ( itemplate_position.width > (range_pos.x + 260) ) {
 
                             // Calculate the top position
-                            let top: number = itemplate_position.y + range_pos.y + range_pos.height + 10;
+                            const top: number = itemplate_position.y + range_pos.y + range_pos.height + 10;
 
                             // Calculate the left position
-                            let left: number = itemplate_position.x + range_pos.x - 15;
+                            const left: number = itemplate_position.x + range_pos.x - 15;
 
                             // Set link box position
                             link_box_el.style.cssText = `top: ${top}px;left: ${left}px;--link-box-angle-left: 7px;`;
@@ -121,7 +121,7 @@ export namespace PluginsSmallEditorCore {
                         if ( a ) {
 
                             // Create a new Range object
-                            let new_range: Range = document.createRange();
+                            const new_range: Range = document.createRange();
 
                             // Set start range
                             new_range.setStartBefore(a.childNodes[0]);   
@@ -162,34 +162,34 @@ export namespace PluginsSmallEditorCore {
         update = (e: MouseEvent, params: params_type): void => {
 
             // Get iframe for template
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = itemplate.contentWindow;
+            const cwindow: Window | null = itemplate.contentWindow;
 
             // Create a new Selection object
-            let selection: Selection | null = cwindow!.getSelection();
+            const selection: Selection | null = cwindow!.getSelection();
 
             // Remove selections in the iframe
             if ( selection && (selection.rangeCount > 0) ) {
 
                 // Get range
-                let range: Range = selection.getRangeAt(0);
+                const range: Range = selection.getRangeAt(0);
 
                 // Get the a
-                let a: Node = range.commonAncestorContainer;
+                const a: Node = range.commonAncestorContainer;
 
                 // Check if a is an element node
                 if (a.nodeType === Node.ELEMENT_NODE) {
 
                     // Save target
-                    let target = e.target as Element;
+                    const target = e.target as Element;
 
                     // Create element from node
-                    let element = a as HTMLElement;
+                    const element = a as HTMLElement;
 
                     // Get value
-                    let value: string = new Plugins.Sanitizer().sanitize_url(target.closest('.ec-display-flex')!.getElementsByTagName('input')[0].value);
+                    const value: string = new Plugins.Sanitizer().sanitize_url(target.closest('.ec-display-flex')!.getElementsByTagName('input')[0].value);
                     
                     // Verify if value exists
                     if ( value ) {
@@ -217,31 +217,31 @@ export namespace PluginsSmallEditorCore {
         remove = (e: MouseEvent, params: params_type): void => {
 
             // Get iframe for template
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0] as HTMLIFrameElement;
 
             // Get content window
-            let cwindow: Window | null = itemplate.contentWindow;
+            const cwindow: Window | null = itemplate.contentWindow;
 
             // Create a new Selection object
-            let selection: Selection | null = cwindow!.getSelection();
+            const selection: Selection | null = cwindow!.getSelection();
 
             // Remove selections in the iframe
             if ( selection && (selection.rangeCount > 0) ) {
 
                 // Get range
-                let range: Range = selection.getRangeAt(0);
+                const range: Range = selection.getRangeAt(0);
 
                 // Get the a
-                let a: Node = range.commonAncestorContainer;
+                const a: Node = range.commonAncestorContainer;
 
                 // Check if a is an element node
                 if (a.nodeType === Node.ELEMENT_NODE) {
 
                     // Create element from node
-                    let element = a as HTMLElement;
+                    const element = a as HTMLElement;
 
                     // Get all element's childnodes
-                    let enodes: NodeListOf<Node> = element.childNodes;
+                    const enodes: NodeListOf<Node> = element.childNodes;
 
                     // Replace a
                     element.replaceWith(...enodes);

@@ -60,16 +60,16 @@ export namespace Core {
             if ( Object.keys(updated_options).length > 0 ) {
 
                 // Get the default options
-                let default_options = Object.keys(Options.options_list);
+                const default_options = Object.keys(Options.options_list);
 
                 // New options
-                let new_options = {};
+                const new_options = {};
                 
                 // Group the options
-                let group_options = (c_options: any, d_options: any, old_obj: any, n_options: any): void => {
+                const group_options = (c_options: any, d_options: any, old_obj: any, n_options: any): void => {
                 
                     // Get total options
-                    let total_options = d_options.length;
+                    const total_options = d_options.length;
 
                     // List options
                     for ( var t = 0; t < total_options; t++ ) {
