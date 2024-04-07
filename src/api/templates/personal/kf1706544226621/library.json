@@ -1,3 +1,0 @@
-{
-    "content": "\n\n            .ec-display-block {\n                display: block;\n            } \n            \n            .ec-display-inline-block {\n                display: inline-block;\n            }   \n            \n            .ec-display-none {\n                display: none;\n            }\n            \n            .ec-display-flex {\n                display: flex;\n            } \n            \n            .ec-display-grid {\n                display: grid;\n            }\n            \n            .ec-no-list-bullets {\n                list-style-type: none;\n            }\n\n        "
-}
