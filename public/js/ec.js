@@ -104,10 +104,10 @@ var Core$3;
                 Options.options_list = options;
             }
             if (Object.keys(updated_options).length > 0) {
-                let default_options = Object.keys(Options.options_list);
-                let new_options = {};
-                let group_options = (c_options, d_options, old_obj, n_options) => {
-                    let total_options = d_options.length;
+                const default_options = Object.keys(Options.options_list);
+                const new_options = {};
+                const group_options = (c_options, d_options, old_obj, n_options) => {
+                    const total_options = d_options.length;
                     for (var t = 0; t < total_options; t++) {
                         if (!old_obj) {
                             n_options[d_options[t]] = c_options[d_options[t]];
@@ -153,9 +153,9 @@ var Abstracts;
             this.params = params;
         }
         get_option = (option) => {
-            let obj = this.prepare_template(this.params, option);
+            const obj = this.prepare_template(this.params, option);
             if ((typeof obj !== 'undefined') && (obj.template !== 'undefined')) {
-                let element = option?.element ? ' data-element="' + option?.element + '"' : '';
+                const element = option?.element ? ' data-element="' + option?.element + '"' : '';
                 Options.saved_options[option.name + '_' + element.replace(' data-element="', '').replace('"', '')] = option;
                 return '<li class="ec-display-flex ec-justify-content-space-between" data-option="' + option.name + '"' + element + '>'
                     + obj.template
@@ -182,7 +182,7 @@ var Class$8;
             }
             if (!node) {
                 if (iframe) {
-                    let iframes = document.querySelectorAll(iframe);
+                    const iframes = document.querySelectorAll(iframe);
                     if (typeof iframes !== 'undefined') {
                         iframes[0].contentWindow.addEventListener(action, target, capture);
                     }
@@ -192,7 +192,7 @@ var Class$8;
                 }
             }
             else {
-                let all_nodes = node.length;
+                const all_nodes = node.length;
                 for (var a = 0; a < all_nodes; a++) {
                     node[a].addEventListener(action, target, capture);
                 }
@@ -226,7 +226,7 @@ var Class$7;
         }
         async post(url, template, option) {
             return new Promise((resolve, reject) => {
-                let params = {
+                const params = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -238,7 +238,7 @@ var Class$7;
                 else if (option !== null) {
                     params['body'] = JSON.stringify(option);
                 }
-                let fetch_request = fetch(url, params);
+                const fetch_request = fetch(url, params);
                 fetch_request.then(response => {
                     resolve(response.json());
                 });
@@ -249,14 +249,14 @@ var Class$7;
         }
         async put(url, update) {
             return new Promise((resolve, reject) => {
-                let params = {
+                const params = {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 };
                 params['body'] = JSON.stringify(update);
-                let fetch_request = fetch(url, params);
+                const fetch_request = fetch(url, params);
                 fetch_request.then(response => {
                     resolve(response.json());
                 });
@@ -352,14 +352,12 @@ var HtmlFormatter$3;
 (function (HtmlFormatter) {
     class Lines {
         add_lines(fcode) {
-            let splits = fcode.split("\r\n");
+            const splits = fcode.split("\r\n");
             let open = '';
-            let total_splits = splits.length;
-            let l = 1;
-            do {
+            const total_splits = splits.length;
+            for (let l = 1; l < total_splits; l++) {
                 open += this.add_line(splits[(l - 1)].replaceAll('<span class="ec-code-whitespace"> </span>', '<span class="ec-code-whitespace">&nbsp;</span>'));
-                l++;
-            } while (l < total_splits);
+            }
             return open;
         }
         add_line(value) {
@@ -529,22 +527,21 @@ var HtmlFormatter$1;
         ];
         _t_container = '';
         add_spaces(fcode) {
-            let splits = fcode.split('<');
+            const splits = fcode.split('<');
             if (splits.length < 2) {
                 return fcode.replace(/\s/g, '&nbsp;');
             }
             this._general = new HtmlFormatter.General();
-            let tsplits = splits.length;
-            let s = 0;
-            do {
-                let get_tag = this._general.get_tag(splits[s]);
+            const tsplits = splits.length;
+            for (let s = 0; s < tsplits; s++) {
+                const get_tag = this._general.get_tag(splits[s]);
                 if (!get_tag.tag) {
                     this._open += (s < 1) ? splits[s] : '<' + splits[s];
                     s++;
                     continue;
                 }
-                let previous_tag = this._general.get_tag_by_index(splits, (s - 1));
-                let next_tag = this._general.get_tag_by_index(splits, (s + 1));
+                const previous_tag = this._general.get_tag_by_index(splits, (s - 1));
+                const next_tag = this._general.get_tag_by_index(splits, (s + 1));
                 if (get_tag.start) {
                     if (next_tag.hidden && !next_tag.start && get_tag.hidden && next_tag.hidden) {
                         this._open += (previous_tag.text || ((previous_tag.tag === get_tag.tag) && previous_tag.start && !get_tag.start)) ? '<' + splits[s] : this._space.repeat(this._cspace) + '<' + splits[s];
@@ -606,7 +603,7 @@ var HtmlFormatter$1;
                         }
                     }
                     else if (get_tag.text && next_tag.start) {
-                        let ctag = splits[s].split('>').shift();
+                        const ctag = splits[s].split('>').shift();
                         temp = this._space.repeat(this._cspace) + '<' + ctag + '>';
                         temp += "\r\n";
                         this._cspace++;
@@ -677,8 +674,7 @@ var HtmlFormatter$1;
                             this._cspace--;
                     }
                 }
-                s++;
-            } while (s < tsplits);
+            }
             return this._open;
         }
         _add_end(tag) {
@@ -700,7 +696,7 @@ var HtmlFormatter;
                     start = (tag.split('-->').length > 1) ? false : true;
                 }
                 else {
-                    let tag_full = '<' + tag;
+                    const tag_full = '<' + tag;
                     start = ((tag_full.split('/>').length > 1) || (tag_full.split('</').length > 1) || (tag_full.split('<\/').length > 1)) ? false : true;
                 }
                 return {
@@ -727,7 +723,7 @@ var HtmlFormatter;
                         start = (tags[i].split('-->').length > 1) ? false : true;
                     }
                     else {
-                        let tag = '<' + tags[i];
+                        const tag = '<' + tags[i];
                         start = ((tag.split('/>').length > 1) || (tag.split('</').length > 1) || (tag.split('<\/').length > 1)) ? false : true;
                     }
                     return {
@@ -768,8 +764,8 @@ var Plugins$6;
                     html = new HtmlFormatter$1.Spaces().add_spaces(html);
                 }
             }
-            let characters = this._to_html(html).replaceAll(' &nbsp;', ' ').replaceAll('&nbsp;', ' ').split("");
-            let tcharacters = characters.length;
+            const characters = this._to_html(html).replaceAll(' &nbsp;', ' ').replaceAll('&nbsp;', ' ').split("");
+            const tcharacters = characters.length;
             if (tcharacters > 0) {
                 do {
                     if (characters[this._index] === '') {
@@ -879,7 +875,7 @@ var Plugins$6;
                     });
                 }
             }
-            let ready_code = new HtmlFormatter$3.Lines().add_lines(this._fcode);
+            const ready_code = new HtmlFormatter$3.Lines().add_lines(this._fcode);
             return new Promise((resolve, reject) => {
                 resolve(ready_code);
             });
@@ -1395,8 +1391,8 @@ var CssFormatter$2;
         };
         _history = '';
         add_spaces(fcode) {
-            let splits = fcode.split('');
-            let tsplits = splits.length;
+            const splits = fcode.split('');
+            const tsplits = splits.length;
             if (tsplits > 0) {
                 for (let s = 0; s < tsplits; s++) {
                     if (typeof splits[(s - 1)] !== 'undefined') {
@@ -1470,7 +1466,7 @@ var CssFormatter$1;
 (function (CssFormatter) {
     class Lines {
         add_lines(fcode) {
-            let splits = fcode.split("\r\n");
+            const splits = fcode.split("\r\n");
             let open = '';
             for (let split of splits) {
                 if ((split.indexOf('ec-code-css-text') > -1) && (split.indexOf('ec-code-css-dots') > -1) && (split.indexOf('ec-code-css-end') > -1) && (split.indexOf('ec-code-css-curly-bracket-open') < 0)) {
@@ -1511,7 +1507,7 @@ var Plugins$5;
         _characters = [];
         format(params, css) {
             this._params = params;
-            let before_css = css;
+            const before_css = css;
             if (typeof this._params.spaces !== 'undefined') {
                 if (this._params.spaces) {
                     css = new CssFormatter$3.Prepare().code(css);
@@ -1527,7 +1523,7 @@ var Plugins$5;
                 }
             }
             this._characters = css.split("");
-            let tcharacters = this._characters.length;
+            const tcharacters = this._characters.length;
             if (tcharacters > 0) {
                 for (let c = 0; c < tcharacters; c++) {
                     if ((this._characters[this._index] === "\r") || (this._characters[this._index] === "\n")) {
@@ -1598,7 +1594,7 @@ var Plugins$5;
                     });
                 }
             }
-            let ready_code = new CssFormatter$1.Lines().add_lines(this._fcode);
+            const ready_code = new CssFormatter$1.Lines().add_lines(this._fcode);
             return new Promise((resolve, reject) => {
                 resolve(ready_code);
             });
@@ -1830,7 +1826,7 @@ var Plugins$4;
 (function (Plugins) {
     class Color {
         add_color_box(e, params) {
-            let target = e.target;
+            const target = e.target;
             if (params.selector.getElementsByClassName('ec-color-box').length > 0) {
                 params.selector.getElementsByClassName('ec-color-box')[0].remove();
                 if (params.selector.getElementsByClassName('ec-button-color-active').length > 0) {
@@ -1839,8 +1835,8 @@ var Plugins$4;
             }
             setTimeout(() => {
                 target.closest('.ec-button-color').classList.add('ec-button-color-active');
-                let value = (target.getAttribute('data-color') && (target.getAttribute('data-color') !== 'transparent')) ? target.getAttribute('data-color').slice(0, 7) : '';
-                let box = '<div class="ec-dropdown ec-dropdown-show ec-dropdown-bottom ec-color-box">'
+                const value = (target.getAttribute('data-color') && (target.getAttribute('data-color') !== 'transparent')) ? target.getAttribute('data-color').slice(0, 7) : '';
+                const box = '<div class="ec-dropdown ec-dropdown-show ec-dropdown-bottom ec-color-box">'
                     + '<div class="ec-grid">'
                     + '<div class="ec-grid-column-7">'
                     + '<div class="ec-color-opacity-filter">'
@@ -1861,14 +1857,14 @@ var Plugins$4;
                     + '</div>'
                     + '</div>';
                 params.selector.getElementsByClassName('ec-composer')[0].insertAdjacentHTML('beforeend', box);
-                let button_rect = target.getBoundingClientRect();
-                let color_box = params.selector.getElementsByClassName('ec-color-box')[0];
-                let top_position = (window.innerHeight > (button_rect.top + 40 + 230)) ? (button_rect.top + 40) : (button_rect.top - 245);
+                const button_rect = target.getBoundingClientRect();
+                const color_box = params.selector.getElementsByClassName('ec-color-box')[0];
+                const top_position = (window.innerHeight > (button_rect.top + 40 + 230)) ? (button_rect.top + 40) : (button_rect.top - 245);
                 if (window.innerHeight < (button_rect.top + 40 + 230)) {
                     color_box.classList.add('ec-color-box-top');
                 }
                 color_box.style.cssText = 'top: ' + top_position + 'px;left:' + (button_rect.left - 201) + 'px';
-                let rgb_color = this.convert_hex_to_rgb(target.getAttribute('data-color'));
+                const rgb_color = this.convert_hex_to_rgb(target.getAttribute('data-color'));
                 this.draw_gradient(params, {
                     r: rgb_color['r'],
                     g: rgb_color['g'],
@@ -1879,7 +1875,7 @@ var Plugins$4;
             }, 300);
         }
         is_hex_valid = (hex) => {
-            let regex = /^#?([0-9A-Fa-f]{3}){1,2}$/;
+            const regex = /^#?([0-9A-Fa-f]{3}){1,2}$/;
             return regex.test(hex);
         };
         convert_hex_to_rgb = (hex) => {
@@ -1887,9 +1883,9 @@ var Plugins$4;
                 return { r: 255, g: 255, b: 255 };
             }
             hex = hex.replaceAll('#', '');
-            let r = parseInt(hex.slice(0, 2), 16);
-            let g = parseInt(hex.slice(2, 4), 16);
-            let b = parseInt(hex.slice(4, 6), 16);
+            const r = parseInt(hex.slice(0, 2), 16);
+            const g = parseInt(hex.slice(2, 4), 16);
+            const b = parseInt(hex.slice(4, 6), 16);
             let rgb;
             if (isNaN(r) || isNaN(g) || isNaN(b)) {
                 rgb = {
@@ -1899,7 +1895,7 @@ var Plugins$4;
                 };
                 return rgb;
             }
-            let a = parseInt(hex.slice(6, 8), 16) / 255;
+            const a = parseInt(hex.slice(6, 8), 16) / 255;
             rgb = {
                 r: r,
                 g: g,
@@ -1915,18 +1911,18 @@ var Plugins$4;
             g = Math.min(255, Math.max(0, g));
             b = Math.min(255, Math.max(0, b));
             a = Math.min(1, Math.max(0, a));
-            let rh = r.toString(16).padStart(2, '0');
-            let gh = g.toString(16).padStart(2, '0');
-            let bh = b.toString(16).padStart(2, '0');
-            let ah = Math.round(a * 255).toString(16).padStart(2, '0');
+            const rh = r.toString(16).padStart(2, '0');
+            const gh = g.toString(16).padStart(2, '0');
+            const bh = b.toString(16).padStart(2, '0');
+            const ah = Math.round(a * 255).toString(16).padStart(2, '0');
             return (a < 1) ? `#${rh}${gh}${bh}${ah}` : `#${rh}${gh}${bh}`;
         };
         convert_rgb_to_hsl = (r, g, b) => {
             r /= 255;
             g /= 255;
             b /= 255;
-            let max = Math.max(r, g, b);
-            let min = Math.min(r, g, b);
+            const max = Math.max(r, g, b);
+            const min = Math.min(r, g, b);
             let s = 0, l = 0;
             s = l = (max + min) / 2;
             let h = s;
@@ -1952,10 +1948,10 @@ var Plugins$4;
             return [h * 360, s * 100, l * 100];
         };
         set_opacity = (params, r, g, b, a) => {
-            let opacity = params.selector.getElementsByClassName('ec-color-opacity-filter')[0];
+            const opacity = params.selector.getElementsByClassName('ec-color-opacity-filter')[0];
             opacity.style.setProperty('--background', 'linear-gradient(to right, rgba(' + r + ', ' + g + ', ' + b + ', 1), rgba(255, 0, 0, 0))');
             if (a) {
-                let opacity_rect = opacity.getBoundingClientRect();
+                const opacity_rect = opacity.getBoundingClientRect();
                 opacity.getElementsByTagName('span')[0].style.left = (opacity_rect.width - (((a * 100) / opacity_rect.width) * 100)) + 'px';
             }
             else {
@@ -1963,24 +1959,24 @@ var Plugins$4;
             }
         };
         create_opacity = (e, params, callback) => {
-            let target = e.target;
-            let filter = params.selector.getElementsByClassName('ec-color-opacity-filter-active')[0];
-            let filter_rect = filter.getBoundingClientRect();
+            const target = e.target;
+            const filter = params.selector.getElementsByClassName('ec-color-opacity-filter-active')[0];
+            const filter_rect = filter.getBoundingClientRect();
             if (((e.clientX - filter_rect.x) >= 0) && ((e.clientX - filter_rect.x) <= (filter_rect.width - 4))) {
-                let left = ((e.clientX - filter_rect.x) < 1) ? 0 : (e.clientX - filter_rect.x);
+                const left = ((e.clientX - filter_rect.x) < 1) ? 0 : (e.clientX - filter_rect.x);
                 filter.getElementsByTagName('span')[0].style.cssText = 'left: ' + left + 'px;';
-                let slider_width = (100 - ((((filter_rect.width - 4) - left) / (filter_rect.width - 4)) * 100));
-                let slider_opacity = ((100 - Math.round(slider_width)) < 10) ? '0.1' + (100 - Math.round(slider_width)) : ((100 - Math.round(slider_width)) < 100) ? '0.' + (100 - Math.round(slider_width)) : '1';
-                let color_input = target.closest('.ec-grid').getElementsByClassName('ec-color-input');
+                const slider_width = (100 - ((((filter_rect.width - 4) - left) / (filter_rect.width - 4)) * 100));
+                const slider_opacity = ((100 - Math.round(slider_width)) < 10) ? '0.1' + (100 - Math.round(slider_width)) : ((100 - Math.round(slider_width)) < 100) ? '0.' + (100 - Math.round(slider_width)) : '1';
+                const color_input = target.closest('.ec-grid').getElementsByClassName('ec-color-input');
                 if (color_input.length > 0) {
-                    let value = color_input[0]?.value;
+                    const value = color_input[0]?.value;
                     if (value) {
-                        let rgba_color = this.convert_hex_to_rgb(value.slice(0, 7));
-                        let rgba = 'rgba(' + rgba_color['r'] + ', ' + rgba_color['g'] + ', ' + rgba_color['b'] + ', ' + slider_opacity + ')';
-                        let is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                        const rgba_color = this.convert_hex_to_rgb(value.slice(0, 7));
+                        const rgba = 'rgba(' + rgba_color['r'] + ', ' + rgba_color['g'] + ', ' + rgba_color['b'] + ', ' + slider_opacity + ')';
+                        const is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                         if (is_valid) {
-                            let [, r, g, b, a] = is_valid.map(Number);
-                            let hex = this.convert_rgb_to_hex(r, g, b, a || 1);
+                            const [, r, g, b, a] = is_valid.map(Number);
+                            const hex = this.convert_rgb_to_hex(r, g, b, a || 1);
                             callback(hex);
                         }
                     }
@@ -1988,16 +1984,16 @@ var Plugins$4;
             }
         };
         draw_gradient = (params, rgb_color) => {
-            let hsl = this.convert_rgb_to_hsl(rgb_color['r'], rgb_color['g'], rgb_color['b']);
-            let gradient = params.selector.getElementsByClassName('ec-color-gradient-selector')[0];
-            let gradient_2d = gradient.getContext('2d', { willReadFrequently: true });
-            let gradient_width = gradient.width;
-            let gradient_height = gradient.height;
+            const hsl = this.convert_rgb_to_hsl(rgb_color['r'], rgb_color['g'], rgb_color['b']);
+            const gradient = params.selector.getElementsByClassName('ec-color-gradient-selector')[0];
+            const gradient_2d = gradient.getContext('2d', { willReadFrequently: true });
+            const gradient_width = gradient.width;
+            const gradient_height = gradient.height;
             gradient_2d.clearRect(0, 0, gradient_width, gradient_height);
-            let wb_gradient = gradient_2d.createLinearGradient(0, 0, 0, gradient_height);
+            const wb_gradient = gradient_2d.createLinearGradient(0, 0, 0, gradient_height);
             wb_gradient.addColorStop(0, '#FFFFFF');
             wb_gradient.addColorStop(1, '#000000');
-            let hsl_gradient = gradient_2d.createLinearGradient(0, 0, gradient_width, 0);
+            const hsl_gradient = gradient_2d.createLinearGradient(0, 0, gradient_width, 0);
             hsl_gradient.addColorStop(0, `hsla(${Math.floor(hsl[0])},100%,50%,0)`);
             hsl_gradient.addColorStop(1, `hsla(${Math.floor(hsl[0])},100%,50%,1)`);
             gradient_2d.fillStyle = hsl_gradient;
@@ -2008,12 +2004,12 @@ var Plugins$4;
             gradient_2d.globalCompositeOperation = 'source-over';
         };
         draw_filter = (params) => {
-            let filter = params.selector.getElementsByClassName('ec-color-gradient-filter')[0];
-            let filter_2d = filter.getContext('2d', { willReadFrequently: true });
-            let filter_width = filter.width;
-            let filter_height = filter.height;
+            const filter = params.selector.getElementsByClassName('ec-color-gradient-filter')[0];
+            const filter_2d = filter.getContext('2d', { willReadFrequently: true });
+            const filter_width = filter.width;
+            const filter_height = filter.height;
             filter_2d.rect(0, 0, filter_width, filter_height);
-            let filter_linear_gradient = filter_2d.createLinearGradient(0, 0, 0, filter_height);
+            const filter_linear_gradient = filter_2d.createLinearGradient(0, 0, 0, filter_height);
             filter_linear_gradient.addColorStop(0, 'rgba(255, 0, 0, 1)');
             filter_linear_gradient.addColorStop(0.18, 'rgba(255, 255, 0, 1)');
             filter_linear_gradient.addColorStop(0.35, 'rgba(0, 255, 0, 1)');
@@ -2025,21 +2021,21 @@ var Plugins$4;
             filter_2d.fill();
         };
         get_gradient_color = (e, params, callback) => {
-            let target = e.target;
-            let gradient = target.closest('.ec-color-gradient-selector');
+            const target = e.target;
+            const gradient = target.closest('.ec-color-gradient-selector');
             if (gradient instanceof HTMLCanvasElement) {
-                let img = new Image();
+                const img = new Image();
                 img.src = gradient.toDataURL();
                 img.onload = () => {
-                    let gradient_rect = gradient.getBoundingClientRect();
+                    const gradient_rect = gradient.getBoundingClientRect();
                     img.width = gradient_rect.width;
                     img.height = gradient_rect.height;
-                    let canvas = document.createElement('canvas');
+                    const canvas = document.createElement('canvas');
                     canvas.width = img.width;
                     canvas.height = img.height;
                     canvas.getContext('2d', { willReadFrequently: true }).drawImage(img, 0, 0, img.width, img.height);
-                    let image_data = canvas.getContext('2d', { willReadFrequently: true }).getImageData(e.offsetX, e.offsetY, 1, 1).data;
-                    let input = params.selector.getElementsByClassName('ec-color-input')[0];
+                    const image_data = canvas.getContext('2d', { willReadFrequently: true }).getImageData(e.offsetX, e.offsetY, 1, 1).data;
+                    const input = params.selector.getElementsByClassName('ec-color-input')[0];
                     input.value = "#" + ((1 << 24) | (image_data[0] << 16) | (image_data[1] << 8) | image_data[2]).toString(16).slice(1).toUpperCase();
                     callback(input.value);
                     this.set_opacity(params, image_data[0], image_data[1], image_data[2]);
@@ -2047,12 +2043,12 @@ var Plugins$4;
             }
         };
         get_filter_color = (e, params, callback) => {
-            let target = e.target;
-            let gradient = target.closest('.ec-color-gradient-filter');
+            const target = e.target;
+            const gradient = target.closest('.ec-color-gradient-filter');
             if (gradient) {
-                let filter_2d = gradient.getContext('2d', { willReadFrequently: true });
-                let image_data = filter_2d.getImageData(e.offsetX, e.offsetY, 1, 1).data;
-                let input = params.selector.getElementsByClassName('ec-color-input')[0];
+                const filter_2d = gradient.getContext('2d', { willReadFrequently: true });
+                const image_data = filter_2d.getImageData(e.offsetX, e.offsetY, 1, 1).data;
+                const input = params.selector.getElementsByClassName('ec-color-input')[0];
                 input.value = "#" + ((1 << 24) | (image_data[0] << 16) | (image_data[1] << 8) | image_data[2]).toString(16).slice(1).toUpperCase();
                 callback(input.value);
                 this.draw_gradient(params, {
@@ -2065,13 +2061,13 @@ var Plugins$4;
         };
         remove_dropdown = (e, params) => {
             if (params.selector.getElementsByClassName('ec-color-box').length > 0) {
-                let target = e.target;
+                const target = e.target;
                 if (target !== null) {
                     if (!target.closest('.ec-dropdown')) {
                         if (params.selector.getElementsByClassName('ec-button-color-active').length > 0) {
                             params.selector.getElementsByClassName('ec-button-color-active')[0].classList.remove('ec-button-color-active');
                         }
-                        let color_box = params.selector.getElementsByClassName('ec-color-box')[0];
+                        const color_box = params.selector.getElementsByClassName('ec-color-box')[0];
                         color_box.classList.add('ec-dropdown-hide');
                         setTimeout(() => {
                             color_box.remove();
@@ -2723,13 +2719,13 @@ var Resources$q;
                 return [];
             };
             get_options = (params) => {
-                let sizes = [];
-                let fonts_list = Object.values(fonts);
-                let selected_font = 'lato';
-                let font = fonts_list.find(item => item.slug === selected_font);
-                let weights = [];
+                const sizes = [];
+                const fonts_list = Object.values(fonts);
+                const selected_font = 'lato';
+                const font = fonts_list.find(item => item.slug === selected_font);
+                const weights = [];
                 if (typeof font !== 'undefined') {
-                    for (let weight of font.weight) {
+                    for (const weight of font.weight) {
                         weights.push({
                             item_id: weight,
                             item_name: weight
@@ -3209,13 +3205,13 @@ var Resources$p;
                 return [];
             };
             get_options = (params) => {
-                let sizes = [];
-                let fonts_list = Object.values(fonts);
-                let selected_font = 'lato';
-                let font = fonts_list.find(item => item.slug === selected_font);
-                let weights = [];
+                const sizes = [];
+                const fonts_list = Object.values(fonts);
+                const selected_font = 'lato';
+                const font = fonts_list.find(item => item.slug === selected_font);
+                const weights = [];
                 if (typeof font !== 'undefined') {
-                    for (let weight of font.weight) {
+                    for (const weight of font.weight) {
                         weights.push({
                             item_id: weight,
                             item_name: weight
@@ -3228,7 +3224,7 @@ var Resources$p;
                         item_name: s + 'px'
                     });
                 }
-                let styles = [{
+                const styles = [{
                         item_id: 'solid',
                         item_name: 'Solid'
                     }, {
@@ -3877,7 +3873,7 @@ var Resources$p;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -4316,7 +4312,7 @@ var Resources$o;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -4755,7 +4751,7 @@ var Resources$n;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -4796,13 +4792,13 @@ var Resources$m;
                 return [];
             };
             get_options = (params) => {
-                let sizes = [];
-                let fonts_list = Object.values(fonts);
-                let selected_font = 'opensans';
-                let font = fonts_list.find(item => item.slug === selected_font);
-                let weights = [];
+                const sizes = [];
+                const fonts_list = Object.values(fonts);
+                const selected_font = 'opensans';
+                const font = fonts_list.find(item => item.slug === selected_font);
+                const weights = [];
                 if (typeof font !== 'undefined') {
-                    for (let weight of font.weight) {
+                    for (const weight of font.weight) {
                         weights.push({
                             item_id: weight,
                             item_name: weight
@@ -5228,7 +5224,7 @@ var Resources$m;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -5691,7 +5687,7 @@ var Resources$l;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -5796,7 +5792,7 @@ var Resources$k;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -5851,13 +5847,13 @@ var Resources$j;
                 return [];
             };
             get_options = (params) => {
-                let sizes = [];
-                let fonts_list = Object.values(fonts);
-                let selected_font = 'lato';
-                let font = fonts_list.find(item => item.slug === selected_font);
-                let weights = [];
+                const sizes = [];
+                const fonts_list = Object.values(fonts);
+                const selected_font = 'lato';
+                const font = fonts_list.find(item => item.slug === selected_font);
+                const weights = [];
                 if (typeof font !== 'undefined') {
-                    for (let weight of font.weight) {
+                    for (const weight of font.weight) {
                         weights.push({
                             item_id: weight,
                             item_name: weight
@@ -5870,7 +5866,7 @@ var Resources$j;
                         item_name: s + 'px'
                     });
                 }
-                let directions = [{
+                const directions = [{
                         item_id: 'column',
                         item_name: params.words('vertical')
                     }, {
@@ -6804,7 +6800,7 @@ var Resources$i;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -7242,7 +7238,7 @@ var Resources$h;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -7306,13 +7302,13 @@ var Resources$g;
                 return [];
             };
             get_options = (params) => {
-                let sizes = [];
-                let fonts_list = Object.values(fonts);
-                let product_name_selected_font = 'jost';
-                let font = fonts_list.find(item => item.slug === product_name_selected_font);
-                let weights = [];
+                const sizes = [];
+                const fonts_list = Object.values(fonts);
+                const product_name_selected_font = 'jost';
+                const font = fonts_list.find(item => item.slug === product_name_selected_font);
+                const weights = [];
                 if (typeof font !== 'undefined') {
-                    for (let weight of font.weight) {
+                    for (const weight of font.weight) {
                         weights.push({
                             item_id: weight,
                             item_name: weight
@@ -8297,7 +8293,7 @@ var Resources$g;
                 };
             };
             get_styles = (element_id) => {
-                let styles = ``;
+                const styles = ``;
                 return styles;
             };
         }
@@ -8330,20 +8326,20 @@ var PluginsSmallEditorCore$3;
         add_box = (e, params) => {
             e.preventDefault();
             setTimeout(() => {
-                let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                let itemplate_position = itemplate.getBoundingClientRect();
-                let cwindow = itemplate.contentWindow;
-                let selection = cwindow.getSelection();
+                const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const itemplate_position = itemplate.getBoundingClientRect();
+                const cwindow = itemplate.contentWindow;
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let target = e.target;
+                    const target = e.target;
                     if (target.closest('.ec-element-content-data')) {
-                        let range = selection.getRangeAt(0);
-                        let range_pos = range.getBoundingClientRect();
-                        let a = (range.commonAncestorContainer.parentElement.nodeName === 'A') ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer.parentElement.closest('a');
+                        const range = selection.getRangeAt(0);
+                        const range_pos = range.getBoundingClientRect();
+                        const a = (range.commonAncestorContainer.parentElement.nodeName === 'A') ? range.commonAncestorContainer.parentElement : range.commonAncestorContainer.parentElement.closest('a');
                         if (params.selector.getElementsByClassName('ec-ste-link-box').length < 1) {
                             if (a) {
-                                let href = a.getAttribute('href');
-                                let link_box = `<div class="ec-ste-link-box">
+                                const href = a.getAttribute('href');
+                                const link_box = `<div class="ec-ste-link-box">
                                     <div class="ec-display-flex ec-justify-content-start">
                                         <input type="text" value="${href}" placeholder="${params.words('enter_url')}" maxlength="1000">
                                         <div class="ec-ste-link-box-group-buttons">
@@ -8355,17 +8351,17 @@ var PluginsSmallEditorCore$3;
                                 params.selector.getElementsByClassName('ec-composer')[0].insertAdjacentHTML('beforeend', link_box);
                             }
                         }
-                        let link_box_el = params.selector.getElementsByClassName('ec-ste-link-box')[0];
+                        const link_box_el = params.selector.getElementsByClassName('ec-ste-link-box')[0];
                         if (itemplate_position.width > (range_pos.x + 260)) {
-                            let top = itemplate_position.y + range_pos.y + range_pos.height + 10;
-                            let left = itemplate_position.x + range_pos.x - 15;
+                            const top = itemplate_position.y + range_pos.y + range_pos.height + 10;
+                            const left = itemplate_position.x + range_pos.x - 15;
                             link_box_el.style.cssText = `top: ${top}px;left: ${left}px;--link-box-angle-left: 7px;`;
                             if (a && typeof a.getAttribute('href')) {
                                 link_box_el.getElementsByTagName('input')[0].value = a.getAttribute('href');
                             }
                         }
                         if (a) {
-                            let new_range = document.createRange();
+                            const new_range = document.createRange();
                             new_range.setStartBefore(a.childNodes[0]);
                             new_range.setEndAfter(a.childNodes[(a.childNodes.length - 1)]);
                             if (selection && target.parentElement) {
@@ -8379,16 +8375,16 @@ var PluginsSmallEditorCore$3;
             }, 300);
         };
         update = (e, params) => {
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = itemplate.contentWindow;
-            let selection = cwindow.getSelection();
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = itemplate.contentWindow;
+            const selection = cwindow.getSelection();
             if (selection && (selection.rangeCount > 0)) {
-                let range = selection.getRangeAt(0);
-                let a = range.commonAncestorContainer;
+                const range = selection.getRangeAt(0);
+                const a = range.commonAncestorContainer;
                 if (a.nodeType === Node.ELEMENT_NODE) {
-                    let target = e.target;
-                    let element = a;
-                    let value = new Plugins$1.Sanitizer().sanitize_url(target.closest('.ec-display-flex').getElementsByTagName('input')[0].value);
+                    const target = e.target;
+                    const element = a;
+                    const value = new Plugins$1.Sanitizer().sanitize_url(target.closest('.ec-display-flex').getElementsByTagName('input')[0].value);
                     if (value) {
                         element.setAttribute('href', value);
                     }
@@ -8397,15 +8393,15 @@ var PluginsSmallEditorCore$3;
             }
         };
         remove = (e, params) => {
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = itemplate.contentWindow;
-            let selection = cwindow.getSelection();
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = itemplate.contentWindow;
+            const selection = cwindow.getSelection();
             if (selection && (selection.rangeCount > 0)) {
-                let range = selection.getRangeAt(0);
-                let a = range.commonAncestorContainer;
+                const range = selection.getRangeAt(0);
+                const a = range.commonAncestorContainer;
                 if (a.nodeType === Node.ELEMENT_NODE) {
-                    let element = a;
-                    let enodes = element.childNodes;
+                    const element = a;
+                    const enodes = element.childNodes;
                     element.replaceWith(...enodes);
                     params.selector.getElementsByClassName('ec-ste-link-box')[0].remove();
                     params.selector.getElementsByClassName('ec-ste-add-link-button')[0].classList.remove('ec-ste-active-button');
@@ -8420,19 +8416,19 @@ var PluginsSmallEditorCore$2;
 (function (PluginsSmallEditorCore) {
     class Font {
         change_font_family = (e, params) => {
-            let target = e.target;
-            let font = target.getAttribute('data-font');
+            const target = e.target;
+            const font = target.getAttribute('data-font');
             if (font) {
-                let index = Object.keys(fonts).indexOf(font);
+                const index = Object.keys(fonts).indexOf(font);
                 if (typeof index !== 'number') {
                     show_message(get_word('error_name') + ': ' + get_word('no_font_found'));
                     return;
                 }
-                let font_params = Object.values(fonts)[index];
-                let weights = font_params.weight;
+                const font_params = Object.values(fonts)[index];
+                const weights = font_params.weight;
                 let weights_list = '';
                 if (weights.length > 0) {
-                    for (let weight of weights) {
+                    for (const weight of weights) {
                         weights_list += '<li>'
                             + '<a href="#" data-weight="' + weight + '">'
                             + weight
@@ -8442,18 +8438,18 @@ var PluginsSmallEditorCore$2;
                 }
                 target.closest('.ec-ste-dropdown').getElementsByTagName('span')[0].textContent = font_params.name;
                 target.closest('.ec-small-text-editor').getElementsByClassName('ec-ste-text-weights')[0].innerHTML = weights_list;
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                let cwindow = iframe.contentWindow;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const cwindow = iframe.contentWindow;
                 if (cwindow) {
-                    let selection = cwindow.getSelection();
+                    const selection = cwindow.getSelection();
                     if (selection && (selection.rangeCount > 0)) {
-                        let text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
-                        let font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
-                        let fonts_list = Object.values(fonts);
-                        let font = fonts_list.find(item => item.name === font_name);
+                        const text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const fonts_list = Object.values(fonts);
+                        const font = fonts_list.find(item => item.name === font_name);
                         if (font) {
-                            let small_editor = new Plugins$1.Small_editor();
-                            let range = selection.getRangeAt(0);
+                            const small_editor = new Plugins$1.Small_editor();
+                            const range = selection.getRangeAt(0);
                             small_editor.apply_tags(params, range, 'font-family', { 'style': `font-family:${font.property};` });
                         }
                     }
@@ -8461,22 +8457,22 @@ var PluginsSmallEditorCore$2;
             }
         };
         change_font_size = (e, params) => {
-            let target = e.target;
-            let size = target.getAttribute('data-size');
+            const target = e.target;
+            const size = target.getAttribute('data-size');
             if (size) {
                 target.closest('.ec-ste-dropdown').getElementsByTagName('span')[0].textContent = size;
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                let cwindow = iframe.contentWindow;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const cwindow = iframe.contentWindow;
                 if (cwindow) {
-                    let selection = cwindow.getSelection();
+                    const selection = cwindow.getSelection();
                     if (selection && (selection.rangeCount > 0)) {
-                        let text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
-                        let font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
-                        let fonts_list = Object.values(fonts);
-                        let font = fonts_list.find(item => item.name === font_name);
+                        const text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const fonts_list = Object.values(fonts);
+                        const font = fonts_list.find(item => item.name === font_name);
                         if (font) {
-                            let small_editor = new Plugins$1.Small_editor();
-                            let range = selection.getRangeAt(0);
+                            const small_editor = new Plugins$1.Small_editor();
+                            const range = selection.getRangeAt(0);
                             small_editor.apply_tags(params, range, 'font-size', { 'style': `font-size:${size};` });
                         }
                     }
@@ -8484,22 +8480,22 @@ var PluginsSmallEditorCore$2;
             }
         };
         change_font_weight = (e, params) => {
-            let target = e.target;
-            let weight = target.getAttribute('data-weight');
+            const target = e.target;
+            const weight = target.getAttribute('data-weight');
             if (weight) {
                 target.closest('.ec-ste-dropdown').getElementsByTagName('span')[0].textContent = weight;
-                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                let cwindow = iframe.contentWindow;
+                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const cwindow = iframe.contentWindow;
                 if (cwindow) {
-                    let selection = cwindow.getSelection();
+                    const selection = cwindow.getSelection();
                     if (selection && (selection.rangeCount > 0)) {
-                        let text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
-                        let font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
-                        let fonts_list = Object.values(fonts);
-                        let font = fonts_list.find(item => item.name === font_name);
+                        const text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const font_name = text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                        const fonts_list = Object.values(fonts);
+                        const font = fonts_list.find(item => item.name === font_name);
                         if (font) {
-                            let small_editor = new Plugins$1.Small_editor();
-                            let range = selection.getRangeAt(0);
+                            const small_editor = new Plugins$1.Small_editor();
+                            const range = selection.getRangeAt(0);
                             small_editor.apply_tags(params, range, 'font-weight', { 'style': `font-weight:${weight};` });
                         }
                     }
@@ -8508,12 +8504,12 @@ var PluginsSmallEditorCore$2;
         };
         identify_font = (e, params) => {
             let target = e.target;
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = itemplate.contentWindow;
-            let selection = cwindow.getSelection();
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = itemplate.contentWindow;
+            const selection = cwindow.getSelection();
             if (selection && (selection.rangeCount > 0)) {
-                let range = selection.getRangeAt(0);
-                let node = range.commonAncestorContainer;
+                const range = selection.getRangeAt(0);
+                const node = range.commonAncestorContainer;
                 if (node.nodeType === Node.ELEMENT_NODE) {
                     target = node;
                 }
@@ -8521,17 +8517,17 @@ var PluginsSmallEditorCore$2;
                     target = node.parentElement;
                 }
             }
-            let text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
-            let properties = window.getComputedStyle(target);
-            let font_name = properties.fontFamily;
-            let fonts_list = Object.values(fonts);
-            let font = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
+            const text_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+            const properties = window.getComputedStyle(target);
+            const font_name = properties.fontFamily;
+            const fonts_list = Object.values(fonts);
+            const font = fonts_list.find(item => item.property.replaceAll("'", "").replaceAll('"', '') === font_name.replaceAll("'", "").replaceAll('"', ''));
             if (font) {
                 text_editor.querySelector('.ec-ste-dropdown[data-scope="fonts"] span').textContent = font.name;
-                let weights = font.weight;
+                const weights = font.weight;
                 let weights_list = '';
                 if (weights.length > 0) {
-                    for (let weight of weights) {
+                    for (const weight of weights) {
                         weights_list += '<li>'
                             + '<a href="#" data-weight="' + weight + '">'
                             + weight
@@ -8543,12 +8539,12 @@ var PluginsSmallEditorCore$2;
             }
             text_editor.querySelector('.ec-ste-dropdown[data-scope="text-size"] span').textContent = properties.fontSize;
             text_editor.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span').textContent = properties.fontWeight;
-            let rgba = properties.color;
-            let color = new Plugins$1.Color();
-            let is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+            const rgba = properties.color;
+            const color = new Plugins$1.Color();
+            const is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
             if (is_valid) {
-                let [, r, g, b, a] = is_valid.map(Number);
-                let hex = color.convert_rgb_to_hex(r, g, b, a || 1);
+                const [, r, g, b, a] = is_valid.map(Number);
+                const hex = color.convert_rgb_to_hex(r, g, b, a || 1);
                 params.selector.querySelector('.ec-small-text-editor .ec-button-color').getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                 params.selector.querySelector('.ec-small-text-editor .ec-button-color').getElementsByTagName('button')[0].setAttribute('data-color', hex);
             }
@@ -8560,7 +8556,7 @@ var PluginsSmallEditorCore$2;
         get_styles = (target, name) => {
             let current = target;
             while (current) {
-                let style = current?.style;
+                const style = current?.style;
                 if (style && current.style && style.getPropertyValue(name)) {
                     return current;
                 }
@@ -8576,17 +8572,17 @@ var PluginsSmallEditorCore$1;
 (function (PluginsSmallEditorCore) {
     class Color {
         change_text_color = (e, params, color) => {
-            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = iframe.contentWindow;
+            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = iframe.contentWindow;
             if (cwindow) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
                     e.target;
-                    let small_editor = new Plugins$1.Small_editor();
-                    let range = selection.getRangeAt(0);
+                    const small_editor = new Plugins$1.Small_editor();
+                    const range = selection.getRangeAt(0);
                     let parent_element = range.startContainer.parentElement;
                     if (parent_element && parent_element.closest('.ec-element-content-data')) {
-                        for (let child of parent_element.closest('.ec-element-content-data').children) {
+                        for (const child of parent_element.closest('.ec-element-content-data').children) {
                             if (small_editor.children_list(child).indexOf(parent_element) > -1) {
                                 parent_element = child;
                                 break;
@@ -8601,7 +8597,7 @@ var PluginsSmallEditorCore$1;
     PluginsSmallEditorCore.Color = Color;
 })(PluginsSmallEditorCore$1 = PluginsSmallEditorCore$1 || (PluginsSmallEditorCore$1 = {}));
 
-let PluginsSmallEditorCore = {
+const PluginsSmallEditorCore = {
     Link: PluginsSmallEditorCore$3.Link,
     Font: PluginsSmallEditorCore$2.Font,
     Color: PluginsSmallEditorCore$1.Color
@@ -8646,7 +8642,7 @@ var Plugins$3;
         };
         children_list = (parent, result = []) => {
             if (parent.children && parent.children.length > 0) {
-                for (let child of parent.children) {
+                for (const child of parent.children) {
                     result.push(child);
                     this.children_list(child, result);
                 }
@@ -8655,7 +8651,7 @@ var Plugins$3;
         };
         nodes_list = (parent, result = []) => {
             if (parent.childNodes && parent.childNodes.length > 0) {
-                for (let child of parent.childNodes) {
+                for (const child of parent.childNodes) {
                     result.push(child);
                     this.nodes_list(child, result);
                 }
@@ -8668,17 +8664,17 @@ var Plugins$3;
             if (preferences) {
                 this.tag_preferences = preferences;
             }
-            let template = range.startContainer.parentElement.closest('.ec-composer-template');
+            const template = range.startContainer.parentElement.closest('.ec-composer-template');
             if (template) {
                 if (range.toString().length > 0) {
                     this.extract_selected(range.startContainer.parentElement.closest('.ec-element-content-data'), '');
-                    let before = this.contents.before;
-                    let selected = '<sup data-content="ec-small-editor-temp-selection-start"></sup>' + this.contents.selected + '<sup data-content="ec-small-editor-temp-selection-end"></sup>';
-                    let after = this.contents.after;
-                    let dom_parser = new DOMParser();
-                    let content_nodes = dom_parser.parseFromString(before + '' + selected + '' + after, 'text/html');
-                    let start_element = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
-                    let end_element = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
+                    const before = this.contents.before;
+                    const selected = '<sup data-content="ec-small-editor-temp-selection-start"></sup>' + this.contents.selected + '<sup data-content="ec-small-editor-temp-selection-end"></sup>';
+                    const after = this.contents.after;
+                    const dom_parser = new DOMParser();
+                    const content_nodes = dom_parser.parseFromString(before + '' + selected + '' + after, 'text/html');
+                    const start_element = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
+                    const end_element = content_nodes.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
                     this.contents.tag_start = 'ec-small-editor-temp-selection-start';
                     this.contents.tag_end = 'ec-small-editor-temp-selection-end';
                     let closest_start_tag = start_element?.closest(tag);
@@ -8700,9 +8696,9 @@ var Plugins$3;
                         ready_code = this.remove_tag(content_nodes.getElementsByTagName('body')[0], '');
                         if (this.custom_tags.includes(tag) && preferences && preferences['style']) {
                             if (closest_start_tag.getAttribute('style') + ';' !== preferences['style']) {
-                                let dom_parser = new DOMParser();
-                                let content = dom_parser.parseFromString(ready_code, 'text/html');
-                                let content_data = content.getElementsByClassName('ec-element-content-data')[0];
+                                const dom_parser = new DOMParser();
+                                const content = dom_parser.parseFromString(ready_code, 'text/html');
+                                const content_data = content.getElementsByClassName('ec-element-content-data')[0];
                                 ready_code = this.add_tag(content_data, '');
                             }
                         }
@@ -8711,50 +8707,50 @@ var Plugins$3;
                         ready_code = this.add_tag(content_nodes.getElementsByTagName('body')[0], '');
                     }
                     if ((tag === 'a') && preferences && preferences['href']) {
-                        let href = ' href="' + preferences['href'] + '"';
+                        const href = ' href="' + preferences['href'] + '"';
                         ready_code = ready_code.split('</' + tag + '><' + tag + href + '>').join('');
                         ready_code = ready_code.split('<' + tag + href + '></' + tag + '>').join('');
                     }
                     else if (this.custom_tags.includes(tag) && preferences && preferences['style']) {
-                        let dom_parser = new DOMParser();
-                        let content = dom_parser.parseFromString(ready_code, 'text/html');
-                        let content_data = content.getElementsByClassName('ec-element-content-data')[0];
+                        const dom_parser = new DOMParser();
+                        const content = dom_parser.parseFromString(ready_code, 'text/html');
+                        const content_data = content.getElementsByClassName('ec-element-content-data')[0];
                         ready_code = this.remove_custom_tags(content_data, '');
                     }
                     else {
                         ready_code = ready_code.split('</' + tag + '><' + tag + '>').join('');
                         ready_code = ready_code.split('<' + tag + '></' + tag + '>').join('');
                     }
-                    let content = dom_parser.parseFromString(ready_code, 'text/html');
+                    const content = dom_parser.parseFromString(ready_code, 'text/html');
                     if (content.getElementsByClassName('ec-element-content-data').length > 0) {
                         range.startContainer.parentElement.closest('.ec-element-content-data').innerHTML = content.getElementsByClassName('ec-element-content-data')[0].innerHTML;
                     }
-                    let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                    let sup_start = template.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
+                    const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                    const sup_start = template.querySelector('sup[data-content="ec-small-editor-temp-selection-start"]');
                     let sup_end = template.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
                     if (!sup_end) {
-                        let texts = Array.from(this.nodes_list(template.querySelector('.ec-element-content-data'))).filter(node => node.nodeName === '#text');
+                        const texts = Array.from(this.nodes_list(template.querySelector('.ec-element-content-data'))).filter(node => node.nodeName === '#text');
                         if (texts.length > 0) {
-                            let last = texts[(texts.length - 1)];
-                            let node_parent = last.parentElement;
-                            let sup = document.createElement('sup');
+                            const last = texts[(texts.length - 1)];
+                            const node_parent = last.parentElement;
+                            const sup = document.createElement('sup');
                             sup.setAttribute('data-content', this.contents.tag_end);
-                            let clast = last.cloneNode(true);
+                            const clast = last.cloneNode(true);
                             node_parent.replaceChild(sup, last);
                             node_parent.insertBefore(clast, sup);
                             sup_end = template.querySelector('sup[data-content="ec-small-editor-temp-selection-end"]');
                         }
                     }
                     if (sup_start && sup_end) {
-                        let cwindow = itemplate.contentWindow;
-                        let node_start = document.createTextNode('');
-                        let node_end = document.createTextNode('');
+                        const cwindow = itemplate.contentWindow;
+                        const node_start = document.createTextNode('');
+                        const node_end = document.createTextNode('');
                         sup_start.parentElement.insertBefore(node_start, sup_start);
                         sup_end.parentElement.insertBefore(node_end, sup_end);
-                        let new_range = document.createRange();
+                        const new_range = document.createRange();
                         new_range.setStart(sup_start.parentElement.childNodes[Array.from(sup_start.parentElement.childNodes).indexOf(node_start)], 0);
                         new_range.setEnd(sup_end.parentElement.childNodes[Array.from(sup_end.parentElement.childNodes).indexOf(node_end)], 0);
-                        let selection = cwindow.getSelection();
+                        const selection = cwindow.getSelection();
                         if (selection) {
                             selection.removeAllRanges();
                             selection.addRange(new_range);
@@ -8764,7 +8760,7 @@ var Plugins$3;
                     }
                 }
                 else {
-                    let parent_element = range.startContainer.parentElement;
+                    const parent_element = range.startContainer.parentElement;
                     if (parent_element !== null) {
                         if (parent_element.closest('.ec-element-content-data')) {
                             parent_element.closest('.ec-element-content-data').focus();
@@ -8781,9 +8777,9 @@ var Plugins$3;
                 return list;
             }
             if (parent.childNodes.length > 0) {
-                let html_node = parent;
+                const html_node = parent;
                 let node_string = html_node.outerHTML.split('>').shift() + '>';
-                let node_end = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
+                const node_end = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
                 if (this.counters.start_complete < 1) {
                     this.contents.before += node_string;
                 }
@@ -8793,7 +8789,7 @@ var Plugins$3;
                 if ((this.counters.start_complete > 0) && (this.counters.end_complete < 1)) {
                     this.contents.after += node_string;
                 }
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.isSameNode(this.range.startContainer)) {
                         this.counters.start = 1;
                     }
@@ -8850,7 +8846,7 @@ var Plugins$3;
                         }
                         else {
                             if (node.nodeType === Node.ELEMENT_NODE) {
-                                let element = node;
+                                const element = node;
                                 if (element.childNodes.length < 1) {
                                     node_string += (element.outerHTML === '<p></p>') ? '<p><br></p>' : element.outerHTML;
                                 }
@@ -8878,7 +8874,7 @@ var Plugins$3;
                 return list;
             }
             if (parent.childNodes.length > 0) {
-                let html_node = parent;
+                const html_node = parent;
                 let node_string = '';
                 let node_end = '';
                 if ((html_node !== this.nodes.start) && (html_node !== this.nodes.end) && (parent.nodeName !== 'BODY')) {
@@ -8896,12 +8892,12 @@ var Plugins$3;
                 else if (html_node === this.nodes.start) {
                     this.counters.add_tag = 1;
                 }
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         let text_node = '';
                         if (this.counters.add_tag > 0) {
                             if ((this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined')) {
-                                let href = ' href="' + this.tag_preferences.href + '"';
+                                const href = ' href="' + this.tag_preferences.href + '"';
                                 text_node = '<' + this.tag + href + '>' + node.textContent + '</' + this.tag + '>';
                             }
                             else if (this.custom_tags.includes(this.tag) && this.tag_preferences && (typeof this.tag_preferences.style !== 'undefined')) {
@@ -8917,7 +8913,7 @@ var Plugins$3;
                         }
                         else if (this.counters.remove_tag > 0) {
                             if ((this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined')) {
-                                let href = ' href="' + this.tag_preferences.href + '"';
+                                const href = ' href="' + this.tag_preferences.href + '"';
                                 text_node = '<' + this.tag + href + '>' + node.textContent + '</' + this.tag + '>';
                             }
                             else if (this.custom_tags.includes(this.tag) && this.tag_preferences && (typeof this.tag_preferences.style !== 'undefined')) {
@@ -8937,7 +8933,7 @@ var Plugins$3;
                         node_string += text_node;
                     }
                     else {
-                        let tag = node;
+                        const tag = node;
                         if (tag.getAttribute('data-content') === this.contents.tag_start) {
                             this.counters.tag_childs = 1;
                             this.counters.add_tag = 0;
@@ -8956,15 +8952,15 @@ var Plugins$3;
                                 }
                             }
                         }
-                        let params = {};
+                        const params = {};
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.getAttribute('style')) {
                                 params[element.nodeName.toLocaleLowerCase()] = element.getAttribute('style');
                             }
                         }
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.childNodes.length < 1) {
                                 node_string += element.outerHTML;
                             }
@@ -8985,7 +8981,7 @@ var Plugins$3;
                 return list;
             }
             if (parent.childNodes.length > 0) {
-                let html_node = parent;
+                const html_node = parent;
                 let node_string = '';
                 let node_start = '';
                 let node_end = '';
@@ -8996,7 +8992,7 @@ var Plugins$3;
                 if (parent.nodeName === this.tag.toUpperCase()) {
                     this.counters.is_parent = 1;
                 }
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         let text_node = '';
                         if (this.counters.add_tag > 0) {
@@ -9005,7 +9001,7 @@ var Plugins$3;
                             }
                             else {
                                 if ((this.tag === 'a') && this.tag_preferences && (typeof this.tag_preferences.href !== 'undefined')) {
-                                    let href = ' href="' + this.tag_preferences.href + '"';
+                                    const href = ' href="' + this.tag_preferences.href + '"';
                                     text_node = '<' + this.tag + href + '>' + node.textContent + '</' + this.tag + '>';
                                 }
                                 else if (this.custom_tags.includes(this.tag) && this.tag_preferences && (typeof this.tag_preferences.style !== 'undefined')) {
@@ -9026,22 +9022,22 @@ var Plugins$3;
                         node_string += text_node;
                     }
                     else {
-                        let tag = node;
+                        const tag = node;
                         if (tag.getAttribute('data-content') === this.contents.tag_start) {
                             this.counters.add_tag = 1;
                         }
                         if (tag.getAttribute('data-content') === this.contents.tag_end) {
                             this.counters.add_tag = 0;
                         }
-                        let params = {};
+                        const params = {};
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.getAttribute('style')) {
                                 params[element.nodeName.toLocaleLowerCase()] = element.getAttribute('style');
                             }
                         }
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.childNodes.length < 1) {
                                 node_string += element.outerHTML;
                             }
@@ -9061,24 +9057,24 @@ var Plugins$3;
                 return list;
             }
             if (parent.childNodes.length > 0) {
-                let html_node = parent;
+                const html_node = parent;
                 let node_string = !params?.start ? html_node.outerHTML.split('>').shift() + '>' : '';
                 let node_end = !params?.end ? '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1) : '';
                 let custom = 0;
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         custom = 0;
                         node_string += node.textContent;
                     }
                     else {
-                        let params = { start: 0, end: 0 };
+                        const params = { start: 0, end: 0 };
                         if (custom < 1) {
                             if (node.nodeType === Node.ELEMENT_NODE) {
-                                let element = node;
-                                let next_sibling = element.nextElementSibling;
+                                const element = node;
+                                const next_sibling = element.nextElementSibling;
                                 if (next_sibling && element.getAttribute('style')) {
-                                    let cstyle = element.getAttribute('style')?.replaceAll(';', '') ? element.getAttribute('style').replaceAll(';', '') : '';
-                                    let nstyle = next_sibling.getAttribute('style')?.replaceAll(';', '') ? next_sibling.getAttribute('style').replaceAll(';', '') : '';
+                                    const cstyle = element.getAttribute('style')?.replaceAll(';', '') ? element.getAttribute('style').replaceAll(';', '') : '';
+                                    const nstyle = next_sibling.getAttribute('style')?.replaceAll(';', '') ? next_sibling.getAttribute('style').replaceAll(';', '') : '';
                                     if ((element.nodeName === next_sibling.nodeName) && (cstyle === nstyle)) {
                                         custom = 1;
                                         params.end = 1;
@@ -9090,11 +9086,11 @@ var Plugins$3;
                             custom = 0;
                             params.start = 1;
                         }
-                        let tag = node;
+                        const tag = node;
                         if (tag.getAttribute('data-content') === this.contents.tag_start) ;
                         if (tag.getAttribute('data-content') === this.contents.tag_end) ;
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.childNodes.length < 1) {
                                 node_string += element.outerHTML;
                             }
@@ -9108,18 +9104,18 @@ var Plugins$3;
             return list;
         };
         format = (e, params) => {
-            let editor = params.selector.getElementsByClassName('ec-small-text-editor');
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = itemplate.contentWindow;
-            let selection = cwindow.getSelection();
+            const editor = params.selector.getElementsByClassName('ec-small-text-editor');
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = itemplate.contentWindow;
+            const selection = cwindow.getSelection();
             if (selection && (selection.rangeCount > 0)) {
                 let target = e.target;
                 if (target.closest('.ec-element-content-data')) {
-                    let range = selection.getRangeAt(0);
+                    const range = selection.getRangeAt(0);
                     let elements = null;
-                    let text = document.createTextNode(e.data);
-                    let end_list = [];
-                    let italic = editor[0].getElementsByClassName('ec-ste-format-italic-button')[0];
+                    const text = document.createTextNode(e.data);
+                    const end_list = [];
+                    const italic = editor[0].getElementsByClassName('ec-ste-format-italic-button')[0];
                     if (italic.classList.contains('ec-ste-active-button')) {
                         if (!range.commonAncestorContainer.parentElement.closest('i') && (range.commonAncestorContainer.nodeName !== 'I')) {
                             elements = document.createElement('i');
@@ -9134,11 +9130,11 @@ var Plugins$3;
                             end_list.push(range.commonAncestorContainer.parentElement);
                         }
                     }
-                    let underlined = editor[0].getElementsByClassName('ec-ste-format-underlined-button')[0];
+                    const underlined = editor[0].getElementsByClassName('ec-ste-format-underlined-button')[0];
                     if (underlined.classList.contains('ec-ste-active-button')) {
                         if (!range.commonAncestorContainer.parentElement.closest('u') && (range.commonAncestorContainer.nodeName !== 'U')) {
                             if (elements) {
-                                let u = document.createElement('u');
+                                const u = document.createElement('u');
                                 u.appendChild(elements);
                                 elements = u;
                             }
@@ -9156,11 +9152,11 @@ var Plugins$3;
                             end_list.push(range.commonAncestorContainer.parentElement);
                         }
                     }
-                    let strikethrough = editor[0].getElementsByClassName('ec-ste-format-strikethrough-button')[0];
+                    const strikethrough = editor[0].getElementsByClassName('ec-ste-format-strikethrough-button')[0];
                     if (strikethrough.classList.contains('ec-ste-active-button')) {
                         if (!range.commonAncestorContainer.parentElement.closest('s') && (range.commonAncestorContainer.nodeName !== 'S')) {
                             if (elements) {
-                                let s = document.createElement('s');
+                                const s = document.createElement('s');
                                 s.appendChild(elements);
                                 elements = s;
                             }
@@ -9178,30 +9174,30 @@ var Plugins$3;
                             end_list.push(range.commonAncestorContainer.parentElement);
                         }
                     }
-                    let node = range.commonAncestorContainer;
+                    const node = range.commonAncestorContainer;
                     if (node.nodeType === Node.ELEMENT_NODE) {
                         target = node;
                     }
                     else {
                         target = node.parentElement;
                     }
-                    let properties = window.getComputedStyle(target);
-                    let font_name = properties.fontFamily;
-                    let selected_font = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
-                    let fonts_list = Object.values(fonts);
-                    let font = fonts_list.find(item => item.name === selected_font);
+                    const properties = window.getComputedStyle(target);
+                    const font_name = properties.fontFamily;
+                    const selected_font = params.selector.querySelector('.ec-ste-dropdown[data-scope="fonts"] span')?.textContent;
+                    const fonts_list = Object.values(fonts);
+                    const font = fonts_list.find(item => item.name === selected_font);
                     if (typeof font !== 'undefined') {
                         if (font.property.replaceAll("'", '').replaceAll('"', "") !== font_name.replaceAll("'", '').replaceAll('"', "")) {
-                            let font_family = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
+                            const font_family = new PluginsSmallEditorCore.Font().get_styles(target, 'font-family');
                             if (font_family) {
                                 end_list.push(font_family);
                             }
-                            let customElementRegistry = window.customElements;
+                            const customElementRegistry = window.customElements;
                             if (customElementRegistry.get('font-family')) {
                                 customElementRegistry.define('font-family', Classes$1.Custom);
                             }
                             if (elements) {
-                                let new_font_family = document.createElement('font-family');
+                                const new_font_family = document.createElement('font-family');
                                 new_font_family.setAttribute('style', `font-family:${font.property};`);
                                 new_font_family.appendChild(elements);
                                 elements = new_font_family;
@@ -9213,18 +9209,18 @@ var Plugins$3;
                             }
                         }
                     }
-                    let selected_weight = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
+                    const selected_weight = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-weight"] span')?.textContent;
                     if (properties.fontWeight !== selected_weight) {
-                        let font_weight = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
+                        const font_weight = new PluginsSmallEditorCore.Font().get_styles(target, 'font-weight');
                         if (font_weight) {
                             end_list.push(font_weight);
                         }
-                        let customElementRegistry = window.customElements;
+                        const customElementRegistry = window.customElements;
                         if (customElementRegistry.get('font-weight')) {
                             customElementRegistry.define('font-weight', Classes$1.Custom);
                         }
                         if (elements) {
-                            let new_font_weight = document.createElement('font-weight');
+                            const new_font_weight = document.createElement('font-weight');
                             new_font_weight.setAttribute('style', `font-weight:${selected_weight};`);
                             new_font_weight.appendChild(elements);
                             elements = new_font_weight;
@@ -9235,18 +9231,18 @@ var Plugins$3;
                             elements.appendChild(text);
                         }
                     }
-                    let selected_size = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
+                    const selected_size = params.selector.querySelector('.ec-ste-dropdown[data-scope="text-size"] span')?.textContent;
                     if (properties.fontSize !== selected_size) {
-                        let font_size = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
+                        const font_size = new PluginsSmallEditorCore.Font().get_styles(target, 'font-size');
                         if (font_size) {
                             end_list.push(font_size);
                         }
-                        let customElementRegistry = window.customElements;
+                        const customElementRegistry = window.customElements;
                         if (customElementRegistry.get('font-size')) {
                             customElementRegistry.define('font-size', Classes$1.Custom);
                         }
                         if (elements) {
-                            let new_font_size = document.createElement('font-size');
+                            const new_font_size = document.createElement('font-size');
                             new_font_size.setAttribute('style', `font-size:${selected_size};`);
                             new_font_size.appendChild(elements);
                             elements = new_font_size;
@@ -9257,24 +9253,24 @@ var Plugins$3;
                             elements.appendChild(text);
                         }
                     }
-                    let rgba = properties.color;
-                    let color = new Plugins$1.Color();
-                    let is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                    const rgba = properties.color;
+                    const color = new Plugins$1.Color();
+                    const is_valid = rgba.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                     if (is_valid) {
-                        let [, r, g, b, a] = is_valid.map(Number);
-                        let hex = color.convert_rgb_to_hex(r, g, b, a || 1);
-                        let selected_color = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
+                        const [, r, g, b, a] = is_valid.map(Number);
+                        const hex = color.convert_rgb_to_hex(r, g, b, a || 1);
+                        const selected_color = params.selector.querySelector('.ec-small-text-editor .ec-button-color button')?.getAttribute('data-color');
                         if (selected_color !== hex) {
-                            let text_color = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
+                            const text_color = new PluginsSmallEditorCore.Font().get_styles(target, 'color');
                             if (text_color) {
                                 end_list.push(text_color);
                             }
-                            let customElementRegistry = window.customElements;
+                            const customElementRegistry = window.customElements;
                             if (customElementRegistry.get('text-color')) {
                                 customElementRegistry.define('text-color', Classes$1.Custom);
                             }
                             if (elements) {
-                                let new_text_color = document.createElement('text-color');
+                                const new_text_color = document.createElement('text-color');
                                 new_text_color.setAttribute('style', `color:${selected_color};`);
                                 new_text_color.appendChild(elements);
                                 elements = new_text_color;
@@ -9288,28 +9284,28 @@ var Plugins$3;
                     }
                     let parent_element = range.startContainer.parentElement;
                     if (parent_element) {
-                        for (let child of target.closest('.ec-element-content-data').children) {
+                        for (const child of target.closest('.ec-element-content-data').children) {
                             if (this.children_list(child).indexOf(parent_element) > -1) {
                                 parent_element = child;
                                 break;
                             }
                         }
                         if (end_list.length > 0) {
-                            let parent_element_nodes = this.nodes_list(parent_element);
+                            const parent_element_nodes = this.nodes_list(parent_element);
                             if (parent_element_nodes) {
-                                let node_start = document.createTextNode('');
+                                const node_start = document.createTextNode('');
                                 range.insertNode(node_start);
                                 let last_child = null;
-                                for (let node of parent_element_nodes) {
+                                for (const node of parent_element_nodes) {
                                     if (range.commonAncestorContainer.isSameNode(node)) {
                                         last_child = node;
                                     }
                                 }
                                 if (last_child) {
-                                    let parents = this.prepare_tags(range.startContainer, parent_element, node_start, end_list);
+                                    const parents = this.prepare_tags(range.startContainer, parent_element, node_start, end_list);
                                     if (parents) {
                                         e.preventDefault();
-                                        let new_range = document.createRange();
+                                        const new_range = document.createRange();
                                         parents.parent.replaceChildren(...parents.child);
                                         let nodes = this.nodes_list(parents.parent);
                                         if (elements) {
@@ -9318,8 +9314,8 @@ var Plugins$3;
                                         else {
                                             nodes[Array.from(nodes).indexOf(node_start)].parentElement?.replaceChild(text, node_start);
                                         }
-                                        for (let node of parents.parent.parentElement.childNodes) {
-                                            let child = node;
+                                        for (const node of parents.parent.parentElement.childNodes) {
+                                            const child = node;
                                             if (node.isSameNode(parents.parent)) {
                                                 while (child.firstChild) {
                                                     parents.parent.parentElement.insertBefore(child.firstChild, child);
@@ -9342,8 +9338,8 @@ var Plugins$3;
                         else if (elements) {
                             e.preventDefault();
                             range.insertNode(elements);
-                            let new_range = document.createRange();
-                            let nodes = this.nodes_list(parent_element);
+                            const new_range = document.createRange();
+                            const nodes = this.nodes_list(parent_element);
                             new_range.setStart(nodes[Array.from(nodes).indexOf(text)], text.length);
                             if (selection && target.parentElement) {
                                 selection.removeAllRanges();
@@ -9358,10 +9354,10 @@ var Plugins$3;
         prepare_tags = (node, until, node_start, end_list) => {
             let response = null;
             end_list.length;
-            let tags_to_start = [];
-            let tags_to_end = [];
-            let tags_to_start_2 = [];
-            let tags_to_end_2 = [];
+            const tags_to_start = [];
+            const tags_to_end = [];
+            const tags_to_start_2 = [];
+            const tags_to_end_2 = [];
             let currentElement = node.parentElement;
             let first_parent = null;
             while (currentElement) {
@@ -9379,16 +9375,16 @@ var Plugins$3;
                 currentElement = currentElement.parentElement;
             }
             if (first_parent) {
-                let text_after_range = this.is_end(first_parent, node_start, 0, false);
+                const text_after_range = this.is_end(first_parent, node_start, 0, false);
                 if (text_after_range) {
-                    let unique_id = 'ec-small-editor-temp-' + this.generate_unique_id();
-                    let sup = document.createElement('sup');
+                    const unique_id = 'ec-small-editor-temp-' + this.generate_unique_id();
+                    const sup = document.createElement('sup');
                     sup.setAttribute('data-content', unique_id);
-                    let nodes_to_string = this.turn_nodes_to_text(first_parent, node_start, '', tags_to_end.join('') + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join('') + tags_to_start.reverse().join(''));
-                    let dom_parser = new DOMParser();
-                    let content_nodes = dom_parser.parseFromString(nodes_to_string, 'text/html');
+                    const nodes_to_string = this.turn_nodes_to_text(first_parent, node_start, '', tags_to_end.join('') + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join('') + tags_to_start.reverse().join(''));
+                    const dom_parser = new DOMParser();
+                    const content_nodes = dom_parser.parseFromString(nodes_to_string, 'text/html');
                     content_nodes.getElementsByTagName('body')[0].appendChild(node_start);
-                    let sup_el = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
+                    const sup_el = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
                     if (sup_el) {
                         sup_el.replaceWith(node_start);
                         response = {
@@ -9398,14 +9394,14 @@ var Plugins$3;
                     }
                 }
                 else {
-                    let unique_id = 'ec-small-editor-temp-' + this.generate_unique_id();
-                    let sup = document.createElement('sup');
+                    const unique_id = 'ec-small-editor-temp-' + this.generate_unique_id();
+                    const sup = document.createElement('sup');
                     sup.setAttribute('data-content', unique_id);
-                    let nodes_to_string = this.turn_nodes_to_text(first_parent, node_start, '', '');
-                    let dom_parser = new DOMParser();
-                    let content_nodes = dom_parser.parseFromString(nodes_to_string + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join(''), 'text/html');
+                    const nodes_to_string = this.turn_nodes_to_text(first_parent, node_start, '', '');
+                    const dom_parser = new DOMParser();
+                    const content_nodes = dom_parser.parseFromString(nodes_to_string + tags_to_start_2.reverse().join('') + sup.outerHTML + tags_to_end_2.join(''), 'text/html');
                     content_nodes.getElementsByTagName('body')[0].appendChild(node_start);
-                    let sup_el = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
+                    const sup_el = content_nodes.querySelector('sup[data-content="' + unique_id + '"]');
                     if (sup_el) {
                         sup_el.replaceWith(node_start);
                         response = {
@@ -9422,7 +9418,7 @@ var Plugins$3;
                 return exists;
             }
             if (parent.childNodes.length > 0) {
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         if (node.isSameNode(node_start)) {
                             marker = 1;
@@ -9443,10 +9439,10 @@ var Plugins$3;
                 return html;
             }
             if (parent.childNodes.length > 0) {
-                let html_node = parent;
+                const html_node = parent;
                 let node_string = html_node.outerHTML.split('>').shift() + '>';
-                let node_end = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
-                for (let node of parent.childNodes) {
+                const node_end = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         if (node_start.isSameNode(node) && (tags.length > 0)) {
                             node_string += tags;
@@ -9457,7 +9453,7 @@ var Plugins$3;
                     }
                     else {
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            let element = node;
+                            const element = node;
                             if (element.childNodes.length < 1) {
                                 node_string += element.outerHTML;
                             }
@@ -9471,25 +9467,25 @@ var Plugins$3;
             return html;
         };
         list = (e, params) => {
-            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-            let cwindow = itemplate.contentWindow;
-            let selection = cwindow.getSelection();
+            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const cwindow = itemplate.contentWindow;
+            const selection = cwindow.getSelection();
             if (selection && (selection.rangeCount > 0)) {
-                let range = selection.getRangeAt(0);
-                let target = e.target;
+                const range = selection.getRangeAt(0);
+                const target = e.target;
                 let parent_element = range.commonAncestorContainer.parentElement;
                 if ((range.commonAncestorContainer.nodeName === 'P') || (parent_element && (parent_element.closest('p') || parent_element.nodeName === 'P'))) {
                     target.classList.add('ec-ste-active-button');
-                    let p = (range.commonAncestorContainer.nodeName === 'P') ? range.commonAncestorContainer : parent_element.closest('p') || parent_element;
-                    let node_start = document.createTextNode('');
+                    const p = (range.commonAncestorContainer.nodeName === 'P') ? range.commonAncestorContainer : parent_element.closest('p') || parent_element;
+                    const node_start = document.createTextNode('');
                     range.insertNode(node_start);
-                    let parent = target.classList.contains('ec-ste-list-bulleted-button') ? document.createElement('ul') : document.createElement('ol');
-                    let li = document.createElement('li');
+                    const parent = target.classList.contains('ec-ste-list-bulleted-button') ? document.createElement('ul') : document.createElement('ol');
+                    const li = document.createElement('li');
                     li.replaceChildren(...p.childNodes);
                     parent.appendChild(li);
                     p.replaceWith(parent);
-                    let nodes = this.nodes_list(parent);
-                    let new_range = document.createRange();
+                    const nodes = this.nodes_list(parent);
+                    const new_range = document.createRange();
                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                     if (selection && target.parentElement) {
                         selection.removeAllRanges();
@@ -9502,26 +9498,26 @@ var Plugins$3;
                         if (target.classList.contains('ec-ste-active-button')) {
                             if ((parent_element.closest('ul') && parent_element.closest('ul').childNodes.length < 2) || (parent_element.closest('ol') && parent_element.closest('ol').childNodes.length < 2)) {
                                 target.classList.remove('ec-ste-active-button');
-                                let ul = parent_element.closest('ul') ? parent_element.closest('ul') : parent_element.closest('ol');
-                                let li = parent_element.closest('li');
+                                const ul = parent_element.closest('ul') ? parent_element.closest('ul') : parent_element.closest('ol');
+                                const li = parent_element.closest('li');
                                 if (ul && li) {
-                                    let content_data = ul.closest('.ec-element-content-data');
+                                    const content_data = ul.closest('.ec-element-content-data');
                                     let parent_element = range.startContainer.parentElement;
-                                    let node_start = document.createTextNode('');
+                                    const node_start = document.createTextNode('');
                                     range.insertNode(node_start);
-                                    let p = document.createElement('p');
+                                    const p = document.createElement('p');
                                     p.replaceChildren(...li.childNodes);
                                     ul.replaceWith(p);
                                     if (parent_element) {
-                                        for (let child of content_data.children) {
+                                        for (const child of content_data.children) {
                                             if (this.nodes_list(child).indexOf(node_start) > -1) {
                                                 parent_element = child;
                                                 break;
                                             }
                                         }
                                     }
-                                    let nodes = this.nodes_list(p);
-                                    let new_range = document.createRange();
+                                    const nodes = this.nodes_list(p);
+                                    const new_range = document.createRange();
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                     if (selection) {
                                         selection.removeAllRanges();
@@ -9532,23 +9528,23 @@ var Plugins$3;
                             }
                             else {
                                 target.classList.remove('ec-ste-active-button');
-                                let ul = parent_element.closest('ul') ? parent_element.closest('ul') : parent_element.closest('ol');
-                                let li = parent_element.closest('li');
+                                const ul = parent_element.closest('ul') ? parent_element.closest('ul') : parent_element.closest('ol');
+                                const li = parent_element.closest('li');
                                 if (ul && li) {
-                                    let node_start = document.createTextNode('');
+                                    const node_start = document.createTextNode('');
                                     range.insertNode(node_start);
-                                    let content_data = ul.closest('.ec-element-content-data');
-                                    let tnodes = ul.childNodes.length;
-                                    let cloned_ul = ul.cloneNode(true);
+                                    const content_data = ul.closest('.ec-element-content-data');
+                                    const tnodes = ul.childNodes.length;
+                                    const cloned_ul = ul.cloneNode(true);
                                     Array.from(cloned_ul.childNodes).map(() => {
                                         cloned_ul.childNodes[0].remove();
                                     });
-                                    let before_ul_empty = cloned_ul;
-                                    let after_ul_empty = cloned_ul.cloneNode(true);
-                                    let before_li = new DocumentFragment();
-                                    let after_li = new DocumentFragment();
-                                    let sel_index = Array.prototype.indexOf.call(Array.from(ul.getElementsByTagName('li')), li);
-                                    let p = document.createElement('p');
+                                    const before_ul_empty = cloned_ul;
+                                    const after_ul_empty = cloned_ul.cloneNode(true);
+                                    const before_li = new DocumentFragment();
+                                    const after_li = new DocumentFragment();
+                                    const sel_index = Array.prototype.indexOf.call(Array.from(ul.getElementsByTagName('li')), li);
+                                    const p = document.createElement('p');
                                     let index = 0;
                                     for (let c = 0; c < tnodes; c++) {
                                         if (c === sel_index) {
@@ -9576,15 +9572,15 @@ var Plugins$3;
                                     }
                                     content_data.removeChild(ul);
                                     if (parent_element) {
-                                        for (let child of content_data.children) {
+                                        for (const child of content_data.children) {
                                             if (this.nodes_list(child).indexOf(node_start) > -1) {
                                                 parent_element = child;
                                                 break;
                                             }
                                         }
                                     }
-                                    let nodes = this.nodes_list(p);
-                                    let new_range = document.createRange();
+                                    const nodes = this.nodes_list(p);
+                                    const new_range = document.createRange();
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                     if (selection) {
                                         selection.removeAllRanges();
@@ -9597,20 +9593,20 @@ var Plugins$3;
                         else {
                             target.closest('.ec-ste-group-buttons').getElementsByClassName('ec-ste-active-button')[0].classList.remove('ec-ste-active-button');
                             target.classList.add('ec-ste-active-button');
-                            let node_start = document.createTextNode('');
+                            const node_start = document.createTextNode('');
                             range.insertNode(node_start);
                             if (parent_element.closest('ul')) {
-                                let ul = parent_element.closest('ul');
+                                const ul = parent_element.closest('ul');
                                 if (ul) {
-                                    let content_data = ul.closest('.ec-element-content-data');
-                                    let ol = document.createElement('ol');
-                                    let li = ul.querySelectorAll('li');
+                                    const content_data = ul.closest('.ec-element-content-data');
+                                    const ol = document.createElement('ol');
+                                    const li = ul.querySelectorAll('li');
                                     li.forEach((item) => {
                                         ol.appendChild(item);
                                     });
                                     ul.replaceWith(ol);
-                                    let nodes = this.nodes_list(ol);
-                                    let new_range = document.createRange();
+                                    const nodes = this.nodes_list(ol);
+                                    const new_range = document.createRange();
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                     if (selection) {
                                         selection.removeAllRanges();
@@ -9620,17 +9616,17 @@ var Plugins$3;
                                 }
                             }
                             else {
-                                let ol = parent_element.closest('ol');
+                                const ol = parent_element.closest('ol');
                                 if (ol) {
-                                    let content_data = ol.closest('.ec-element-content-data');
-                                    let ul = document.createElement('ul');
-                                    let li = ol.querySelectorAll('li');
+                                    const content_data = ol.closest('.ec-element-content-data');
+                                    const ul = document.createElement('ul');
+                                    const li = ol.querySelectorAll('li');
                                     li.forEach((item) => {
                                         ul.appendChild(item);
                                     });
                                     ol.replaceWith(ul);
-                                    let nodes = this.nodes_list(ul);
-                                    let new_range = document.createRange();
+                                    const nodes = this.nodes_list(ul);
+                                    const new_range = document.createRange();
                                     new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                     if (selection) {
                                         selection.removeAllRanges();
@@ -9645,14 +9641,14 @@ var Plugins$3;
             }
         };
         get_styles = (e, params) => {
-            let target = e.target;
+            const target = e.target;
             if (target !== null) {
                 if (target.closest('.ec-element-content-data')) {
-                    let element = target.closest('.ec-element-content');
-                    let element_id = element?.getAttribute('data-id');
-                    let element_name = element?.getAttribute('data-name');
+                    const element = target.closest('.ec-element-content');
+                    const element_id = element?.getAttribute('data-id');
+                    const element_name = element?.getAttribute('data-name');
                     if (typeof element_name === 'string') {
-                        let tools_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
+                        const tools_editor = params.selector.getElementsByClassName('ec-small-text-editor')[0];
                         if (params.selector.getElementsByClassName('ec-composer-element-options')[0].getAttribute('data-element') !== element_id) {
                             if ((element_name === 'text') && !tools_editor.classList.contains('ec-ste-show')) {
                                 tools_editor.classList.add('ec-ste-show');
@@ -9662,25 +9658,25 @@ var Plugins$3;
                             }
                         }
                         if ((element_name === 'text') && tools_editor.classList.contains('ec-ste-show')) {
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                            let cwindow = iframe.contentWindow;
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const cwindow = iframe.contentWindow;
                             if (cwindow) {
                                 if (target.closest('.ec-element-content-data')) {
                                     params.selector.getElementsByClassName('ec-ste-active-button')[0]?.classList.remove('ec-ste-active-button');
-                                    let styles = window.getComputedStyle(target);
+                                    const styles = window.getComputedStyle(target);
                                     if (styles) {
-                                        let text_align = styles.textAlign;
+                                        const text_align = styles.textAlign;
                                         if (this.text_align_directions.includes(text_align)) {
                                             params.selector.querySelector('.ec-ste-align-button[data-direction="' + text_align + '"]').classList.add('ec-ste-active-button');
                                         }
-                                        let font_style = styles.fontStyle;
+                                        const font_style = styles.fontStyle;
                                         if ((font_style === 'italic') || target?.closest('i')) {
                                             params.selector.getElementsByClassName('ec-ste-format-italic-button')[0].classList.add('ec-ste-active-button');
                                         }
                                         else {
                                             params.selector.getElementsByClassName('ec-ste-format-italic-button')[0].classList.remove('ec-ste-active-button');
                                         }
-                                        let text_decoration = styles.textDecoration;
+                                        const text_decoration = styles.textDecoration;
                                         if ((text_decoration.search('underline') > -1) || target?.closest('u')) {
                                             params.selector.getElementsByClassName('ec-ste-format-underlined-button')[0].classList.add('ec-ste-active-button');
                                         }
@@ -9694,9 +9690,9 @@ var Plugins$3;
                                             params.selector.getElementsByClassName('ec-ste-format-strikethrough-button')[0].classList.remove('ec-ste-active-button');
                                         }
                                         setTimeout(() => {
-                                            let selection = cwindow.getSelection();
+                                            const selection = cwindow.getSelection();
                                             if (selection && (selection.rangeCount > 0)) {
-                                                let range = selection.getRangeAt(0);
+                                                const range = selection.getRangeAt(0);
                                                 let styles = null;
                                                 if (range.commonAncestorContainer.parentElement.closest('p')) {
                                                     styles = window.getComputedStyle(range.commonAncestorContainer.parentElement.closest('p'));
@@ -9711,7 +9707,7 @@ var Plugins$3;
                                                     styles = window.getComputedStyle(range.commonAncestorContainer.parentElement);
                                                 }
                                                 if (styles) {
-                                                    let text_align = styles.textAlign;
+                                                    const text_align = styles.textAlign;
                                                     if (this.text_align_directions.includes(text_align)) {
                                                         params.selector.querySelector('.ec-ste-align-button[data-direction="' + text_align + '"]').classList.add('ec-ste-active-button');
                                                     }
@@ -9758,45 +9754,45 @@ var Plugins$3;
                                 }
                             }
                         }
-                        let name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
+                        const name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
                         if (typeof name_space !== 'undefined') {
-                            let name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
-                            let key = Object.keys(name_space)[0];
-                            let element_class = new name_space[key]();
-                            let element_options = element_class.get_options(params);
+                            const name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
+                            const key = Object.keys(name_space)[0];
+                            const element_class = new name_space[key]();
+                            const element_options = element_class.get_options(params);
                             if (element_options) {
                                 if (element_options.desktop.length > 0) {
-                                    let desktop_elements = [];
-                                    for (let group of element_options.desktop) {
+                                    const desktop_elements = [];
+                                    for (const group of element_options.desktop) {
                                         if (group.list.length > 0) {
-                                            for (let option of group.list) {
+                                            for (const option of group.list) {
                                                 if (option.element && (desktop_elements.indexOf(option.element) < 0)) {
                                                     desktop_elements.push(option.element);
                                                 }
                                             }
                                         }
                                     }
-                                    let desktop_properties_list = {};
-                                    let mobile_properties_list = {};
-                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const desktop_properties_list = {};
+                                    const mobile_properties_list = {};
+                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                        let idocument = iframe_template[0].contentDocument;
+                                        const idocument = iframe_template[0].contentDocument;
                                         if (idocument !== null) {
-                                            let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                             if ((typeof element_style !== 'undefined') && element_style) {
-                                                let style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                const style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                 if ((typeof style !== 'undefined') && style) {
-                                                    let sheet = style.sheet;
+                                                    const sheet = style.sheet;
                                                     if (sheet !== null) {
                                                         if (sheet.cssRules.length > 0) {
-                                                            for (let rule of sheet.cssRules) {
+                                                            for (const rule of sheet.cssRules) {
                                                                 if (typeof rule.media !== 'undefined') {
                                                                     if (rule.conditionText.replaceAll(' ', '').search('(max-width:600px)') > -1) {
                                                                         if (rule.cssRules.length > 0) {
-                                                                            for (let media_rule of rule.cssRules) {
+                                                                            for (const media_rule of rule.cssRules) {
                                                                                 if (media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') {
-                                                                                    let style = media_rule.style;
-                                                                                    for (let property of media_rule.style) {
+                                                                                    const style = media_rule.style;
+                                                                                    for (const property of media_rule.style) {
                                                                                         if (typeof mobile_properties_list['mobile'] !== 'undefined') {
                                                                                             mobile_properties_list['mobile'][property] = style.getPropertyValue(property);
                                                                                         }
@@ -9813,8 +9809,8 @@ var Plugins$3;
                                                                 }
                                                                 else {
                                                                     if (rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') {
-                                                                        let style = rule.style;
-                                                                        for (let property of rule.style) {
+                                                                        const style = rule.style;
+                                                                        for (const property of rule.style) {
                                                                             if (typeof desktop_properties_list['desktop'] !== 'undefined') {
                                                                                 desktop_properties_list['desktop'][property] = style.getPropertyValue(property);
                                                                             }
@@ -9826,10 +9822,10 @@ var Plugins$3;
                                                                         }
                                                                     }
                                                                     if (desktop_elements.length > 0) {
-                                                                        for (let element_name of desktop_elements) {
+                                                                        for (const element_name of desktop_elements) {
                                                                             if ((rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) {
-                                                                                let style = rule.style;
-                                                                                for (let property of rule.style) {
+                                                                                const style = rule.style;
+                                                                                for (const property of rule.style) {
                                                                                     if (typeof desktop_properties_list[element_name] !== 'undefined') {
                                                                                         desktop_properties_list[element_name][property] = style.getPropertyValue(property);
                                                                                     }
@@ -9851,7 +9847,7 @@ var Plugins$3;
                                         }
                                     }
                                     if (params.selector.getElementsByClassName('ec-composer-element-options')[0].getAttribute('data-element') !== element_id) {
-                                        let options_class = params.selector.getElementsByClassName('ec-composer-element-options')[0];
+                                        const options_class = params.selector.getElementsByClassName('ec-composer-element-options')[0];
                                         if (options_class.classList.contains('ec-composer-element-options-show')) {
                                             options_class.classList.remove('ec-composer-element-options-show');
                                             options_class.classList.add('ec-composer-element-options-hide');
@@ -9862,16 +9858,16 @@ var Plugins$3;
                                             params.selector.getElementsByClassName('ec-template-code-button')[0].classList.remove('ec-template-code-hide-button');
                                             params.selector.getElementsByClassName('ec-composer-container')[0].classList.remove('ec-composer-container-template-and-code');
                                             if (target.closest('.ec-composer-template').getElementsByClassName('ec-element-content-active').length > 0) {
-                                                let active = target.closest('.ec-composer-template').getElementsByClassName('ec-element-content-active')[0];
+                                                const active = target.closest('.ec-composer-template').getElementsByClassName('ec-element-content-active')[0];
                                                 active.classList.remove('ec-element-content-active');
                                             }
                                             options_class.setAttribute('data-element', element_id);
                                             target.closest('.ec-element-content').classList.add('ec-element-content-active');
-                                            let desktop_html = get_element_options(element_options, desktop_properties_list, params, 'desktop');
+                                            const desktop_html = get_element_options(element_options, desktop_properties_list, params, 'desktop');
                                             if (typeof desktop_html !== 'undefined') {
                                                 params.selector.querySelector('.ec-composer-element-options .ec-sections[data-scope="desktop"]').innerHTML = desktop_html;
                                             }
-                                            let mobile_html = get_element_options(element_options, mobile_properties_list, params, 'mobile');
+                                            const mobile_html = get_element_options(element_options, mobile_properties_list, params, 'mobile');
                                             if (typeof mobile_html !== 'undefined') {
                                                 params.selector.querySelector('.ec-composer-element-options .ec-sections[data-scope="mobile"]').innerHTML = mobile_html;
                                             }
@@ -9894,8 +9890,8 @@ var Plugins$3;
             }
         };
         generate_unique_id = () => {
-            let unique_string = Date.now().toString(36);
-            let random_string = Math.random().toString(36);
+            const unique_string = Date.now().toString(36);
+            const random_string = Math.random().toString(36);
             return `${unique_string}-${random_string}`;
         };
         close_tags = (content) => {
@@ -9911,8 +9907,8 @@ var Plugins$2;
     class Sanitizer {
         sanitize_url = (url) => {
             try {
-                let parse_url = new URL(url);
-                let protocols = ['http:', 'https:'];
+                const parse_url = new URL(url);
+                const protocols = ['http:', 'https:'];
                 if (!protocols.includes(parse_url.protocol)) {
                     throw new Error(get_word('invalid_protocol'));
                 }
@@ -9946,19 +9942,19 @@ var Class$6;
             if (this._observer) {
                 this._observer.disconnect();
             }
-            let http_send = new Classes$1.Https();
-            let $this = this;
-            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const http_send = new Classes$1.Https();
+            const $this = this;
+            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
             if (iframe) {
-                let iframeDocument = iframe.contentDocument;
-                let html = iframeDocument?.getElementsByClassName('ec-composer-template');
+                const iframeDocument = iframe.contentDocument;
+                const html = iframeDocument?.getElementsByClassName('ec-composer-template');
                 if (html !== undefined) {
                     if (html.length > 0) {
-                        let target_node = html[0].closest('.ec-composer-template');
-                        let config = { attributes: true, childList: true, subtree: true, characterData: true };
+                        const target_node = html[0].closest('.ec-composer-template');
+                        const config = { attributes: true, childList: true, subtree: true, characterData: true };
                         this._observer = new MutationObserver((mutations_list) => {
-                            for (let mutation of mutations_list) {
-                                let mutation_target = mutation.target;
+                            for (const mutation of mutations_list) {
+                                const mutation_target = mutation.target;
                                 if ((typeof mutation_target.classList !== 'undefined') && (mutation_target.classList.contains('ec-hide-content') || mutation_target.classList.contains('ec-composer-template-content-line'))) {
                                     Backup._removed = 1;
                                 }
@@ -10033,11 +10029,11 @@ var Class$6;
                                         $this.saving_animation(params, 'show');
                                         if (Backup._removed > 0) {
                                             Backup._removed = 0;
-                                            let elements_ids = [];
-                                            let elements = target_node.getElementsByClassName('ec-element-content');
+                                            const elements_ids = [];
+                                            const elements = target_node.getElementsByClassName('ec-element-content');
                                             if (elements.length > 0) {
-                                                for (let element of elements) {
-                                                    let element_id = element.getAttribute('data-id');
+                                                for (const element of elements) {
+                                                    const element_id = element.getAttribute('data-id');
                                                     if (!element_id) {
                                                         continue;
                                                     }
@@ -10046,15 +10042,15 @@ var Class$6;
                                             }
                                             let content = target_node.outerHTML;
                                             content = content.replaceAll('ec-composer-template-editor', '');
-                                            let template_data = {
+                                            const template_data = {
                                                 content: remove_buttons(content),
                                                 elements_ids: elements_ids
                                             };
-                                            let update = {
+                                            const update = {
                                                 template_id: params.template_id,
                                                 template: template_data
                                             };
-                                            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                                            const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                                             send_request.then((response) => {
                                                 if (response.success) {
                                                     new Classes$1.History().get_history_all(params);
@@ -10066,20 +10062,20 @@ var Class$6;
                                                             params.selector.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.add('ec-composer-reload-html-active-icon');
                                                             setTimeout(() => {
                                                                 params.selector.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.remove('ec-composer-reload-html-active-icon');
-                                                                let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                                const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                                                 if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                                                    let idocument = iframe_template[0].contentDocument;
+                                                                    const idocument = iframe_template[0].contentDocument;
                                                                     if (idocument !== null) {
-                                                                        let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                        const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                                         if (element_content) {
-                                                                            let options = {
+                                                                            const options = {
                                                                                 lines: true,
                                                                                 spaces: true
                                                                             };
-                                                                            let format_html_code = new Plugins$1.HtmlFormatter();
-                                                                            let iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                                                            const format_html_code = new Plugins$1.HtmlFormatter();
+                                                                            const iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
                                                                             if (iframe_html[0] instanceof HTMLIFrameElement) {
-                                                                                let idocument_html = iframe_html[0].contentDocument;
+                                                                                const idocument_html = iframe_html[0].contentDocument;
                                                                                 if (idocument_html !== null) {
                                                                                     idocument_html.body.innerHTML = `<div class="ec-composer-code-editor" data-type="html">
                                                                                         <div class="ec-composer-code-index"></div>
@@ -10087,7 +10083,7 @@ var Class$6;
                                                                                     </div>`;
                                                                                     format_html_code.format(options, element_content.innerHTML)
                                                                                         .then((html) => {
-                                                                                        let clines = idocument_html.body.querySelector('.ec-composer-code-lines');
+                                                                                        const clines = idocument_html.body.querySelector('.ec-composer-code-lines');
                                                                                         clines.innerHTML = html;
                                                                                         show_index(idocument_html.body);
                                                                                     })
@@ -10112,7 +10108,7 @@ var Class$6;
                                                 setTimeout(() => {
                                                     $this.saving_animation(params, 'hide');
                                                 }, 2000);
-                                                let obj_data = response;
+                                                const obj_data = response;
                                                 if (!obj_data.success) {
                                                     show_message(obj_data.message);
                                                 }
@@ -10128,13 +10124,13 @@ var Class$6;
                                             });
                                         }
                                         else {
-                                            let target = (mutation_target.nodeName === '#text') ? mutation_target.parentElement : mutation_target;
-                                            let div = target.closest('div');
+                                            const target = (mutation_target.nodeName === '#text') ? mutation_target.parentElement : mutation_target;
+                                            const div = target.closest('div');
                                             if (div !== null) {
                                                 let html_data;
                                                 if ((div.innerHTML.split('ec-composer-template-content').length > 1) && !(mutation_target.classList.contains('ec-hide-content') && mutation_target.classList.contains('ec-composer-template-content-line'))) {
-                                                    let lines = html[0].getElementsByClassName('ec-composer-template-content-line');
-                                                    let structure = Array.prototype.indexOf.call(lines, div.closest('.ec-composer-template-content-line'));
+                                                    const lines = html[0].getElementsByClassName('ec-composer-template-content-line');
+                                                    const structure = Array.prototype.indexOf.call(lines, div.closest('.ec-composer-template-content-line'));
                                                     if (structure > -1) {
                                                         let content = div.outerHTML;
                                                         content = content.replaceAll('ec-composer-template-editor', '');
@@ -10153,8 +10149,8 @@ var Class$6;
                                                     }
                                                 }
                                                 else {
-                                                    let divs = html[0].getElementsByTagName('div');
-                                                    let index = Array.prototype.indexOf.call(divs, div);
+                                                    const divs = html[0].getElementsByTagName('div');
+                                                    const index = Array.prototype.indexOf.call(divs, div);
                                                     let ready_index = 0;
                                                     for (let i = 0; i < index; i++) {
                                                         if (divs[i].classList.contains('ec-composer-template-content-buttons-group')) {
@@ -10172,11 +10168,11 @@ var Class$6;
                                                         content: ((typeof mutation_target.classList !== 'undefined') && mutation_target.classList.contains('ec-hide-content') && mutation_target.classList.contains('ec-composer-template-content-line')) ? '' : remove_buttons(content)
                                                     };
                                                 }
-                                                let update = {
+                                                const update = {
                                                     template_id: params.template_id,
                                                     html: html_data
                                                 };
-                                                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                                                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                                                 send_request.then((response) => {
                                                     if (response.success) {
                                                         new Classes$1.History().get_history_all(params);
@@ -10188,20 +10184,20 @@ var Class$6;
                                                                 params.selector.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.add('ec-composer-reload-html-active-icon');
                                                                 setTimeout(() => {
                                                                     params.selector.getElementsByClassName('ec-composer-reload-html-icon')[0].classList.remove('ec-composer-reload-html-active-icon');
-                                                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                                                        let idocument = iframe_template[0].contentDocument;
+                                                                        const idocument = iframe_template[0].contentDocument;
                                                                         if (idocument !== null) {
-                                                                            let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                            const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                                             if (element_content) {
-                                                                                let options = {
+                                                                                const options = {
                                                                                     lines: true,
                                                                                     spaces: true
                                                                                 };
-                                                                                let format_html_code = new Plugins$1.HtmlFormatter();
-                                                                                let iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                                                                const format_html_code = new Plugins$1.HtmlFormatter();
+                                                                                const iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
                                                                                 if (iframe_html[0] instanceof HTMLIFrameElement) {
-                                                                                    let idocument_html = iframe_html[0].contentDocument;
+                                                                                    const idocument_html = iframe_html[0].contentDocument;
                                                                                     if (idocument_html !== null) {
                                                                                         idocument_html.body.innerHTML = `<div class="ec-composer-code-editor" data-type="html">
                                                                                             <div class="ec-composer-code-index"></div>
@@ -10209,7 +10205,7 @@ var Class$6;
                                                                                         </div>`;
                                                                                         format_html_code.format(options, element_content.innerHTML)
                                                                                             .then((html) => {
-                                                                                            let clines = idocument_html.body.querySelector('.ec-composer-code-lines');
+                                                                                            const clines = idocument_html.body.querySelector('.ec-composer-code-lines');
                                                                                             clines.innerHTML = html;
                                                                                             show_index(idocument_html.body);
                                                                                         })
@@ -10234,7 +10230,7 @@ var Class$6;
                                                     setTimeout(() => {
                                                         $this.saving_animation(params, 'hide');
                                                     }, 2000);
-                                                    let obj_data = response;
+                                                    const obj_data = response;
                                                     if (!obj_data.success) {
                                                         show_message(obj_data.message);
                                                     }
@@ -10261,16 +10257,16 @@ var Class$6;
         }
         async update_default_css(params, content) {
             Classes$1.Timer.schedule_event('update_css', () => {
-                let http_send = new Classes$1.Https();
-                let $this = this;
+                const http_send = new Classes$1.Https();
+                const $this = this;
                 $this.saving_animation(params, 'show');
-                let update = {
+                const update = {
                     template_id: params.template_id,
                     css: {
                         content: content
                     }
                 };
-                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                 send_request.then((response) => {
                     if (response.success) {
                         new Classes$1.History().get_history_all(params);
@@ -10280,32 +10276,32 @@ var Class$6;
                                 params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.add('ec-composer-reload-css-active-icon');
                                 setTimeout(() => {
                                     params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
-                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                        let idocument = iframe_template[0].contentDocument;
+                                        const idocument = iframe_template[0].contentDocument;
                                         if (idocument !== null) {
-                                            let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                            const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                             if (element_content) {
-                                                let element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                                const element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
                                                 if (typeof element_id === 'string') {
-                                                    let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                     if ((typeof element_style !== 'undefined') && element_style) {
-                                                        let options = {
+                                                        const options = {
                                                             lines: true,
                                                             spaces: true
                                                         };
-                                                        let format_css_code = new Plugins$1.CssFormatter();
+                                                        const format_css_code = new Plugins$1.CssFormatter();
                                                         format_css_code.format(options, element_style.innerHTML)
                                                             .then((html) => {
-                                                            let iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                            const iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
                                                             if (iframe_css[0] instanceof HTMLIFrameElement) {
-                                                                let idocument_css = iframe_css[0].contentDocument;
+                                                                const idocument_css = iframe_css[0].contentDocument;
                                                                 if (idocument_css !== null) {
                                                                     idocument_css.body.innerHTML = `<div class="ec-composer-code-editor" data-type="css">
                                                                         <div class="ec-composer-code-index"></div>
                                                                         <div class="ec-composer-code-lines" contenteditable="true"></div>
                                                                     </div>`;
-                                                                    let clines = idocument_css.body.querySelector('.ec-composer-code-lines');
+                                                                    const clines = idocument_css.body.querySelector('.ec-composer-code-lines');
                                                                     clines.innerHTML = html;
                                                                     show_index(idocument_css.body);
                                                                 }
@@ -10332,7 +10328,7 @@ var Class$6;
                     setTimeout(() => {
                         $this.saving_animation(params, 'hide');
                     }, 2000);
-                    let obj_data = response;
+                    const obj_data = response;
                     if (!obj_data.success) {
                         show_message(obj_data.message);
                     }
@@ -10350,19 +10346,19 @@ var Class$6;
         }
         async update_css_element_id(element_id, params, content, animation = true) {
             Classes$1.Timer.schedule_event('update_css', () => {
-                let http_send = new Classes$1.Https();
-                let $this = this;
+                const http_send = new Classes$1.Https();
+                const $this = this;
                 if (animation) {
                     $this.saving_animation(params, 'show');
                 }
-                let update = {
+                const update = {
                     template_id: params.template_id,
                     element_id: element_id,
                     css: {
                         content: content
                     }
                 };
-                let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+                const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
                 send_request.then((response) => {
                     if (response.success) {
                         new Classes$1.History().get_history_all(params);
@@ -10374,32 +10370,32 @@ var Class$6;
                                 params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.add('ec-composer-reload-css-active-icon');
                                 setTimeout(() => {
                                     params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
-                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                        let idocument = iframe_template[0].contentDocument;
+                                        const idocument = iframe_template[0].contentDocument;
                                         if (idocument !== null) {
-                                            let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                            const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                             if (element_content) {
-                                                let element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                                const element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
                                                 if (typeof element_id === 'string') {
-                                                    let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                     if ((typeof element_style !== 'undefined') && element_style) {
-                                                        let options = {
+                                                        const options = {
                                                             lines: true,
                                                             spaces: true
                                                         };
-                                                        let format_css_code = new Plugins$1.CssFormatter();
+                                                        const format_css_code = new Plugins$1.CssFormatter();
                                                         format_css_code.format(options, element_style.innerHTML)
                                                             .then((html) => {
-                                                            let iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                            const iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
                                                             if (iframe_css[0] instanceof HTMLIFrameElement) {
-                                                                let idocument_css = iframe_css[0].contentDocument;
+                                                                const idocument_css = iframe_css[0].contentDocument;
                                                                 if (idocument_css !== null) {
                                                                     idocument_css.body.innerHTML = `<div class="ec-composer-code-editor" data-type="css">
                                                                         <div class="ec-composer-code-index"></div>
                                                                         <div class="ec-composer-code-lines" contenteditable="true"></div>
                                                                     </div>`;
-                                                                    let clines = idocument_css.body.querySelector('.ec-composer-code-lines');
+                                                                    const clines = idocument_css.body.querySelector('.ec-composer-code-lines');
                                                                     clines.innerHTML = html;
                                                                     show_index(idocument_css.body);
                                                                 }
@@ -10430,7 +10426,7 @@ var Class$6;
                             $this.saving_animation(params, 'hide');
                         }, 2000);
                     }
-                    let obj_data = response;
+                    const obj_data = response;
                     if (!obj_data.success) {
                         show_message(obj_data.message);
                     }
@@ -10449,10 +10445,10 @@ var Class$6;
             });
         }
         async save_module(params, elements, html) {
-            let http_send = new Classes$1.Https();
-            let $this = this;
+            const http_send = new Classes$1.Https();
+            const $this = this;
             $this.saving_animation(params, 'show');
-            let update = {
+            const update = {
                 template_id: params.template_id,
                 css: {
                     elements: elements
@@ -10461,7 +10457,7 @@ var Class$6;
                     content: html
                 }
             };
-            let send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
+            const send_request = http_send.put(params.options('api_url') + 'api/create_update', update);
             send_request.then((response) => {
                 if (response.success) {
                     new Classes$1.History().get_history_all(params);
@@ -10471,32 +10467,32 @@ var Class$6;
                             params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.add('ec-composer-reload-css-active-icon');
                             setTimeout(() => {
                                 params.selector.getElementsByClassName('ec-composer-reload-css-icon')[0].classList.remove('ec-composer-reload-css-active-icon');
-                                let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                 if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                    let idocument = iframe_template[0].contentDocument;
+                                    const idocument = iframe_template[0].contentDocument;
                                     if (idocument !== null) {
-                                        let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                        const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                         if (element_content) {
-                                            let element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
+                                            const element_id = element_content.closest('.ec-element-content-active')?.getAttribute('data-id');
                                             if (typeof element_id === 'string') {
-                                                let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                 if ((typeof element_style !== 'undefined') && element_style) {
-                                                    let options = {
+                                                    const options = {
                                                         lines: true,
                                                         spaces: true
                                                     };
-                                                    let format_css_code = new Plugins$1.CssFormatter();
+                                                    const format_css_code = new Plugins$1.CssFormatter();
                                                     format_css_code.format(options, element_style.innerHTML)
                                                         .then((html) => {
-                                                        let iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                                        const iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
                                                         if (iframe_css[0] instanceof HTMLIFrameElement) {
-                                                            let idocument_css = iframe_css[0].contentDocument;
+                                                            const idocument_css = iframe_css[0].contentDocument;
                                                             if (idocument_css !== null) {
                                                                 idocument_css.body.innerHTML = `<div class="ec-composer-code-editor" data-type="css">
                                                                     <div class="ec-composer-code-index"></div>
                                                                     <div class="ec-composer-code-lines" contenteditable="true"></div>
                                                                 </div>`;
-                                                                let clines = idocument_css.body.querySelector('.ec-composer-code-lines');
+                                                                const clines = idocument_css.body.querySelector('.ec-composer-code-lines');
                                                                 clines.innerHTML = html;
                                                                 show_index(idocument_css.body);
                                                             }
@@ -10523,7 +10519,7 @@ var Class$6;
                 setTimeout(() => {
                     $this.saving_animation(params, 'hide');
                 }, 2000);
-                let obj_data = response;
+                const obj_data = response;
                 if (!obj_data.success) {
                     show_message(obj_data.message);
                 }
@@ -10539,9 +10535,9 @@ var Class$6;
             });
         }
         saving_animation(params, type) {
-            let save_changes_modal = params.selector.getElementsByClassName('ec-composer-save-changes-modal');
+            const save_changes_modal = params.selector.getElementsByClassName('ec-composer-save-changes-modal');
             if (save_changes_modal.length > 0) {
-                let save_changes_icon = params.selector.getElementsByClassName('ec-composer-save-changes-icon')[0];
+                const save_changes_icon = params.selector.getElementsByClassName('ec-composer-save-changes-icon')[0];
                 if (type === 'show') {
                     save_changes_modal[0].classList.remove('ec-composer-save-changes-hide-modal');
                     save_changes_modal[0].classList.remove('ec-composer-save-changes-active-modal');
@@ -10578,23 +10574,23 @@ var Class$5;
 (function (Class) {
     class History {
         async get_history_all(params, page = 1, limit = 10) {
-            let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
+            const http_send = new Classes$1.Https();
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_all/' + params.template_id + '/' + page + '/' + limit);
             if (get_history.success) {
-                let data = get_history.data;
-                let thistory = data?.length;
+                const data = get_history.data;
+                const thistory = data?.length;
                 let history = '';
                 for (let h = 0; h < thistory; h++) {
                     if (h > 9) {
                         break;
                     }
                     let updates = '';
-                    let tupdates = data[h][1].length;
+                    const tupdates = data[h][1].length;
                     for (let u = 0; u < tupdates; u++) {
                         if (u > 3) {
                             break;
                         }
-                        let active = (u < 1 && h < 1) ? ' ec-history-record-active' : '';
+                        const active = (u < 1 && h < 1) ? ' ec-history-record-active' : '';
                         let restore_button = '<button type="button" class="ec-button ec-history-restore-button">'
                             + params.words('restore')
                             + '<div>'
@@ -10645,8 +10641,8 @@ var Class$5;
                         + '</div>';
                 }
                 setTimeout(() => {
-                    let section_footer = params.selector.getElementsByClassName('ec-section-history')[0].getElementsByClassName('ec-section-footer')[0];
-                    let pagination_button = section_footer.getElementsByClassName('ec-loading-button')[0];
+                    const section_footer = params.selector.getElementsByClassName('ec-section-history')[0].getElementsByClassName('ec-section-footer')[0];
+                    const pagination_button = section_footer.getElementsByClassName('ec-loading-button')[0];
                     section_footer.getElementsByTagName('a')[0].classList.remove('ec-load-more-active');
                     if (thistory > 10) {
                         pagination_button.style.display = 'block';
@@ -10668,12 +10664,12 @@ var Class$5;
             }
         }
         async get_history_by_date(params, date, page = 0, limit = 4) {
-            let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id + '/' + date + '/' + page + '/' + limit);
+            const http_send = new Classes$1.Https();
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_by_date/' + params.template_id + '/' + date + '/' + page + '/' + limit);
             if (get_history.success) {
-                let data = get_history.data;
+                const data = get_history.data;
                 let updates = '';
-                let tupdates = data.length;
+                const tupdates = data.length;
                 for (let u = 0; u < tupdates; u++) {
                     if (u > 3) {
                         break;
@@ -10700,7 +10696,7 @@ var Class$5;
                     params.selector.querySelector('.ec-section-history .ec-history-component[data-history="' + date + '"] .ec-history-navigation a').setAttribute('data-page', (page + 4).toString());
                 }
                 else {
-                    let pagination = params.selector.querySelector('.ec-section-history .ec-history-component[data-history="' + date + '"] .ec-history-navigation');
+                    const pagination = params.selector.querySelector('.ec-section-history .ec-history-component[data-history="' + date + '"] .ec-history-navigation');
                     if (pagination !== null) {
                         pagination.style.display = 'none';
                     }
@@ -10712,18 +10708,18 @@ var Class$5;
             }
         }
         async get_history_recent(params, iframe) {
-            let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
+            const http_send = new Classes$1.Https();
+            const get_history = await http_send.get(params.options('api_url') + 'api/get_history_recent/' + params.template_id);
             if (get_history.success) {
                 if (typeof get_history.data !== 'undefined') {
-                    let content = get_history.data;
-                    let itemplate = params.selector.getElementsByClassName(iframe)[0];
-                    let idocument = itemplate.contentDocument;
+                    const content = get_history.data;
+                    const itemplate = params.selector.getElementsByClassName(iframe)[0];
+                    const idocument = itemplate.contentDocument;
                     if (typeof content.name !== 'undefined') {
                         params.selector.getElementsByClassName('ec-composer-name-text')[0].textContent = content.name;
                     }
                     if ((typeof content.html !== 'undefined') && (idocument !== null)) {
-                        let body = idocument.body;
+                        const body = idocument.body;
                         if (content.html === '<div class="ec-composer-template"></div>') {
                             content.html = `<div class="ec-composer-template">
                                 <div class="ec-composer-template-content-line">
@@ -10750,7 +10746,7 @@ var Class$5;
                         body.innerHTML = '';
                         body.innerHTML = content.html.replaceAll('<div class="ec-composer-template-cell"></div>', '<div class="ec-composer-template-cell">' + get_placeholder() + '</div>');
                         if (body.getElementsByClassName('ec-composer-template').length > 0) {
-                            let template = body.getElementsByClassName('ec-composer-template')[0];
+                            const template = body.getElementsByClassName('ec-composer-template')[0];
                             template.classList.add('ec-composer-template-editor');
                             template.style.cssText = `
                                 transform: scaleY(0);
@@ -10762,21 +10758,21 @@ var Class$5;
                                 `;
                             }, 300);
                         }
-                        let structure_buttons = get_structure_buttons();
-                        let structures = body.getElementsByClassName('ec-composer-template-content-line');
+                        const structure_buttons = get_structure_buttons();
+                        const structures = body.getElementsByClassName('ec-composer-template-content-line');
                         if (structures.length > 0) {
                             Array.from(structures).map((structure) => {
                                 structure.insertAdjacentHTML('afterbegin', structure_buttons);
                             });
                         }
-                        let elements_buttons = get_element_buttons();
-                        let elements = body.getElementsByClassName('ec-element-content');
+                        const elements_buttons = get_element_buttons();
+                        const elements = body.getElementsByClassName('ec-element-content');
                         if (elements.length > 0) {
                             Array.from(elements).map((element) => {
                                 element.insertAdjacentHTML('beforeend', elements_buttons);
                             });
                         }
-                        let texts = body.querySelectorAll('.ec-element-content[data-name="text"]');
+                        const texts = body.querySelectorAll('.ec-element-content[data-name="text"]');
                         if (texts.length > 0) {
                             Array.from(texts).map((text) => {
                                 text.getElementsByClassName('ec-element-content-data')[0].setAttribute('contenteditable', 'true');
@@ -10784,13 +10780,13 @@ var Class$5;
                         }
                         new Classes$1.Backup().save_html_update(params);
                     }
-                    let elements_id = [];
+                    const elements_id = [];
                     if ((typeof content.css !== 'undefined') && (idocument !== null)) {
                         if ((typeof content.css.elements !== 'undefined') && (content.css.elements.length > 0)) {
                             let elements_styles = '';
-                            for (let element of content.css.elements) {
+                            for (const element of content.css.elements) {
                                 elements_id.push(element.element_id);
-                                let style = document.createElement('style');
+                                const style = document.createElement('style');
                                 style.setAttribute('data-element', element.element_id);
                                 let css_style = '';
                                 css_style += element.content;
@@ -10802,16 +10798,16 @@ var Class$5;
                         if ((typeof content.css.content !== 'undefined') && content.css.content) {
                             if (idocument.head.querySelector('style[data-scope="default"]')) {
                                 idocument.head.querySelector('style[data-scope="default"]').innerHTML = content.css.content;
-                                let properties_list = {};
-                                let default_styles = idocument.head.querySelector('style[data-scope="default"]');
+                                const properties_list = {};
+                                const default_styles = idocument.head.querySelector('style[data-scope="default"]');
                                 if ((typeof default_styles !== 'undefined') && default_styles) {
-                                    let sheet = default_styles.sheet;
+                                    const sheet = default_styles.sheet;
                                     if (sheet !== null) {
                                         if (sheet.cssRules.length > 0) {
-                                            for (let rule of sheet.cssRules) {
+                                            for (const rule of sheet.cssRules) {
                                                 if (typeof rule.media === 'undefined') {
-                                                    let style = rule.style;
-                                                    for (let property of rule.style) {
+                                                    const style = rule.style;
+                                                    for (const property of rule.style) {
                                                         if (typeof properties_list[rule.selectorText] !== 'undefined') {
                                                             properties_list[rule.selectorText][property] = style.getPropertyValue(property);
                                                         }
@@ -10842,7 +10838,7 @@ var Class$5;
                         }
                         else {
                             idocument.head.querySelector('style[data-scope="default"]').innerHTML = get_styles('default');
-                            let background = '#7a7a7b';
+                            const background = '#7a7a7b';
                             params.selector.getElementsByClassName('ec-composer-container')[0].style.backgroundColor = background;
                             params.selector.getElementsByClassName('ec-composer-preview')[0].style.backgroundColor = background;
                         }
@@ -10855,8 +10851,8 @@ var Class$5;
             }
         }
         async restore_history_record(params, time) {
-            let http_send = new Classes$1.Https();
-            let get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id + '/' + time);
+            const http_send = new Classes$1.Https();
+            const get_history = await http_send.get(params.options('api_url') + 'api/restore_history_record/' + params.template_id + '/' + time);
             if (get_history.success) {
                 params.selector.getElementsByClassName('ec-history-restore-active-button')[0].classList.remove('ec-history-restore-active-button');
                 this.get_history_recent(params, 'ec-composer-template-container');
@@ -10878,17 +10874,17 @@ var Resources$f;
             prepare_template(params, option) {
                 let value = (typeof option.value === 'string') ? option.value : '#FFFFFF';
                 if (typeof option.custom === 'string') {
-                    let color = new Plugins$1.Color();
-                    let is_valid = option.custom.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+                    const color = new Plugins$1.Color();
+                    const is_valid = option.custom.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
                     if (is_valid) {
-                        let [, r, g, b, a] = is_valid.map(Number);
-                        let hex = color.convert_rgb_to_hex(r, g, b, a || 1);
+                        const [, r, g, b, a] = is_valid.map(Number);
+                        const hex = color.convert_rgb_to_hex(r, g, b, a || 1);
                         if (hex) {
                             value = hex;
                         }
                     }
                 }
-                let element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
+                const element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
                 return {
                     template: '<div>'
                         + '<h3>'
@@ -10910,7 +10906,7 @@ var Resources$f;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     property[option.name] = option.value;
@@ -10921,38 +10917,38 @@ var Resources$f;
                 return [{
                         action: 'mousedown',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-button-color') && target.closest('.ec-composer-options-list') && !target.closest('.ec-option-social')) {
                                     e.preventDefault();
                                     new Plugins$1.Color().add_color_box(e, params);
                                     if (target.closest('.ec-composer-element-options') && target.closest('.ec-composer-element-options')) {
-                                        let element_id = target.closest('.ec-composer-element-options').getAttribute('data-element');
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const element_id = target.closest('.ec-composer-element-options').getAttribute('data-element');
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let elements = iframeDocument.getElementsByClassName('ec-element-content-active');
+                                                const elements = iframeDocument.getElementsByClassName('ec-element-content-active');
                                                 if (elements.length > 0) {
                                                     setTimeout(() => {
                                                         Classes$1.Observer.monitor_element('option_color', target, { attributes: true }, (mutations) => {
-                                                            for (let mutation of mutations) {
+                                                            for (const mutation of mutations) {
                                                                 if (mutation.attributeName === 'data-color') {
-                                                                    let mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
-                                                                    let device = mutation_target.closest('.ec-sections').getAttribute('data-scope');
-                                                                    let option_name = mutation_target?.closest('li')?.getAttribute('data-option');
-                                                                    let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                                                    const mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
+                                                                    const device = mutation_target.closest('.ec-sections').getAttribute('data-scope');
+                                                                    const option_name = mutation_target?.closest('li')?.getAttribute('data-option');
+                                                                    const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                                                     if (option_name) {
-                                                                        let property = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]);
-                                                                        let color = target.getAttribute('data-color');
-                                                                        let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                        const property = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]);
+                                                                        const color = target.getAttribute('data-color');
+                                                                        const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                                         if (style !== null) {
-                                                                            let sheet = style.sheet;
-                                                                            let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                            let element_name = target.closest('.ec-button-color').getAttribute('data-element') ? target.closest('.ec-button-color').getAttribute('data-element') : '';
-                                                                            let style_content = update_property_value(sheet, element_id, element_name, property_name, color, device);
+                                                                            const sheet = style.sheet;
+                                                                            const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                            const element_name = target.closest('.ec-button-color').getAttribute('data-element') ? target.closest('.ec-button-color').getAttribute('data-element') : '';
+                                                                            const style_content = update_property_value(sheet, element_id, element_name, property_name, color, device);
                                                                             style.innerHTML = style_content;
-                                                                            let backup = new Classes$1.Backup();
+                                                                            const backup = new Classes$1.Backup();
                                                                             backup.update_css_element_id(element_id, this.params, style_content);
                                                                         }
                                                                     }
@@ -10965,31 +10961,31 @@ var Resources$f;
                                         }
                                     }
                                     else if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]')) {
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
                                                 setTimeout(() => {
                                                     Classes$1.Observer.monitor_element('option_color', target, { attributes: true }, (mutations) => {
-                                                        for (let mutation of mutations) {
+                                                        for (const mutation of mutations) {
                                                             if (mutation.attributeName === 'data-color') {
-                                                                let mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
-                                                                let device = mutation_target.closest('.ec-sections').getAttribute('data-scope');
-                                                                let option_name = mutation_target?.closest('li')?.getAttribute('data-option');
-                                                                let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                                                const mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
+                                                                const device = mutation_target.closest('.ec-sections').getAttribute('data-scope');
+                                                                const option_name = mutation_target?.closest('li')?.getAttribute('data-option');
+                                                                const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                                                 if (option_name) {
-                                                                    let property = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]);
-                                                                    let color = target.getAttribute('data-color');
-                                                                    let style = iframeDocument.head.querySelector('style[data-scope="default"]');
+                                                                    const property = this.get_property(Resources.Options.Color.saved_options[option_name + '_' + element_name]);
+                                                                    const color = target.getAttribute('data-color');
+                                                                    const style = iframeDocument.head.querySelector('style[data-scope="default"]');
                                                                     if (style !== null) {
-                                                                        let sheet = style.sheet;
-                                                                        let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                        let style_content = update_property_value(sheet, '', element_name, property_name, color, device);
+                                                                        const sheet = style.sheet;
+                                                                        const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                        const style_content = update_property_value(sheet, '', element_name, property_name, color, device);
                                                                         style.innerHTML = style_content;
                                                                         if (element_name === '.ec-composer-template') {
                                                                             params.selector.getElementsByClassName('ec-composer-container')[0].style.backgroundColor = color;
                                                                         }
-                                                                        let backup = new Classes$1.Backup();
+                                                                        const backup = new Classes$1.Backup();
                                                                         backup.update_default_css(this.params, style_content);
                                                                     }
                                                                 }
@@ -11026,7 +11022,7 @@ var Resources$e;
                         }
                     }
                 }
-                let unique_id = Math.random();
+                const unique_id = Math.random();
                 return {
                     template: '<div>'
                         + '<h3>'
@@ -11055,10 +11051,10 @@ var Resources$e;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
-                    let unit = (typeof option.unit !== 'undefined') ? option.unit : '';
+                    const unit = (typeof option.unit !== 'undefined') ? option.unit : '';
                     property[option.name] = option.value + unit;
                     return property;
                 }
@@ -11067,35 +11063,35 @@ var Resources$e;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-composer-element-options') && target.closest('.ec-option-input-buttons-group') && (target.getAttribute('type') === 'number')) {
-                                    let buttons_group = target.closest('.ec-option-input-buttons-group');
-                                    let input = buttons_group?.getElementsByTagName('input');
+                                    const buttons_group = target.closest('.ec-option-input-buttons-group');
+                                    const input = buttons_group?.getElementsByTagName('input');
                                     if (input !== undefined) {
-                                        let value = input[0].value;
+                                        const value = input[0].value;
                                         if (value !== undefined) {
-                                            let option_name = buttons_group?.closest('li')?.getAttribute('data-option');
-                                            let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                            const option_name = buttons_group?.closest('li')?.getAttribute('data-option');
+                                            const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                             if (option_name) {
-                                                let device = buttons_group?.closest('.ec-sections').getAttribute('data-scope');
-                                                let property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
+                                                const device = buttons_group?.closest('.ec-sections').getAttribute('data-scope');
+                                                const property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
                                                 if ((typeof Resources.Options.Number.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                                    let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
-                                                    let anumber = parseInt(value);
-                                                    let aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
+                                                    const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                    const anumber = parseInt(value);
+                                                    const aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
                                                     if (element_id) {
-                                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                         if (iframe) {
-                                                            let iframeDocument = iframe.contentDocument;
+                                                            const iframeDocument = iframe.contentDocument;
                                                             if (iframeDocument !== null) {
-                                                                let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                                 if (style !== null) {
-                                                                    let sheet = style.sheet;
-                                                                    let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                    let style_content = update_property_value(sheet, element_id, element_name, property_name, anumber + aunit, device);
+                                                                    const sheet = style.sheet;
+                                                                    const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                    const style_content = update_property_value(sheet, element_id, element_name, property_name, anumber + aunit, device);
                                                                     style.innerHTML = style_content;
-                                                                    let backup = new Classes$1.Backup();
+                                                                    const backup = new Classes$1.Backup();
                                                                     backup.update_css_element_id(element_id, this.params, style_content);
                                                                 }
                                                             }
@@ -11110,40 +11106,40 @@ var Resources$e;
                                     }
                                 }
                                 else if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]')) {
-                                    let buttons_group = target.closest('.ec-option-input-buttons-group');
-                                    let input = buttons_group?.getElementsByTagName('input');
+                                    const buttons_group = target.closest('.ec-option-input-buttons-group');
+                                    const input = buttons_group?.getElementsByTagName('input');
                                     if (input !== undefined) {
-                                        let value = input[0].value;
+                                        const value = input[0].value;
                                         if (value !== undefined) {
-                                            let option_name = buttons_group?.closest('li')?.getAttribute('data-option');
-                                            let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                            const option_name = buttons_group?.closest('li')?.getAttribute('data-option');
+                                            const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                             if (option_name) {
-                                                let device = '';
-                                                let property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
+                                                const device = '';
+                                                const property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
                                                 if ((typeof Resources.Options.Number.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                                    let anumber = parseInt(value);
-                                                    let aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
+                                                    const anumber = parseInt(value);
+                                                    const aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
                                                     if (target.classList.contains('ec-option-input-button-increase')) {
-                                                        let new_value = anumber;
+                                                        const new_value = anumber;
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
                                                     else {
-                                                        let new_value = anumber;
+                                                        const new_value = anumber;
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
-                                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                     if (iframe) {
-                                                        let iframeDocument = iframe.contentDocument;
+                                                        const iframeDocument = iframe.contentDocument;
                                                         if (iframeDocument !== null) {
-                                                            let style = iframeDocument.head.querySelector('style[data-scope="default"]');
+                                                            const style = iframeDocument.head.querySelector('style[data-scope="default"]');
                                                             if (style !== null) {
-                                                                let sheet = style.sheet;
-                                                                let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                let style_content = update_property_value(sheet, '', element_name, property_name, anumber + aunit, device);
+                                                                const sheet = style.sheet;
+                                                                const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                const style_content = update_property_value(sheet, '', element_name, property_name, anumber + aunit, device);
                                                                 style.innerHTML = style_content;
-                                                                let backup = new Classes$1.Backup();
+                                                                const backup = new Classes$1.Backup();
                                                                 backup.update_default_css(this.params, style_content);
                                                             }
                                                         }
@@ -11162,45 +11158,45 @@ var Resources$e;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-composer-element-options') && target.closest('.ec-option-input-buttons-group') && (target.nodeName === 'BUTTON')) {
-                                    let buttons_group = target.closest('.ec-option-input-buttons-group');
-                                    let input = buttons_group?.getElementsByTagName('input');
+                                    const buttons_group = target.closest('.ec-option-input-buttons-group');
+                                    const input = buttons_group?.getElementsByTagName('input');
                                     if (input !== undefined) {
-                                        let value = input[0].value;
+                                        const value = input[0].value;
                                         if (value !== undefined) {
-                                            let option_name = buttons_group?.closest('li')?.getAttribute('data-option');
-                                            let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                            const option_name = buttons_group?.closest('li')?.getAttribute('data-option');
+                                            const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                             if (option_name) {
-                                                let device = buttons_group?.closest('.ec-sections').getAttribute('data-scope');
-                                                let property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
+                                                const device = buttons_group?.closest('.ec-sections').getAttribute('data-scope');
+                                                const property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
                                                 if ((typeof Resources.Options.Number.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                                    let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                    const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                                     let anumber = parseInt(value);
-                                                    let aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
+                                                    const aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
                                                     if (target.classList.contains('ec-option-input-button-increase')) {
-                                                        let new_value = anumber = (anumber + 1);
+                                                        const new_value = anumber = (anumber + 1);
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
                                                     else {
-                                                        let new_value = anumber = (anumber - 1);
+                                                        const new_value = anumber = (anumber - 1);
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
                                                     if (element_id) {
-                                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                         if (iframe) {
-                                                            let iframeDocument = iframe.contentDocument;
+                                                            const iframeDocument = iframe.contentDocument;
                                                             if (iframeDocument !== null) {
-                                                                let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                                 if (style !== null) {
-                                                                    let sheet = style.sheet;
-                                                                    let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                    let style_content = update_property_value(sheet, element_id, element_name, property_name, anumber + aunit, device);
+                                                                    const sheet = style.sheet;
+                                                                    const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                    const style_content = update_property_value(sheet, element_id, element_name, property_name, anumber + aunit, device);
                                                                     style.innerHTML = style_content;
-                                                                    let backup = new Classes$1.Backup();
+                                                                    const backup = new Classes$1.Backup();
                                                                     backup.update_css_element_id(element_id, this.params, style_content);
                                                                 }
                                                             }
@@ -11215,40 +11211,40 @@ var Resources$e;
                                     }
                                 }
                                 else if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]') && (target.nodeName === 'BUTTON')) {
-                                    let buttons_group = target.closest('.ec-option-input-buttons-group');
-                                    let input = buttons_group?.getElementsByTagName('input');
+                                    const buttons_group = target.closest('.ec-option-input-buttons-group');
+                                    const input = buttons_group?.getElementsByTagName('input');
                                     if (input !== undefined) {
-                                        let value = input[0].value;
+                                        const value = input[0].value;
                                         if (value !== undefined) {
-                                            let option_name = buttons_group?.closest('li')?.getAttribute('data-option');
-                                            let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                            const option_name = buttons_group?.closest('li')?.getAttribute('data-option');
+                                            const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                             if (option_name) {
-                                                let device = '';
-                                                let property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
+                                                const device = '';
+                                                const property = this.get_property(Resources.Options.Number.saved_options[option_name + '_' + element_name]);
                                                 if ((typeof Resources.Options.Number.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
                                                     let anumber = parseInt(value);
-                                                    let aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
+                                                    const aunit = value.replace(anumber.toString(), '') ? value.replace(anumber.toString(), '') : Resources.Options.Number.saved_options[option_name + '_' + element_name].unit;
                                                     if (target.classList.contains('ec-option-input-button-increase')) {
-                                                        let new_value = anumber = (anumber + 1);
+                                                        const new_value = anumber = (anumber + 1);
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
                                                     else {
-                                                        let new_value = anumber = (anumber - 1);
+                                                        const new_value = anumber = (anumber - 1);
                                                         Resources.Options.Number.saved_options[option_name + '_' + element_name].value = new_value;
                                                         input[0].value = new_value.toString();
                                                     }
-                                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                     if (iframe) {
-                                                        let iframeDocument = iframe.contentDocument;
+                                                        const iframeDocument = iframe.contentDocument;
                                                         if (iframeDocument !== null) {
-                                                            let style = iframeDocument.head.querySelector('style[data-scope="default"]');
+                                                            const style = iframeDocument.head.querySelector('style[data-scope="default"]');
                                                             if (style !== null) {
-                                                                let sheet = style.sheet;
-                                                                let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                let style_content = update_property_value(sheet, '', element_name, property_name, anumber + aunit, device);
+                                                                const sheet = style.sheet;
+                                                                const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                const style_content = update_property_value(sheet, '', element_name, property_name, anumber + aunit, device);
                                                                 style.innerHTML = style_content;
-                                                                let backup = new Classes$1.Backup();
+                                                                const backup = new Classes$1.Backup();
                                                                 backup.update_default_css(this.params, style_content);
                                                             }
                                                         }
@@ -11278,7 +11274,7 @@ var Resources$d;
             prepare_template(params, option) {
                 let items = '<ul class="ec-option-selector-items">';
                 if (option.items.length > 0) {
-                    for (let item of option.items) {
+                    for (const item of option.items) {
                         items += '<li>'
                             + '<a href="#" data-item="' + item.item_id + '">'
                             + item.item_name
@@ -11291,7 +11287,7 @@ var Resources$d;
                 if (typeof option.custom === 'string') {
                     value = option.custom;
                 }
-                let selector = '<div class="ec-option-selector-dropdown">'
+                const selector = '<div class="ec-option-selector-dropdown">'
                     + '<button type="button" class="ec-button ec-display-flex ec-justify-content-space-between">'
                     + '<span>'
                     + value
@@ -11323,7 +11319,7 @@ var Resources$d;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     property[option.name] = option.value;
@@ -11334,31 +11330,31 @@ var Resources$d;
                 return [{
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target.closest('.ec-option-selector-items')) {
                                 e.preventDefault();
-                                let selected = target.textContent;
-                                let item_id = target.getAttribute('data-item');
+                                const selected = target.textContent;
+                                const item_id = target.getAttribute('data-item');
                                 if (selected && item_id) {
                                     target.closest('.ec-option-selector-dropdown').querySelector('.ec-button > span:first-child').textContent = selected;
-                                    let option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
-                                    let element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
+                                    const option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
+                                    const element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
                                     if (option_name) {
-                                        let device = target.closest('.ec-sections').getAttribute('data-scope');
-                                        let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                        const device = target.closest('.ec-sections').getAttribute('data-scope');
+                                        const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                         if (element_id) {
-                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                             if (iframe) {
-                                                let iframeDocument = iframe.contentDocument;
+                                                const iframeDocument = iframe.contentDocument;
                                                 if (iframeDocument !== null) {
-                                                    let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                     if (style !== null) {
-                                                        let sheet = style.sheet;
-                                                        let property = this.get_property(Resources.Options.Selector.saved_options[option_name + '_' + element_name]);
-                                                        let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                        let style_content = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
+                                                        const sheet = style.sheet;
+                                                        const property = this.get_property(Resources.Options.Selector.saved_options[option_name + '_' + element_name]);
+                                                        const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                        const style_content = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
                                                         style.innerHTML = style_content;
-                                                        let backup = new Classes$1.Backup();
+                                                        const backup = new Classes$1.Backup();
                                                         backup.update_css_element_id(element_id, this.params, style_content);
                                                     }
                                                 }
@@ -11383,15 +11379,15 @@ var Resources$c;
             prepare_template(params, option) {
                 let font_family = params.words('font_family');
                 if (typeof option.custom === 'string') {
-                    let fonts_list = Object.values(fonts);
-                    let font = fonts_list.find(item => item.property.replaceAll('"', '').replaceAll("'", '') === option.custom.replaceAll('"', '').replaceAll("'", ''));
+                    const fonts_list = Object.values(fonts);
+                    const font = fonts_list.find(item => item.property.replaceAll('"', '').replaceAll("'", '') === option.custom.replaceAll('"', '').replaceAll("'", ''));
                     if (typeof font !== 'undefined') {
                         font_family = font.name;
                         setTimeout(() => {
-                            let font_weight = params.selector.querySelector('.ec-composer-options-list li[data-option="font_weight"]');
+                            const font_weight = params.selector.querySelector('.ec-composer-options-list li[data-option="font_weight"]');
                             if (font_weight) {
                                 let items = '';
-                                for (let weight of font.weight) {
+                                for (const weight of font.weight) {
                                     items += '<li>'
                                         + '<a href="#" data-item="' + weight + '">'
                                         + weight
@@ -11404,13 +11400,13 @@ var Resources$c;
                     }
                 }
                 else if (option.value !== '') {
-                    let fonts_list = Object.values(fonts);
-                    let font = fonts_list.find(item => item.slug === option.value);
+                    const fonts_list = Object.values(fonts);
+                    const font = fonts_list.find(item => item.slug === option.value);
                     if (typeof font !== 'undefined') {
                         font_family = font.name;
                     }
                 }
-                let selector = '<div class="ec-option-selector-dropdown">'
+                const selector = '<div class="ec-option-selector-dropdown">'
                     + '<button type="button" class="ec-button ec-display-flex ec-justify-content-space-between">'
                     + '<span>'
                     + font_family
@@ -11442,13 +11438,13 @@ var Resources$c;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     let font_family = '';
                     if (option.value !== '') {
-                        let fonts_list = Object.values(fonts);
-                        let font = fonts_list.find(item => item.slug === option.value);
+                        const fonts_list = Object.values(fonts);
+                        const font = fonts_list.find(item => item.slug === option.value);
                         if (typeof font.name !== 'undefined') {
                             font_family = font.property;
                         }
@@ -11461,10 +11457,10 @@ var Resources$c;
                 return [{
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target.closest('.ec-option-selector-dropdown') && target.classList.contains('ec-button')) {
                                 e.preventDefault();
-                                let dropdown = target.closest('.ec-option-selector-dropdown');
+                                const dropdown = target.closest('.ec-option-selector-dropdown');
                                 if (dropdown) {
                                     setTimeout(() => {
                                         dropdown?.classList.add('ec-option-selector-dropdown-show');
@@ -11473,35 +11469,35 @@ var Resources$c;
                             }
                             else if (target.closest('.ec-option-selector-menu') && target.closest('.ec-fonts')) {
                                 e.preventDefault();
-                                let selected = target.textContent;
+                                const selected = target.textContent;
                                 if (selected) {
                                     target.closest('.ec-option-selector-dropdown').querySelector('.ec-button > span:first-child').textContent = selected;
-                                    let selected_font = target.getAttribute('data-font');
-                                    let fonts_list = Object.values(fonts);
-                                    let font = fonts_list.find(item => item.slug === selected_font);
-                                    let option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
-                                    let element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
+                                    const selected_font = target.getAttribute('data-font');
+                                    const fonts_list = Object.values(fonts);
+                                    const font = fonts_list.find(item => item.slug === selected_font);
+                                    const option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
+                                    const element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
                                     if ((typeof font !== 'undefined') && option_name) {
-                                        let device = target.closest('.ec-sections').getAttribute('data-scope');
-                                        let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                        const device = target.closest('.ec-sections').getAttribute('data-scope');
+                                        const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                         if (element_id) {
-                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                             if (iframe) {
-                                                let iframeDocument = iframe.contentDocument;
+                                                const iframeDocument = iframe.contentDocument;
                                                 if (iframeDocument !== null) {
-                                                    let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                     if (style !== null) {
-                                                        let sheet = style.sheet;
-                                                        let property = this.get_property(Resources.Options.Font.saved_options[option_name + '_' + element_name]);
-                                                        let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                        let style_content = update_property_value(sheet, element_id, element_name, property_name, font.property, device);
+                                                        const sheet = style.sheet;
+                                                        const property = this.get_property(Resources.Options.Font.saved_options[option_name + '_' + element_name]);
+                                                        const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                        const style_content = update_property_value(sheet, element_id, element_name, property_name, font.property, device);
                                                         style.innerHTML = style_content;
-                                                        let backup = new Classes$1.Backup();
+                                                        const backup = new Classes$1.Backup();
                                                         backup.update_css_element_id(element_id, this.params, style_content);
-                                                        let font_weight = target.closest('.ec-composer-options-list').querySelector('li[data-option="font_weight"]');
+                                                        const font_weight = target.closest('.ec-composer-options-list').querySelector('li[data-option="font_weight"]');
                                                         if (font_weight) {
                                                             let items = '';
-                                                            for (let weight of font.weight) {
+                                                            for (const weight of font.weight) {
                                                                 items += '<li>'
                                                                     + '<a href="#" data-item="' + weight + '">'
                                                                     + weight
@@ -11573,7 +11569,7 @@ var Resources$b;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     property[option.name] = option.value;
@@ -11584,30 +11580,30 @@ var Resources$b;
                 return [{
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-align')) {
                                     target.closest('.ec-option-align').getElementsByClassName('ec-option-align-active-button')[0].classList.remove('ec-option-align-active-button');
                                     target.classList.add('ec-option-align-active-button');
-                                    let option_name = target.closest('li')?.getAttribute('data-option');
-                                    let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                    const option_name = target.closest('li')?.getAttribute('data-option');
+                                    const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                     if (option_name) {
-                                        let device = target.closest('.ec-sections').getAttribute('data-scope');
-                                        let property = this.get_property(Resources.Options.Align.saved_options[option_name + '_' + element_name]);
+                                        const device = target.closest('.ec-sections').getAttribute('data-scope');
+                                        const property = this.get_property(Resources.Options.Align.saved_options[option_name + '_' + element_name]);
                                         if ((typeof Resources.Options.Align.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                            let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                            const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                             if (element_id) {
-                                                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                 if (iframe) {
-                                                    let iframeDocument = iframe.contentDocument;
+                                                    const iframeDocument = iframe.contentDocument;
                                                     if (iframeDocument !== null) {
-                                                        let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                        const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                         if (style !== null) {
-                                                            let sheet = style.sheet;
-                                                            let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                            let style_content = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction'), device);
+                                                            const sheet = style.sheet;
+                                                            const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                            const style_content = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction'), device);
                                                             style.innerHTML = style_content;
-                                                            let backup = new Classes$1.Backup();
+                                                            const backup = new Classes$1.Backup();
                                                             backup.update_css_element_id(element_id, this.params, style_content);
                                                         }
                                                     }
@@ -11673,7 +11669,7 @@ var Resources$a;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     property[option.name] = option.value;
@@ -11684,31 +11680,31 @@ var Resources$a;
                 return [{
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-position')) {
                                     target.closest('.ec-option-position').getElementsByClassName('ec-option-position-active-button')[0].classList.remove('ec-option-position-active-button');
                                     target.classList.add('ec-option-position-active-button');
-                                    let option_name = target.closest('li')?.getAttribute('data-option');
-                                    let element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
+                                    const option_name = target.closest('li')?.getAttribute('data-option');
+                                    const element_name = target.closest('li')?.getAttribute('data-element') ? target.closest('li')?.getAttribute('data-element') : '';
                                     if (option_name) {
                                         if (target.closest('.ec-composer-element-options')) {
-                                            let device = target.closest('.ec-sections').getAttribute('data-scope');
-                                            let property = this.get_property(Resources.Options.Position.saved_options[option_name + '_' + element_name]);
+                                            const device = target.closest('.ec-sections').getAttribute('data-scope');
+                                            const property = this.get_property(Resources.Options.Position.saved_options[option_name + '_' + element_name]);
                                             if ((typeof Resources.Options.Position.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                                let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                                 if (element_id) {
-                                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                     if (iframe) {
-                                                        let iframeDocument = iframe.contentDocument;
+                                                        const iframeDocument = iframe.contentDocument;
                                                         if (iframeDocument !== null) {
-                                                            let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                            const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                             if (style !== null) {
-                                                                let sheet = style.sheet;
-                                                                let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                                let style_content = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction'), device);
+                                                                const sheet = style.sheet;
+                                                                const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                                const style_content = update_property_value(sheet, element_id, element_name, property_name, target.getAttribute('data-direction'), device);
                                                                 style.innerHTML = style_content;
-                                                                let backup = new Classes$1.Backup();
+                                                                const backup = new Classes$1.Backup();
                                                                 backup.update_css_element_id(element_id, this.params, style_content);
                                                             }
                                                         }
@@ -11720,19 +11716,19 @@ var Resources$a;
                                             }
                                         }
                                         else if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]')) {
-                                            let property = this.get_property(Resources.Options.Position.saved_options[option_name + '_' + element_name]);
+                                            const property = this.get_property(Resources.Options.Position.saved_options[option_name + '_' + element_name]);
                                             if ((typeof Resources.Options.Position.saved_options[option_name + '_' + element_name] !== 'undefined') && (property !== undefined) && (property !== null)) {
-                                                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                 if (iframe) {
-                                                    let iframeDocument = iframe.contentDocument;
+                                                    const iframeDocument = iframe.contentDocument;
                                                     if (iframeDocument !== null) {
-                                                        let style = iframeDocument.head.querySelector('style[data-scope="default"]');
+                                                        const style = iframeDocument.head.querySelector('style[data-scope="default"]');
                                                         if (style !== null) {
-                                                            let sheet = style.sheet;
-                                                            let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                            let style_content = update_property_value(sheet, '', element_name, property_name, target.getAttribute('data-direction'), '');
+                                                            const sheet = style.sheet;
+                                                            const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                            const style_content = update_property_value(sheet, '', element_name, property_name, target.getAttribute('data-direction'), '');
                                                             style.innerHTML = style_content;
-                                                            let backup = new Classes$1.Backup();
+                                                            const backup = new Classes$1.Backup();
                                                             backup.update_default_css(this.params, style_content);
                                                             iframeDocument.getElementsByClassName('ec-composer-template')[0].classList.remove('ec-composer-template-left');
                                                             iframeDocument.getElementsByClassName('ec-composer-template')[0].classList.remove('ec-composer-template-center');
@@ -11772,26 +11768,26 @@ var Resources$9;
         class Text extends Abstracts.Options {
             prepare_template(params, option) {
                 let value = option.value;
-                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                 if (iframe) {
-                    let iframeDocument = iframe.contentDocument;
+                    const iframeDocument = iframe.contentDocument;
                     if (iframeDocument !== null) {
                         if (option.element) {
-                            let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
+                            const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
                             if (element) {
                                 value = element.textContent;
                             }
                         }
                         else {
-                            let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                            const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                             if (element) {
                                 value = element.textContent;
                             }
                         }
                     }
                 }
-                let unique_id = Math.random();
-                let element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
+                const unique_id = Math.random();
+                const element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
                 return {
                     template: '<div class="ec-w-100">'
                         + '<div>'
@@ -11817,31 +11813,31 @@ var Resources$9;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-text')) {
-                                    let option_text = target.closest('.ec-option-text');
-                                    let input = option_text?.getElementsByTagName('input');
+                                    const option_text = target.closest('.ec-option-text');
+                                    const input = option_text?.getElementsByTagName('input');
                                     if (input !== undefined) {
-                                        let value = input[0].value;
+                                        const value = input[0].value;
                                         if (value !== undefined) {
-                                            let option_name = option_text?.closest('li')?.getAttribute('data-option');
+                                            const option_name = option_text?.closest('li')?.getAttribute('data-option');
                                             if (option_name) {
-                                                let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                                 if (element_id) {
-                                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                     if (iframe) {
-                                                        let iframeDocument = iframe.contentDocument;
+                                                        const iframeDocument = iframe.contentDocument;
                                                         if (iframeDocument !== null) {
-                                                            let element_name = target.closest('.ec-option-text').getAttribute('data-element') ? target.closest('.ec-option-text').getAttribute('data-element') : '';
+                                                            const element_name = target.closest('.ec-option-text').getAttribute('data-element') ? target.closest('.ec-option-text').getAttribute('data-element') : '';
                                                             if (element_name) {
-                                                                let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
+                                                                const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
                                                                 if (element) {
                                                                     element.textContent = target.value;
                                                                 }
                                                             }
                                                             else {
-                                                                let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                                 if (element) {
                                                                     element.textContent = target.value;
                                                                 }
@@ -11872,26 +11868,26 @@ var Resources$8;
         class Link extends Abstracts.Options {
             prepare_template(params, option) {
                 let value = option.value;
-                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                 if (iframe) {
-                    let iframeDocument = iframe.contentDocument;
+                    const iframeDocument = iframe.contentDocument;
                     if (iframeDocument !== null) {
                         if (option.element) {
-                            let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
+                            const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + option.element);
                             if (element) {
                                 value = element.getAttribute('href');
                             }
                         }
                         else {
-                            let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                            const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                             if (element) {
                                 value = element.getAttribute('href');
                             }
                         }
                     }
                 }
-                let element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
-                let unique_id = Math.random();
+                const element = (option.element !== '') ? ' data-element="' + option.element + '"' : '';
+                const unique_id = Math.random();
                 return {
                     template: '<div class="ec-w-100">'
                         + '<div>'
@@ -11926,7 +11922,7 @@ var Resources$8;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-url-group')) {
                                     target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.add('ec-option-url-group-active-button');
@@ -11934,30 +11930,30 @@ var Resources$8;
                                     target.closest('.ec-option-url-group')?.getElementsByTagName('button')[2].classList.remove('ec-option-url-group-active-button');
                                     Classes$1.Timer.schedule_event('update_url', () => {
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.remove('ec-option-url-group-active-button');
-                                        let option_url = target.closest('.ec-option-url-group');
-                                        let input = option_url.getElementsByTagName('input');
+                                        const option_url = target.closest('.ec-option-url-group');
+                                        const input = option_url.getElementsByTagName('input');
                                         if (input !== undefined) {
-                                            let value = input[0].value;
+                                            const value = input[0].value;
                                             if (value !== undefined) {
                                                 if (is_url_valid(value)) {
                                                     target.closest('.ec-option-url-group')?.getElementsByTagName('button')[1].classList.add('ec-option-url-group-active-button');
-                                                    let option_name = option_url.closest('li')?.getAttribute('data-option');
+                                                    const option_name = option_url.closest('li')?.getAttribute('data-option');
                                                     if (option_name) {
-                                                        let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                                        const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                                         if (element_id) {
-                                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                             if (iframe) {
-                                                                let iframeDocument = iframe.contentDocument;
+                                                                const iframeDocument = iframe.contentDocument;
                                                                 if (iframeDocument !== null) {
-                                                                    let element_name = target.closest('.ec-option-url-group').getAttribute('data-element') ? target.closest('.ec-option-url-group').getAttribute('data-element') : '';
+                                                                    const element_name = target.closest('.ec-option-url-group').getAttribute('data-element') ? target.closest('.ec-option-url-group').getAttribute('data-element') : '';
                                                                     if (element_name) {
-                                                                        let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
+                                                                        const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ' + element_name);
                                                                         if (element) {
                                                                             element.setAttribute('href', target.value);
                                                                         }
                                                                     }
                                                                     else {
-                                                                        let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                                        const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                                         if (element) {
                                                                             element.setAttribute('href', target.value);
                                                                         }
@@ -11989,8 +11985,8 @@ var Resources$7;
     (function (Options) {
         class Images extends Abstracts.Options {
             prepare_template(params, option) {
-                let has_link = option.has_link ? ' data-link="1"' : ' data-link="0"';
-                let unique_id = Date.now();
+                const has_link = option.has_link ? ' data-link="1"' : ' data-link="0"';
+                const unique_id = Date.now();
                 return {
                     template: '<div class="ec-w-100">'
                         + '<div>'
@@ -12103,7 +12099,7 @@ var Resources$7;
                         action: 'dragover',
                         target: (e) => {
                             e.preventDefault();
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-media-upload-box-drop-area')) {
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-start')[0].classList.remove('ec-media-upload-box-drop-area-show');
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-drop')[0].classList.add('ec-media-upload-box-drop-area-show');
@@ -12118,7 +12114,7 @@ var Resources$7;
                         action: 'dragleave',
                         target: (e) => {
                             e.preventDefault();
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-media') && !target.closest('.ec-media-upload-box-drop-area')) {
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-drop')[0].classList.remove('ec-media-upload-box-drop-area-show');
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-start')[0].classList.add('ec-media-upload-box-drop-area-show');
@@ -12129,7 +12125,7 @@ var Resources$7;
                         action: 'drop',
                         target: (e) => {
                             e.preventDefault();
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-media')) {
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-drop')[0].classList.remove('ec-media-upload-box-drop-area-show');
                                 params.selector.getElementsByClassName('ec-media-upload-box-drop-area-start')[0].classList.add('ec-media-upload-box-drop-area-show');
@@ -12143,7 +12139,7 @@ var Resources$7;
                     }, {
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-media')) {
                                 if (target.classList.contains('ec-search-input')) {
                                     target.closest('.ec-search').classList.remove('ec-search-complete');
@@ -12167,13 +12163,13 @@ var Resources$7;
                     }, {
                         action: 'change',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-media')) {
                                 if ((target.files !== null) && (target.files.length > 0)) {
                                     target.closest('.ec-option-media').getElementsByClassName('ec-media-uploaded-files-list')[0].innerHTML = '';
                                     target.closest('.ec-option-media').getElementsByClassName('ec-media-uploaded-files')[0].classList.remove('ec-media-uploaded-files-show');
                                     let uploaded_images = '';
-                                    for (let image of target.files) {
+                                    for (const image of target.files) {
                                         uploaded_images += '<li class="ec-media-uploaded-file ec-media-uploaded-file-uploading" data-file="' + image.lastModified + '_' + image.size + '">'
                                             + '<div class="ec-grid">'
                                             + '<div class="ec-grid-column-11">'
@@ -12197,22 +12193,22 @@ var Resources$7;
                                             + '</div>'
                                             + '</div>'
                                             + '</li>';
-                                        let form = new FormData();
+                                        const form = new FormData();
                                         form.append('file_name', image.lastModified + '_' + image.size);
                                         form.append('file', image);
-                                        let http = new XMLHttpRequest();
+                                        const http = new XMLHttpRequest();
                                         http.open('POST', params.options('api_url') + 'api/upload_image', true);
                                         http.upload.onprogress = function (e) {
                                             if (e.lengthComputable) {
-                                                let percent = (e.loaded / e.total) * 100;
-                                                let file_size = target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-upload-total').getAttribute('data-total');
+                                                const percent = (e.loaded / e.total) * 100;
+                                                const file_size = target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-upload-total').getAttribute('data-total');
                                                 if (file_size) {
-                                                    let uploaded_size = (percent / 100) * parseInt(file_size);
+                                                    const uploaded_size = (percent / 100) * parseInt(file_size);
                                                     target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-done').textContent = format_file_size(uploaded_size);
                                                 }
                                                 target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-percentage').textContent = percent.toFixed(0) + '%';
-                                                let progress_width = target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress').clientWidth;
-                                                let progress_bar = (percent / 100) * progress_width;
+                                                const progress_width = target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress').clientWidth;
+                                                const progress_bar = (percent / 100) * progress_width;
                                                 target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + this.file_name + '"] .ec-media-uploaded-file-loading-progress-bar').style.width = progress_bar.toFixed(0) + 'px';
                                             }
                                         }.bind({
@@ -12220,7 +12216,7 @@ var Resources$7;
                                         });
                                         http.onload = function () {
                                             if (http.status >= 200 && http.status < 300) {
-                                                let data = JSON.parse(http.response);
+                                                const data = JSON.parse(http.response);
                                                 if (typeof data.file_name !== 'undefined') {
                                                     target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + data.file_name + '"]')?.classList.add('ec-media-uploaded-file-uploading');
                                                     target.closest('.ec-option-media').querySelector('.ec-media-uploaded-file[data-file="' + data.file_name + '"] h6').textContent = data.message;
@@ -12251,7 +12247,7 @@ var Resources$7;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-media')) {
                                 if (target.nodeName !== 'INPUT') {
                                     e.preventDefault();
@@ -12315,16 +12311,16 @@ var Resources$7;
                                         Array.from(target.closest('.ec-media-images').getElementsByTagName('a')).map(image => {
                                             image.classList.remove('ec-media-image-selected');
                                         });
-                                        let element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                const content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                 if (content_data) {
                                                     if (element_name === '.ec-element-image') {
                                                         content_data.getElementsByClassName('ec-element-image')[0].classList.add('ec-element-cover');
-                                                        let image_cover = document.createElement('div');
+                                                        const image_cover = document.createElement('div');
                                                         image_cover.innerHTML = (iframeDocument.querySelector('.ec-element-content-active').getAttribute('data-name') === 'video') ? params.icons('video') : params.icons('image');
                                                         content_data.getElementsByClassName('ec-element-image')[0].replaceChildren(image_cover.firstChild);
                                                     }
@@ -12341,16 +12337,16 @@ var Resources$7;
                                                 image.classList.remove('ec-media-image-selected');
                                             }
                                         });
-                                        let element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
-                                        let image = document.createElement('img');
+                                        const element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
+                                        const image = document.createElement('img');
                                         image.src = target.getAttribute('href');
                                         image.alt = target.getElementsByTagName('img')[0].getAttribute('alt');
                                         image.setAttribute('data-id', target.getAttribute('data-id'));
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                const content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                 if (content_data) {
                                                     if (element_name === '.ec-element-image') {
                                                         content_data.getElementsByClassName('ec-element-image')[0].replaceChildren(image);
@@ -12378,7 +12374,7 @@ var Resources$6;
             prepare_template(params, option) {
                 let items = '<ul class="ec-option-selector-items">';
                 if (option.items.length > 0) {
-                    for (let item of option.items) {
+                    for (const item of option.items) {
                         items += '<li>'
                             + '<a href="#" data-item="' + item.item_id + '">'
                             + item.item_name
@@ -12397,7 +12393,7 @@ var Resources$6;
                 else if (value === 'row') {
                     value = params.words('horizontal');
                 }
-                let selector = '<div class="ec-option-selector-dropdown">'
+                const selector = '<div class="ec-option-selector-dropdown">'
                     + '<button type="button" class="ec-button ec-display-flex ec-justify-content-space-between">'
                     + '<span>'
                     + value
@@ -12429,7 +12425,7 @@ var Resources$6;
                     show_message(params.words('error_name') + ': ' + params.words('option_invalid_parameters'));
                 }
                 else {
-                    let property = {
+                    const property = {
                         element_name: (typeof option.element === 'string') ? option.element : ''
                     };
                     property[option.name] = option.value;
@@ -12440,31 +12436,31 @@ var Resources$6;
                 return [{
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target.closest('.ec-option-selector-items')) {
                                 e.preventDefault();
-                                let selected = target.textContent;
-                                let item_id = target.getAttribute('data-item');
+                                const selected = target.textContent;
+                                const item_id = target.getAttribute('data-item');
                                 if (selected && item_id) {
                                     target.closest('.ec-option-selector-dropdown').querySelector('.ec-button > span:first-child').textContent = selected;
-                                    let option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
-                                    let element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
+                                    const option_name = target.closest('.ec-display-flex')?.getAttribute('data-option');
+                                    const element_name = target.closest('.ec-display-flex')?.getAttribute('data-element') ? target.closest('.ec-display-flex')?.getAttribute('data-element') : '';
                                     if (option_name) {
-                                        let device = target.closest('.ec-sections').getAttribute('data-scope');
-                                        let element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
+                                        const device = target.closest('.ec-sections').getAttribute('data-scope');
+                                        const element_id = target.closest('.ec-composer-element-options')?.getAttribute('data-element');
                                         if (element_id) {
-                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                             if (iframe) {
-                                                let iframeDocument = iframe.contentDocument;
+                                                const iframeDocument = iframe.contentDocument;
                                                 if (iframeDocument !== null) {
-                                                    let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                                    const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                                     if (style !== null) {
-                                                        let sheet = style.sheet;
-                                                        let property = this.get_property(Resources.Options.Direction.saved_options[option_name + '_' + element_name]);
-                                                        let property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
-                                                        let style_content = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
+                                                        const sheet = style.sheet;
+                                                        const property = this.get_property(Resources.Options.Direction.saved_options[option_name + '_' + element_name]);
+                                                        const property_name = (Object.keys(property)[0] === 'element_name') ? Object.keys(property)[1].replaceAll('_', '-') : Object.keys(property)[0].replaceAll('_', '-');
+                                                        const style_content = update_property_value(sheet, element_id, element_name, property_name, item_id, device);
                                                         style.innerHTML = style_content;
-                                                        let backup = new Classes$1.Backup();
+                                                        const backup = new Classes$1.Backup();
                                                         backup.update_css_element_id(element_id, this.params, style_content);
                                                     }
                                                 }
@@ -12488,26 +12484,26 @@ var Resources$5;
         class Menu extends Abstracts.Options {
             prepare_template(params, option) {
                 let items = '';
-                let unique_id = Math.random();
-                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const unique_id = Math.random();
+                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                 if (iframe) {
-                    let iframeDocument = iframe.contentDocument;
+                    const iframeDocument = iframe.contentDocument;
                     if (iframeDocument !== null) {
-                        let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                        const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                         if (list) {
-                            let list_items = list.childNodes;
+                            const list_items = list.childNodes;
                             if (list_items.length > 0) {
                                 let count = 1;
-                                for (let item of list_items) {
+                                for (const item of list_items) {
                                     if (item.nodeName !== 'LI') {
                                         continue;
                                     }
-                                    let item_link = item.getElementsByTagName('a');
+                                    const item_link = item.getElementsByTagName('a');
                                     if (item_link.length < 1) {
                                         continue;
                                     }
-                                    let href = item_link[0].getAttribute('href');
-                                    let text = item_link[0].textContent;
+                                    const href = item_link[0].getAttribute('href');
+                                    const text = item_link[0].textContent;
                                     items += '<li data-index="' + count + '">'
                                         + '<div class="ec-w-100">'
                                         + '<div>'
@@ -12566,29 +12562,29 @@ var Resources$5;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-menu')) {
                                     e.preventDefault();
                                     if (target.classList.contains('ec-menu-item-text')) {
-                                        let li_text = target.value;
-                                        let li_index = target.closest('li').getAttribute('data-index');
+                                        const li_text = target.value;
+                                        const li_index = target.closest('li').getAttribute('data-index');
                                         if (li_index) {
                                             Classes$1.Timer.schedule_event('edit_menu_item_text', () => {
-                                                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                 if (iframe) {
-                                                    let iframeDocument = iframe.contentDocument;
+                                                    const iframeDocument = iframe.contentDocument;
                                                     if (iframeDocument !== null) {
-                                                        let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                        const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                         if (list) {
-                                                            let list_items = list.childNodes;
+                                                            const list_items = list.childNodes;
                                                             if (list_items.length > 0) {
                                                                 let count = 1;
-                                                                for (let item of list_items) {
+                                                                for (const item of list_items) {
                                                                     if (item.nodeName !== 'LI') {
                                                                         continue;
                                                                     }
-                                                                    let item_link = item.getElementsByTagName('a');
+                                                                    const item_link = item.getElementsByTagName('a');
                                                                     if (item_link.length < 1) {
                                                                         continue;
                                                                     }
@@ -12606,28 +12602,28 @@ var Resources$5;
                                         }
                                     }
                                     else if (target.classList.contains('ec-menu-item-url')) {
-                                        let li_url = target.value;
-                                        let li_index = target.closest('li').getAttribute('data-index');
+                                        const li_url = target.value;
+                                        const li_index = target.closest('li').getAttribute('data-index');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.add('ec-option-url-group-active-button');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[1].classList.remove('ec-option-url-group-active-button');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[2].classList.remove('ec-option-url-group-active-button');
                                         if (li_index) {
                                             Classes$1.Timer.schedule_event('edit_menu_item_url', () => {
                                                 target.closest('.ec-option-url-group').getElementsByTagName('button')[0].classList.remove('ec-option-url-group-active-button');
-                                                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                 if (iframe) {
-                                                    let iframeDocument = iframe.contentDocument;
+                                                    const iframeDocument = iframe.contentDocument;
                                                     if (iframeDocument !== null) {
-                                                        let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                        const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                         if (list) {
-                                                            let list_items = list.childNodes;
+                                                            const list_items = list.childNodes;
                                                             if (list_items.length > 0) {
                                                                 let count = 1;
-                                                                for (let item of list_items) {
+                                                                for (const item of list_items) {
                                                                     if (item.nodeName !== 'LI') {
                                                                         continue;
                                                                     }
-                                                                    let item_link = item.getElementsByTagName('a');
+                                                                    const item_link = item.getElementsByTagName('a');
                                                                     if (item_link.length < 1) {
                                                                         continue;
                                                                     }
@@ -12657,28 +12653,28 @@ var Resources$5;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-menu')) {
                                     e.preventDefault();
-                                    let ul = target.closest('ul');
+                                    const ul = target.closest('ul');
                                     if (target.classList.contains('ec-delete-item')) {
-                                        let li_index = target.closest('li').getAttribute('data-index');
+                                        const li_index = target.closest('li').getAttribute('data-index');
                                         if (li_index) {
-                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                             if (iframe) {
-                                                let iframeDocument = iframe.contentDocument;
+                                                const iframeDocument = iframe.contentDocument;
                                                 if (iframeDocument !== null) {
-                                                    let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                    const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                     if (list) {
-                                                        let list_items = list.childNodes;
+                                                        const list_items = list.childNodes;
                                                         if (list_items.length > 0) {
                                                             let count = 1;
-                                                            for (let item of list_items) {
+                                                            for (const item of list_items) {
                                                                 if (item.nodeName !== 'LI') {
                                                                     continue;
                                                                 }
-                                                                let item_link = item.getElementsByTagName('a');
+                                                                const item_link = item.getElementsByTagName('a');
                                                                 if (item_link.length < 1) {
                                                                     continue;
                                                                 }
@@ -12696,7 +12692,7 @@ var Resources$5;
                                         target.closest('li').remove();
                                         if (ul.getElementsByTagName('li')) {
                                             let count = 1;
-                                            for (let item of ul.getElementsByTagName('li')) {
+                                            for (const item of ul.getElementsByTagName('li')) {
                                                 item.setAttribute('data-index', count.toString());
                                                 item.getElementsByTagName('h3')[0].textContent = count + '#' + item.getElementsByTagName('h3')[0].textContent.split('#').slice(-1)[0];
                                                 count++;
@@ -12704,31 +12700,31 @@ var Resources$5;
                                         }
                                     }
                                     else if (target.classList.contains('ec-clone-item') && (target.closest('.ec-display-flex').getAttribute('data-option') === 'menu')) {
-                                        let ul = target.closest('ul');
-                                        let item = target.closest('li');
-                                        let cloned_item = item.cloneNode(true);
+                                        const ul = target.closest('ul');
+                                        const item = target.closest('li');
+                                        const cloned_item = item.cloneNode(true);
                                         item.insertAdjacentElement('afterend', cloned_item);
-                                        let li_index = target.closest('li').getAttribute('data-index');
+                                        const li_index = target.closest('li').getAttribute('data-index');
                                         if (li_index) {
-                                            let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                            const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                             if (iframe) {
-                                                let iframeDocument = iframe.contentDocument;
+                                                const iframeDocument = iframe.contentDocument;
                                                 if (iframeDocument !== null) {
-                                                    let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                    const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                     if (list) {
-                                                        let list_items = list.childNodes;
+                                                        const list_items = list.childNodes;
                                                         if (list_items.length > 0) {
                                                             let count = 1;
-                                                            for (let item of list_items) {
+                                                            for (const item of list_items) {
                                                                 if (item.nodeName !== 'LI') {
                                                                     continue;
                                                                 }
-                                                                let item_link = item.getElementsByTagName('a');
+                                                                const item_link = item.getElementsByTagName('a');
                                                                 if (item_link.length < 1) {
                                                                     continue;
                                                                 }
                                                                 if (parseInt(li_index) === count) {
-                                                                    let cloned_item = item.cloneNode(true);
+                                                                    const cloned_item = item.cloneNode(true);
                                                                     item.insertAdjacentElement('afterend', cloned_item);
                                                                     break;
                                                                 }
@@ -12741,7 +12737,7 @@ var Resources$5;
                                         }
                                         if (ul.getElementsByTagName('li')) {
                                             let count = 1;
-                                            for (let item of ul.getElementsByTagName('li')) {
+                                            for (const item of ul.getElementsByTagName('li')) {
                                                 item.setAttribute('data-index', count.toString());
                                                 item.getElementsByTagName('h3')[0].textContent = count + '#' + item.getElementsByTagName('h3')[0].textContent.split('#').slice(-1)[0];
                                                 count++;
@@ -12764,7 +12760,7 @@ var Resources$4;
     (function (Options) {
         class Social extends Abstracts.Options {
             prepare_template(params, option) {
-                let networks = [];
+                const networks = [];
                 networks.push({
                     network_name: 'Facebook',
                     network_id: 'facebook',
@@ -12805,9 +12801,9 @@ var Resources$4;
                     network_id: 'youtube',
                     network_icon: params.icons('youtube')
                 });
-                let grouped_networks = {};
+                const grouped_networks = {};
                 let networks_html = '';
-                for (let network of networks) {
+                for (const network of networks) {
                     networks_html += '<li>'
                         + '<a href="#" data-network="' + network.network_id + '">'
                         + network.network_name
@@ -12815,28 +12811,28 @@ var Resources$4;
                         + '</li>';
                     grouped_networks[network.network_id] = network.network_name;
                 }
-                let unique_id = Math.random();
+                const unique_id = Math.random();
                 let items = '';
-                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                 if (iframe) {
-                    let iframeDocument = iframe.contentDocument;
+                    const iframeDocument = iframe.contentDocument;
                     if (iframeDocument !== null) {
-                        let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                        const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                         if (list) {
-                            let list_items = list.childNodes;
+                            const list_items = list.childNodes;
                             if (list_items.length > 0) {
                                 let count = 1;
-                                for (let item of list_items) {
+                                for (const item of list_items) {
                                     if (item.nodeName !== 'LI') {
                                         continue;
                                     }
-                                    let network_link = item.getElementsByTagName('a');
+                                    const network_link = item.getElementsByTagName('a');
                                     if (network_link.length < 1) {
                                         continue;
                                     }
-                                    let href = network_link[0].getAttribute('href');
-                                    let path = (network_link[0].getElementsByTagName('path').length > 0) ? network_link[0].getElementsByTagName('path')[0].getAttribute('fill') : null;
-                                    let color = (path) ? path : '#000000';
+                                    const href = network_link[0].getAttribute('href');
+                                    const path = (network_link[0].getElementsByTagName('path').length > 0) ? network_link[0].getElementsByTagName('path')[0].getAttribute('fill') : null;
+                                    const color = (path) ? path : '#000000';
                                     items += '<li data-index="' + count + '">'
                                         + '<div class="ec-w-100 ec-mt-1">'
                                         + '<div class="ec-option-selector">'
@@ -12904,33 +12900,33 @@ var Resources$4;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-social')) {
                                     e.preventDefault();
                                     if (target.classList.contains('ec-social-item-url')) {
-                                        let li_url = target.value;
-                                        let li_index = target.closest('li').getAttribute('data-index');
+                                        const li_url = target.value;
+                                        const li_index = target.closest('li').getAttribute('data-index');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[0].classList.add('ec-option-url-group-active-button');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[1].classList.remove('ec-option-url-group-active-button');
                                         target.closest('.ec-option-url-group')?.getElementsByTagName('button')[2].classList.remove('ec-option-url-group-active-button');
                                         if (li_index) {
                                             Classes$1.Timer.schedule_event('edit_social_item_url', () => {
                                                 target.closest('.ec-option-url-group').getElementsByTagName('button')[0].classList.remove('ec-option-url-group-active-button');
-                                                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                 if (iframe) {
-                                                    let iframeDocument = iframe.contentDocument;
+                                                    const iframeDocument = iframe.contentDocument;
                                                     if (iframeDocument !== null) {
-                                                        let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                        const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                         if (list) {
-                                                            let list_items = list.childNodes;
+                                                            const list_items = list.childNodes;
                                                             if (list_items.length > 0) {
                                                                 let count = 1;
-                                                                for (let item of list_items) {
+                                                                for (const item of list_items) {
                                                                     if (item.nodeName !== 'LI') {
                                                                         continue;
                                                                     }
-                                                                    let item_link = item.getElementsByTagName('a');
+                                                                    const item_link = item.getElementsByTagName('a');
                                                                     if (item_link.length < 1) {
                                                                         continue;
                                                                     }
@@ -12960,42 +12956,42 @@ var Resources$4;
                     }, {
                         action: 'mousedown',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-button-color') && target.closest('.ec-option-social')) {
                                     e.preventDefault();
                                     new Plugins$1.Color().add_color_box(e, params);
-                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                     if (iframe) {
-                                        let iframeDocument = iframe.contentDocument;
+                                        const iframeDocument = iframe.contentDocument;
                                         if (iframeDocument !== null) {
-                                            let elements = iframeDocument.getElementsByClassName('ec-element-content-active');
+                                            const elements = iframeDocument.getElementsByClassName('ec-element-content-active');
                                             if (elements.length > 0) {
                                                 setTimeout(() => {
                                                     Classes$1.Observer.monitor_element('option_color', target, { attributes: true }, (mutations) => {
-                                                        for (let mutation of mutations) {
+                                                        for (const mutation of mutations) {
                                                             if (mutation.attributeName === 'data-color') {
-                                                                let mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
-                                                                let li_index = mutation_target.closest('li').getAttribute('data-index');
+                                                                const mutation_target = (mutation.target.nodeName === '#text') ? mutation.target.parentElement : mutation.target;
+                                                                const li_index = mutation_target.closest('li').getAttribute('data-index');
                                                                 if (li_index) {
-                                                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                                     if (iframe) {
-                                                                        let iframeDocument = iframe.contentDocument;
+                                                                        const iframeDocument = iframe.contentDocument;
                                                                         if (iframeDocument !== null) {
-                                                                            let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                                            const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                                             if (list) {
-                                                                                let list_items = list.childNodes;
+                                                                                const list_items = list.childNodes;
                                                                                 if (list_items.length > 0) {
                                                                                     let count = 1;
-                                                                                    for (let item of list_items) {
+                                                                                    for (const item of list_items) {
                                                                                         if (item.nodeName !== 'LI') {
                                                                                             continue;
                                                                                         }
-                                                                                        let network_link = item.getElementsByTagName('a');
+                                                                                        const network_link = item.getElementsByTagName('a');
                                                                                         if (network_link.length < 1) {
                                                                                             continue;
                                                                                         }
-                                                                                        let path = network_link[0].getElementsByTagName('path');
+                                                                                        const path = network_link[0].getElementsByTagName('path');
                                                                                         if (path.length > 0) {
                                                                                             if (parseInt(li_index) === count) {
                                                                                                 path[0].setAttribute('fill', mutation_target.getAttribute('data-color'));
@@ -13022,42 +13018,42 @@ var Resources$4;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-networks') && (target.nodeName === 'A')) {
                                     e.preventDefault();
-                                    let network = target.getAttribute('data-network');
+                                    const network = target.getAttribute('data-network');
                                     if (network && params.icons(network)) {
-                                        let selected_color = target.closest('.ec-networks').closest('li').querySelector('.ec-button-color > button').getAttribute('data-color');
-                                        let icon = params.icons(network);
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const selected_color = target.closest('.ec-networks').closest('li').querySelector('.ec-button-color > button').getAttribute('data-color');
+                                        const icon = params.icons(network);
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let elements = iframeDocument.getElementsByClassName('ec-element-content-active');
+                                                const elements = iframeDocument.getElementsByClassName('ec-element-content-active');
                                                 if (elements.length > 0) {
-                                                    let li_index = target.closest('.ec-networks').closest('li').getAttribute('data-index');
+                                                    const li_index = target.closest('.ec-networks').closest('li').getAttribute('data-index');
                                                     if (li_index) {
-                                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                                         if (iframe) {
-                                                            let iframeDocument = iframe.contentDocument;
+                                                            const iframeDocument = iframe.contentDocument;
                                                             if (iframeDocument !== null) {
-                                                                let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                                const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                                 if (list) {
-                                                                    let list_items = list.childNodes;
+                                                                    const list_items = list.childNodes;
                                                                     if (list_items.length > 0) {
                                                                         let count = 1;
-                                                                        for (let item of list_items) {
+                                                                        for (const item of list_items) {
                                                                             if (item.nodeName !== 'LI') {
                                                                                 continue;
                                                                             }
-                                                                            let network_link = item.getElementsByTagName('a');
+                                                                            const network_link = item.getElementsByTagName('a');
                                                                             if (network_link.length < 1) {
                                                                                 continue;
                                                                             }
                                                                             if (parseInt(li_index) === count) {
                                                                                 network_link[0].innerHTML = icon;
-                                                                                let path = network_link[0].getElementsByTagName('path');
+                                                                                const path = network_link[0].getElementsByTagName('path');
                                                                                 if (path.length > 0) {
                                                                                     path[0].setAttribute('fill', selected_color);
                                                                                 }
@@ -13079,23 +13075,23 @@ var Resources$4;
                                 }
                                 else if (target.classList.contains('ec-delete-item') && (target.closest('.ec-display-flex')?.getAttribute('data-option') === 'social')) {
                                     e.preventDefault();
-                                    let ul = target.closest('ul');
-                                    let li_index = target.closest('li').getAttribute('data-index');
+                                    const ul = target.closest('ul');
+                                    const li_index = target.closest('li').getAttribute('data-index');
                                     if (li_index) {
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                 if (list) {
-                                                    let list_items = list.childNodes;
+                                                    const list_items = list.childNodes;
                                                     if (list_items.length > 0) {
                                                         let count = 1;
-                                                        for (let item of list_items) {
+                                                        for (const item of list_items) {
                                                             if (item.nodeName !== 'LI') {
                                                                 continue;
                                                             }
-                                                            let item_link = item.getElementsByTagName('a');
+                                                            const item_link = item.getElementsByTagName('a');
                                                             if (item_link.length < 1) {
                                                                 continue;
                                                             }
@@ -13113,7 +13109,7 @@ var Resources$4;
                                     target.closest('li').remove();
                                     if (ul.querySelectorAll('li[data-index]').length > 0) {
                                         let count = 1;
-                                        for (let item of ul.querySelectorAll('li[data-index]')) {
+                                        for (const item of ul.querySelectorAll('li[data-index]')) {
                                             item.setAttribute('data-index', count.toString());
                                             count++;
                                         }
@@ -13121,31 +13117,31 @@ var Resources$4;
                                 }
                                 else if (target.classList.contains('ec-clone-item') && (target.closest('.ec-display-flex').getAttribute('data-option') === 'social')) {
                                     e.preventDefault();
-                                    let ul = target.closest('ul');
-                                    let item = target.closest('li');
-                                    let cloned_item = item.cloneNode(true);
+                                    const ul = target.closest('ul');
+                                    const item = target.closest('li');
+                                    const cloned_item = item.cloneNode(true);
                                     item.insertAdjacentElement('afterend', cloned_item);
-                                    let li_index = target.closest('li').getAttribute('data-index');
+                                    const li_index = target.closest('li').getAttribute('data-index');
                                     if (li_index) {
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
+                                                const list = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data ul');
                                                 if (list) {
-                                                    let list_items = list.childNodes;
+                                                    const list_items = list.childNodes;
                                                     if (list_items.length > 0) {
                                                         let count = 1;
-                                                        for (let item of list_items) {
+                                                        for (const item of list_items) {
                                                             if (item.nodeName !== 'LI') {
                                                                 continue;
                                                             }
-                                                            let item_link = item.getElementsByTagName('a');
+                                                            const item_link = item.getElementsByTagName('a');
                                                             if (item_link.length < 1) {
                                                                 continue;
                                                             }
                                                             if (parseInt(li_index) === count) {
-                                                                let cloned_item = item.cloneNode(true);
+                                                                const cloned_item = item.cloneNode(true);
                                                                 item.insertAdjacentElement('afterend', cloned_item);
                                                                 break;
                                                             }
@@ -13158,7 +13154,7 @@ var Resources$4;
                                     }
                                     if (ul.querySelectorAll('li[data-index]').length > 0) {
                                         let count = 1;
-                                        for (let item of ul.querySelectorAll('li[data-index]')) {
+                                        for (const item of ul.querySelectorAll('li[data-index]')) {
                                             item.setAttribute('data-index', count.toString());
                                             count++;
                                         }
@@ -13182,7 +13178,7 @@ var Resources$3;
                 setTimeout(() => {
                     get_icons(params, 1);
                 }, 300);
-                let unique_id = Math.random();
+                const unique_id = Math.random();
                 return {
                     template: '<div class="ec-w-100">'
                         + '<div>'
@@ -13244,7 +13240,7 @@ var Resources$3;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-option-icons')) {
                                 if (target.classList.contains('ec-search-input')) {
                                     target.closest('.ec-search').classList.remove('ec-search-complete');
@@ -13265,7 +13261,7 @@ var Resources$3;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-option-icons')) {
                                     if (target.nodeName !== 'INPUT') {
@@ -13302,8 +13298,8 @@ var Resources$3;
                                         get_icons(params, 1);
                                     }
                                     else if (target.closest('.ec-sizes') && (target.nodeName === 'A')) {
-                                        let icon_id = target.closest('.ec-sizes').closest('li').getAttribute('data-icon');
-                                        let size = target.getAttribute('data-size');
+                                        const icon_id = target.closest('.ec-sizes').closest('li').getAttribute('data-icon');
+                                        const size = target.getAttribute('data-size');
                                         download_icon(params, icon_id, size);
                                     }
                                 }
@@ -13323,18 +13319,18 @@ var Resources$2;
         class List extends Abstracts.Options {
             prepare_template(params, option) {
                 let items = '';
-                let unique_id = Math.random();
+                const unique_id = Math.random();
                 if (option.items.length > 0) {
-                    let values = {
+                    const values = {
                         get_value: (key) => {
                             return values.hasOwnProperty(key) ? ' value="' + values[key] + '"' : '';
                         }
                     };
-                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                     if (iframe) {
-                        let iframeDocument = iframe.contentDocument;
+                        const iframeDocument = iframe.contentDocument;
                         if (iframeDocument !== null) {
-                            let template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                            const template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
                             if (template.getAttribute('data-utm-source')) {
                                 values['utm_source'] = template.getAttribute('data-utm-source');
                             }
@@ -13352,7 +13348,7 @@ var Resources$2;
                             }
                         }
                     }
-                    for (let item of option.items) {
+                    for (const item of option.items) {
                         items += '<li data-name="' + item.name + '">'
                             + '<div class="ec-w-100">'
                             + '<div>'
@@ -13386,15 +13382,15 @@ var Resources$2;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]')) {
                                     e.preventDefault();
-                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                     if (iframe) {
-                                        let iframeDocument = iframe.contentDocument;
+                                        const iframeDocument = iframe.contentDocument;
                                         if (iframeDocument !== null) {
-                                            let template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                                            const template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
                                             if (target.closest('li').getAttribute('data-name') === 'utm_source') {
                                                 template.setAttribute('data-utm-source', target.value);
                                             }
@@ -13429,17 +13425,17 @@ var Resources$1;
         class Checkbox extends Abstracts.Options {
             prepare_template(params, option) {
                 let checked = (parseInt(option.value) > 0) ? ' checked' : '';
-                let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                 if (iframe) {
-                    let iframeDocument = iframe.contentDocument;
+                    const iframeDocument = iframe.contentDocument;
                     if (iframeDocument !== null) {
-                        let template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                        const template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
                         if (template.getAttribute('data-google-analytics')) {
                             checked = (parseInt(template.getAttribute('data-google-analytics')) > 0) ? ' checked' : '';
                         }
                     }
                 }
-                let unique_id = Math.random();
+                const unique_id = Math.random();
                 return {
                     template: '<div>'
                         + '<h3>'
@@ -13464,15 +13460,15 @@ var Resources$1;
                 return [{
                         action: 'change',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-composer-modal[data-scope="ec-composer-settings-modal"]')) {
                                     e.preventDefault();
-                                    let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                     if (iframe) {
-                                        let iframeDocument = iframe.contentDocument;
+                                        const iframeDocument = iframe.contentDocument;
                                         if (iframeDocument !== null) {
-                                            let template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
+                                            const template = iframeDocument.getElementsByClassName('ec-composer-template')[0];
                                             template.setAttribute('data-google-analytics', target.checked ? '1' : '0');
                                         }
                                     }
@@ -13564,13 +13560,13 @@ var Resources;
     (function (Options) {
         class Ai extends Abstracts.Options {
             prepare_template(params, option) {
-                let unique_id = Date.now();
+                const unique_id = Date.now();
                 let ai_selected_service_slug = '';
                 let ai_selected_service_name = '';
                 let all_services = '<ul class="ec-services">';
                 if (services && (Object.keys(services).length > 0)) {
-                    for (let service of Object.keys(services)) {
-                        let service_data = Object.getOwnPropertyDescriptor(services, service)?.value(params);
+                    for (const service of Object.keys(services)) {
+                        const service_data = Object.getOwnPropertyDescriptor(services, service)?.value(params);
                         if (!ai_selected_service_slug) {
                             ai_selected_service_slug = service_data.slug;
                             ai_selected_service_name = service_data.name;
@@ -13589,8 +13585,8 @@ var Resources;
                 all_services += '</ul>';
                 let default_suggestions = '<ul class="ec-ai-default-suggestions">';
                 if (suggestions && (Object.keys(suggestions).length > 0)) {
-                    for (let suggestion of Object.keys(suggestions)) {
-                        let suggestion_data = Object.getOwnPropertyDescriptor(suggestions, suggestion)?.value(params);
+                    for (const suggestion of Object.keys(suggestions)) {
+                        const suggestion_data = Object.getOwnPropertyDescriptor(suggestions, suggestion)?.value(params);
                         default_suggestions += '<li>'
                             + '<a href="#" data-command="' + suggestion_data.command + '">'
                             + params.icons('search')
@@ -13600,7 +13596,7 @@ var Resources;
                     }
                 }
                 default_suggestions += '</ul>';
-                let chat_response = `<div class="ec-ai-chat-response">
+                const chat_response = `<div class="ec-ai-chat-response">
                 <div class="ec-ai-response"></div>
                 <div class="ec-ai-actions ec-right">
                     <a href="#" class="ec-insert-ai-response">
@@ -13609,7 +13605,7 @@ var Resources;
                     </a>
                 </div>
             </div>`;
-                let chat_error = `<div class="ec-ai-chat-error">
+                const chat_error = `<div class="ec-ai-chat-error">
                 <div class="ec-ai-message"></div>
             </div>`;
                 return {
@@ -13652,10 +13648,10 @@ var Resources;
                 return [{
                         action: 'input',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if ((target !== null) && target.closest('.ec-text-composer')) {
                                 Classes$1.Timer.schedule_event('search_ai_content', () => {
-                                    let command = params.selector.querySelector('.ec-option-ai .ec-textarea');
+                                    const command = params.selector.querySelector('.ec-option-ai .ec-textarea');
                                     if (command.value.trim() !== '') {
                                         get_ai_content(this.params);
                                     }
@@ -13674,17 +13670,17 @@ var Resources;
                     }, {
                         action: 'click',
                         target: (e) => {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (target.closest('.ec-ai-actions')) {
                                     e.preventDefault();
                                     if (target.closest('.ec-insert-ai-response') && (target.nodeName === 'A')) {
-                                        let response = target.closest('.ec-ai-chat-response')?.getElementsByClassName('ec-ai-response')[0].innerHTML;
-                                        let iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                        const response = target.closest('.ec-ai-chat-response')?.getElementsByClassName('ec-ai-response')[0].innerHTML;
+                                        const iframe = this.params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                         if (iframe && response) {
-                                            let iframeDocument = iframe.contentDocument;
+                                            const iframeDocument = iframe.contentDocument;
                                             if (iframeDocument !== null) {
-                                                let element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                                const element = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                                 if (element) {
                                                     element.insertAdjacentHTML('beforeend', response);
                                                 }
@@ -13694,18 +13690,18 @@ var Resources;
                                 }
                                 else if (target.closest('.ec-ai-default-suggestions') && (target.nodeName === 'A')) {
                                     e.preventDefault();
-                                    let command = target.getAttribute('data-command');
+                                    const command = target.getAttribute('data-command');
                                     if (command) {
-                                        let textarea = target.closest('.ec-option-ai')?.getElementsByClassName('ec-textarea')[0];
+                                        const textarea = target.closest('.ec-option-ai')?.getElementsByClassName('ec-textarea')[0];
                                         textarea.value = command;
                                         get_ai_content(this.params);
                                     }
                                 }
                                 else if (target.closest('.ec-services')) {
                                     e.preventDefault();
-                                    let service_slug = target.getAttribute('data-service');
+                                    const service_slug = target.getAttribute('data-service');
                                     if (service_slug) {
-                                        let service_name = target.textContent;
+                                        const service_name = target.textContent;
                                         target.closest('.ec-option-selector-dropdown').getElementsByClassName('ec-button')[0].setAttribute('data-service', service_slug);
                                         target.closest('.ec-option-selector-dropdown').querySelectorAll('.ec-button > span')[0].textContent = service_name;
                                         get_ai_content(this.params);
@@ -13918,17 +13914,17 @@ var Class;
                 }];
         }
         async create_module(params, module) {
-            let fields = {
+            const fields = {
                 module: module
             };
-            let request_params = {
+            const request_params = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(fields)
             };
-            let response = await fetch(params.options('api_url') + 'api/create_module', request_params);
+            const response = await fetch(params.options('api_url') + 'api/create_module', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_modal_message(params, 'error', params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -13941,11 +13937,11 @@ var Class;
                 }
                 return;
             }
-            let json = await response.json();
+            const json = await response.json();
             params.selector.querySelector('.ec-composer-modal-show').getElementsByClassName('ec-save-module-button')[0].classList.remove('ec-saving-module-button');
             if (json.success) {
                 show_modal_message(params, 'success', json.message);
-                let create_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                const create_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
                 create_module.getElementsByClassName('ec-menu-module-name')[0].value = '';
                 create_module.getElementsByClassName('ec-menu-module-description')[0].value = '';
                 create_module.getElementsByClassName('ec-module-advanced-fields')[0].classList.remove('ec-module-advanced-fields-expanded');
@@ -13963,25 +13959,25 @@ var Class;
             }
         }
         async get_modules(params, type, page) {
-            let fields = {
+            const fields = {
                 type: type,
                 page: page,
                 search: (type === 'personal') ? params.selector.querySelector('.ec-modules-component .ec-search-personal-modules').value : params.selector.querySelector('.ec-modules-component .ec-search-default-modules').value
             };
             if (type === 'default') {
-                let category = params.selector.querySelector('.ec-option-selector-dropdown .ec-button').getAttribute('data-id');
+                const category = params.selector.querySelector('.ec-option-selector-dropdown .ec-button').getAttribute('data-id');
                 if (category) {
                     fields['category'] = category;
                 }
             }
-            let request_params = {
+            const request_params = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(fields),
             };
-            let response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
+            const response = await fetch(params.options('api_url') + 'api/get_modules', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -13995,13 +13991,13 @@ var Class;
                 params.selector.querySelector('.ec-modules-component .ec-search-sections > .ec-search-section:first-child .ec-modules-list').classList.add('ec-no-modules-message');
                 return;
             }
-            let json = await response.json();
+            const json = await response.json();
             if (type === 'personal') {
                 params.selector.querySelector('.ec-modules-component .ec-search-sections > .ec-search-section:first-child .ec-loading-button > a').classList.remove('ec-load-more-active');
                 if ((typeof json.modules !== 'undefined') && (json.modules.length > 0)) {
                     params.selector.querySelector('.ec-modules-component .ec-search-sections > .ec-search-section:first-child .ec-modules-list').classList.remove('ec-no-modules-message');
                     let modules_list = '';
-                    for (let module of json.modules) {
+                    for (const module of json.modules) {
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
                             + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
@@ -14027,7 +14023,7 @@ var Class;
                 if ((typeof json.modules !== 'undefined') && (json.modules.length > 0)) {
                     params.selector.querySelector('.ec-modules-component .ec-search-sections > .ec-search-section:last-child .ec-modules-list').classList.remove('ec-no-modules-message');
                     let modules_list = '';
-                    for (let module of json.modules) {
+                    for (const module of json.modules) {
                         modules_list += '<a href="#" class="ec-module" data-module="' + module.id + '">'
                             + '<img src="' + params.options('share_url') + module.cover + '" alt="' + module.name + '">'
                             + '<div>'
@@ -14050,18 +14046,18 @@ var Class;
             }
         }
         async get_module(params, module_id, module_type) {
-            let fields = {
+            const fields = {
                 module_id: module_id,
                 module_type: module_type
             };
-            let request_params = {
+            const request_params = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(fields),
             };
-            let response = await fetch(params.options('api_url') + 'api/get_module', request_params);
+            const response = await fetch(params.options('api_url') + 'api/get_module', request_params);
             if (!response.ok) {
                 if (response.status === 404) {
                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -14074,31 +14070,31 @@ var Class;
                 }
                 return;
             }
-            let json = await response.json();
+            const json = await response.json();
             if (json.success) {
                 let json_html = json.html;
                 json_html = json_html.replaceAll('<br>', '<br />');
                 json_html = json_html.replaceAll(/<img(.*?)>/g, '<img$1/>');
-                let html = new DOMParser().parseFromString(json_html, "text/xml");
-                let html_elements = html.getElementsByClassName('ec-element-content');
-                let elements_ids = [];
+                const html = new DOMParser().parseFromString(json_html, "text/xml");
+                const html_elements = html.getElementsByClassName('ec-element-content');
+                const elements_ids = [];
                 if (html_elements.length > 0) {
                     let index = 0;
-                    for (let element of html_elements) {
-                        let element_id = 'ec-element-' + index + '-' + Date.now();
+                    for (const element of html_elements) {
+                        const element_id = 'ec-element-' + index + '-' + Date.now();
                         elements_ids.push(element_id);
                         json.html = json.html.replaceAll(element.getAttribute('data-id'), element_id);
                         json.css = json.css.replaceAll(element.getAttribute('data-id'), element_id);
                         index++;
                     }
                 }
-                let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                let idocument = itemplate.contentDocument;
+                const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                const idocument = itemplate.contentDocument;
                 if (idocument) {
                     if (elements_ids.length > 0) {
-                        let module_placeholder = idocument.getElementsByClassName('ec-composer-template-module-placeholder');
+                        const module_placeholder = idocument.getElementsByClassName('ec-composer-template-module-placeholder');
                         if (module_placeholder.length > 0) {
-                            let structure_buttons = get_structure_buttons();
+                            const structure_buttons = get_structure_buttons();
                             module_placeholder[0].closest('.ec-composer-template-content-line').outerHTML = json.html.replace('ec-composer-template-content-line', 'ec-composer-template-content-line ec-composer-template-content-line-temp-show');
                             idocument.getElementsByClassName('ec-composer-template-content-line-temp-show')[0].insertAdjacentHTML('afterbegin', structure_buttons);
                             setTimeout(() => {
@@ -14106,10 +14102,10 @@ var Class;
                             }, 300);
                             idocument.head.innerHTML += json.css;
                         }
-                        let element_buttons = get_element_buttons();
+                        const element_buttons = get_element_buttons();
                         let css_elements = null;
-                        for (let element_id of elements_ids) {
-                            let style = idocument.head.querySelector('style[data-element="' + element_id + '"]');
+                        for (const element_id of elements_ids) {
+                            const style = idocument.head.querySelector('style[data-element="' + element_id + '"]');
                             if (style !== null) {
                                 if (css_elements !== null) {
                                     css_elements[element_id] = style.innerText;
@@ -14123,7 +14119,7 @@ var Class;
                             idocument.querySelector('.ec-element-content[data-id="' + element_id + '"]').insertAdjacentHTML('afterbegin', element_buttons);
                         }
                         if (css_elements !== null) {
-                            let backup = new Classes$1.Backup();
+                            const backup = new Classes$1.Backup();
                             backup.save_module(params, css_elements, remove_buttons(idocument.getElementsByClassName('ec-composer-template')[0].outerHTML));
                         }
                     }
@@ -14160,14 +14156,14 @@ var Components$d;
                     element: '.ec-composer-nav .ec-composer-nav-link',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target instanceof HTMLElement) {
-                            let nav = target.closest('.ec-composer-nav');
+                            const nav = target.closest('.ec-composer-nav');
                             if (nav.getElementsByClassName('ec-composer-nav-link').length > 0) {
-                                let href_link = target.getAttribute('href');
+                                const href_link = target.getAttribute('href');
                                 if (href_link) {
                                     if (params.selector.querySelector(href_link)) {
-                                        let old_href_link = nav.getElementsByClassName('ec-composer-nav-link-active')[0]?.getAttribute('href');
+                                        const old_href_link = nav.getElementsByClassName('ec-composer-nav-link-active')[0]?.getAttribute('href');
                                         if (old_href_link) {
                                             params.selector.querySelector(old_href_link).classList.add('ec-tab-hide');
                                         }
@@ -14178,7 +14174,7 @@ var Components$d;
                                             });
                                             if ((target instanceof HTMLElement) && href_link) {
                                                 target.classList.add('ec-composer-nav-link-active');
-                                                let all_tabs = params.selector.querySelector(href_link).closest('.ec-tabs').getElementsByClassName('ec-tab');
+                                                const all_tabs = params.selector.querySelector(href_link).closest('.ec-tabs').getElementsByClassName('ec-tab');
                                                 if (all_tabs) {
                                                     Array.from(all_tabs).forEach((element) => {
                                                         element.classList.remove('ec-tab-show', 'ec-tab-hide', 'ec-tab-start');
@@ -14215,15 +14211,15 @@ var Components$c;
                 {
                     action: 'click',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target instanceof HTMLElement) {
                             if (target.closest('.ec-section-header')) {
-                                let section = target.closest('.ec-section');
+                                const section = target.closest('.ec-section');
                                 if (section !== null) {
-                                    let section_body = section.querySelector('.ec-section-body');
+                                    const section_body = section.querySelector('.ec-section-body');
                                     if (section.classList.contains('ec-section-show')) {
                                         section.classList.add('ec-section-active');
-                                        let first_child = section_body?.firstChild;
+                                        const first_child = section_body?.firstChild;
                                         section_body.style.height = first_child.offsetHeight + 'px';
                                         setTimeout(() => {
                                             section_body.style.height = '0';
@@ -14236,7 +14232,7 @@ var Components$c;
                                     else {
                                         section_body.style.height = '0';
                                         section.classList.add('ec-section-show');
-                                        let first_child = section_body?.firstChild;
+                                        const first_child = section_body?.firstChild;
                                         section_body.style.height = first_child.offsetHeight + 'px';
                                         setTimeout(() => {
                                             section_body.style.height = 'auto';
@@ -14252,9 +14248,9 @@ var Components$c;
                     action: 'click',
                     element: '.ec-composer .ec-section-action-hide-button',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target instanceof HTMLElement) {
-                            let composer_main = target.closest('.ec-composer-main');
+                            const composer_main = target.closest('.ec-composer-main');
                             if (composer_main instanceof HTMLElement) {
                                 composer_main.classList.add('ec-composer-main-hide-panel');
                                 params.selector.getElementsByClassName('ec-composer-nav-link-active')[0].classList.remove('ec-composer-nav-link-active');
@@ -14306,23 +14302,23 @@ var Components$b;
                         if (e.target.value === '1') {
                             params.selector.getElementsByClassName('ec-composer-preview')[0].innerHTML = '';
                             params.selector.getElementsByClassName('ec-composer-preview')[0].classList.add('ec-composer-preview-show');
-                            let builder_options = get_option('builder');
-                            let itemplate = document.createElement('iframe');
+                            const builder_options = get_option('builder');
+                            const itemplate = document.createElement('iframe');
                             itemplate.classList.add('ec-composer-template-preview');
                             itemplate.setAttribute('frameborder', '0');
                             itemplate.setAttribute('sandbox', 'allow-same-origin allow-modals');
                             params.selector.getElementsByClassName('ec-composer-preview')[0].appendChild(itemplate);
                             if (typeof builder_options.css === 'object') {
                                 if (builder_options.css.length > 0) {
-                                    let css_link = document.createElement('link');
+                                    const css_link = document.createElement('link');
                                     css_link.setAttribute('href', builder_options.css[0].href);
                                     css_link.setAttribute('rel', 'stylesheet');
                                     itemplate.contentDocument.head.innerHTML += css_link.outerHTML;
                                 }
                             }
-                            let fonts_link = get_fonts_link();
+                            const fonts_link = get_fonts_link();
                             if (fonts_link) {
-                                let link = document.createElement('link');
+                                const link = document.createElement('link');
                                 link.setAttribute('href', fonts_link);
                                 link.setAttribute('rel', 'stylesheet');
                                 document.head.appendChild(link);
@@ -14350,20 +14346,20 @@ var Components$b;
                     element: '.ec-composer .ec-composer-name-icon',
                     target: async (e) => {
                         e.preventDefault();
-                        let template_name = e.target.closest('.ec-composer-name').getElementsByClassName('ec-composer-name-text')[0].textContent;
+                        const template_name = e.target.closest('.ec-composer-name').getElementsByClassName('ec-composer-name-text')[0].textContent;
                         if (template_name) {
-                            let post_fields = {
+                            const post_fields = {
                                 template_id: params.template_id,
                                 template_name: template_name
                             };
-                            let request_params = {
+                            const request_params = {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify(post_fields)
                             };
-                            let response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
+                            const response = await fetch(params.options('api_url') + 'api/update_template_name', request_params);
                             if (!response.ok) {
                                 if (response.status === 404) {
                                     show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -14376,7 +14372,7 @@ var Components$b;
                                 }
                                 return;
                             }
-                            let json = await response.json();
+                            const json = await response.json();
                             e.target.closest('.ec-composer-name').classList.remove('ec-composer-name-unsaved-changes');
                             setTimeout(() => {
                                 e.target.closest('.ec-composer-name').classList.remove('ec-composer-name-saved-changes');
@@ -14402,9 +14398,9 @@ var Components$b;
                             params.selector.querySelectorAll('.ec-composer-mode input[type="radio"]')[0].click();
                         }
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
-                        let settings_modal = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-settings-modal"]');
+                        const settings_modal = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-settings-modal"]');
                         settings_modal.classList.add('ec-composer-modal-show');
-                        let default_options = [{
+                        const default_options = [{
                                 title: params.words('position'),
                                 list: [{
                                         name: 'text_align',
@@ -14540,20 +14536,20 @@ var Components$b;
                                     }],
                                 collapsed: false
                             }];
-                        let properties_list = {};
-                        let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                        const properties_list = {};
+                        const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                         if (iframe_template[0] instanceof HTMLIFrameElement) {
-                            let idocument = iframe_template[0].contentDocument;
+                            const idocument = iframe_template[0].contentDocument;
                             if (idocument !== null) {
-                                let default_styles = iframe_template[0].contentDocument?.head.querySelector('style[data-scope="default"]');
+                                const default_styles = iframe_template[0].contentDocument?.head.querySelector('style[data-scope="default"]');
                                 if ((typeof default_styles !== 'undefined') && default_styles) {
-                                    let sheet = default_styles.sheet;
+                                    const sheet = default_styles.sheet;
                                     if (sheet !== null) {
                                         if (sheet.cssRules.length > 0) {
-                                            for (let rule of sheet.cssRules) {
+                                            for (const rule of sheet.cssRules) {
                                                 if (typeof rule.media === 'undefined') {
-                                                    let style = rule.style;
-                                                    for (let property of rule.style) {
+                                                    const style = rule.style;
+                                                    for (const property of rule.style) {
                                                         if (typeof properties_list[rule.selectorText] !== 'undefined') {
                                                             properties_list[rule.selectorText][property] = style.getPropertyValue(property);
                                                         }
@@ -14570,7 +14566,7 @@ var Components$b;
                                 }
                             }
                         }
-                        let template_options = get_template_options(default_options, properties_list, params);
+                        const template_options = get_template_options(default_options, properties_list, params);
                         if (typeof template_options !== 'undefined') {
                             params.selector.querySelector('.ec-composer .ec-composer-modal[data-scope="ec-composer-settings-modal"] .ec-composer-modal-body .ec-sections').innerHTML = template_options;
                         }
@@ -14582,7 +14578,7 @@ var Components$b;
                     target: (e) => {
                         e.preventDefault();
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
-                        let export_modal = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
+                        const export_modal = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
                         export_modal.classList.add('ec-composer-modal-show');
                     },
                     capture: false
@@ -14595,13 +14591,13 @@ var Components$b;
                         setTimeout(() => {
                             params.selector.innerHTML = '';
                         }, 300);
-                        let events_list = Classes$1.Events.events_list;
+                        const events_list = Classes$1.Events.events_list;
                         if (events_list && (events_list.length > 0)) {
-                            for (let event of events_list) {
-                                let { node, action, target, iframe, capture } = event;
+                            for (const event of events_list) {
+                                const { node, action, target, iframe, capture } = event;
                                 if (!node) {
                                     if (iframe) {
-                                        let iframes = document.querySelectorAll(iframe);
+                                        const iframes = document.querySelectorAll(iframe);
                                         if (typeof iframes !== 'undefined') {
                                             iframes[0].contentWindow.removeEventListener(action, target, capture);
                                         }
@@ -14611,7 +14607,7 @@ var Components$b;
                                     }
                                 }
                                 else {
-                                    let all_nodes = node.length;
+                                    const all_nodes = node.length;
                                     for (var a = 0; a < all_nodes; a++) {
                                         node[a].removeEventListener(action, target, capture);
                                     }
@@ -14627,22 +14623,22 @@ var Components$b;
                     element: '.ec-composer .ec-save-download-html-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         target.classList.add('ec-save-download-active-button');
-                        let export_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
+                        const export_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-export-modal"]');
                         export_module.getElementsByClassName('ec-composer-modal-message')[0].classList.remove('ec-composer-modal-message-error');
-                        let fields = {
+                        const fields = {
                             template_id: params.template_id,
                             format: 'html'
                         };
-                        let request_params = {
+                        const request_params = {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
                             },
                             body: JSON.stringify(fields)
                         };
-                        let request = fetch(params.options('api_url') + 'api/download_template', request_params);
+                        const request = fetch(params.options('api_url') + 'api/download_template', request_params);
                         request.then(response => {
                             return response.json();
                         }).then(response => {
@@ -14677,8 +14673,8 @@ var Components$a;
                     element: '.ec-search .ec-search-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
-                        let nav = target.closest('.ec-search');
+                        const target = e.target;
+                        const nav = target.closest('.ec-search');
                         if (nav.getElementsByClassName('ec-search-active-button').length > 0) {
                             if (params.selector.querySelector(target.getAttribute('data-target'))) {
                                 params.selector.querySelector(nav.getElementsByClassName('ec-search-active-button')[0].getAttribute('data-target')).classList.add('ec-search-section-hide');
@@ -14712,11 +14708,11 @@ var Components$9;
                 {
                     action: 'click',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target.closest('.ec-loading-navigation-button')) {
                             e.preventDefault();
-                            let history = target.closest('.ec-history-component')?.getAttribute('data-history');
-                            let page = target.closest('a')?.getAttribute('data-page');
+                            const history = target.closest('.ec-history-component')?.getAttribute('data-history');
+                            const page = target.closest('a')?.getAttribute('data-page');
                             if ((typeof history === 'string') && (typeof page === 'string')) {
                                 new Classes$1.History().get_history_by_date(params, parseInt(history), parseInt(page), 4);
                             }
@@ -14737,7 +14733,7 @@ var Components$9;
                             e.preventDefault();
                             if (target.closest('.ec-loading-button')) {
                                 target.classList.add('ec-load-more-active');
-                                let page = target.getAttribute('data-page');
+                                const page = target.getAttribute('data-page');
                                 if (page) {
                                     new Classes$1.History().get_history_all(params, parseInt(page), 10);
                                 }
@@ -14774,10 +14770,10 @@ var Components$8;
                     element: '.ec-composer .ec-template-resize-code-button',
                     target: (e) => {
                         if (e.buttons === 1) {
-                            let container = params.selector.getElementsByClassName('ec-composer-container')[0];
-                            let container_rect = container.getBoundingClientRect();
-                            let client_y = (e.clientY > -1) ? (e.clientY - container_rect.y) : 0;
-                            let difference = container_rect.height - (client_y - 94);
+                            const container = params.selector.getElementsByClassName('ec-composer-container')[0];
+                            const container_rect = container.getBoundingClientRect();
+                            const client_y = (e.clientY > -1) ? (e.clientY - container_rect.y) : 0;
+                            const difference = container_rect.height - (client_y - 94);
                             if (difference > 199) {
                                 container.getElementsByClassName('ec-composer-template-container')[0].style.height = (client_y - 124) + 'px';
                                 container.getElementsByClassName('ec-composer-code-container')[0].style.height = difference + 'px';
@@ -14870,23 +14866,23 @@ var Components$8;
                     element: '.ec-composer .ec-template-code-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
-                        let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                        const target = e.target;
+                        const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                         if (iframe_template[0] instanceof HTMLIFrameElement) {
-                            let idocument = iframe_template[0].contentDocument;
+                            const idocument = iframe_template[0].contentDocument;
                             if (idocument !== null) {
-                                let element_id = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-id');
+                                const element_id = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-id');
                                 if (typeof element_id === 'string') {
                                     target.closest('.ec-composer-container').getElementsByClassName('ec-composer-code-container')[0].setAttribute('data-element', element_id);
-                                    let element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
+                                    const element_content = idocument.querySelector('.ec-element-content-active .ec-element-content-data');
                                     if (element_content) {
                                         target.classList.add('ec-template-code-active-button');
                                         target.closest('.ec-composer-container').classList.add('ec-composer-container-template-and-code');
                                         target.closest('.ec-composer-container').classList.add('ec-composer-container-template-and-code-show');
-                                        let format_html_code = new Plugins$1.HtmlFormatter();
-                                        let iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
+                                        const format_html_code = new Plugins$1.HtmlFormatter();
+                                        const iframe_html = params.selector.getElementsByClassName('ec-composer-element-html-container');
                                         if (iframe_html[0] instanceof HTMLIFrameElement) {
-                                            let idocument_html = iframe_html[0].contentDocument;
+                                            const idocument_html = iframe_html[0].contentDocument;
                                             if (idocument_html !== null) {
                                                 idocument_html.head.innerHTML += get_styles('html');
                                                 idocument_html.body.innerHTML = `<div class="ec-composer-code-editor" data-type="html">
@@ -14895,11 +14891,11 @@ var Components$8;
                                                 </div>`;
                                                 format_html_code.format({ lines: true, spaces: true }, element_content.innerHTML)
                                                     .then((html) => {
-                                                    let clines = idocument_html.body.querySelector('.ec-composer-code-lines');
+                                                    const clines = idocument_html.body.querySelector('.ec-composer-code-lines');
                                                     clines.innerHTML = html;
                                                     show_index(idocument_html.body);
-                                                    let index = idocument_html.getElementsByClassName('ec-composer-code-index')[0];
-                                                    let lines = idocument_html.getElementsByClassName('ec-composer-code-lines')[0];
+                                                    const index = idocument_html.getElementsByClassName('ec-composer-code-index')[0];
+                                                    const lines = idocument_html.getElementsByClassName('ec-composer-code-lines')[0];
                                                     index.addEventListener('scroll', function () {
                                                         lines.scrollTop = index.scrollTop;
                                                     });
@@ -14924,25 +14920,25 @@ var Components$8;
                                             target.closest('.ec-composer-container').querySelector('.ec-composer-code-container > .ec-composer-code-body .ec-composer-code-html').classList.add('ec-composer-code-show');
                                         }
                                     }
-                                    let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                    const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                     if ((typeof element_style !== 'undefined') && element_style) {
-                                        let format_css_code = new Plugins$1.CssFormatter();
+                                        const format_css_code = new Plugins$1.CssFormatter();
                                         format_css_code.format({ lines: true, spaces: true }, element_style.innerHTML)
                                             .then((html) => {
-                                            let iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
+                                            const iframe_css = params.selector.getElementsByClassName('ec-composer-element-css-container');
                                             if (iframe_css[0] instanceof HTMLIFrameElement) {
-                                                let idocument_css = iframe_css[0].contentDocument;
+                                                const idocument_css = iframe_css[0].contentDocument;
                                                 if (idocument_css !== null) {
                                                     idocument_css.head.innerHTML += get_styles('css');
                                                     idocument_css.body.innerHTML = `<div class="ec-composer-code-editor" data-type="css">
                                                         <div class="ec-composer-code-index"></div>
                                                         <div class="ec-composer-code-lines" contenteditable="true"></div>
                                                     </div>`;
-                                                    let clines = idocument_css.body.querySelector('.ec-composer-code-lines');
+                                                    const clines = idocument_css.body.querySelector('.ec-composer-code-lines');
                                                     clines.innerHTML = html;
                                                     show_index(idocument_css.body);
-                                                    let index = idocument_css.getElementsByClassName('ec-composer-code-index')[0];
-                                                    let lines = idocument_css.getElementsByClassName('ec-composer-code-lines')[0];
+                                                    const index = idocument_css.getElementsByClassName('ec-composer-code-index')[0];
+                                                    const lines = idocument_css.getElementsByClassName('ec-composer-code-lines')[0];
                                                     index.addEventListener('scroll', function () {
                                                         lines.scrollTop = index.scrollTop;
                                                     });
@@ -14982,7 +14978,7 @@ var Components$8;
                     element: '.ec-composer .ec-template-hide-code-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         target.closest('.ec-composer-container').classList.add('ec-composer-container-template-and-code-hide');
                         this._selector?.querySelector('.ec-composer .ec-template-code-button').classList.remove('ec-template-code-hide-button');
                         target.closest('.ec-composer-container').classList.remove('ec-composer-container-template-and-code');
@@ -14998,8 +14994,8 @@ var Components$8;
                     element: '.ec-composer .ec-composer-code-container .ec-composer-code-header .ec-composer-code-tab',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
-                        let tab_id = target.getAttribute('data-tab');
+                        const target = e.target;
+                        const tab_id = target.getAttribute('data-tab');
                         if (target.classList.contains('ec-composer-code-active-tab')) {
                             target.classList.remove('ec-composer-code-active-tab');
                             target.closest('.ec-composer-code-container').getElementsByClassName('ec-composer-code-' + tab_id)[0].classList.remove('ec-composer-code-show');
@@ -15019,12 +15015,12 @@ var Components$8;
         }
         _process_line = (params, spaces_before = 0) => {
             let line = null;
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
-            let cwindow = iframe.contentWindow;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
+            const cwindow = iframe.contentWindow;
             if (cwindow) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let range = selection.getRangeAt(0);
+                    const range = selection.getRangeAt(0);
                     if (range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line')) {
                         line = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line');
                     }
@@ -15034,7 +15030,7 @@ var Components$8;
                     else if ((range.commonAncestorContainer.parentElement?.className === 'ec-composer-code-lines') && (range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-editor-line').length > 0)) {
                         if (range.commonAncestorContainer.className === 'ec-composer-code-editor-line') {
                             line = range.commonAncestorContainer;
-                            let line_code = document.createElement('div');
+                            const line_code = document.createElement('div');
                             line_code.classList.add('ec-composer-code-editor-line-code');
                             line.innerHTML = line_code.outerHTML;
                         }
@@ -15043,28 +15039,28 @@ var Components$8;
                         }
                     }
                     else if ((range.commonAncestorContainer.parentElement?.className === 'ec-composer-code-editor') && (range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-lines').length > 0)) {
-                        let div = document.createElement('div');
+                        const div = document.createElement('div');
                         div.classList.add('ec-composer-code-editor-line');
                         range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-lines')[0].appendChild(div);
                         line = range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-editor-line')[0];
                     }
                     if (line) {
-                        let node_start = document.createTextNode('');
+                        const node_start = document.createTextNode('');
                         range.insertNode(node_start);
-                        let sup = document.createElement('sup');
+                        const sup = document.createElement('sup');
                         sup.setAttribute('data-content', 'ec-composer-code-editor-caret');
                         range.insertNode(node_start);
                         node_start.replaceWith(sup);
-                        let line_html = line.innerHTML.replace('<div class="ec-composer-code-editor-line-code">', '').replace('</div>', '');
+                        const line_html = line.innerHTML.replace('<div class="ec-composer-code-editor-line-code">', '').replace('</div>', '');
                         this._format_string(line_html, line.closest('.ec-composer-code-editor').getAttribute('data-type'), (html) => {
-                            let line_code = document.createElement('div');
+                            const line_code = document.createElement('div');
                             line_code.classList.add('ec-composer-code-editor-line-code');
                             line_code.innerHTML = (spaces_before > 0) ? '<span class="ec-code-whitespace">&nbsp;</span>'.repeat(spaces_before) + html : html;
                             line.innerHTML = line_code.outerHTML;
                             if (line.querySelector('sup[data-content="ec-composer-code-editor-caret"]')) {
                                 line.querySelector('sup[data-content="ec-composer-code-editor-caret"]').replaceWith(node_start);
-                                let nodes = this._nodes_list(line);
-                                let new_range = document.createRange();
+                                const nodes = this._nodes_list(line);
+                                const new_range = document.createRange();
                                 new_range.setStart(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                 new_range.setEnd(nodes[Array.from(nodes).indexOf(node_start)], 0);
                                 if (selection) {
@@ -15072,58 +15068,58 @@ var Components$8;
                                     selection.addRange(new_range);
                                 }
                             }
-                            let editor = line.closest('.ec-composer-code-editor');
-                            let element_id = params.selector.getElementsByClassName('ec-composer-code-container')[0].getAttribute('data-element');
+                            const editor = line.closest('.ec-composer-code-editor');
+                            const element_id = params.selector.getElementsByClassName('ec-composer-code-container')[0].getAttribute('data-element');
                             if (element_id) {
                                 params.selector.getElementsByClassName('ec-composer-code-container')[0].classList.add('ec-composer-editor-mode');
                                 Classes$1.Timer.schedule_event('update_html', () => {
                                     params.selector.getElementsByClassName('ec-composer-code-container')[0].classList.remove('ec-composer-editor-mode');
                                 }, 5000);
                                 if (editor.getAttribute('data-type') === 'html') {
-                                    let html_code = line.closest('.ec-composer-code-lines').innerText;
-                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const html_code = line.closest('.ec-composer-code-lines').innerText;
+                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                        let idocument = iframe_template[0].contentDocument;
+                                        const idocument = iframe_template[0].contentDocument;
                                         if (idocument !== null) {
                                             idocument.querySelector('.ec-element-content-active .ec-element-content-data').innerHTML = sanitize_code(html_code);
                                         }
                                     }
                                 }
                                 else {
-                                    let css_code = line.closest('.ec-composer-code-lines').textContent;
-                                    let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                    const css_code = line.closest('.ec-composer-code-lines').textContent;
+                                    const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                     if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                        let idocument = iframe_template[0].contentDocument;
+                                        const idocument = iframe_template[0].contentDocument;
                                         if (idocument !== null) {
-                                            let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                             if ((typeof element_style !== 'undefined') && element_style) {
                                                 element_style.innerHTML = sanitize_code(css_code);
-                                                let backup = new Classes$1.Backup();
+                                                const backup = new Classes$1.Backup();
                                                 backup.update_css_element_id(element_id, params, element_style.textContent);
                                                 setTimeout(() => {
-                                                    let element_name = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-name');
-                                                    let name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
-                                                    let key = Object.keys(name_space)[0];
-                                                    let element_class = new name_space[key]();
-                                                    let element_options = element_class.get_options(params);
+                                                    const element_name = idocument.querySelector('.ec-element-content-active')?.getAttribute('data-name');
+                                                    const name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + element_name.charAt(0).toUpperCase() + element_name.substring(1))?.value.Resources.Elements;
+                                                    const key = Object.keys(name_space)[0];
+                                                    const element_class = new name_space[key]();
+                                                    const element_options = element_class.get_options(params);
                                                     if (element_options.desktop.length > 0) {
-                                                        let desktop_properties_list = {};
-                                                        let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                        const desktop_properties_list = {};
+                                                        const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                                         if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                                            let idocument = iframe_template[0].contentDocument;
+                                                            const idocument = iframe_template[0].contentDocument;
                                                             if (idocument !== null) {
-                                                                let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                                 if ((typeof element_style !== 'undefined') && element_style) {
-                                                                    let style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                    const style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                                     if ((typeof style !== 'undefined') && style) {
-                                                                        let sheet = style.sheet;
+                                                                        const sheet = style.sheet;
                                                                         if (sheet !== null) {
                                                                             if (sheet.cssRules.length > 0) {
-                                                                                for (let rule of sheet.cssRules) {
+                                                                                for (const rule of sheet.cssRules) {
                                                                                     if (typeof rule.media === 'undefined') {
                                                                                         if (rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"]') {
-                                                                                            let style = rule.style;
-                                                                                            for (let property of rule.style) {
+                                                                                            const style = rule.style;
+                                                                                            for (const property of rule.style) {
                                                                                                 if (typeof desktop_properties_list['desktop'] !== 'undefined') {
                                                                                                     desktop_properties_list['desktop'][property] = style.getPropertyValue(property);
                                                                                                 }
@@ -15142,32 +15138,32 @@ var Components$8;
                                                                 }
                                                             }
                                                         }
-                                                        let html = get_element_options(element_options, desktop_properties_list, params, 'desktop');
+                                                        const html = get_element_options(element_options, desktop_properties_list, params, 'desktop');
                                                         if (typeof html !== 'undefined') {
                                                             params.selector.getElementsByClassName('ec-sections')[0].innerHTML = html;
                                                         }
                                                     }
                                                     if (element_options.mobile.length > 0) {
-                                                        let mobile_properties_list = {};
-                                                        let iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
+                                                        const mobile_properties_list = {};
+                                                        const iframe_template = params.selector.getElementsByClassName('ec-composer-template-container');
                                                         if (iframe_template[0] instanceof HTMLIFrameElement) {
-                                                            let idocument = iframe_template[0].contentDocument;
+                                                            const idocument = iframe_template[0].contentDocument;
                                                             if (idocument !== null) {
-                                                                let element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                const element_style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                                 if ((typeof element_style !== 'undefined') && element_style) {
-                                                                    let style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
+                                                                    const style = iframe_template[0].contentDocument?.head.querySelector('style[data-element="' + element_id + '"]');
                                                                     if ((typeof style !== 'undefined') && style) {
-                                                                        let sheet = style.sheet;
+                                                                        const sheet = style.sheet;
                                                                         if (sheet !== null) {
                                                                             if (sheet.cssRules.length > 0) {
-                                                                                for (let rule of sheet.cssRules) {
+                                                                                for (const rule of sheet.cssRules) {
                                                                                     if (typeof rule.media !== 'undefined') {
                                                                                         if (rule.conditionText.replaceAll(' ', '').search('(max-width:600px)') > -1) {
                                                                                             if (rule.cssRules.length > 0) {
-                                                                                                for (let media_rule of rule.cssRules) {
+                                                                                                for (const media_rule of rule.cssRules) {
                                                                                                     if (media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"]') {
-                                                                                                        let style = media_rule.style;
-                                                                                                        for (let property of media_rule.style) {
+                                                                                                        const style = media_rule.style;
+                                                                                                        for (const property of media_rule.style) {
                                                                                                             if (typeof mobile_properties_list['mobile'] !== 'undefined') {
                                                                                                                 mobile_properties_list['mobile'][property] = style.getPropertyValue(property);
                                                                                                             }
@@ -15189,7 +15185,7 @@ var Components$8;
                                                                 }
                                                             }
                                                         }
-                                                        let html = get_element_options(element_options, mobile_properties_list, params, 'mobile');
+                                                        const html = get_element_options(element_options, mobile_properties_list, params, 'mobile');
                                                         if (typeof html !== 'undefined') {
                                                             params.selector.getElementsByClassName('ec-sections')[1].innerHTML = html;
                                                         }
@@ -15220,7 +15216,7 @@ var Components$8;
             }
             if (parent.childNodes.length > 0) {
                 let node_string = '';
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         node_string += node.textContent;
                     }
@@ -15233,15 +15229,15 @@ var Components$8;
             return list;
         };
         _enter = (params) => {
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
-            let cwindow = iframe.contentWindow;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
+            const cwindow = iframe.contentWindow;
             if (cwindow) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let range = selection.getRangeAt(0);
-                    let llines = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-lines')?.getElementsByClassName('ec-composer-code-editor-line');
+                    const range = selection.getRangeAt(0);
+                    const llines = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-lines')?.getElementsByClassName('ec-composer-code-editor-line');
                     if (typeof llines !== 'undefined') {
-                        let line_index = Array.from(llines).indexOf.call(llines, range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line'));
+                        const line_index = Array.from(llines).indexOf.call(llines, range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line'));
                         let before = (typeof llines[line_index] !== 'undefined') ? this._space_before(llines[line_index].getElementsByClassName('ec-composer-code-editor-line-code')[0].childNodes) : { spaces: 0, complete: 0 };
                         if (llines[line_index].outerHTML.split('ec-code-tag-start-open').length > llines[line_index].outerHTML.split('ec-code-tag-end-open').length) {
                             before.spaces = before.spaces + 4;
@@ -15270,11 +15266,11 @@ var Components$8;
         };
         _input = (e, params) => {
             if (e.inputType === 'insertParagraph') {
-                let target = e.target;
+                const target = e.target;
                 if (target.className === 'ec-composer-code-lines') {
                     setTimeout(() => {
-                        let index = target.closest('.ec-composer-code-editor').getElementsByClassName('ec-composer-code-index')[0];
-                        let lines = target;
+                        const index = target.closest('.ec-composer-code-editor').getElementsByClassName('ec-composer-code-index')[0];
+                        const lines = target;
                         index.scrollTop = lines.scrollTop;
                     }, 100);
                 }
@@ -15287,12 +15283,12 @@ var Components$8;
             }, 1);
         };
         _delete = (params) => {
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
-            let cwindow = iframe.contentWindow;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
+            const cwindow = iframe.contentWindow;
             if (cwindow) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let range = selection.getRangeAt(0);
+                    const range = selection.getRangeAt(0);
                     if (range.startContainer.parentElement.getBoundingClientRect().y !== range.endContainer.parentElement.getBoundingClientRect().y) {
                         setTimeout(() => {
                             this._reset_lines(range);
@@ -15305,12 +15301,12 @@ var Components$8;
             }, 1);
         };
         _delete2 = (params) => {
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
-            let cwindow = iframe.contentWindow;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
+            const cwindow = iframe.contentWindow;
             if (cwindow) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let range = selection.getRangeAt(0);
+                    const range = selection.getRangeAt(0);
                     if (range.startContainer.parentElement.getBoundingClientRect().y !== range.endContainer.parentElement.getBoundingClientRect().y) {
                         setTimeout(() => {
                             this._reset_lines(range);
@@ -15320,23 +15316,23 @@ var Components$8;
             }
         };
         _paste = (e, params) => {
-            let iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
-            let cwindow = iframe.contentWindow;
-            let clipboard = e.clipboardData;
+            const iframe = params.selector.getElementsByClassName('ec-composer-editor-active')[0];
+            const cwindow = iframe.contentWindow;
+            const clipboard = e.clipboardData;
             if (cwindow && clipboard) {
-                let selection = cwindow.getSelection();
+                const selection = cwindow.getSelection();
                 if (selection && (selection.rangeCount > 0)) {
-                    let range = selection.getRangeAt(0);
-                    let line = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line');
+                    const range = selection.getRangeAt(0);
+                    const line = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line');
                     if (line) {
-                        let text_node = document.createTextNode(clipboard.getData('text'));
+                        const text_node = document.createTextNode(clipboard.getData('text'));
                         range.insertNode(text_node);
                         selection.removeAllRanges();
-                        let line_code = line.getElementsByClassName('ec-composer-code-editor-line-code');
+                        const line_code = line.getElementsByClassName('ec-composer-code-editor-line-code');
                         if (line_code.length > 0) {
                             if (line_code[0].closest('.ec-composer-code-editor').getAttribute('data-type') === 'html') {
-                                let format_html_code = new Plugins$1.HtmlFormatter();
-                                let params = {
+                                const format_html_code = new Plugins$1.HtmlFormatter();
+                                const params = {
                                     lines: false,
                                     spaces: false
                                 };
@@ -15349,8 +15345,8 @@ var Components$8;
                                 });
                             }
                             else {
-                                let format_css_code = new Plugins$1.CssFormatter();
-                                let params = {
+                                const format_css_code = new Plugins$1.CssFormatter();
+                                const params = {
                                     lines: false,
                                     spaces: false
                                 };
@@ -15368,7 +15364,7 @@ var Components$8;
             }
         };
         _reset_lines = (range) => {
-            let llines = range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-editor-line');
+            const llines = range.commonAncestorContainer.parentElement.getElementsByClassName('ec-composer-code-editor-line');
             let line = null;
             if (range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line')) {
                 line = range.commonAncestorContainer.parentElement.closest('.ec-composer-code-editor-line');
@@ -15377,7 +15373,7 @@ var Components$8;
                 line = range.commonAncestorContainer.parentElement;
             }
             if (llines.length > 0) {
-                for (let lline of llines) {
+                for (const lline of llines) {
                     if (line && (line.isSameNode(lline))) {
                         continue;
                     }
@@ -15395,7 +15391,7 @@ var Components$8;
         };
         _nodes_list = (parent, result = []) => {
             if (parent.childNodes && parent.childNodes.length > 0) {
-                for (let child of parent.childNodes) {
+                for (const child of parent.childNodes) {
                     result.push(child);
                     this._nodes_list(child, result);
                 }
@@ -15403,7 +15399,7 @@ var Components$8;
             return result;
         };
         _space_before(childrens) {
-            let before = { spaces: 0, complete: 0 };
+            const before = { spaces: 0, complete: 0 };
             Array.from(childrens).map((child) => {
                 if ((child.nodeType === Node.ELEMENT_NODE) && (before.complete < 1)) {
                     if ((child.className === 'ec-code-whitespace')) {
@@ -15427,26 +15423,26 @@ var Components$8;
             return html;
         }
         _html_to_plain(html) {
-            let div = document.createElement('div');
+            const div = document.createElement('div');
             div.innerHTML = html;
             return div.textContent || div.innerText || '';
         }
         _format_string(html, type, func) {
-            let caret = html.split('<sup data-content="ec-composer-code-editor-caret"></sup>').shift();
+            const caret = html.split('<sup data-content="ec-composer-code-editor-caret"></sup>').shift();
             let caret_pos = 0;
             if (typeof caret !== 'undefined') {
-                let div = document.createElement('div');
+                const div = document.createElement('div');
                 div.textContent = caret;
                 caret_pos = this._html_to_plain(div.textContent)?.length;
             }
-            let plain_text = this._html_to_plain(html);
+            const plain_text = this._html_to_plain(html);
             if (type === 'css') {
                 if ((plain_text.length > 4) && !plain_text.substring(0, 4).trim() && (plain_text.substring(4, 5) === '}')) {
                     caret_pos = 1;
                 }
             }
-            let format_html_code = (type === 'html') ? new Plugins$1.HtmlFormatter() : new Plugins$1.CssFormatter();
-            let params = {
+            const format_html_code = (type === 'html') ? new Plugins$1.HtmlFormatter() : new Plugins$1.CssFormatter();
+            const params = {
                 lines: false,
                 spaces: false
             };
@@ -15457,10 +15453,10 @@ var Components$8;
                     func(html);
                 }
                 else {
-                    let dom_parser = new DOMParser();
-                    let nodes_list = dom_parser.parseFromString(html, 'text/html');
+                    const dom_parser = new DOMParser();
+                    const nodes_list = dom_parser.parseFromString(html, 'text/html');
                     this._text_count = 0;
-                    let new_html = this._add_caret(nodes_list.getElementsByTagName('body')[0], caret_pos, '');
+                    const new_html = this._add_caret(nodes_list.getElementsByTagName('body')[0], caret_pos, '');
                     func(new_html);
                 }
             })
@@ -15476,12 +15472,12 @@ var Components$8;
             if (parent.childNodes.length > 0) {
                 let node_string = '';
                 let node_end = '';
-                let html_node = parent;
+                const html_node = parent;
                 if (parent.nodeName !== 'BODY') {
                     node_string = html_node.outerHTML.split('>').shift() + '>';
                     node_end = '<' + html_node.outerHTML.slice(html_node.outerHTML.lastIndexOf('<') + 1);
                 }
-                for (let node of parent.childNodes) {
+                for (const node of parent.childNodes) {
                     if (node.nodeName === '#text') {
                         let characters = '';
                         for (var t = 0; t < node.textContent.length; t++) {
@@ -15522,9 +15518,9 @@ var Components$7;
                     action: 'mousedown',
                     iframe: '.ec-composer-template-container',
                     target: (e) => {
-                        let target = e.target;
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container');
-                        let cwindow = iframe[0].contentWindow;
+                        const target = e.target;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container');
+                        const cwindow = iframe[0].contentWindow;
                         if (cwindow) {
                             if (cwindow.getSelection) {
                                 cwindow.getSelection().removeAllRanges();
@@ -15532,18 +15528,16 @@ var Components$7;
                         }
                         if (target.closest('.ec-composer-template-content-move-button')) {
                             e.preventDefault();
-                            let lines = target.closest('.ec-composer-template').getElementsByClassName('ec-composer-template-content-line');
-                            let tlines = lines.length;
-                            let c = 0;
-                            do {
-                                let drops = document.createElement('div');
+                            const lines = target.closest('.ec-composer-template').getElementsByClassName('ec-composer-template-content-line');
+                            const tlines = lines.length;
+                            for (let c = 0; c < tlines; c++) {
+                                const drops = document.createElement('div');
                                 drops.classList.add('ec-composer-template-content-line-drop');
                                 drops.innerHTML = params.icons('unfold_less');
                                 lines[c].insertAdjacentElement('afterend', drops);
-                                c++;
-                            } while (c < tlines);
-                            let line = target.closest('.ec-composer-template-content-line');
-                            let cline = line.cloneNode(true);
+                            }
+                            const line = target.closest('.ec-composer-template-content-line');
+                            const cline = line.cloneNode(true);
                             line.classList.add('ec-composer-template-content-line-temp');
                             cline.setAttribute('data-top', (e.clientY - line.getBoundingClientRect().y));
                             cline.classList.add('ec-composer-template-content-line-drag-active');
@@ -15551,11 +15545,11 @@ var Components$7;
                             target.closest('.ec-composer-template').appendChild(cline);
                             if (iframe[0] instanceof HTMLIFrameElement) {
                                 if (cwindow.document.getElementsByClassName('ec-element-content-active').length > 0) {
-                                    let active = cwindow.document.getElementsByClassName('ec-element-content-active')[0];
+                                    const active = cwindow.document.getElementsByClassName('ec-element-content-active')[0];
                                     active.classList.remove('ec-element-content-active');
                                 }
                                 iframe[0].classList.add('ec-composer-template-container-active');
-                                let drops = document.createElement('div');
+                                const drops = document.createElement('div');
                                 drops.classList.add('ec-composer-template-content-line-drop');
                                 drops.innerHTML = params.icons('unfold_less');
                                 cwindow.document.getElementsByClassName('ec-composer-template')[0].insertAdjacentElement('afterbegin', drops);
@@ -15564,35 +15558,31 @@ var Components$7;
                         else if (target.closest('.ec-composer-element-move-button')) {
                             e.preventDefault();
                             if (target.closest('.ec-composer-template').getElementsByClassName('ec-composer-template-cell-drop').length < 1) {
-                                let cells = target.closest('.ec-composer-template').querySelectorAll('.ec-composer-template .ec-composer-template-cell');
+                                const cells = target.closest('.ec-composer-template').querySelectorAll('.ec-composer-template .ec-composer-template-cell');
                                 if (cells.length > 0) {
-                                    let tcells = cells.length;
-                                    let c = 0;
-                                    do {
-                                        let drops = document.createElement('div');
+                                    const tcells = cells.length;
+                                    for (let c = 0; c < tcells; c++) {
+                                        const drops = document.createElement('div');
                                         drops.classList.add('ec-composer-template-cell-drop');
                                         drops.innerHTML = params.icons('unfold_less');
                                         cells[c].insertAdjacentElement('afterBegin', drops);
-                                        c++;
-                                    } while (c < tcells);
+                                    }
                                 }
-                                let contents = target.closest('.ec-composer-template').querySelectorAll('.ec-composer-template .ec-element-content');
+                                const contents = target.closest('.ec-composer-template').querySelectorAll('.ec-composer-template .ec-element-content');
                                 if (contents.length > 0) {
-                                    let tcontents = contents.length;
-                                    let co = 0;
-                                    do {
-                                        let drops = document.createElement('div');
+                                    const tcontents = contents.length;
+                                    for (let co = 0; co < tcontents; co++) {
+                                        const drops = document.createElement('div');
                                         drops.classList.add('ec-composer-template-cell-drop');
                                         drops.innerHTML = params.icons('unfold_less');
                                         contents[co].insertAdjacentElement('afterEnd', drops);
-                                        co++;
-                                    } while (co < tcontents);
+                                    }
                                 }
                             }
-                            let element = target.closest('.ec-element-content');
-                            let celement = element.cloneNode(true);
+                            const element = target.closest('.ec-element-content');
+                            const celement = element.cloneNode(true);
                             element.classList.add('ec-element-content-temp');
-                            let element_rect = element.getBoundingClientRect();
+                            const element_rect = element.getBoundingClientRect();
                             celement.setAttribute('data-top', (e.clientY - element_rect.y));
                             celement.setAttribute('data-left', (e.clientX - element_rect.x));
                             celement.classList.add('ec-composer-element-drag-active');
@@ -15602,7 +15592,7 @@ var Components$7;
                             target.closest('body').appendChild(celement);
                             if (iframe[0] instanceof HTMLIFrameElement) {
                                 if (cwindow.document.getElementsByClassName('ec-element-content-active').length > 0) {
-                                    let active = cwindow.document.getElementsByClassName('ec-element-content-active')[0];
+                                    const active = cwindow.document.getElementsByClassName('ec-element-content-active')[0];
                                     active.classList.remove('ec-element-content-active');
                                 }
                                 iframe[0].classList.add('ec-composer-template-container-active');
@@ -15620,16 +15610,16 @@ var Components$7;
                     iframe: '.ec-composer-template-container',
                     target: (e) => {
                         if (e.buttons === 1) {
-                            let target = e.target;
+                            const target = e.target;
                             if (target) {
-                                let iframe_body = target.closest('body');
+                                const iframe_body = target.closest('body');
                                 if (iframe_body?.getElementsByClassName('ec-composer-template-content-line-drag-active').length > 0) {
                                     e.preventDefault();
-                                    let line = iframe_body?.getElementsByClassName('ec-composer-template-content-line-drag-active');
+                                    const line = iframe_body?.getElementsByClassName('ec-composer-template-content-line-drag-active');
                                     if (line.length > 0) {
-                                        let top = line[0].getAttribute('data-top');
+                                        const top = line[0].getAttribute('data-top');
                                         if (top !== null) {
-                                            let drag_line = ((e.clientY - parseInt(top)) + iframe_body?.scrollTop);
+                                            const drag_line = ((e.clientY - parseInt(top)) + iframe_body?.scrollTop);
                                             line[0].style.top = drag_line + 'px';
                                             line[0].style.opacity = '0.3';
                                             if (iframe_body?.getElementsByClassName('ec-composer-template-content-line-drop').length > 0) {
@@ -15650,25 +15640,25 @@ var Components$7;
                                     }
                                 }
                                 else if (params.selector.getElementsByClassName('ec-element-drag-active').length > 0) {
-                                    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                                    let client_rect = iframe.getBoundingClientRect();
+                                    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const client_rect = iframe.getBoundingClientRect();
                                     move_element(params.selector, (client_rect.y + e.clientY), (client_rect.x + e.clientX), params.icons('unfold_less'));
                                 }
                                 else if (params.selector.getElementsByClassName('ec-row-drag-active').length > 0) {
-                                    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                                    let client_rect = iframe.getBoundingClientRect();
+                                    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const client_rect = iframe.getBoundingClientRect();
                                     move_structure(params.selector, (client_rect.y + e.clientY), (client_rect.x + e.clientX), params.icons('unfold_less'));
                                 }
                                 else if (iframe_body?.getElementsByClassName('ec-composer-element-drag-active').length > 0) {
                                     e.preventDefault();
-                                    let body_rect = iframe_body.getBoundingClientRect();
-                                    let element = iframe_body?.getElementsByClassName('ec-composer-element-drag-active')[0];
-                                    let drag_top = ((e.clientY - parseInt(element.getAttribute('data-top'))) + iframe_body?.scrollTop);
-                                    let drag_left = ((e.clientX - parseInt(element.getAttribute('data-left'))) + iframe_body?.scrollLeft);
+                                    const body_rect = iframe_body.getBoundingClientRect();
+                                    const element = iframe_body?.getElementsByClassName('ec-composer-element-drag-active')[0];
+                                    const drag_top = ((e.clientY - parseInt(element.getAttribute('data-top'))) + iframe_body?.scrollTop);
+                                    const drag_left = ((e.clientX - parseInt(element.getAttribute('data-left'))) + iframe_body?.scrollLeft);
                                     element.style.top = drag_top + 'px';
                                     element.style.left = drag_left + 'px';
                                     element.style.opacity = '0.3';
-                                    let element_rect = element.getBoundingClientRect();
+                                    const element_rect = element.getBoundingClientRect();
                                     if (iframe_body?.getElementsByClassName('ec-composer-template-cell-drop').length > 0) {
                                         Array.from(iframe_body?.getElementsByClassName('ec-composer-template-cell-drop')).map((drop) => {
                                             drop.classList.remove('ec-composer-template-cell-drop-active');
@@ -15677,7 +15667,7 @@ var Components$7;
                                         Array.from(iframe_body?.getElementsByClassName('ec-composer-template-cell-drop')).forEach((drop) => {
                                             if (found > 0)
                                                 return;
-                                            let drop_rect = drop.getBoundingClientRect();
+                                            const drop_rect = drop.getBoundingClientRect();
                                             if ((element_rect.y <= (body_rect.x + drop_rect.y)) && ((element_rect.y + element_rect.height) >= (body_rect.x + drop_rect.y)) && ((body_rect.x + drop_rect.x) <= e.clientX) && (e.clientX <= (body_rect.x + drop_rect.x + drop_rect.width))) {
                                                 drop.classList.add('ec-composer-template-cell-drop-active');
                                                 found++;
@@ -15686,7 +15676,7 @@ var Components$7;
                                         Array.from(iframe_body?.getElementsByClassName('ec-composer-template-cell-placeholder')).forEach((placeholder) => {
                                             if (found > 0)
                                                 return;
-                                            let placeholder_rect = placeholder.getBoundingClientRect();
+                                            const placeholder_rect = placeholder.getBoundingClientRect();
                                             if ((element_rect.y >= placeholder_rect.y) && ((element_rect.y + element_rect.height) >= placeholder_rect.y) && ((body_rect.x + placeholder_rect.x) <= e.clientX) && (e.clientX <= (body_rect.x + placeholder_rect.x + placeholder_rect.width))) {
                                                 placeholder.closest('.ec-composer-template-cell').getElementsByClassName('ec-composer-template-cell-drop')[0].classList.add('ec-composer-template-cell-drop-active');
                                                 found++;
@@ -15721,7 +15711,7 @@ var Components$7;
                     iframe: '.ec-composer-template-container',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target.closest('.ec-composer-template-content-new-button')) {
                             target.closest('.ec-composer-template-content-line').classList.add('ec-composer-template-content-line-active');
                             params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
@@ -15733,7 +15723,7 @@ var Components$7;
                             });
                             target.closest('.ec-composer-template-content-line').classList.add('ec-composer-template-content-line-selected');
                             params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-show');
-                            let create_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                            const create_module = params.selector.querySelector('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
                             create_module.getElementsByClassName('ec-menu-module-name')[0].value = '';
                             create_module.getElementsByClassName('ec-menu-module-description')[0].value = '';
                             create_module.getElementsByClassName('ec-module-advanced-fields')[0].classList.remove('ec-module-advanced-fields-expanded');
@@ -15751,44 +15741,44 @@ var Components$7;
                             }, 300);
                         }
                         else if (target.closest('.ec-composer-element-clone-button')) {
-                            let element_html = target.closest('.ec-element-content').getElementsByClassName('ec-element-content-data')[0].outerHTML;
-                            let element_id = target.closest('.ec-element-content').getAttribute('data-id');
-                            let new_element_id = 'ec-element-' + Date.now();
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const element_html = target.closest('.ec-element-content').getElementsByClassName('ec-element-content-data')[0].outerHTML;
+                            const element_id = target.closest('.ec-element-content').getAttribute('data-id');
+                            const new_element_id = 'ec-element-' + Date.now();
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
                             if (iframe) {
-                                let iframeDocument = iframe.contentDocument;
+                                const iframeDocument = iframe.contentDocument;
                                 if (iframeDocument !== null) {
-                                    let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                    const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                     if (style) {
-                                        let new_style = style.outerHTML.replaceAll(element_id, new_element_id);
+                                        const new_style = style.outerHTML.replaceAll(element_id, new_element_id);
                                         style.insertAdjacentHTML('afterend', new_style);
                                         setTimeout(() => {
-                                            let backup = new Classes$1.Backup();
+                                            const backup = new Classes$1.Backup();
                                             backup.update_css_element_id(new_element_id, params, style.innerHTML.replaceAll(element_id, new_element_id), false);
                                         }, 1000);
                                     }
                                 }
                             }
                             let buttons = '';
-                            let gbuttons = document.createElement('div');
+                            const gbuttons = document.createElement('div');
                             gbuttons.classList.add('ec-composer-element-buttons-group');
-                            let mbutton = document.createElement('button');
+                            const mbutton = document.createElement('button');
                             mbutton.setAttribute('type', 'button');
                             mbutton.classList.add('ec-composer-element-move-button');
                             mbutton.innerHTML = params.icons('drag');
                             gbuttons.innerHTML += mbutton.outerHTML;
-                            let clone = document.createElement('button');
+                            const clone = document.createElement('button');
                             clone.setAttribute('type', 'button');
                             clone.classList.add('ec-composer-element-clone-button');
                             clone.innerHTML = params.icons('backup_table');
                             gbuttons.innerHTML += clone.outerHTML;
-                            let delement = document.createElement('button');
+                            const delement = document.createElement('button');
                             delement.setAttribute('type', 'button');
                             delement.classList.add('ec-composer-element-delete-button');
                             delement.innerHTML = params.icons('trash');
                             gbuttons.innerHTML += delement.outerHTML;
                             buttons += gbuttons.outerHTML;
-                            let div = document.createElement('div');
+                            const div = document.createElement('div');
                             div.innerHTML = '<div class="ec-element-content" data-id="' + new_element_id + '" data-name="' + target.closest('.ec-element-content').getAttribute('data-name') + '">'
                                 + element_html
                                 + buttons
@@ -15796,27 +15786,27 @@ var Components$7;
                             target.closest('.ec-element-content').insertAdjacentElement('afterend', div.firstChild);
                         }
                         else if (target.closest('.ec-composer-element-delete-button')) {
-                            let cell = target.closest('.ec-composer-template-cell');
+                            const cell = target.closest('.ec-composer-template-cell');
                             target.closest('.ec-element-content').classList.add('ec-hide-content');
                             setTimeout(() => {
-                                let element_id = target.closest('.ec-element-content').getAttribute('data-id');
+                                const element_id = target.closest('.ec-element-content').getAttribute('data-id');
                                 target.closest('.ec-element-content').remove();
-                                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
                                 if (iframe) {
-                                    let iframeDocument = iframe.contentDocument;
+                                    const iframeDocument = iframe.contentDocument;
                                     if (iframeDocument !== null) {
-                                        let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                        const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                         if (style) {
                                             style.remove();
                                         }
                                     }
                                 }
                                 if (cell.getElementsByClassName('ec-element-content').length < 1) {
-                                    let placeholder = document.createElement('a');
+                                    const placeholder = document.createElement('a');
                                     placeholder.setAttribute('href', '#');
                                     placeholder.classList.add('ec-composer-template-cell-placeholder');
                                     placeholder.classList.add('ec-show-content');
-                                    let text = document.createElement('span');
+                                    const text = document.createElement('span');
                                     text.classList.add('ec-composer-template-cell-placeholder-text');
                                     text.innerText = params.words('drag_elements_here');
                                     placeholder.innerHTML = '<span>'
@@ -15828,7 +15818,7 @@ var Components$7;
                                         cell.getElementsByClassName('ec-composer-template-cell-placeholder')[0].classList.remove('ec-show-content');
                                     }, 300);
                                     if (target.closest('.ec-element-content-active')) {
-                                        let options = params.selector.getElementsByClassName('ec-composer-element-options')[0];
+                                        const options = params.selector.getElementsByClassName('ec-composer-element-options')[0];
                                         options.classList.remove('ec-composer-element-options-show');
                                         options.classList.add('ec-composer-element-options-hide');
                                         if (params.selector.getElementsByClassName('ec-ste-show').length > 0) {
@@ -15852,12 +15842,12 @@ var Components$7;
                     element: '.ec-composer-modal .ec-row > div',
                     target: (e) => {
                         e.preventDefault();
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let target = e.target;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const target = e.target;
                         if (target instanceof HTMLElement) {
-                            let format = target.getAttribute('data-format');
+                            const format = target.getAttribute('data-format');
                             if (format !== null) {
-                                let element = get_content({
+                                const element = get_content({
                                     'format': ['1', '2', '3', '4', '5', '6'].includes(format) ? parseInt(format) : 1
                                 });
                                 element.classList.add('ec-show-content');
@@ -15891,7 +15881,7 @@ var Components$6;
                 {
                     action: 'click',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target.closest('.ec-composer-shadow')) {
                             if (target.closest('.ec-composer-shadow').getElementsByClassName('ec-composer-modal-select-dropdown-show').length > 0) {
                                 target.closest('.ec-composer-shadow').getElementsByClassName('ec-composer-modal-select-dropdown-show')[0].classList.remove('ec-composer-modal-select-dropdown-show');
@@ -15904,9 +15894,9 @@ var Components$6;
                     element: '.ec-composer .ec-template-hide-modal-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         params.selector.getElementsByClassName('ec-composer-shadow')[0].classList.add('ec-composer-shadow-hide');
-                        let modal = target.closest('.ec-composer-modal');
+                        const modal = target.closest('.ec-composer-modal');
                         if (modal) {
                             modal.classList.add('ec-composer-modal-hide');
                             setTimeout(() => {
@@ -15923,7 +15913,7 @@ var Components$6;
                     element: '.ec-composer-modal .ec-composer-modal-select-dropdown .ec-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         setTimeout(() => {
                             target.closest('.ec-composer-modal-select-dropdown').classList.add('ec-composer-modal-select-dropdown-show');
                         }, 100);
@@ -15934,8 +15924,8 @@ var Components$6;
                     element: '.ec-composer-modal .ec-composer-modal-select-dropdown .ec-composer-modal-select-menu a',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
-                        let dropdown = target.closest('.ec-composer-modal-select-dropdown');
+                        const target = e.target;
+                        const dropdown = target.closest('.ec-composer-modal-select-dropdown');
                         dropdown.getElementsByClassName('ec-button')[0].setAttribute('data-id', target.getAttribute('data-id'));
                         dropdown.getElementsByTagName('span')[0].textContent = target.textContent;
                     },
@@ -15965,16 +15955,16 @@ var Components$5;
                     target: (e) => {
                         e.preventDefault();
                         if (e.buttons === 1) {
-                            let target = e.target;
+                            const target = e.target;
                             Array.from(params.selector.getElementsByClassName('ec-element')).map((element) => {
                                 element.classList.remove('ec-element-temp', 'ec-element-temp-show');
                             });
                             target.classList.add('ec-element-temp');
-                            let element = target.cloneNode(true);
-                            let cloned = target.getBoundingClientRect();
+                            const element = target.cloneNode(true);
+                            const cloned = target.getBoundingClientRect();
                             element.classList.add('ec-element-drag-active');
-                            let top = (e.clientY - cloned.y);
-                            let left = (e.clientX - cloned.x);
+                            const top = (e.clientY - cloned.y);
+                            const left = (e.clientX - cloned.x);
                             element.setAttribute('data-top', top);
                             element.setAttribute('data-left', left);
                             element.style.width = cloned.width + 'px';
@@ -16021,13 +16011,13 @@ var Components$4;
                     target: (e) => {
                         e.preventDefault();
                         if (e.buttons === 1) {
-                            let target = e.target;
+                            const target = e.target;
                             target.classList.add('ec-row-temp');
-                            let structure = target.cloneNode(true);
-                            let cloned = target.getBoundingClientRect();
+                            const structure = target.cloneNode(true);
+                            const cloned = target.getBoundingClientRect();
                             structure.classList.add('ec-row-drag-active');
-                            let top = (e.clientY - cloned.y);
-                            let left = (e.clientX - cloned.x);
+                            const top = (e.clientY - cloned.y);
+                            const left = (e.clientX - cloned.x);
                             structure.setAttribute('data-top', top.toString());
                             structure.setAttribute('data-left', left.toString());
                             structure.style.width = cloned.width + 'px';
@@ -16035,15 +16025,15 @@ var Components$4;
                             structure.style.top = (e.clientY - top) + 'px';
                             structure.style.left = (e.clientX - left) + 'px';
                             target.closest('.ec-composer').insertAdjacentElement('beforeend', structure);
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                            let lines = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-content-line');
-                            for (let line of lines) {
-                                let drops = document.createElement('div');
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const lines = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-content-line');
+                            for (const line of lines) {
+                                const drops = document.createElement('div');
                                 drops.classList.add('ec-composer-template-content-line-drop');
                                 drops.innerHTML = params.icons('unfold_less');
                                 line.insertAdjacentElement('afterend', drops);
                             }
-                            let drops = document.createElement('div');
+                            const drops = document.createElement('div');
                             drops.classList.add('ec-composer-template-content-line-drop');
                             drops.innerHTML = params.icons('unfold_less');
                             iframe.contentWindow.document.getElementsByClassName('ec-composer-template')[0].insertAdjacentElement('afterbegin', drops);
@@ -16085,7 +16075,7 @@ var Components$3;
                     element: '.ec-composer .ec-composer-element-options-tabs input',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target) {
                             if (target.classList.contains('ec-composer-element-options-tab-1')) {
                                 params.selector.getElementsByClassName('ec-composer-container')[0].classList.add('ec-composer-template-mobile');
@@ -16108,7 +16098,7 @@ var Components$3;
                     element: '.ec-composer .ec-composer-element-options-cancel',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target) {
                             unselect_element(params);
                         }
@@ -16130,14 +16120,14 @@ var Components$2;
                     action: 'keydown',
                     iframe: '.ec-composer-template-container',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (e.key === 'Enter') {
                             if (target.closest('.ec-element-content-data') && (target.closest('.ec-element-content').getAttribute('data-name') === 'text')) {
-                                let childrens = target.closest('.ec-element-content-data')?.children;
+                                const childrens = target.closest('.ec-element-content-data')?.children;
                                 if (childrens) {
-                                    for (let children of childrens) {
+                                    for (const children of childrens) {
                                         if (children.nodeName === 'DIV') {
-                                            let paragraph = document.createElement('p');
+                                            const paragraph = document.createElement('p');
                                             paragraph.innerHTML = children.innerHTML;
                                             children.replaceWith(paragraph);
                                         }
@@ -16150,9 +16140,9 @@ var Components$2;
                                 if (target.closest('.ec-element-content-data').childNodes.length < 1) {
                                     e.preventDefault();
                                 }
-                                let paragraphs = target.closest('.ec-element-content-data').getElementsByTagName('p');
+                                const paragraphs = target.closest('.ec-element-content-data').getElementsByTagName('p');
                                 if (paragraphs.length < 1) {
-                                    let paragraph = document.createElement('p');
+                                    const paragraph = document.createElement('p');
                                     paragraph.innerHTML = (target.closest('.ec-element-content-data').innerHTML.length < 1) ? '<br>' : target.closest('.ec-element-content-data').innerHTML;
                                     target.closest('.ec-element-content-data').appendChild(paragraph);
                                 }
@@ -16190,19 +16180,19 @@ var Components$2;
                         if ((e.inputType === 'insertText') || (e.inputType === 'insertFromPaste')) {
                             if (e.target.closest('.ec-element-content').getAttribute('data-name') === 'text') {
                                 if (!e.target.closest('p') && !e.target.closest('li')) {
-                                    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                                    let cwindow = iframe.contentWindow;
+                                    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                    const cwindow = iframe.contentWindow;
                                     if (cwindow) {
-                                        let selection = cwindow.getSelection();
+                                        const selection = cwindow.getSelection();
                                         if (selection && (selection.rangeCount > 0)) {
-                                            let range = selection.getRangeAt(0);
+                                            const range = selection.getRangeAt(0);
                                             if ((range.startContainer.parentElement?.nodeName !== 'P') && (range.startContainer.nodeName !== 'P') && !range.startContainer.parentElement?.closest('p') && (range.startContainer.parentElement?.nodeName !== 'LI') && (range.startContainer.nodeName !== 'LI') && !range.startContainer.parentElement?.closest('li')) {
-                                                let p = document.createElement('p');
-                                                let br = document.createElement('br');
+                                                const p = document.createElement('p');
+                                                const br = document.createElement('br');
                                                 p.appendChild(br);
                                                 range.deleteContents();
                                                 range.insertNode(p);
-                                                let new_range = document.createRange();
+                                                const new_range = document.createRange();
                                                 new_range.setStart(p, 0);
                                                 new_range.collapse(true);
                                                 selection.removeAllRanges();
@@ -16219,10 +16209,10 @@ var Components$2;
                 }, {
                     action: 'input',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             if (target.closest('.ec-color-input')) {
-                                let hex = target.value;
+                                const hex = target.value;
                                 if (new Plugins$1.Color().is_hex_valid(hex)) {
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16234,7 +16224,7 @@ var Components$2;
                 }, {
                     action: 'mousedown',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             if (target.closest('.ec-color-opacity-filter')) {
                                 if (e.buttons === 1) {
@@ -16243,7 +16233,7 @@ var Components$2;
                             }
                             else if (target.closest('.ec-color-gradient-filter')) {
                                 e.preventDefault();
-                                let color = new Plugins$1.Color();
+                                const color = new Plugins$1.Color();
                                 color.get_filter_color(e, params, (hex) => {
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16252,7 +16242,7 @@ var Components$2;
                             }
                             else if (target.closest('.ec-color-gradient-selector')) {
                                 e.preventDefault();
-                                let color = new Plugins$1.Color();
+                                const color = new Plugins$1.Color();
                                 color.get_gradient_color(e, params, (hex) => {
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                     params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16274,7 +16264,7 @@ var Components$2;
                             e.preventDefault();
                             params.selector.getElementsByClassName('ec-option-selector-dropdown-show')[0].classList.remove('ec-option-selector-dropdown-show');
                         }
-                        let color = new Plugins$1.Color();
+                        const color = new Plugins$1.Color();
                         color.remove_dropdown(e, params);
                     },
                     capture: false
@@ -16282,11 +16272,11 @@ var Components$2;
                     action: 'mousemove',
                     target: (e) => {
                         if (e.buttons === 1) {
-                            let target = e.target;
+                            const target = e.target;
                             if (target !== null) {
                                 if (params.selector.getElementsByClassName('ec-color-opacity-filter-active').length > 0) {
                                     e.preventDefault();
-                                    let color = new Plugins$1.Color();
+                                    const color = new Plugins$1.Color();
                                     color.create_opacity(e, params, (hex) => {
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16295,7 +16285,7 @@ var Components$2;
                                 }
                                 else if (target.closest('.ec-color-gradient-filter')) {
                                     e.preventDefault();
-                                    let color = new Plugins$1.Color();
+                                    const color = new Plugins$1.Color();
                                     color.get_filter_color(e, params, (hex) => {
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16304,7 +16294,7 @@ var Components$2;
                                 }
                                 else if (target.closest('.ec-color-gradient-selector')) {
                                     e.preventDefault();
-                                    let color = new Plugins$1.Color();
+                                    const color = new Plugins$1.Color();
                                     color.get_gradient_color(e, params, (hex) => {
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].style.setProperty('--bgcolor', hex);
                                         params.selector.getElementsByClassName('ec-button-color-active')[0].getElementsByTagName('button')[0].setAttribute('data-color', hex);
@@ -16318,7 +16308,7 @@ var Components$2;
                 }, {
                     action: 'click',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (params.selector.getElementsByClassName('ec-ste-dropdown-show').length > 0) {
                             e.preventDefault();
                             params.selector.getElementsByClassName('ec-ste-dropdown-show')[0].classList.remove('ec-ste-dropdown-show');
@@ -16333,7 +16323,7 @@ var Components$2;
                         }
                         if (params.selector.getElementsByClassName('ec-color-box').length > 0) {
                             e.preventDefault();
-                            let color = new Plugins$1.Color();
+                            const color = new Plugins$1.Color();
                             color.remove_dropdown(e, params);
                             if (target.closest('.ec-color-opacity-filter')) {
                                 if (e.buttons === 1) {
@@ -16373,15 +16363,15 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-align-button',
                     target: (e) => {
                         e.preventDefault();
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let range = selection.getRangeAt(0);
-                                let parent_element = range.commonAncestorContainer.parentElement;
+                                const range = selection.getRangeAt(0);
+                                const parent_element = range.commonAncestorContainer.parentElement;
                                 if (parent_element?.closest('.ec-element-content-data')) {
-                                    let target = e.target;
+                                    const target = e.target;
                                     if (target) {
                                         if (target.classList.contains('ec-ste-active-button')) {
                                             target.closest('.ec-ste-group-buttons').getElementsByClassName('ec-ste-active-button')[0]?.classList.remove('ec-ste-active-button');
@@ -16390,9 +16380,9 @@ var Components$2;
                                         else {
                                             target.closest('.ec-ste-group-buttons').getElementsByClassName('ec-ste-active-button')[0]?.classList.remove('ec-ste-active-button');
                                             target.classList.add('ec-ste-active-button');
-                                            let direction = target.getAttribute('data-direction');
+                                            const direction = target.getAttribute('data-direction');
                                             if (direction) {
-                                                let parent = parent_element.closest('p') ? parent_element.closest('p') : parent_element.closest('li');
+                                                const parent = parent_element.closest('p') ? parent_element.closest('p') : parent_element.closest('li');
                                                 new Plugins$1.Small_editor().text_align(parent, direction);
                                                 parent.closest('.ec-element-content-data').focus();
                                             }
@@ -16408,20 +16398,20 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-format-italic-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target.classList.contains('ec-ste-active-button')) {
                             target.classList.remove('ec-ste-active-button');
                         }
                         else {
                             target.classList.add('ec-ste-active-button');
                         }
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let small_editor = new Plugins$1.Small_editor();
-                                let range = selection.getRangeAt(0);
+                                const small_editor = new Plugins$1.Small_editor();
+                                const range = selection.getRangeAt(0);
                                 small_editor.apply_tags(params, range, 'i');
                             }
                         }
@@ -16432,20 +16422,20 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-format-underlined-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target.classList.contains('ec-ste-active-button')) {
                             target.classList.remove('ec-ste-active-button');
                         }
                         else {
                             target.classList.add('ec-ste-active-button');
                         }
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let small_editor = new Plugins$1.Small_editor();
-                                let range = selection.getRangeAt(0);
+                                const small_editor = new Plugins$1.Small_editor();
+                                const range = selection.getRangeAt(0);
                                 small_editor.apply_tags(params, range, 'u');
                             }
                         }
@@ -16456,20 +16446,20 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-format-strikethrough-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target.classList.contains('ec-ste-active-button')) {
                             target.classList.remove('ec-ste-active-button');
                         }
                         else {
                             target.classList.add('ec-ste-active-button');
                         }
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let small_editor = new Plugins$1.Small_editor();
-                                let range = selection.getRangeAt(0);
+                                const small_editor = new Plugins$1.Small_editor();
+                                const range = selection.getRangeAt(0);
                                 small_editor.apply_tags(params, range, 's');
                             }
                         }
@@ -16480,7 +16470,7 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-list-bulleted-button',
                     target: (e) => {
                         e.preventDefault();
-                        let small_editor = new Plugins$1.Small_editor();
+                        const small_editor = new Plugins$1.Small_editor();
                         small_editor.list(e, params);
                     },
                     capture: false
@@ -16489,7 +16479,7 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-list-numbered-button',
                     target: (e) => {
                         e.preventDefault();
-                        let small_editor = new Plugins$1.Small_editor();
+                        const small_editor = new Plugins$1.Small_editor();
                         small_editor.list(e, params);
                     },
                     capture: false
@@ -16498,20 +16488,20 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-add-link-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if (target.classList.contains('ec-ste-active-button')) {
                             target.classList.remove('ec-ste-active-button');
                         }
                         else {
                             target.classList.add('ec-ste-active-button');
                         }
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let small_editor = new Plugins$1.Small_editor();
-                                let range = selection.getRangeAt(0);
+                                const small_editor = new Plugins$1.Small_editor();
+                                const range = selection.getRangeAt(0);
                                 small_editor.apply_tags(params, range, 'a', { 'href': '#' });
                             }
                         }
@@ -16522,8 +16512,8 @@ var Components$2;
                     element: '.ec-small-text-editor .ec-ste-dropdown .ec-button',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
-                        let dropdown = target.closest('.ec-ste-dropdown');
+                        const target = e.target;
+                        const dropdown = target.closest('.ec-ste-dropdown');
                         if (dropdown) {
                             setTimeout(() => {
                                 dropdown?.classList.add('ec-ste-dropdown-show');
@@ -16553,12 +16543,12 @@ var Components$2;
                     target: (e) => {
                         e.preventDefault();
                         new Plugins$1.Color().add_color_box(e, params);
-                        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                        let cwindow = iframe.contentWindow;
+                        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                        const cwindow = iframe.contentWindow;
                         if (cwindow) {
-                            let selection = cwindow.getSelection();
+                            const selection = cwindow.getSelection();
                             if (selection && (selection.rangeCount > 0)) {
-                                let range = selection.getRangeAt(0);
+                                const range = selection.getRangeAt(0);
                                 range.commonAncestorContainer.parentElement.closest('.ec-element-content-data').focus();
                             }
                         }
@@ -16568,7 +16558,7 @@ var Components$2;
                     action: 'click',
                     element: '.ec-small-text-editor .ec-ste-expand-all-button',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target.closest('.ec-composer-container')?.classList.contains('ec-small-text-editor-expanded')) {
                             target.closest('.ec-composer-container')?.classList.remove('ec-small-text-editor-expanded');
                         }
@@ -16592,7 +16582,7 @@ var Components$1;
                     action: 'dragover',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if ((target !== null) && target.closest('.ec-cover-upload-box-drop-area')) {
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-start')[0].classList.remove('ec-cover-upload-box-drop-area-show');
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-drop')[0].classList.add('ec-cover-upload-box-drop-area-show');
@@ -16607,7 +16597,7 @@ var Components$1;
                     action: 'dragleave',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if ((target !== null) && target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]') && !target.closest('.ec-cover-upload-box-drop-area')) {
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-drop')[0].classList.remove('ec-cover-upload-box-drop-area-show');
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-start')[0].classList.add('ec-cover-upload-box-drop-area-show');
@@ -16618,7 +16608,7 @@ var Components$1;
                     action: 'drop',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         if ((target !== null) && target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]')) {
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-drop')[0].classList.remove('ec-cover-upload-box-drop-area-show');
                             params.selector.getElementsByClassName('ec-cover-upload-box-drop-area-start')[0].classList.add('ec-cover-upload-box-drop-area-show');
@@ -16633,18 +16623,18 @@ var Components$1;
                     action: 'mousedown',
                     target: (e) => {
                         if (e.buttons === 1) {
-                            let target = e.target;
+                            const target = e.target;
                             if (target.classList.contains('ec-module')) {
                                 e.preventDefault();
                                 Array.from(params.selector.getElementsByClassName('ec-module')).map((module) => {
                                     module.classList.remove('ec-module-temp', 'ec-module-temp-show');
                                 });
                                 target.classList.add('ec-module-temp');
-                                let module = target.cloneNode(true);
-                                let cloned = target.getBoundingClientRect();
+                                const module = target.cloneNode(true);
+                                const cloned = target.getBoundingClientRect();
                                 module.classList.add('ec-module-drag-active');
-                                let top = (e.clientY - cloned.y);
-                                let left = (e.clientX - cloned.x);
+                                const top = (e.clientY - cloned.y);
+                                const left = (e.clientX - cloned.x);
                                 module.setAttribute('data-top', top.toString());
                                 module.setAttribute('data-left', left.toString());
                                 module.style.width = cloned.width + 'px';
@@ -16652,15 +16642,15 @@ var Components$1;
                                 module.style.top = (e.clientY - top) + 'px';
                                 module.style.left = (e.clientX - left) + 'px';
                                 target.closest('.ec-composer').insertAdjacentElement('beforeend', module);
-                                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                                let lines = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-content-line');
-                                for (let line of lines) {
-                                    let drops = document.createElement('div');
+                                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                const lines = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-content-line');
+                                for (const line of lines) {
+                                    const drops = document.createElement('div');
                                     drops.classList.add('ec-composer-template-content-line-drop');
                                     drops.innerHTML = params.icons('unfold_less');
                                     line.insertAdjacentElement('afterend', drops);
                                 }
-                                let drops = document.createElement('div');
+                                const drops = document.createElement('div');
                                 drops.classList.add('ec-composer-template-content-line-drop');
                                 drops.innerHTML = params.icons('unfold_less');
                                 iframe.contentWindow.document.getElementsByClassName('ec-composer-template')[0].insertAdjacentElement('afterbegin', drops);
@@ -16674,23 +16664,23 @@ var Components$1;
                         if (e.buttons === 1) {
                             if (params.selector.getElementsByClassName('ec-module-drag-active').length > 0) {
                                 e.preventDefault();
-                                let module = params.selector.getElementsByClassName('ec-module-drag-active')[0];
-                                let top = (e.clientY - parseInt(module.getAttribute('data-top')));
-                                let left = (e.clientX - parseInt(module.getAttribute('data-left')));
+                                const module = params.selector.getElementsByClassName('ec-module-drag-active')[0];
+                                const top = (e.clientY - parseInt(module.getAttribute('data-top')));
+                                const left = (e.clientX - parseInt(module.getAttribute('data-left')));
                                 module.style.top = top + 'px';
                                 module.style.left = left + 'px';
-                                let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                                let iframe_rect = iframe?.getBoundingClientRect();
+                                const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                                const iframe_rect = iframe?.getBoundingClientRect();
                                 if (iframe instanceof HTMLIFrameElement) {
-                                    let line = params.selector.getElementsByClassName('ec-module-drag-active')[0];
-                                    let iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
+                                    const line = params.selector.getElementsByClassName('ec-module-drag-active')[0];
+                                    const iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
                                     if (iframe_body) {
                                         if (iframe_body[0].classList.contains('ec-composer-template-preview')) {
                                             return;
                                         }
-                                        let line_position = line.getBoundingClientRect();
-                                        let line_top = line_position.y;
-                                        let line_height = line_position.height;
+                                        const line_position = line.getBoundingClientRect();
+                                        const line_top = line_position.y;
+                                        const line_height = line_position.height;
                                         if (iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop').length > 0) {
                                             Array.from(iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop')).map((item) => {
                                                 item.classList.remove('ec-composer-template-content-line-drop-active');
@@ -16699,8 +16689,8 @@ var Components$1;
                                             Array.from(iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop')).forEach((element) => {
                                                 if (found > 0)
                                                     return;
-                                                let element_position = element.getBoundingClientRect();
-                                                let element_top = (iframe_rect instanceof DOMRect) ? (iframe_rect.y + element_position.y) : 0;
+                                                const element_position = element.getBoundingClientRect();
+                                                const element_top = (iframe_rect instanceof DOMRect) ? (iframe_rect.y + element_position.y) : 0;
                                                 if ((line_top <= element_top) && ((line_top + line_height) >= element_top)) {
                                                     element.classList.add('ec-composer-template-content-line-drop-active');
                                                     found++;
@@ -16726,12 +16716,12 @@ var Components$1;
                     target: (e) => {
                         e.preventDefault();
                         if (params.selector.getElementsByClassName('ec-module-drag-active').length > 0) {
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                            let iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
                             if (iframe_body) {
-                                let iframe_body_child = iframe_body[0];
+                                const iframe_body_child = iframe_body[0];
                                 if (iframe_body_child.getElementsByClassName('ec-composer-template-content-line-drop-active').length > 0) {
-                                    let new_line = get_content({
+                                    const new_line = get_content({
                                         'format': 7
                                     });
                                     iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop-active')[0].insertAdjacentElement('afterend', new_line);
@@ -16742,8 +16732,8 @@ var Components$1;
                                     });
                                 }
                                 params.selector.getElementsByClassName('ec-module-drag-active')[0].remove();
-                                let module_id = params.selector.getElementsByClassName('ec-module-temp')[0].getAttribute('data-module');
-                                let module_type = (Array.prototype.indexOf.call(Array.from(params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-sections').getElementsByClassName('ec-search-section')), params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-section')) < 1) ? 'personal' : 'default';
+                                const module_id = params.selector.getElementsByClassName('ec-module-temp')[0].getAttribute('data-module');
+                                const module_type = (Array.prototype.indexOf.call(Array.from(params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-sections').getElementsByClassName('ec-search-section')), params.selector.getElementsByClassName('ec-module-temp')[0].closest('.ec-search-section')) < 1) ? 'personal' : 'default';
                                 params.selector.getElementsByClassName('ec-module-temp')[0].classList.remove('ec-module-temp');
                                 new Classes$1.Modules().get_module(params, module_id, module_type);
                             }
@@ -16755,7 +16745,7 @@ var Components$1;
                     element: '.ec-composer-modal[data-scope="ec-composer-create-module-modal"] .ec-menu-module-name',
                     target: (e) => {
                         e.preventDefault();
-                        let target = e.target;
+                        const target = e.target;
                         target.closest('.ec-composer-modal').getElementsByClassName('ec-module-advanced-fields')[0].classList.add('ec-module-advanced-fields-expand');
                         setTimeout(() => {
                             target.closest('.ec-composer-modal').getElementsByClassName('ec-module-advanced-fields')[0].classList.remove('ec-module-advanced-fields-expand');
@@ -16767,7 +16757,7 @@ var Components$1;
                     action: 'input',
                     element: '.ec-modules-component .ec-search .ec-search-input',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             target.closest('div').classList.remove('ec-search-complete');
                             target.closest('div').classList.add('ec-search-active');
@@ -16792,14 +16782,14 @@ var Components$1;
                     action: 'change',
                     element: '.ec-composer-modal[data-scope="ec-composer-create-module-modal"] .ec-file',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
-                            let create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                            const create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
                             if ((target.files !== null) && (target.files.length > 0)) {
                                 create_module.getElementsByClassName('ec-cover-uploaded-files-list')[0].innerHTML = '';
                                 create_module.getElementsByClassName('ec-cover-uploaded-files')[0].classList.remove('ec-cover-uploaded-files-show');
                                 let uploaded_images = '';
-                                for (let image of target.files) {
+                                for (const image of target.files) {
                                     uploaded_images += '<li class="ec-cover-uploaded-file ec-cover-uploaded-file-uploading" data-file="' + image.lastModified + '_' + image.size + '">'
                                         + '<div class="ec-grid">'
                                         + '<div class="ec-grid-column-11">'
@@ -16823,22 +16813,22 @@ var Components$1;
                                         + '</div>'
                                         + '</div>'
                                         + '</li>';
-                                    let form = new FormData();
+                                    const form = new FormData();
                                     form.append('file_name', image.lastModified + '_' + image.size);
                                     form.append('file', image);
-                                    let http = new XMLHttpRequest();
+                                    const http = new XMLHttpRequest();
                                     http.open('POST', params.options('api_url') + 'api/upload_module_cover', true);
                                     http.upload.onprogress = function (e) {
                                         if (e.lengthComputable) {
-                                            let percent = (e.loaded / e.total) * 100;
-                                            let file_size = create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-upload-total').getAttribute('data-total');
+                                            const percent = (e.loaded / e.total) * 100;
+                                            const file_size = create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-upload-total').getAttribute('data-total');
                                             if (file_size) {
-                                                let uploaded_size = (percent / 100) * parseInt(file_size);
+                                                const uploaded_size = (percent / 100) * parseInt(file_size);
                                                 create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-done').textContent = format_file_size(uploaded_size);
                                             }
                                             create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-percentage').textContent = percent.toFixed(0) + '%';
-                                            let progress_width = create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress').clientWidth;
-                                            let progress_bar = (percent / 100) * progress_width;
+                                            const progress_width = create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress').clientWidth;
+                                            const progress_bar = (percent / 100) * progress_width;
                                             create_module.querySelector('.ec-cover-uploaded-file[data-file="' + this.file_name + '"] .ec-cover-uploaded-file-loading-progress-bar').style.width = progress_bar.toFixed(0) + 'px';
                                         }
                                     }.bind({
@@ -16846,7 +16836,7 @@ var Components$1;
                                     });
                                     http.onload = function () {
                                         if (http.status >= 200 && http.status < 300) {
-                                            let data = JSON.parse(http.response);
+                                            const data = JSON.parse(http.response);
                                             if (!data.success && (typeof data.file_name !== 'undefined')) {
                                                 create_module.querySelector('.ec-cover-uploaded-file[data-file="' + data.file_name + '"]').classList.add('ec-cover-uploaded-file-uploading');
                                                 create_module.querySelector('.ec-cover-uploaded-file[data-file="' + data.file_name + '"]').classList.add('ec-cover-uploaded-file-failed');
@@ -16876,7 +16866,7 @@ var Components$1;
                     action: 'click',
                     element: '.ec-composer-menu a[data-scope="modules"]',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             e.preventDefault();
                             if (params.selector.querySelectorAll('.ec-modules-component .ec-search-sections > .ec-search-section')[0].getAttribute('loading')) {
@@ -16890,10 +16880,10 @@ var Components$1;
                     action: 'click',
                     element: '.ec-composer-modal[data-scope="ec-composer-create-module-modal"] .ec-cover-upload-box-drop-area a',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             e.preventDefault();
-                            let create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                            const create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
                             create_module.getElementsByClassName('ec-file')[0].click();
                         }
                     },
@@ -16902,11 +16892,11 @@ var Components$1;
                     action: 'click',
                     element: '.ec-composer-modal[data-scope="ec-composer-create-module-modal"] .ec-save-module-button',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             target.closest('.ec-composer-modal-footer').getElementsByClassName('ec-composer-modal-message')[0].classList.remove('ec-composer-modal-message-success', 'ec-composer-modal-message-error');
-                            let create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
-                            let module = {
+                            const create_module = target.closest('.ec-composer-modal[data-scope="ec-composer-create-module-modal"]');
+                            const module = {
                                 name: create_module.getElementsByClassName('ec-menu-module-name')[0].value,
                                 category: create_module.getElementsByClassName('ec-module-category-button')[0].getAttribute('data-id'),
                                 description: create_module.getElementsByClassName('ec-menu-module-description')[0].value
@@ -16914,21 +16904,21 @@ var Components$1;
                             if (create_module.getElementsByClassName('ec-cover-uploaded-file').length > 0) {
                                 module['cover'] = create_module.getElementsByClassName('ec-cover-uploaded-file')[0].getAttribute('data-name');
                             }
-                            let itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-                            let idocument = itemplate.contentDocument;
+                            const itemplate = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const idocument = itemplate.contentDocument;
                             if (idocument) {
-                                let selected_lines = idocument.getElementsByClassName('ec-composer-template-content-line-selected');
+                                const selected_lines = idocument.getElementsByClassName('ec-composer-template-content-line-selected');
                                 if (selected_lines.length > 0) {
                                     module['html'] = remove_buttons(selected_lines[0].outerHTML);
                                     module['css'] = '';
-                                    let elements = selected_lines[0].getElementsByClassName('ec-element-content');
+                                    const elements = selected_lines[0].getElementsByClassName('ec-element-content');
                                     if (elements.length > 0) {
-                                        for (let element of elements) {
-                                            let element_id = element.getAttribute('data-id');
+                                        for (const element of elements) {
+                                            const element_id = element.getAttribute('data-id');
                                             if (!element_id) {
                                                 continue;
                                             }
-                                            let style = idocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                            const style = idocument.head.querySelector('style[data-element="' + element_id + '"]');
                                             if (style) {
                                                 module['css'] += style.outerHTML.replaceAll(element_id, element_id);
                                             }
@@ -16947,7 +16937,7 @@ var Components$1;
                     action: 'click',
                     element: '.ec-modules-component .ec-search-buttons .ec-search-button',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             target.closest('.ec-modules-component').querySelector(target.closest('.ec-modules-component').getElementsByClassName('ec-search-active-button')[0].getAttribute('data-target')).classList.add('ec-search-section-hide');
                             target.closest('.ec-modules-component').querySelector(target.getAttribute('data-target')).classList.add('ec-search-section-start');
@@ -16979,13 +16969,13 @@ var Components$1;
                     action: 'click',
                     element: '.ec-modules-component .ec-search-sections > .ec-search-section .ec-loading-button',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             e.preventDefault();
-                            let module_type = (Array.prototype.indexOf.call(Array.from(target.closest('.ec-search-sections').getElementsByClassName('ec-search-section')), target.closest('.ec-search-section')) < 1) ? 'personal' : 'default';
+                            const module_type = (Array.prototype.indexOf.call(Array.from(target.closest('.ec-search-sections').getElementsByClassName('ec-search-section')), target.closest('.ec-search-section')) < 1) ? 'personal' : 'default';
                             target.classList.add('ec-load-more-active');
                             setTimeout(() => {
-                                let page = target.closest('.ec-loading-button').getAttribute('data-page') ? parseInt(target.closest('.ec-loading-button').getAttribute('data-page')) : 1;
+                                const page = target.closest('.ec-loading-button').getAttribute('data-page') ? parseInt(target.closest('.ec-loading-button').getAttribute('data-page')) : 1;
                                 new Classes$1.Modules().get_modules(params, module_type, page);
                             }, 1000);
                         }
@@ -16995,7 +16985,7 @@ var Components$1;
                     action: 'click',
                     element: '.ec-modules-component .ec-search a',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             e.preventDefault();
                             target.closest('div').classList.remove('ec-search-complete');
@@ -17016,11 +17006,11 @@ var Components$1;
                     action: 'click',
                     element: '.ec-modules-component .ec-categories a',
                     target: (e) => {
-                        let target = e.target;
+                        const target = e.target;
                         if (target !== null) {
                             e.preventDefault();
-                            let category_id = target.getAttribute('data-id');
-                            let category_name = target.textContent;
+                            const category_id = target.getAttribute('data-id');
+                            const category_name = target.textContent;
                             if (category_id && category_name) {
                                 target.closest('.ec-option-selector-dropdown').getElementsByClassName('ec-button')[0].setAttribute('data-id', category_id);
                                 target.closest('.ec-option-selector-dropdown').querySelector('.ec-button > span').textContent = category_name;
@@ -17167,10 +17157,10 @@ function element(params) {
 
 function body(params) {
     let categories = '';
-    let modules = new Classes$1.Modules();
-    let categories_list = modules.get_modules_categories(params);
+    const modules = new Classes$1.Modules();
+    const categories_list = modules.get_modules_categories(params);
     if (categories_list.length > 0) {
-        for (let category of categories_list) {
+        for (const category of categories_list) {
             categories += '<li>'
                 + '<a href="#" data-id="' + category.slug + '">'
                 + category.name
@@ -17578,13 +17568,13 @@ var Controllers$1;
                 show_message(get_word('error_name') + ': ' + get_word('no_head_tag_found'));
             }
             else {
-                let builder_options = get_option('builder');
+                const builder_options = get_option('builder');
                 if (typeof builder_options !== 'boolean') {
                     if (typeof builder_options.css === 'object') {
                         if (builder_options.css.length > 0) {
-                            for (let css of builder_options.css) {
+                            for (const css of builder_options.css) {
                                 if (!document.querySelector('link[href="' + css.href + '"]')) {
-                                    let css_link = document.createElement('link');
+                                    const css_link = document.createElement('link');
                                     css_link.setAttribute('href', css.href);
                                     css_link.setAttribute('rel', 'stylesheet');
                                     document.getElementsByTagName('head')[0].append(css_link);
@@ -17593,10 +17583,10 @@ var Controllers$1;
                         }
                     }
                 }
-                let default_css_url = get_option('css_url') + 'main.css';
-                let css_link = document.querySelector('link[href="' + default_css_url + '"]');
+                const default_css_url = get_option('css_url') + 'main.css';
+                const css_link = document.querySelector('link[href="' + default_css_url + '"]');
                 if (!css_link) {
-                    let link = document.createElement('link');
+                    const link = document.createElement('link');
                     link.setAttribute('href', default_css_url);
                     link.setAttribute('rel', 'stylesheet');
                     link.setAttribute('id', 'ec-composer-css-link');
@@ -17605,10 +17595,10 @@ var Controllers$1;
             }
         }
         setup() {
-            let builder_options = get_option('builder');
-            let selector = document.querySelector(this.element);
+            const builder_options = get_option('builder');
+            const selector = document.querySelector(this.element);
             selector.style.overflow = 'hidden';
-            let container = '<div class="ec-composer"></div>';
+            const container = '<div class="ec-composer"></div>';
             selector.innerHTML = container;
             if (builder_options?.start?.animation) {
                 new Plugins$1.StartLoading().get_content(selector);
@@ -17622,7 +17612,7 @@ var Controllers$1;
                 template_id = this.uniqueid();
                 this.template(template_id, true);
             }
-            let view_params = {
+            const view_params = {
                 template_id: template_id,
                 options: get_option,
                 words: get_word,
@@ -17635,18 +17625,18 @@ var Controllers$1;
             builder += element(view_params);
             builder += body(view_params);
             selector.querySelector('.ec-composer').innerHTML += builder;
-            let itemplate = selector.getElementsByClassName('ec-composer-template-container');
+            const itemplate = selector.getElementsByClassName('ec-composer-template-container');
             if (typeof builder_options.css === 'object') {
                 if (builder_options.css.length > 0) {
-                    let css_link = document.createElement('link');
+                    const css_link = document.createElement('link');
                     css_link.setAttribute('href', builder_options.css[0].href);
                     css_link.setAttribute('rel', 'stylesheet');
                     itemplate[0].contentDocument.head.innerHTML += css_link.outerHTML;
                 }
             }
-            let fonts_link = get_fonts_link();
+            const fonts_link = get_fonts_link();
             if (fonts_link) {
-                let link = document.createElement('link');
+                const link = document.createElement('link');
                 link.setAttribute('href', fonts_link);
                 link.setAttribute('rel', 'stylesheet');
                 document.head.appendChild(link);
@@ -17705,11 +17695,11 @@ var Controllers$1;
                 words: get_word,
                 icons: get_icon
             });
-            let components_list = Object.keys(Components);
+            const components_list = Object.keys(Components);
             if (components_list.length > 0) {
-                for (let component of components_list) {
-                    let component_class = Object.getOwnPropertyDescriptor(Components, component);
-                    let component_events = new component_class.value().get_events({
+                for (const component of components_list) {
+                    const component_class = Object.getOwnPropertyDescriptor(Components, component);
+                    const component_events = new component_class.value().get_events({
                         options: get_option,
                         words: get_word,
                         icons: get_icon,
@@ -17717,9 +17707,9 @@ var Controllers$1;
                         template_id: template_id
                     });
                     if (component_events.length > 0) {
-                        for (let event of component_events) {
+                        for (const event of component_events) {
                             if ((typeof event.capture === 'boolean') && (typeof event.target === 'function') && (typeof event.action === 'string')) {
-                                let iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
+                                const iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
                                 if (typeof event.element === 'string') {
                                     new Classes$1.Events().addEventListener(selector.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
                                 }
@@ -17733,38 +17723,38 @@ var Controllers$1;
             }
         }
         uniqueid() {
-            let allowed = 'abcdefghijklmnopqrstuvwxyz';
-            let tchars = allowed.length;
-            let first_number = Math.floor(Math.random() * tchars);
-            let first_char = allowed.slice(first_number, (first_number + 1));
-            let second_number = Math.floor(Math.random() * tchars);
-            let second_char = allowed.slice(second_number, (second_number + 1));
+            const allowed = 'abcdefghijklmnopqrstuvwxyz';
+            const tchars = allowed.length;
+            const first_number = Math.floor(Math.random() * tchars);
+            const first_char = allowed.slice(first_number, (first_number + 1));
+            const second_number = Math.floor(Math.random() * tchars);
+            const second_char = allowed.slice(second_number, (second_number + 1));
             return first_char + second_char + Date.now();
         }
         template(template_id, create) {
-            let element = this.element;
-            let selector = document.querySelector(element);
-            let params = {
+            const element = this.element;
+            const selector = document.querySelector(element);
+            const params = {
                 options: get_option,
                 selector: selector,
                 words: get_word,
                 icons: get_icon,
                 template_id: template_id
             };
-            let http_send = new Classes$1.Https();
+            const http_send = new Classes$1.Https();
             if (selector !== undefined) {
                 setTimeout(() => {
                     if (create) {
                         new Classes$1.Backup().save_html_update(params);
-                        let send_request = new Promise((resolve, reject) => {
-                            let template_html = get_template(params);
-                            let template = {
+                        const send_request = new Promise((resolve, reject) => {
+                            const template_html = get_template(params);
+                            const template = {
                                 template_id: template_id,
                                 html: template_html,
                                 css: get_styles('default').replace('<style data-scope="default">', '').replace('</style>', ''),
                                 library: get_styles('library').replace('<style>', '').replace('</style>', '')
                             };
-                            let response = http_send.post(get_option('api_url') + 'api/create_template', template);
+                            const response = http_send.post(get_option('api_url') + 'api/create_template', template);
                             resolve(response);
                         });
                         send_request.then(response => {
@@ -17836,7 +17826,7 @@ const show_message = (message) => {
 
 const add = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'add'
             + '</span>';
@@ -17845,7 +17835,7 @@ const add = {
 
 const app_registration = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'app_registration'
             + '</span>';
@@ -17854,7 +17844,7 @@ const app_registration = {
 
 const edit_square = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'edit_square'
             + '</span>';
@@ -17863,7 +17853,7 @@ const edit_square = {
 
 const settings$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'settings'
             + '</span>';
@@ -17872,7 +17862,7 @@ const settings$1 = {
 
 const frame_inspect = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'frame_inspect'
             + '</span>';
@@ -17881,7 +17871,7 @@ const frame_inspect = {
 
 const upgrade = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'upgrade'
             + '</span>';
@@ -17890,7 +17880,7 @@ const upgrade = {
 
 const save$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'save'
             + '</span>';
@@ -17899,7 +17889,7 @@ const save$1 = {
 
 const slide_library = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'slide_library'
             + '</span>';
@@ -17908,7 +17898,7 @@ const slide_library = {
 
 const design_services = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'design_services'
             + '</span>';
@@ -17917,7 +17907,7 @@ const design_services = {
 
 const dashboard = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'dashboard'
             + '</span>';
@@ -17926,7 +17916,7 @@ const dashboard = {
 
 const dashboard_customize = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'dashboard_customize'
             + '</span>';
@@ -17935,7 +17925,7 @@ const dashboard_customize = {
 
 const imagesmode = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'imagesmode'
             + '</span>';
@@ -17944,7 +17934,7 @@ const imagesmode = {
 
 const code = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'code'
             + '</span>';
@@ -17953,7 +17943,7 @@ const code = {
 
 const add_circle = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'add_circle'
             + '</span>';
@@ -17962,7 +17952,7 @@ const add_circle = {
 
 const history$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'history'
             + '</span>';
@@ -17971,7 +17961,7 @@ const history$1 = {
 
 const low_priority = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra['icon_class'] : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra['icon_class'] : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'low_priority'
             + '</span>';
@@ -17980,7 +17970,7 @@ const low_priority = {
 
 const column$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'text_select_move_up'
             + '</span>';
@@ -17989,7 +17979,7 @@ const column$1 = {
 
 const text$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'subject'
             + '</span>';
@@ -17998,7 +17988,7 @@ const text$1 = {
 
 const button$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'smart_button'
             + '</span>';
@@ -18007,7 +17997,7 @@ const button$1 = {
 
 const image$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'image'
             + '</span>';
@@ -18016,7 +18006,7 @@ const image$1 = {
 
 const video$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'smart_display'
             + '</span>';
@@ -18025,7 +18015,7 @@ const video$1 = {
 
 const video_library = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'video_library'
             + '</span>';
@@ -18034,7 +18024,7 @@ const video_library = {
 
 const menu$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'view_column_2'
             + '</span>';
@@ -18043,7 +18033,7 @@ const menu$1 = {
 
 const html$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'code_blocks'
             + '</span>';
@@ -18052,7 +18042,7 @@ const html$1 = {
 
 const divider$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_center'
             + '</span>';
@@ -18061,7 +18051,7 @@ const divider$1 = {
 
 const spacer$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'pin_end'
             + '</span>';
@@ -18070,7 +18060,7 @@ const spacer$1 = {
 
 const share$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'present_to_all'
             + '</span>';
@@ -18079,7 +18069,7 @@ const share$1 = {
 
 const image_left = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_image_left'
             + '</span>';
@@ -18088,7 +18078,7 @@ const image_left = {
 
 const image_right = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_image_right'
             + '</span>';
@@ -18097,7 +18087,7 @@ const image_right = {
 
 const banner$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'pallet'
             + '</span>';
@@ -18106,7 +18096,7 @@ const banner$1 = {
 
 const carousel$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'art_track'
             + '</span>';
@@ -18115,7 +18105,7 @@ const carousel$1 = {
 
 const timer$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'timer'
             + '</span>';
@@ -18124,7 +18114,7 @@ const timer$1 = {
 
 const accordion$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'library_books'
             + '</span>';
@@ -18133,7 +18123,7 @@ const accordion$1 = {
 
 const swipe_right = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'swipe_right'
             + '</span>';
@@ -18142,7 +18132,7 @@ const swipe_right = {
 
 const swipe_down = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'swipe_down'
             + '</span>';
@@ -18151,7 +18141,7 @@ const swipe_down = {
 
 const expand_more = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'expand_more'
             + '</span>';
@@ -18160,7 +18150,7 @@ const expand_more = {
 
 const expand_all = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'expand_all'
             + '</span>';
@@ -18169,7 +18159,7 @@ const expand_all = {
 
 const elements_section = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'magic_button'
             + '</span>';
@@ -18178,7 +18168,7 @@ const elements_section = {
 
 const elements_section_advanced = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'auto_awesome'
             + '</span>';
@@ -18187,7 +18177,7 @@ const elements_section_advanced = {
 
 const reviews$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'reviews'
             + '</span>';
@@ -18196,7 +18186,7 @@ const reviews$1 = {
 
 const forms$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'source_notes'
             + '</span>';
@@ -18205,7 +18195,7 @@ const forms$1 = {
 
 const modules_section = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'style'
             + '</span>';
@@ -18214,7 +18204,7 @@ const modules_section = {
 
 const layers = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'layers'
             + '</span>';
@@ -18223,7 +18213,7 @@ const layers = {
 
 const new_label = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'new_label'
             + '</span>';
@@ -18232,7 +18222,7 @@ const new_label = {
 
 const person_pin_circle = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'person_pin_circle'
             + '</span>';
@@ -18241,7 +18231,7 @@ const person_pin_circle = {
 
 const autorenew = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'autorenew'
             + '</span>';
@@ -18250,7 +18240,7 @@ const autorenew = {
 
 const media_section = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'gallery_thumbnail'
             + '</span>';
@@ -18259,7 +18249,7 @@ const media_section = {
 
 const image_search = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'image_search'
             + '</span>';
@@ -18268,7 +18258,7 @@ const image_search = {
 
 const backup = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'backup'
             + '</span>';
@@ -18277,7 +18267,7 @@ const backup = {
 
 const cancel$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'cancel'
             + '</span>';
@@ -18286,7 +18276,7 @@ const cancel$1 = {
 
 const cloud_upload = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'cloud_upload'
             + '</span>';
@@ -18295,7 +18285,7 @@ const cloud_upload = {
 
 const cloud_queue = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'cloud_queue'
             + '</span>';
@@ -18304,7 +18294,7 @@ const cloud_queue = {
 
 const cloud_done = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'cloud_done'
             + '</span>';
@@ -18313,7 +18303,7 @@ const cloud_done = {
 
 const cloud_off = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'cloud_off'
             + '</span>';
@@ -18322,7 +18312,7 @@ const cloud_off = {
 
 const task_alt = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'task_alt'
             + '</span>';
@@ -18331,7 +18321,7 @@ const task_alt = {
 
 const notifications = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'notifications'
             + '</span>';
@@ -18340,7 +18330,7 @@ const notifications = {
 
 const history_section = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'manage_search'
             + '</span>';
@@ -18349,7 +18339,7 @@ const history_section = {
 
 const backup_restore = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'settings_backup_restore'
             + '</span>';
@@ -18358,7 +18348,7 @@ const backup_restore = {
 
 const frame_source = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'frame_source'
             + '</span>';
@@ -18367,7 +18357,7 @@ const frame_source = {
 
 const text_increase = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'text_increase'
             + '</span>';
@@ -18376,7 +18366,7 @@ const text_increase = {
 
 const text_decrease = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'text_decrease'
             + '</span>';
@@ -18385,7 +18375,7 @@ const text_decrease = {
 
 const drag = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp ec-drag-icon' + icon_class + '">'
             + 'drag_indicator'
             + '</span>';
@@ -18394,7 +18384,7 @@ const drag = {
 
 const close$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'close'
             + '</span>';
@@ -18403,7 +18393,7 @@ const close$1 = {
 
 const library_add = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'library_add'
             + '</span>';
@@ -18412,7 +18402,7 @@ const library_add = {
 
 const link = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'link'
             + '</span>';
@@ -18421,7 +18411,7 @@ const link = {
 
 const link_add = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'add_link'
             + '</span>';
@@ -18430,7 +18420,7 @@ const link_add = {
 
 const link_off = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'link_off'
             + '</span>';
@@ -18439,7 +18429,7 @@ const link_off = {
 
 const place_item = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'place_item'
             + '</span>';
@@ -18448,7 +18438,7 @@ const place_item = {
 
 const trash = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'delete'
             + '</span>';
@@ -18457,7 +18447,7 @@ const trash = {
 
 const unfold_more = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'unfold_more'
             + '</span>';
@@ -18466,7 +18456,7 @@ const unfold_more = {
 
 const unfold_less = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'unfold_less'
             + '</span>';
@@ -18475,7 +18465,7 @@ const unfold_less = {
 
 const backup_table = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'backup_table'
             + '</span>';
@@ -18484,7 +18474,7 @@ const backup_table = {
 
 const arrow_back = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'arrow_back'
             + '</span>';
@@ -18493,7 +18483,7 @@ const arrow_back = {
 
 const mark_chat_unread = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'mark_chat_unread'
             + '</span>';
@@ -18502,7 +18492,7 @@ const mark_chat_unread = {
 
 const phone = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'smartphone'
             + '</span>';
@@ -18511,7 +18501,7 @@ const phone = {
 
 const desktop = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'desktop_windows'
             + '</span>';
@@ -18520,7 +18510,7 @@ const desktop = {
 
 const align_justify_flex_start = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_justify_flex_start'
             + '</span>';
@@ -18529,7 +18519,7 @@ const align_justify_flex_start = {
 
 const align_justify_center = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_justify_center'
             + '</span>';
@@ -18538,7 +18528,7 @@ const align_justify_center = {
 
 const align_justify_flex_end = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_justify_flex_end'
             + '</span>';
@@ -18547,7 +18537,7 @@ const align_justify_flex_end = {
 
 const remove = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'remove'
             + '</span>';
@@ -18556,7 +18546,7 @@ const remove = {
 
 const check = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'check'
             + '</span>';
@@ -18565,7 +18555,7 @@ const check = {
 
 const refresh = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'refresh'
             + '</span>';
@@ -18574,7 +18564,7 @@ const refresh = {
 
 const south = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'south'
             + '</span>';
@@ -18583,7 +18573,7 @@ const south = {
 
 const format_align_center = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_align_center'
             + '</span>';
@@ -18592,7 +18582,7 @@ const format_align_center = {
 
 const format_align_left = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_align_left'
             + '</span>';
@@ -18601,7 +18591,7 @@ const format_align_left = {
 
 const format_align_right = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_align_right'
             + '</span>';
@@ -18610,7 +18600,7 @@ const format_align_right = {
 
 const format_align_justify = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_align_justify'
             + '</span>';
@@ -18619,7 +18609,7 @@ const format_align_justify = {
 
 const format_bold = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_bold'
             + '</span>';
@@ -18628,7 +18618,7 @@ const format_bold = {
 
 const format_underlined = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_underlined'
             + '</span>';
@@ -18637,7 +18627,7 @@ const format_underlined = {
 
 const format_italic = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_italic'
             + '</span>';
@@ -18646,7 +18636,7 @@ const format_italic = {
 
 const format_list_bulleted = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_list_bulleted'
             + '</span>';
@@ -18655,7 +18645,7 @@ const format_list_bulleted = {
 
 const format_list_numbered = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'format_list_numbered'
             + '</span>';
@@ -18664,7 +18654,7 @@ const format_list_numbered = {
 
 const format_strikethrough_s = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'strikethrough_s'
             + '</span>';
@@ -18673,7 +18663,7 @@ const format_strikethrough_s = {
 
 const ungroup = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'ungroup'
             + '</span>';
@@ -18682,7 +18672,7 @@ const ungroup = {
 
 const upload_file = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'upload_file'
             + '</span>';
@@ -18691,7 +18681,7 @@ const upload_file = {
 
 const title$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'text_fields_alt'
             + '</span>';
@@ -18700,7 +18690,7 @@ const title$1 = {
 
 const align_space_around = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'align_space_around'
             + '</span>';
@@ -18709,7 +18699,7 @@ const align_space_around = {
 
 const icons$2 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'art_track'
             + '</span>';
@@ -18718,7 +18708,7 @@ const icons$2 = {
 
 const facebook = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">'
             + '<path' + icon_class + ' d="M25,3C12.85,3,3,12.85,3,25c0,11.03,8.125,20.137,18.712,21.728V30.831h-5.443v-5.783h5.443v-3.848 c0-6.371,3.104-9.168,8.399-9.168c2.536,0,3.877,0.188,4.512,0.274v5.048h-3.612c-2.248,0-3.033,2.131-3.033,4.533v3.161h6.588 l-0.894,5.783h-5.694v15.944C38.716,45.318,47,36.137,47,25C47,12.85,37.15,3,25,3z" fill="#4267B2"></path>'
             + '</svg>';
@@ -18727,7 +18717,7 @@ const facebook = {
 
 const instagram = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">'
             + '<path' + icon_class + ' d="M 16.5 5 C 10.16639 5 5 10.16639 5 16.5 L 5 31.5 C 5 37.832757 10.166209 43 16.5 43 L 31.5 43 C 37.832938 43 43 37.832938 43 31.5 L 43 16.5 C 43 10.166209 37.832757 5 31.5 5 L 16.5 5 z M 16.5 8 L 31.5 8 C 36.211243 8 40 11.787791 40 16.5 L 40 31.5 C 40 36.211062 36.211062 40 31.5 40 L 16.5 40 C 11.787791 40 8 36.211243 8 31.5 L 8 16.5 C 8 11.78761 11.78761 8 16.5 8 z M 34 12 C 32.895 12 32 12.895 32 14 C 32 15.105 32.895 16 34 16 C 35.105 16 36 15.105 36 14 C 36 12.895 35.105 12 34 12 z M 24 14 C 18.495178 14 14 18.495178 14 24 C 14 29.504822 18.495178 34 24 34 C 29.504822 34 34 29.504822 34 24 C 34 18.495178 29.504822 14 24 14 z M 24 17 C 27.883178 17 31 20.116822 31 24 C 31 27.883178 27.883178 31 24 31 C 20.116822 31 17 27.883178 17 24 C 17 20.116822 20.116822 17 24 17 z" fill="#cf04c4"></path>'
             + '</svg>';
@@ -18736,7 +18726,7 @@ const instagram = {
 
 const pinterest = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">'
             + '<path' + icon_class + ' d="M25,2C12.3178711,2,2,12.3178711,2,25c0,9.8841553,6.2675781,18.3302612,15.036377,21.5769653	c-0.2525635-2.2515869-0.2129517-5.9390259,0.2037964-7.7243652c0.3902588-1.677002,2.5212402-10.6871338,2.5212402-10.6871338	s-0.6433105-1.2883301-0.6433105-3.1911011c0-2.9901733,1.7324219-5.2211914,3.8898315-5.2211914	c1.8349609,0,2.7197876,1.3776245,2.7197876,3.0281982c0,1.8457031-1.1734619,4.6026611-1.78125,7.1578369	c-0.506897,2.1409302,1.0733643,3.8865356,3.1836548,3.8865356c3.821228,0,6.7584839-4.0296021,6.7584839-9.8453369	c0-5.147583-3.697998-8.7471924-8.9795532-8.7471924c-6.1167603,0-9.7072754,4.588562-9.7072754,9.3309937	c0,1.8473511,0.7111816,3.8286743,1.6000977,4.9069824c0.175293,0.2133179,0.2009277,0.3994141,0.1488647,0.6160278	c-0.1629028,0.678894-0.5250854,2.1392822-0.5970459,2.4385986c-0.0934448,0.3944702-0.3117676,0.4763184-0.7186279,0.2869263	c-2.685791-1.2503052-4.364502-5.1756592-4.364502-8.3295898c0-6.7815552,4.9268188-13.0108032,14.206543-13.0108032	c7.4588623,0,13.2547607,5.3138428,13.2547607,12.4179077c0,7.4100342-4.6729126,13.3729858-11.1568604,13.3729858	c-2.178894,0-4.2263794-1.132019-4.9267578-2.4691772c0,0-1.0783081,4.1048584-1.3404541,5.1112061	c-0.4524536,1.7404175-2.3892822,5.3460083-3.3615723,6.9837036C20.1704712,47.6074829,22.5397949,48,25,48	c12.6826172,0,23-10.3173828,23-23C48,12.3178711,37.6826172,2,25,2z" fill="#E60023"></path>'
             + '</svg>';
@@ -18745,7 +18735,7 @@ const pinterest = {
 
 const tiktok = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">'
             + '<path' + icon_class + ' d="M41,4H9C6.243,4,4,6.243,4,9v32c0,2.757,2.243,5,5,5h32c2.757,0,5-2.243,5-5V9C46,6.243,43.757,4,41,4z M37.006,22.323 c-0.227,0.021-0.457,0.035-0.69,0.035c-2.623,0-4.928-1.349-6.269-3.388c0,5.349,0,11.435,0,11.537c0,4.709-3.818,8.527-8.527,8.527 s-8.527-3.818-8.527-8.527s3.818-8.527,8.527-8.527c0.178,0,0.352,0.016,0.527,0.027v4.202c-0.175-0.021-0.347-0.053-0.527-0.053 c-2.404,0-4.352,1.948-4.352,4.352s1.948,4.352,4.352,4.352s4.527-1.894,4.527-4.298c0-0.095,0.042-19.594,0.042-19.594h4.016 c0.378,3.591,3.277,6.425,6.901,6.685V22.323z" fill="#ff0050"></path>'
             + '</svg>';
@@ -18754,7 +18744,7 @@ const tiktok = {
 
 const twitter = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 64 64">'
             + '<path' + icon_class + ' d="M61.932,15.439c-2.099,0.93-4.356,1.55-6.737,1.843c2.421-1.437,4.283-3.729,5.157-6.437	c-2.265,1.328-4.774,2.303-7.444,2.817C50.776,11.402,47.735,10,44.366,10c-6.472,0-11.717,5.2-11.717,11.611	c0,0.907,0.106,1.791,0.306,2.649c-9.736-0.489-18.371-5.117-24.148-12.141c-1.015,1.716-1.586,3.726-1.586,5.847	c0,4.031,2.064,7.579,5.211,9.67c-1.921-0.059-3.729-0.593-5.312-1.45c0,0.035,0,0.087,0,0.136c0,5.633,4.04,10.323,9.395,11.391	c-0.979,0.268-2.013,0.417-3.079,0.417c-0.757,0-1.494-0.086-2.208-0.214c1.491,4.603,5.817,7.968,10.942,8.067	c-4.01,3.109-9.06,4.971-14.552,4.971c-0.949,0-1.876-0.054-2.793-0.165C10.012,54.074,16.173,56,22.786,56	c21.549,0,33.337-17.696,33.337-33.047c0-0.503-0.016-1.004-0.04-1.499C58.384,19.83,60.366,17.78,61.932,15.439" fill="#1DA1F2"></path>'
             + '</svg>';
@@ -18763,7 +18753,7 @@ const twitter = {
 
 const whatsapp = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">'
             + '<path' + icon_class + ' d="M25,2C12.318,2,2,12.318,2,25c0,3.96,1.023,7.854,2.963,11.29L2.037,46.73c-0.096,0.343-0.003,0.711,0.245,0.966 C2.473,47.893,2.733,48,3,48c0.08,0,0.161-0.01,0.24-0.029l10.896-2.699C17.463,47.058,21.21,48,25,48c12.682,0,23-10.318,23-23 S37.682,2,25,2z M36.57,33.116c-0.492,1.362-2.852,2.605-3.986,2.772c-1.018,0.149-2.306,0.213-3.72-0.231 c-0.857-0.27-1.957-0.628-3.366-1.229c-5.923-2.526-9.791-8.415-10.087-8.804C15.116,25.235,13,22.463,13,19.594 s1.525-4.28,2.067-4.864c0.542-0.584,1.181-0.73,1.575-0.73s0.787,0.005,1.132,0.021c0.363,0.018,0.85-0.137,1.329,1.001 c0.492,1.168,1.673,4.037,1.819,4.33c0.148,0.292,0.246,0.633,0.05,1.022c-0.196,0.389-0.294,0.632-0.59,0.973 s-0.62,0.76-0.886,1.022c-0.296,0.291-0.603,0.606-0.259,1.19c0.344,0.584,1.529,2.493,3.285,4.039 c2.255,1.986,4.158,2.602,4.748,2.894c0.59,0.292,0.935,0.243,1.279-0.146c0.344-0.39,1.476-1.703,1.869-2.286 s0.787-0.487,1.329-0.292c0.542,0.194,3.445,1.604,4.035,1.896c0.59,0.292,0.984,0.438,1.132,0.681 C37.062,30.587,37.062,31.755,36.57,33.116z" fill="#25d366"></path>'
             + '</svg>';
@@ -18772,7 +18762,7 @@ const whatsapp = {
 
 const youtube = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 72 72">'
             + '<path' + icon_class + ' d="M61.115,18.856C63.666,21.503,64,25.709,64,36s-0.334,14.497-2.885,17.144C58.563,55.791,55.906,56,36,56	s-22.563-0.209-25.115-2.856C8.334,50.497,8,46.291,8,36s0.334-14.497,2.885-17.144S16.094,16,36,16S58.563,16.209,61.115,18.856z M31.464,44.476l13.603-8.044l-13.603-7.918V44.476z" fill="#FF0000"></path>'
             + '</svg>';
@@ -18781,7 +18771,7 @@ const youtube = {
 
 const linkedin = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' class="' + extra.icon_class + '"' : '';
         return '<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">'
             + '<path' + icon_class + ' d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z" fill="#0077B5"></path>'
             + '</svg>';
@@ -18790,7 +18780,7 @@ const linkedin = {
 
 const shapes = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'shapes'
             + '</span>';
@@ -18799,7 +18789,7 @@ const shapes = {
 
 const file_download = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'file_download'
             + '</span>';
@@ -18808,7 +18798,7 @@ const file_download = {
 
 const new_window = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'new_window'
             + '</span>';
@@ -18817,7 +18807,7 @@ const new_window = {
 
 const asterisk = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'emergency'
             + '</span>';
@@ -18826,7 +18816,7 @@ const asterisk = {
 
 const download$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'download'
             + '</span>';
@@ -18835,7 +18825,7 @@ const download$1 = {
 
 const search = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'manage_search'
             + '</span>';
@@ -18844,7 +18834,7 @@ const search = {
 
 const arrow_right_alt = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'arrow_right_alt'
             + '</span>';
@@ -18853,7 +18843,7 @@ const arrow_right_alt = {
 
 const templates$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'slide_library'
             + '</span>';
@@ -18862,7 +18852,7 @@ const templates$1 = {
 
 const product$1 = {
     get_icon: (extra) => {
-        let icon_class = (typeof extra?.['icon_class'] !== 'undefined') ? ' ' + extra.icon_class : '';
+        const icon_class = (typeof extra.icon_class !== 'undefined') ? ' ' + extra.icon_class : '';
         return '<span class="material-symbols-sharp' + icon_class + '">'
             + 'gallery_thumbnail'
             + '</span>';
@@ -18989,7 +18979,7 @@ var icons$1 = {
 
 const get_icon = (icon, extra) => {
     if (icons$1.hasOwnProperty(icon)) {
-        let icon_obj = Object.getOwnPropertyDescriptor(icons$1, icon);
+        const icon_obj = Object.getOwnPropertyDescriptor(icons$1, icon);
         if (icon_obj && icon_obj.value && typeof icon_obj.value.get_icon === 'function') {
             return icon_obj.value.get_icon(extra);
         }
@@ -19901,14 +19891,14 @@ const sections$4 = {
             + '</div>';
         let general_elements_list = '';
         let advanced_elements_list = '';
-        let elements_keys = Object.keys(elements$2);
-        let total_elements = elements_keys.length;
+        const elements_keys = Object.keys(elements$2);
+        const total_elements = elements_keys.length;
         for (var f = 0; f < total_elements; f++) {
-            let name_space = Object.getOwnPropertyDescriptor(elements$2, elements_keys[f])?.value.Resources.Elements;
-            let key = Object.keys(name_space)[0];
-            let element_class = new name_space[key]();
-            let get_element = element_class.get_element(params);
-            let get_info = element_class.get_info(params);
+            const name_space = Object.getOwnPropertyDescriptor(elements$2, elements_keys[f])?.value.Resources.Elements;
+            const key = Object.keys(name_space)[0];
+            const element_class = new name_space[key]();
+            const get_element = element_class.get_element(params);
+            const get_info = element_class.get_info(params);
             if (get_info.category === 'general') {
                 general_elements_list += get_element;
             }
@@ -19917,7 +19907,7 @@ const sections$4 = {
             }
         }
         if (params.options('builder')?.resources?.elements?.sections?.general?.enabled) {
-            let show = params.options('builder')?.resources?.elements?.sections?.general?.show ? ' ec-section-show' : '';
+            const show = params.options('builder')?.resources?.elements?.sections?.general?.show ? ' ec-section-show' : '';
             section += '<div class="ec-section' + show + '">'
                 + '<div class="ec-section-header">'
                 + '<button type="button">'
@@ -19936,7 +19926,7 @@ const sections$4 = {
                 + '</div>';
         }
         if (params.options('builder')?.resources?.elements?.sections?.advanced?.enabled) {
-            let show = params.options('builder')?.resources?.elements?.sections?.advanced?.show ? ' ec-section-show' : '';
+            const show = params.options('builder')?.resources?.elements?.sections?.advanced?.show ? ' ec-section-show' : '';
             section += '<div class="ec-section' + show + '">'
                 + '<div class="ec-section-header">'
                 + '<button type="button">'
@@ -19957,17 +19947,17 @@ const sections$4 = {
         section += '</div>';
         setTimeout(() => {
             if (Object.keys(elements$2).length > 0) {
-                for (let element of Object.keys(elements$2)) {
-                    let name_space = Object.getOwnPropertyDescriptor(elements$2, element)?.value.Resources.Elements;
-                    let key = Object.keys(name_space)[0];
-                    let element_class = new name_space[key]();
-                    let element_events = element_class.get_events(params);
+                for (const element of Object.keys(elements$2)) {
+                    const name_space = Object.getOwnPropertyDescriptor(elements$2, element)?.value.Resources.Elements;
+                    const key = Object.keys(name_space)[0];
+                    const element_class = new name_space[key]();
+                    const element_events = element_class.get_events(params);
                     if (typeof element_events !== 'undefined') {
-                        for (let event of element_events) {
+                        for (const event of element_events) {
                             if (!event) {
                                 continue;
                             }
-                            let iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
+                            const iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
                             if (typeof event.element === 'string') {
                                 new Classes$1.Events().addEventListener(params.selector.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
                             }
@@ -19979,12 +19969,12 @@ const sections$4 = {
                 }
             }
             if (Object.keys(templates$2).length > 0) {
-                for (let template of Object.keys(templates$2)) {
-                    let the_options_class = Object.getOwnPropertyDescriptor(templates$2, template)?.value;
-                    let template_events = new the_options_class(params).get_events(params);
+                for (const template of Object.keys(templates$2)) {
+                    const the_options_class = Object.getOwnPropertyDescriptor(templates$2, template)?.value;
+                    const template_events = new the_options_class(params).get_events(params);
                     if (template_events !== undefined) {
-                        for (let event of template_events) {
-                            let iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
+                        for (const event of template_events) {
+                            const iframe = (typeof event.iframe !== 'undefined') ? event.iframe : '';
                             if (typeof event.element === 'string') {
                                 new Classes$1.Events().addEventListener(params.selector.querySelectorAll(event.element), event.action, event.target, iframe, event.capture);
                             }
@@ -20013,7 +20003,7 @@ const sections$3 = {
             + '</div>';
         if (params.options('builder')?.resources?.rows?.sections?.general?.enabled) {
             let show = params.options('builder')?.resources?.rows?.sections?.general?.show ? ' ec-section-show' : '';
-            let rows = '<div class="ec-row">'
+            const rows = '<div class="ec-row">'
                 + '<div class="ec-row-columns-one" data-format="1">'
                 + '<div></div>'
                 + '</div>'
@@ -20079,10 +20069,10 @@ const sections$3 = {
 const sections$2 = {
     get_section: (params) => {
         let categories = '';
-        let modules = new Classes$1.Modules();
-        let categories_list = modules.get_modules_categories(params);
+        const modules = new Classes$1.Modules();
+        const categories_list = modules.get_modules_categories(params);
         if (categories_list.length > 0) {
-            for (let category of categories_list) {
+            for (const category of categories_list) {
                 categories += '<li>'
                     + '<a href="#" data-id="' + category.slug + '">'
                     + category.name
@@ -20100,7 +20090,7 @@ const sections$2 = {
             + '</button>'
             + '</div>';
         if (params.options('builder')?.resources?.modules?.sections?.general?.enabled) {
-            let show = params.options('builder')?.resources?.modules?.sections?.general?.show ? ' ec-section-show' : '';
+            const show = params.options('builder')?.resources?.modules?.sections?.general?.show ? ' ec-section-show' : '';
             section += '<div class="ec-section' + show + '">'
                 + '<div class="ec-section-header">'
                 + '<button type="button">'
@@ -20211,7 +20201,7 @@ const sections$1 = {
             + '</button>'
             + '</div>';
         if (params.options('builder')?.resources?.history?.sections?.general?.enabled) {
-            let show = params.options('builder')?.resources?.history?.sections?.general?.show ? ' ec-section-show' : '';
+            const show = params.options('builder')?.resources?.history?.sections?.general?.show ? ' ec-section-show' : '';
             section += '<div class="ec-section ec-section-history' + show + '">'
                 + '<div class="ec-section-header">'
                 + '<button type="button">'
@@ -20248,17 +20238,15 @@ var sections = {
 const get_section = (section, params) => {
     if (sections) {
         let sections_list = '';
-        let sections_keys = Object.keys(sections);
-        let total_sections = sections_keys.length;
-        let i = 0;
-        do {
+        const sections_keys = Object.keys(sections);
+        const total_sections = sections_keys.length;
+        for (let i = 0; i < total_sections; i++) {
             if (section !== sections_keys[i]) {
                 i++;
                 continue;
             }
             sections_list += Object.getOwnPropertyDescriptor(sections, sections_keys[i])?.value.get_section(params);
-            i++;
-        } while (i < total_sections);
+        }
         return sections_list;
     }
     else {
@@ -20269,7 +20257,7 @@ const get_section = (section, params) => {
 const get_styles = (scope) => {
     let styles = '';
     if (scope === 'template') {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
 
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&family=Didact+Gothic&family=Work+Sans:wght@200;300;400;500&display=swap');
@@ -20667,7 +20655,7 @@ const get_styles = (scope) => {
         styles = style.outerHTML;
     }
     else if (scope === 'html') {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
 
             body {
@@ -20850,7 +20838,7 @@ const get_styles = (scope) => {
         styles = style.outerHTML;
     }
     else if (scope === 'css') {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
 
             body {
@@ -21059,9 +21047,9 @@ const get_styles = (scope) => {
         styles = style.outerHTML;
     }
     else if (scope === 'default') {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.setAttribute('data-scope', 'default');
-        let fonts_link = get_fonts_link();
+        const fonts_link = get_fonts_link();
         style.textContent = `
 
             @import url('${fonts_link}');
@@ -21272,7 +21260,7 @@ const get_styles = (scope) => {
         styles = style.outerHTML;
     }
     else if (scope === 'library') {
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.textContent = `
 
             .ec-display-block {
@@ -21306,10 +21294,10 @@ const get_styles = (scope) => {
 };
 const prepare_styles = (element_id, properties, element_styles) => {
     if (properties.length > 0) {
-        let elements_styles = {};
+        const elements_styles = {};
         let styles = '';
-        for (let property of properties) {
-            let element_name = property.element_name ? property.element_name : '';
+        for (const property of properties) {
+            const element_name = property.element_name ? property.element_name : '';
             delete property.element_name;
             if (element_name.length > 0) {
                 if (typeof elements_styles[element_name] !== 'undefined') {
@@ -21326,17 +21314,17 @@ const prepare_styles = (element_id, properties, element_styles) => {
             }
             styles += `\n    ` + Object.keys(property)[0].replaceAll('_', '-') + ': ' + property[Object.keys(property)[0]] + `;`;
         }
-        let style = document.createElement('style');
+        const style = document.createElement('style');
         style.setAttribute('data-element', element_id);
         let css_style = `.ec-element-content[data-id="${element_id}"] .ec-element-content-data {`;
         css_style += styles;
         css_style += `\n` + `}`;
         if (Object.keys(elements_styles).length > 0) {
-            for (let element of Object.keys(elements_styles)) {
+            for (const element of Object.keys(elements_styles)) {
                 css_style += `\n.ec-element-content[data-id="${element_id}"] .ec-element-content-data ${element} {`;
                 css_style += `\n`;
                 if (elements_styles[element].length > 0) {
-                    for (let property of elements_styles[element]) {
+                    for (const property of elements_styles[element]) {
                         css_style += `    ` + Object.keys(property)[0] + ': ' + Object.values(property)[0] + `;`;
                     }
                 }
@@ -21349,11 +21337,11 @@ const prepare_styles = (element_id, properties, element_styles) => {
         css_style += `        ` + styles;
         css_style += `\n    }`;
         if (Object.keys(elements_styles).length > 0) {
-            for (let element of Object.keys(elements_styles)) {
+            for (const element of Object.keys(elements_styles)) {
                 css_style += `\n    .ec-element-content[data-id="${element_id}"] .ec-element-content-data ${element} {`;
                 css_style += `\n`;
                 if (elements_styles[element].length > 0) {
-                    for (let property of elements_styles[element]) {
+                    for (const property of elements_styles[element]) {
                         css_style += `        ` + Object.keys(property)[0] + ': ' + Object.values(property)[0] + `;`;
                     }
                 }
@@ -21384,7 +21372,7 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
     let style_list = '';
     if (sheet !== null) {
         if (sheet.cssRules.length > 0) {
-            for (let rule of sheet.cssRules) {
+            for (const rule of sheet.cssRules) {
                 if (typeof rule.href !== 'undefined') {
                     style_list += rule.cssText;
                     continue;
@@ -21394,11 +21382,11 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                         style_list += '@media ' + rule.conditionText + ' {';
                         if (rule.conditionText.replaceAll(' ', '').search('(max-width:600px)') > -1) {
                             if (rule.cssRules.length > 0) {
-                                for (let media_rule of rule.cssRules) {
+                                for (const media_rule of rule.cssRules) {
                                     style_list += adapt_selector(media_rule.selectorText) + ' {';
-                                    let style = media_rule.style;
+                                    const style = media_rule.style;
                                     let property_found = 0;
-                                    for (let property of media_rule.style) {
+                                    for (const property of media_rule.style) {
                                         if (((((media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || (media_rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile')) {
                                             style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                             property_found = 1;
@@ -21421,11 +21409,11 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                         }
                         else {
                             if (rule.cssRules.length > 0) {
-                                for (let media_rule of rule.cssRules) {
+                                for (const media_rule of rule.cssRules) {
                                     style_list += adapt_selector(media_rule.selectorText) + ' {';
-                                    let style = media_rule.style;
+                                    const style = media_rule.style;
                                     let property_found = 0;
-                                    for (let property of media_rule.style) {
+                                    for (const property of media_rule.style) {
                                         if (((((media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || (media_rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile')) {
                                             style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                             property_found = 1;
@@ -21450,9 +21438,9 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                     }
                     else {
                         style_list += adapt_selector(rule.selectorText) + ' {';
-                        let style = rule.style;
+                        const style = rule.style;
                         let property_found = 0;
-                        for (let property of rule.style) {
+                        for (const property of rule.style) {
                             if (((((rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || (rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'desktop')) {
                                 style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                 property_found = 1;
@@ -21477,11 +21465,11 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                         style_list += '@media ' + rule.conditionText + ' {';
                         if (rule.conditionText.replaceAll(' ', '').search('(max-width:600px)') > -1) {
                             if (rule.cssRules.length > 0) {
-                                for (let media_rule of rule.cssRules) {
+                                for (const media_rule of rule.cssRules) {
                                     style_list += adapt_selector(media_rule.selectorText) + ' {';
-                                    let style = media_rule.style;
+                                    const style = media_rule.style;
                                     let property_found = 0;
-                                    for (let property of media_rule.style) {
+                                    for (const property of media_rule.style) {
                                         if (((((media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || (media_rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile')) {
                                             style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                             property_found = 1;
@@ -21504,11 +21492,11 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                         }
                         else {
                             if (rule.cssRules.length > 0) {
-                                for (let media_rule of rule.cssRules) {
+                                for (const media_rule of rule.cssRules) {
                                     style_list += adapt_selector(media_rule.selectorText) + ' {';
-                                    let style = media_rule.style;
+                                    const style = media_rule.style;
                                     let property_found = 0;
-                                    for (let property of media_rule.style) {
+                                    for (const property of media_rule.style) {
                                         if (((((media_rule.selectorText.replaceAll(' ', '') === '.ec-element-content[data-id="' + element_id + '"].ec-element-content-data') && !element_name) || (media_rule.selectorText.slice(-(' ' + element_name).length) === ' ' + element_name)) && (property === property_name)) && (device === 'mobile')) {
                                             style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                             property_found = 1;
@@ -21533,9 +21521,9 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
                     }
                     else {
                         style_list += adapt_selector(rule.selectorText) + ' {';
-                        let style = rule.style;
+                        const style = rule.style;
                         let property_found = 0;
-                        for (let property of rule.style) {
+                        for (const property of rule.style) {
                             if ((rule.selectorText === element_name) && (property === property_name)) {
                                 style_list += property + ': ' + adapt_styles(property, property_value) + ';';
                                 property_found = 1;
@@ -21557,15 +21545,15 @@ const update_property_value = (sheet, element_id, element_name, property_name, p
 };
 
 const create_content = (format = 1) => {
-    let table = document.createElement('table');
+    const table = document.createElement('table');
     table.classList.add('ec-composer-template-row');
-    let row = table.insertRow(0);
-    let cell = document.createElement('div');
+    const row = table.insertRow(0);
+    const cell = document.createElement('div');
     cell.classList.add('ec-composer-template-cell');
-    let placeholder = document.createElement('a');
+    const placeholder = document.createElement('a');
     placeholder.setAttribute('href', '#');
     placeholder.classList.add('ec-composer-template-cell-placeholder');
-    let text = document.createElement('span');
+    const text = document.createElement('span');
     text.classList.add('ec-composer-template-cell-placeholder-text');
     text.innerText = get_word('drag_elements_here');
     placeholder.innerHTML = '<span>'
@@ -21607,49 +21595,49 @@ const create_content = (format = 1) => {
     return table;
 };
 const get_content = (params) => {
-    let format = (typeof params.format === 'number') ? params.format : 1;
-    let content = create_content(format);
+    const format = (typeof params.format === 'number') ? params.format : 1;
+    const content = create_content(format);
     let buttons = '';
-    let mbutton = document.createElement('button');
+    const mbutton = document.createElement('button');
     mbutton.setAttribute('type', 'button');
     mbutton.classList.add('ec-composer-template-content-move-button');
     mbutton.innerHTML = get_icon('drag');
     buttons += mbutton.outerHTML;
-    let gbuttons = document.createElement('div');
+    const gbuttons = document.createElement('div');
     gbuttons.classList.add('ec-composer-template-content-buttons-group');
-    let ncontent = document.createElement('button');
+    const ncontent = document.createElement('button');
     ncontent.setAttribute('type', 'button');
     ncontent.classList.add('ec-composer-template-content-new-button');
     ncontent.innerHTML = get_icon('add_circle');
     gbuttons.innerHTML = ncontent.outerHTML;
-    let scontent = document.createElement('button');
+    const scontent = document.createElement('button');
     scontent.setAttribute('type', 'button');
     scontent.classList.add('ec-composer-template-content-save-button');
     scontent.innerHTML = get_icon('save');
     gbuttons.innerHTML += scontent.outerHTML;
-    let dcontent = document.createElement('button');
+    const dcontent = document.createElement('button');
     dcontent.setAttribute('type', 'button');
     dcontent.classList.add('ec-composer-template-content-delete-button');
     dcontent.innerHTML = get_icon('trash');
     gbuttons.innerHTML += dcontent.outerHTML;
     buttons += gbuttons.outerHTML;
-    let cline = document.createElement('div');
+    const cline = document.createElement('div');
     cline.classList.add('ec-composer-template-content-line');
-    let table = document.createElement('table');
+    const table = document.createElement('table');
     table.classList.add('ec-composer-template-content');
-    let tbody = table.createTBody();
+    const tbody = table.createTBody();
     tbody.insertRow(0).insertCell(0).innerHTML = content.outerHTML;
     cline.innerHTML = buttons + table.outerHTML;
     return cline;
 };
 const reset_contents = (params) => {
-    let iframe = document.getElementsByClassName('ec-composer-template-container-active');
+    const iframe = document.getElementsByClassName('ec-composer-template-container-active');
     if (iframe.length > 0) {
-        let iframe_document = iframe[0].contentWindow.document;
+        const iframe_document = iframe[0].contentWindow.document;
         if (iframe_document.getElementsByClassName('ec-composer-template-content-line-drag-active').length > 0) {
             if (iframe_document.getElementsByClassName('ec-composer-template-content-line-drop-active').length > 0) {
                 iframe_document.getElementsByClassName('ec-composer-template-content-line-temp')[0].classList.add('ec-composer-template-content-line-temp-show');
-                let temp_show = iframe_document.getElementsByClassName('ec-composer-template-content-line-temp-show')[0];
+                const temp_show = iframe_document.getElementsByClassName('ec-composer-template-content-line-temp-show')[0];
                 setTimeout(() => {
                     temp_show.classList.remove('ec-composer-template-content-line-temp-show');
                 }, 300);
@@ -21664,9 +21652,9 @@ const reset_contents = (params) => {
             iframe_document.getElementsByClassName('ec-composer-template-content-line-drag-active')[0].remove();
         }
         else if (iframe_document.getElementsByClassName('ec-composer-element-drag-active').length > 0) {
-            let temp = iframe_document.getElementsByClassName('ec-element-content-temp')[0];
-            let cell = temp.closest('.ec-composer-template-cell');
-            let drop_active = iframe_document.getElementsByClassName('ec-composer-template-cell-drop-active');
+            const temp = iframe_document.getElementsByClassName('ec-element-content-temp')[0];
+            const cell = temp.closest('.ec-composer-template-cell');
+            const drop_active = iframe_document.getElementsByClassName('ec-composer-template-cell-drop-active');
             if (drop_active.length > 0) {
                 if (drop_active[0].closest('.ec-composer-template-cell').getElementsByClassName('ec-composer-template-cell-placeholder').length > 0) {
                     drop_active[0].closest('.ec-composer-template-cell').getElementsByClassName('ec-composer-template-cell-placeholder')[0].remove();
@@ -21679,11 +21667,11 @@ const reset_contents = (params) => {
             });
             iframe_document.getElementsByClassName('ec-composer-element-drag-active')[0].remove();
             if (cell && cell.getElementsByClassName('ec-element-content').length < 1) {
-                let placeholder = document.createElement('a');
+                const placeholder = document.createElement('a');
                 placeholder.setAttribute('href', '#');
                 placeholder.classList.add('ec-composer-template-cell-placeholder');
                 placeholder.classList.add('ec-show-content');
-                let text = document.createElement('span');
+                const text = document.createElement('span');
                 text.classList.add('ec-composer-template-cell-placeholder-text');
                 text.innerText = params.words('drag_elements_here');
                 placeholder.innerHTML = '<span>'
@@ -21719,9 +21707,9 @@ const types$1 = {
     ai: Ai
 };
 const get_element_by_name = (name, params) => {
-    let name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + name.charAt(0).toUpperCase() + name.substring(1))?.value.Resources.Elements;
+    const name_space = Object.getOwnPropertyDescriptor(elements$2, 'ResourcesElements' + name.charAt(0).toUpperCase() + name.substring(1))?.value.Resources.Elements;
     if (typeof name_space !== 'undefined') {
-        let key = Object.keys(name_space)[0];
+        const key = Object.keys(name_space)[0];
         return new name_space[key]();
     }
     else {
@@ -21729,13 +21717,13 @@ const get_element_by_name = (name, params) => {
     }
 };
 const get_element_options = (options, properties_list, params, device) => {
-    let options_by_device = (device === 'desktop') ? options.desktop : options.mobile;
+    const options_by_device = (device === 'desktop') ? options.desktop : options.mobile;
     if (options_by_device.length > 0) {
         let sections = '';
-        for (let option of options_by_device) {
+        for (const option of options_by_device) {
             let options_list = '';
             if (option.list.length > 0) {
-                for (let list of option.list) {
+                for (const list of option.list) {
                     if (typeof list.template === 'undefined') {
                         continue;
                     }
@@ -21745,8 +21733,8 @@ const get_element_options = (options, properties_list, params, device) => {
                     else if (!list.element && (typeof properties_list[device] !== 'undefined') && (typeof properties_list[device][list.name.replaceAll('_', '-')] !== 'undefined')) {
                         list['custom'] = properties_list[device][list.name.replaceAll('_', '-')];
                     }
-                    let template = list.template;
-                    let the_option = new types$1[template](params).get_option(list);
+                    const template = list.template;
+                    const the_option = new types$1[template](params).get_option(list);
                     if (the_option) {
                         options_list += the_option;
                     }
@@ -21779,45 +21767,42 @@ const get_element_options = (options, properties_list, params, device) => {
     }
 };
 const move_element = (selector, clientY, clientX, drop_icon) => {
-    let element = selector.getElementsByClassName('ec-element-drag-active')[0];
+    const element = selector.getElementsByClassName('ec-element-drag-active')[0];
     let top = (clientY - parseInt(element.getAttribute('data-top')));
-    let left = (clientX - parseInt(element.getAttribute('data-left')));
+    const left = (clientX - parseInt(element.getAttribute('data-left')));
     element.style.top = top + 'px';
     element.style.left = left + 'px';
-    let iframe = selector.getElementsByClassName('ec-composer-template-container')[0];
-    let idocument = iframe.contentDocument;
+    const iframe = selector.getElementsByClassName('ec-composer-template-container')[0];
+    const idocument = iframe.contentDocument;
     if (!idocument) {
         return;
     }
     if (idocument.body.classList.contains('ec-composer-template-preview')) {
         return;
     }
-    let client_rect = iframe.getBoundingClientRect();
+    const client_rect = iframe.getBoundingClientRect();
     if ((clientX >= client_rect.x) && (clientX <= (client_rect.x + client_rect.width)) && (clientY >= client_rect.y) && (clientY <= (client_rect.y + client_rect.height))) {
         if (idocument.getElementsByClassName('ec-composer-template-cell-drop').length < 1) {
-            let cells = idocument.querySelectorAll('.ec-composer-template .ec-composer-template-cell');
+            const cells = idocument.querySelectorAll('.ec-composer-template .ec-composer-template-cell');
             if (cells.length > 0) {
-                let tcells = cells.length;
-                let c = 0;
-                do {
-                    let drops = document.createElement('div');
+                const tcells = cells.length;
+                for (let c = 0; c < tcells; c++) {
+                    const drops = document.createElement('div');
                     drops.classList.add('ec-composer-template-cell-drop');
                     drops.innerHTML = drop_icon;
                     cells[c].insertAdjacentElement('afterBegin', drops);
-                    c++;
-                } while (c < tcells);
+                }
             }
-            let contents = idocument.querySelectorAll('.ec-composer-template .ec-element-content');
+            const contents = idocument.querySelectorAll('.ec-composer-template .ec-element-content');
             if (contents.length > 0) {
-                let tcontents = contents.length;
-                let co = 0;
-                do {
-                    let drops = document.createElement('div');
+                const tcontents = contents.length;
+                for (let co = 0; co < tcontents; co++) {
+                    const drops = document.createElement('div');
                     drops.classList.add('ec-composer-template-cell-drop');
                     drops.innerHTML = drop_icon;
                     contents[co].insertAdjacentElement('afterEnd', drops);
                     co++;
-                } while (co < tcontents);
+                }
             }
         }
         else {
@@ -21866,8 +21851,8 @@ const move_element = (selector, clientY, clientX, drop_icon) => {
                 }
                 else if (!element.nextElementSibling) {
                     if (idocument !== null) {
-                        let line = element.closest('.ec-composer-template-content-line');
-                        let lines = idocument.getElementsByClassName('ec-composer-template-content-line');
+                        const line = element.closest('.ec-composer-template-content-line');
+                        const lines = idocument.getElementsByClassName('ec-composer-template-content-line');
                         if ((lines.length - 1) === Array.from(lines).indexOf.call(lines, line)) {
                             if (((top + 77) >= (client_rect.y + cell_rect.y)) && ((left + 103.69) >= (client_rect.x + cell_rect.x)) && ((left + 103.69) <= ((client_rect.x + cell_rect.x) + cell_rect.width))) {
                                 element.classList.add('ec-composer-template-cell-drop-active');
@@ -21885,49 +21870,49 @@ const move_element = (selector, clientY, clientX, drop_icon) => {
 const reset_elements = (params) => {
     if (params.selector.getElementsByClassName('ec-element-drag-active').length > 0) {
         params.selector.getElementsByClassName('ec-element-drag-active')[0].remove();
-        let iframe = params.selector.querySelector('.ec-composer-template-container');
+        const iframe = params.selector.querySelector('.ec-composer-template-container');
         params.selector.getElementsByClassName('ec-element-temp')[0].classList.add('ec-element-temp-show');
-        let temp_show = params.selector.getElementsByClassName('ec-element-temp-show')[0];
-        let drop_active = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-cell-drop-active');
+        const temp_show = params.selector.getElementsByClassName('ec-element-temp-show')[0];
+        const drop_active = iframe.contentWindow.document.getElementsByClassName('ec-composer-template-cell-drop-active');
         if (drop_active.length > 0) {
-            let element = get_element_by_name(temp_show.getAttribute('data-name'), params);
+            const element = get_element_by_name(temp_show.getAttribute('data-name'), params);
             if (typeof element !== 'undefined') {
                 let buttons = '';
-                let gbuttons = document.createElement('div');
+                const gbuttons = document.createElement('div');
                 gbuttons.classList.add('ec-composer-element-buttons-group');
-                let mbutton = document.createElement('button');
+                const mbutton = document.createElement('button');
                 mbutton.setAttribute('type', 'button');
                 mbutton.classList.add('ec-composer-element-move-button');
                 mbutton.innerHTML = params.icons('drag');
                 gbuttons.innerHTML += mbutton.outerHTML;
-                let clone = document.createElement('button');
+                const clone = document.createElement('button');
                 clone.setAttribute('type', 'button');
                 clone.classList.add('ec-composer-element-clone-button');
                 clone.innerHTML = params.icons('backup_table');
                 gbuttons.innerHTML += clone.outerHTML;
-                let delement = document.createElement('button');
+                const delement = document.createElement('button');
                 delement.setAttribute('type', 'button');
                 delement.classList.add('ec-composer-element-delete-button');
                 delement.innerHTML = params.icons('trash');
                 gbuttons.innerHTML += delement.outerHTML;
                 buttons += gbuttons.outerHTML;
-                let element_content = element.get_content(params);
-                let element_id = 'ec-element-' + Date.now();
-                let div = document.createElement('div');
+                const element_content = element.get_content(params);
+                const element_id = 'ec-element-' + Date.now();
+                const div = document.createElement('div');
                 div.innerHTML = '<div class="ec-element-content" data-id="' + element_id + '" data-name="' + temp_show.getAttribute('data-name') + '">'
                     + element_content
                     + buttons
                     + '</div>';
                 drop_active[0].insertAdjacentElement('afterend', div.firstElementChild);
-                let element_options = element.get_options(params);
-                let element_styles = element.get_styles(element_id);
+                const element_options = element.get_options(params);
+                const element_styles = element.get_styles(element_id);
                 if (element_options.desktop.length > 0) {
-                    let properties = [];
-                    for (let element_option of element_options.desktop) {
+                    const properties = [];
+                    for (const element_option of element_options.desktop) {
                         if (element_option.list.length > 0) {
-                            for (let list of element_option.list) {
-                                let template = list.template;
-                                let css_property = new types$1[template](params).get_property(list);
+                            for (const list of element_option.list) {
+                                const template = list.template;
+                                const css_property = new types$1[template](params).get_property(list);
                                 if (typeof css_property !== 'undefined') {
                                     properties.push(css_property);
                                 }
@@ -21935,17 +21920,17 @@ const reset_elements = (params) => {
                         }
                     }
                     if (properties.length > 0) {
-                        let styles = prepare_styles(element_id, properties, element_styles);
+                        const styles = prepare_styles(element_id, properties, element_styles);
                         if (typeof styles !== 'undefined') {
-                            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+                            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
                             if (iframe) {
-                                let iframeDocument = iframe.contentDocument;
+                                const iframeDocument = iframe.contentDocument;
                                 if (iframeDocument !== null) {
                                     iframeDocument.head.innerHTML += styles;
                                     setTimeout(() => {
-                                        let style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
+                                        const style = iframeDocument.head.querySelector('style[data-element="' + element_id + '"]');
                                         if (style !== null) {
-                                            let backup = new Classes$1.Backup();
+                                            const backup = new Classes$1.Backup();
                                             backup.update_css_element_id(element_id, params, style.innerHTML, false);
                                         }
                                     }, 1000);
@@ -21967,15 +21952,15 @@ const reset_elements = (params) => {
     }
 };
 const unselect_element = (params) => {
-    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-    let idocument = iframe.contentDocument;
+    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+    const idocument = iframe.contentDocument;
     iframe.closest('.ec-composer-container').classList.remove('ec-composer-template-mobile');
     params.selector.querySelectorAll('.ec-composer-element-options-tabs > input[type="radio"]')[0].checked = true;
     params.selector.getElementsByClassName('ec-composer-element-options-area-body')[0].classList.remove('ec-composer-element-mobile-options');
     if (idocument.getElementsByClassName('ec-element-content-active').length > 0) {
-        let active = idocument.getElementsByClassName('ec-element-content-active')[0];
+        const active = idocument.getElementsByClassName('ec-element-content-active')[0];
         active.classList.remove('ec-element-content-active');
-        let options = params.selector.getElementsByClassName('ec-composer-element-options')[0];
+        const options = params.selector.getElementsByClassName('ec-composer-element-options')[0];
         options.removeAttribute('data-element');
         options.classList.remove('ec-composer-element-options-show');
         options.classList.add('ec-composer-element-options-hide');
@@ -21993,33 +21978,33 @@ const unselect_element = (params) => {
 };
 
 const move_structure = (selector, clientY, clientX, drop_icon) => {
-    let structure = selector.getElementsByClassName('ec-row-drag-active')[0];
-    let top = (clientY - parseInt(structure?.getAttribute('data-top')));
-    let left = (clientX - parseInt(structure?.getAttribute('data-left')));
+    const structure = selector.getElementsByClassName('ec-row-drag-active')[0];
+    const top = (clientY - parseInt(structure?.getAttribute('data-top')));
+    const left = (clientX - parseInt(structure?.getAttribute('data-left')));
     structure.style.top = top + 'px';
     structure.style.left = left + 'px';
-    let iframe = selector.getElementsByClassName('ec-composer-template-container')[0];
-    let iframe_rect = iframe?.getBoundingClientRect();
+    const iframe = selector.getElementsByClassName('ec-composer-template-container')[0];
+    const iframe_rect = iframe?.getBoundingClientRect();
     if ((selector.getElementsByClassName('ec-row-drag-active').length > 0) && (iframe instanceof HTMLIFrameElement)) {
-        let line = selector.getElementsByClassName('ec-row-drag-active')[0];
-        let iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
+        const line = selector.getElementsByClassName('ec-row-drag-active')[0];
+        const iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
         if (iframe_body) {
             if (iframe_body[0].classList.contains('ec-composer-template-preview')) {
                 return;
             }
-            let drag_line = (clientY - parseInt(line?.getAttribute('data-top')));
+            const drag_line = (clientY - parseInt(line?.getAttribute('data-top')));
             line.style.top = drag_line + 'px';
             line.style.opacity = '0.3';
-            let line_position = line.getBoundingClientRect();
-            let line_top = line_position.y;
-            let line_height = line_position.height;
+            const line_position = line.getBoundingClientRect();
+            const line_top = line_position.y;
+            const line_height = line_position.height;
             if (iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop').length > 0) {
                 Array.from(iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop')).map((item) => {
                     item.classList.remove('ec-composer-template-content-line-drop-active');
                 });
                 Array.from(iframe_body[0].getElementsByClassName('ec-composer-template-content-line-drop')).forEach((element) => {
-                    let element_position = element.getBoundingClientRect();
-                    let element_top = (iframe_rect instanceof DOMRect) ? (iframe_rect.y + element_position.y) : 0;
+                    const element_position = element.getBoundingClientRect();
+                    const element_top = (iframe_rect instanceof DOMRect) ? (iframe_rect.y + element_position.y) : 0;
                     if ((line_top <= element_top) && ((line_top + line_height) >= element_top)) {
                         element.classList.add('ec-composer-template-content-line-drop-active');
                         return;
@@ -22037,12 +22022,12 @@ const move_structure = (selector, clientY, clientX, drop_icon) => {
 };
 const reset_structures = (params) => {
     if (params.selector.getElementsByClassName('ec-row-drag-active').length > 0) {
-        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
-        let iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
+        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+        const iframe_body = iframe?.contentWindow.document.getElementsByTagName('body');
         if (iframe_body) {
-            let iframe_body_child = iframe_body[0];
+            const iframe_body_child = iframe_body[0];
             if (iframe_body_child.getElementsByClassName('ec-composer-template-content-line-drop-active').length > 0) {
-                let new_line = get_content({
+                const new_line = get_content({
                     'format': ['1', '2', '3', '4', '5', '6'].includes(params.selector.getElementsByClassName('ec-row-drag-active')[0].querySelector('div[data-format]').getAttribute('data-format')) ? parseInt(params.selector.getElementsByClassName('ec-row-drag-active')[0].querySelector('div[data-format]').getAttribute('data-format')) : 1
                 });
                 new_line.classList.add('ec-show-content');
@@ -22087,14 +22072,14 @@ const remove_buttons = (html) => {
     return html;
 };
 const remove_javascript = (html) => {
-    let reg = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+    const reg = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
     return html.replace(reg, '');
 };
 const get_template = (params) => {
-    let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+    const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
     if (iframe) {
-        let iframeDocument = iframe.contentDocument;
-        let html = iframeDocument?.getElementsByClassName('ec-composer-template');
+        const iframeDocument = iframe.contentDocument;
+        const html = iframeDocument?.getElementsByClassName('ec-composer-template');
         if (html !== undefined) {
             if (html.length > 0) {
                 return remove_javascript(remove_buttons(html[0].outerHTML));
@@ -22106,18 +22091,18 @@ const get_template = (params) => {
 const get_template_options = (options, properties_list, params) => {
     if (options.length > 0) {
         let sections = '';
-        for (let option of options) {
+        for (const option of options) {
             let options_list = '';
             if (option.list.length > 0) {
-                for (let list of option.list) {
+                for (const list of option.list) {
                     if (typeof list.template === 'undefined') {
                         continue;
                     }
                     if (list.element && (typeof properties_list[list.element] !== 'undefined') && (typeof properties_list[list.element][list.name.replaceAll('_', '-')] !== 'undefined')) {
                         list['custom'] = properties_list[list.element][list.name.replaceAll('_', '-')];
                     }
-                    let template = list.template;
-                    let the_option = new types[template](params).get_option(list);
+                    const template = list.template;
+                    const the_option = new types[template](params).get_option(list);
                     if (the_option) {
                         options_list += the_option;
                     }
@@ -22152,24 +22137,24 @@ const get_template_options = (options, properties_list, params) => {
 
 const get_structure_buttons = () => {
     let buttons = '';
-    let mbutton = document.createElement('button');
+    const mbutton = document.createElement('button');
     mbutton.setAttribute('type', 'button');
     mbutton.classList.add('ec-composer-template-content-move-button');
     mbutton.innerHTML = get_icon('drag');
     buttons += mbutton.outerHTML;
-    let gbuttons = document.createElement('div');
+    const gbuttons = document.createElement('div');
     gbuttons.classList.add('ec-composer-template-content-buttons-group');
-    let ncontent = document.createElement('button');
+    const ncontent = document.createElement('button');
     ncontent.setAttribute('type', 'button');
     ncontent.classList.add('ec-composer-template-content-new-button');
     ncontent.innerHTML = get_icon('add_circle');
     gbuttons.innerHTML = ncontent.outerHTML;
-    let scontent = document.createElement('button');
+    const scontent = document.createElement('button');
     scontent.setAttribute('type', 'button');
     scontent.classList.add('ec-composer-template-content-save-button');
     scontent.innerHTML = get_icon('save');
     gbuttons.innerHTML += scontent.outerHTML;
-    let dcontent = document.createElement('button');
+    const dcontent = document.createElement('button');
     dcontent.setAttribute('type', 'button');
     dcontent.classList.add('ec-composer-template-content-delete-button');
     dcontent.innerHTML = get_icon('trash');
@@ -22179,19 +22164,19 @@ const get_structure_buttons = () => {
 };
 const get_element_buttons = () => {
     let buttons = '';
-    let gbuttons = document.createElement('div');
+    const gbuttons = document.createElement('div');
     gbuttons.classList.add('ec-composer-element-buttons-group');
-    let mbutton = document.createElement('button');
+    const mbutton = document.createElement('button');
     mbutton.setAttribute('type', 'button');
     mbutton.classList.add('ec-composer-element-move-button');
     mbutton.innerHTML = get_icon('drag');
     gbuttons.innerHTML += mbutton.outerHTML;
-    let clone = document.createElement('button');
+    const clone = document.createElement('button');
     clone.setAttribute('type', 'button');
     clone.classList.add('ec-composer-element-clone-button');
     clone.innerHTML = get_icon('backup_table');
     gbuttons.innerHTML += clone.outerHTML;
-    let delement = document.createElement('button');
+    const delement = document.createElement('button');
     delement.setAttribute('type', 'button');
     delement.classList.add('ec-composer-element-delete-button');
     delement.innerHTML = get_icon('trash');
@@ -22200,10 +22185,10 @@ const get_element_buttons = () => {
     return buttons;
 };
 const get_placeholder = () => {
-    let placeholder = document.createElement('a');
+    const placeholder = document.createElement('a');
     placeholder.setAttribute('href', '#');
     placeholder.classList.add('ec-composer-template-cell-placeholder');
-    let text = document.createElement('span');
+    const text = document.createElement('span');
     text.classList.add('ec-composer-template-cell-placeholder-text');
     text.innerText = get_word('drag_elements_here');
     placeholder.innerHTML = '<span>'
@@ -22214,26 +22199,26 @@ const get_placeholder = () => {
 };
 
 const get_date = (params, timestamp) => {
-    let the_date = new Date(parseInt(timestamp) * 1000);
-    let year = the_date.getFullYear();
-    let month = (the_date.getMonth() + 1).toString().padStart(2, '0');
-    let date = the_date.getDate().toString().padStart(2, '0');
+    const the_date = new Date(parseInt(timestamp) * 1000);
+    const year = the_date.getFullYear();
+    const month = (the_date.getMonth() + 1).toString().padStart(2, '0');
+    const date = the_date.getDate().toString().padStart(2, '0');
     return year + '-' + month + '-' + date;
 };
 const get_time = (params, timestamp) => {
-    let the_date = new Date(parseInt(timestamp) * 1000);
-    let hours = the_date.getHours();
-    let minutes = the_date.getMinutes().toString().padStart(2, '0');
-    let meridiam = (hours > 12) ? 'PM' : 'AM';
+    const the_date = new Date(parseInt(timestamp) * 1000);
+    const hours = the_date.getHours();
+    const minutes = the_date.getMinutes().toString().padStart(2, '0');
+    const meridiam = (hours > 12) ? 'PM' : 'AM';
     return ((hours > 12) ? (hours - 12) : hours).toString().padStart(2, '0') + ':' + minutes + ' ' + meridiam;
 };
 
 const get_all_fonts = () => {
     let fonts_html = '';
     if (Object.keys(fonts).length > 0) {
-        let fonts_list = Object.values(fonts);
+        const fonts_list = Object.values(fonts);
         fonts_html += '<ul class="ec-fonts">';
-        for (let font of fonts_list) {
+        for (const font of fonts_list) {
             fonts_html += '<li>'
                 + '<a href="#" style="font-family: ' + font.property + ';" data-font="' + font.slug + '">'
                 + font.name
@@ -22247,8 +22232,8 @@ const get_all_fonts = () => {
 const get_fonts_link = () => {
     let fonts_url = '';
     if (Object.keys(fonts).length > 0) {
-        let fonts_list = Object.values(fonts);
-        for (let font of fonts_list) {
+        const fonts_list = Object.values(fonts);
+        for (const font of fonts_list) {
             fonts_url += font.link + '&';
         }
     }
@@ -22271,14 +22256,14 @@ const show_index = (selector) => {
     if (typeof selector !== 'undefined' && selector) {
         let all_lines = selector.querySelectorAll('.ec-composer-code-editor-line').length;
         if (all_lines < 1) {
-            let new_line = '<div class="ec-composer-code-editor-line"></div>';
+            const new_line = '<div class="ec-composer-code-editor-line"></div>';
             selector.querySelector('.ec-composer-code-lines').innerHTML = new_line;
             all_lines = selector.querySelectorAll('.ec-composer-code-editor-line').length;
         }
         let lines = '';
         let number = 1;
         do {
-            let height = selector.querySelectorAll('.ec-composer-code-editor-line')[(number - 1)].offsetHeight;
+            const height = selector.querySelectorAll('.ec-composer-code-editor-line')[(number - 1)].offsetHeight;
             lines += '<div class="ec-composer-code-editor-line-index" style="height: ' + height + 'px;">'
                 + number
                 + '</div>';
@@ -22306,9 +22291,9 @@ const is_url_valid = (url) => {
 };
 
 const format_file_size = (size) => {
-    let kilobyte = 1024;
-    let megabyte = kilobyte * 1024;
-    let gigabyte = megabyte * 1024;
+    const kilobyte = 1024;
+    const megabyte = kilobyte * 1024;
+    const gigabyte = megabyte * 1024;
     if (size < kilobyte) {
         return size + ' B';
     }
@@ -22323,20 +22308,20 @@ const format_file_size = (size) => {
     }
 };
 const get_images = async (params, page) => {
-    let search = params.selector.querySelector('.ec-option-media .ec-search-input');
-    let search_value = search.value;
-    let post_fields = {
+    const search = params.selector.querySelector('.ec-option-media .ec-search-input');
+    const search_value = search.value;
+    const post_fields = {
         page: page,
         search: search_value
     };
-    let request_params = {
+    const request_params = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(post_fields)
     };
-    let response = await fetch(params.options('api_url') + 'api/get_images', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_images', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22349,25 +22334,25 @@ const get_images = async (params, page) => {
         }
         return;
     }
-    let json = await response.json();
+    const json = await response.json();
     if ((typeof json.images !== 'undefined') && (json.images.length > 0)) {
         let image_id = 0;
-        let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+        const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
         if (iframe) {
-            let iframeDocument = iframe.contentDocument;
+            const iframeDocument = iframe.contentDocument;
             if (iframeDocument !== null) {
-                let image = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data img');
+                const image = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data img');
                 if (image && image.getAttribute('data-id')) {
                     image_id = parseInt(image.getAttribute('data-id'));
                 }
             }
         }
         params.selector.querySelector('.ec-media-images').classList.remove('ec-media-images-not-found');
-        let preview = [];
+        const preview = [];
         let c = 0;
-        let gallery = params.selector.querySelectorAll('.ec-media-images .ec-media-images-list-two-columns > div');
-        for (let image of json.images) {
-            let selected_class = (image.id === image_id) ? ' class="ec-media-image-selected"' : '';
+        const gallery = params.selector.querySelectorAll('.ec-media-images .ec-media-images-list-two-columns > div');
+        for (const image of json.images) {
+            const selected_class = (image.id === image_id) ? ' class="ec-media-image-selected"' : '';
             if ((preview.length < 3) && (json.page < 2)) {
                 preview.push('<li>'
                     + '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
@@ -22376,7 +22361,7 @@ const get_images = async (params, page) => {
                     + '</a>'
                     + '</li>');
             }
-            let image_single = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
+            const image_single = '<a href="' + params.options('share_url') + image.original + '"' + selected_class + ' data-id="' + image.id + '">'
                 + '<img src="' + params.options('share_url') + image.thumbnail + '" alt="' + image.name + '">'
                 + params.icons('task_alt')
                 + '</a>';
@@ -22411,18 +22396,18 @@ const get_images = async (params, page) => {
     }
 };
 const get_icons = async (params, page) => {
-    let fields = {
+    const fields = {
         page: page,
         search: params.selector.querySelector('.ec-option-icons .ec-search-input').value
     };
-    let request_params = {
+    const request_params = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(fields),
     };
-    let response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_icons', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22435,15 +22420,15 @@ const get_icons = async (params, page) => {
         }
         return;
     }
-    let json = await response.json();
+    const json = await response.json();
     if ((typeof json.icons !== 'undefined') && (json.icons.length > 0)) {
         params.selector.querySelector('.ec-media-icons').classList.remove('ec-media-icons-not-found');
-        let preview = [];
+        const preview = [];
         let icons = '';
-        for (let icon of json.icons) {
+        for (const icon of json.icons) {
             let sizes = '';
             if (icon.sizes.length > 0) {
-                for (let size of icon.sizes) {
+                for (const size of icon.sizes) {
                     sizes += '<li>'
                         + '<a href="#" data-size="' + size.size + '">'
                         + size.size + 'px'
@@ -22480,7 +22465,7 @@ const get_icons = async (params, page) => {
                 + '<img src="' + icon.cover + '" alt="' + icon.icon_id + '">'
                 + '</li>';
         }
-        let gallery = params.selector.querySelectorAll('.ec-media-icons .ec-media-icons-list-all > ul');
+        const gallery = params.selector.querySelectorAll('.ec-media-icons .ec-media-icons-list-all > ul');
         gallery[0].insertAdjacentHTML('beforeend', icons);
         if (!params.selector.querySelector('.ec-media-icons')?.classList.contains('ec-media-icons-preview') && !params.selector.querySelector('.ec-media-icons')?.classList.contains('ec-media-icons-all')) {
             params.selector.querySelector('.ec-media-icons').classList.add('ec-media-icons-preview');
@@ -22505,18 +22490,18 @@ const get_icons = async (params, page) => {
     }
 };
 const download_icon = async (params, icon_id, size) => {
-    let fields = {
+    const fields = {
         icon_id: icon_id,
         size: size
     };
-    let request_params = {
+    const request_params = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(fields)
     };
-    let response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_icon', request_params);
     if (!response.ok) {
         if (response.status === 404) {
             show_message(params.words('error_name') + ': ' + params.words('resource_not_found'));
@@ -22529,17 +22514,17 @@ const download_icon = async (params, icon_id, size) => {
         }
         return;
     }
-    let json = await response.json();
+    const json = await response.json();
     if (json.success && (typeof json.file_name !== 'undefined')) {
         setTimeout(() => {
-            let image = document.createElement('img');
+            const image = document.createElement('img');
             image.src = params.options('share_url') + json.file_path;
             image.alt = json.file_name;
-            let iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
+            const iframe = params.selector.getElementsByClassName('ec-composer-template-container')[0];
             if (iframe) {
-                let iframeDocument = iframe.contentDocument;
+                const iframeDocument = iframe.contentDocument;
                 if (iframeDocument !== null) {
-                    let content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data .ec-element-image');
+                    const content_data = iframeDocument.querySelector('.ec-element-content-active .ec-element-content-data .ec-element-image');
                     if (content_data) {
                         content_data.replaceChildren(image);
                         content_data.classList.remove('ec-element-cover');
@@ -22554,7 +22539,7 @@ const download_icon = async (params, icon_id, size) => {
 };
 
 const show_modal_message = (params, type, message) => {
-    let modal = params.selector.querySelector('.ec-composer-modal-show');
+    const modal = params.selector.querySelector('.ec-composer-modal-show');
     if (modal.getElementsByClassName('ec-composer-modal-message').length > 0) {
         modal.getElementsByClassName('ec-composer-modal-message')[0].innerHTML = message;
         if (type === 'success') {
@@ -22576,20 +22561,20 @@ const get_ai_content = async (params) => {
     params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.add('ec-show-search');
     params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-error-message');
     params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-suggestions');
-    let service = params.selector.querySelector('.ec-option-ai .ec-button-service').getAttribute('data-service');
-    let command = params.selector.querySelector('.ec-option-ai .ec-textarea');
-    let post_fields = {
+    const service = params.selector.querySelector('.ec-option-ai .ec-button-service').getAttribute('data-service');
+    const command = params.selector.querySelector('.ec-option-ai .ec-textarea');
+    const post_fields = {
         service: service ? service : '',
         command: command.value
     };
-    let request_params = {
+    const request_params = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(post_fields)
     };
-    let response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
+    const response = await fetch(params.options('api_url') + 'api/get_ai_content', request_params);
     if (!response.ok) {
         params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-search');
         params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.add('ec-show-error');
@@ -22608,7 +22593,7 @@ const get_ai_content = async (params) => {
         }
         return;
     }
-    let json = await response.json();
+    const json = await response.json();
     if (json.success) {
         params.selector.querySelector('.ec-composer-options-list > li[data-option="ai"] .ec-block-body')?.classList.remove('ec-show-search');
         params.selector.getElementsByClassName('ec-ai-response')[0].innerHTML = json.response;
